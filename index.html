@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIT-INN Trier | Dein 24/7 Fitnessstudio in Trier-Süd</title>
-    <meta name="description" content="FIT-INN Trier-Süd: 24/7 Fitnessstudio mit fairen Preisen ab 19,90€. Kostenloses Probetraining. Keine versteckten Kosten.">
+    <title>FIT-INN Trier | Dein Fitnessstudio in Trier-Süd</title>
+    <meta name="description" content="FIT-INN Trier-Süd: Dein familiäres Fitnessstudio mit persönlicher Betreuung. Jetzt kostenloses Probetraining sichern!">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="FIT-INN Trier | Dein 24/7 Fitnessstudio">
-    <meta property="og:description" content="Trainiere wann DU willst. Ab 19,90€/Monat. Jetzt kostenloses Probetraining sichern!">
+    <meta property="og:title" content="FIT-INN Trier | Dein Fitnessstudio">
+    <meta property="og:description" content="Familiäres Fitnessstudio mit persönlicher Betreuung. Jetzt kostenloses Probetraining!">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="de_DE">
     
@@ -24,10 +24,13 @@
             theme: {
                 extend: {
                     colors: {
+                        primary: '#094957',
+                        'primary-dark': '#063540',
+                        'primary-light': '#0a5a6b',
+                        accent: '#DD9B43',
+                        'accent-dark': '#D3872F',
+                        'accent-light': '#e6ac5a',
                         dark: '#0a0a0a',
-                        darker: '#050505',
-                        accent: '#ffb54f',
-                        'accent-hover': '#ffc46f',
                         muted: '#a1a1a1',
                     },
                     fontFamily: {
@@ -39,13 +42,13 @@
     </script>
     <style>
         html { scroll-behavior: smooth; }
-        body { background-color: #0a0a0a; }
+        body { background-color: #094957; }
         
-        .glow-orange {
-            box-shadow: 0 0 40px rgba(255, 181, 79, 0.3);
+        .glow-accent {
+            box-shadow: 0 0 40px rgba(221, 155, 67, 0.4);
         }
-        .glow-orange:hover {
-            box-shadow: 0 0 60px rgba(255, 181, 79, 0.5);
+        .glow-accent:hover {
+            box-shadow: 0 0 60px rgba(221, 155, 67, 0.6);
         }
         
         .fade-in {
@@ -63,418 +66,831 @@
         }
         .card-hover:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
         
-        .hero-gradient {
-            background: linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,10,10,0.8) 50%, rgba(10,10,10,1) 100%);
+        /* Modal Styles */
+        .modal-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+        
+        /* Step Indicator */
+        .step-indicator {
+            transition: all 0.3s ease;
+        }
+        .step-indicator.active {
+            background-color: #DD9B43;
+            color: #094957;
+        }
+        .step-indicator.completed {
+            background-color: #10b981;
+            color: white;
+        }
+        
+        /* Form Steps */
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
     </style>
 </head>
 <body class="font-sans text-white antialiased">
     
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold">
+                <span class="text-accent">FIT</span>-INN
+            </a>
+            <div class="hidden md:flex items-center gap-6">
+                <a href="#angebot" class="text-sm hover:text-accent transition-colors">Angebote</a>
+                <a href="#preise" class="text-sm hover:text-accent transition-colors">Preise</a>
+                <a href="#kontakt" class="text-sm hover:text-accent transition-colors">Kontakt</a>
+                <button onclick="openModal('probetraining')" class="bg-accent hover:bg-accent-dark text-primary font-semibold px-5 py-2 rounded-full text-sm transition-all">
+                    Probetraining
+                </button>
+            </div>
+            <button onclick="openModal('probetraining')" class="md:hidden bg-accent text-primary font-semibold px-4 py-2 rounded-full text-sm">
+                Starten
+            </button>
+        </div>
+    </nav>
+
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <!-- Background Image Placeholder -->
-        <div class="absolute inset-0 bg-gradient-to-br from-dark via-gray-900 to-dark">
-            <!-- TODO: Ersetze mit echtem Studiofoto/Video -->
-            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80')] bg-cover bg-center opacity-30"></div>
-            <div class="hero-gradient absolute inset-0"></div>
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-primary">
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80')] bg-cover bg-center opacity-20"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent"></div>
         </div>
         
         <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
             <!-- Badge -->
             <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-8">
                 <span class="text-accent">★★★★★</span>
-                <span class="text-sm text-muted">4.8 auf Google (127 Bewertungen)</span>
+                <span class="text-sm text-white/80">4.8 auf Google · Testsieger in Trier</span>
             </div>
             
             <!-- Headline -->
             <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                Dein Training.<br>
-                <span class="text-accent">Deine Zeit.</span><br>
-                Dein Studio.
+                Dein familiäres<br>
+                <span class="text-accent">Fitnessstudio</span><br>
+                in Trier
             </h1>
             
             <!-- Subheadline -->
-            <p class="text-xl md:text-2xl text-muted mb-10 max-w-2xl mx-auto">
-                24/7 Fitnessstudio in Trier-Süd. Faire Preise. Keine Ausreden.
+            <p class="text-xl md:text-2xl text-white/80 mb-10 max-w-2xl mx-auto">
+                Persönliche Betreuung. Moderne Geräte. Echte Ergebnisse.
             </p>
             
             <!-- CTAs -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#probetraining" class="glow-orange bg-accent hover:bg-accent-hover text-dark font-bold px-8 py-4 rounded-full text-lg transition-all duration-300">
+                <button onclick="openModal('probetraining')" class="glow-accent bg-accent hover:bg-accent-dark text-primary font-bold px-8 py-4 rounded-full text-lg transition-all duration-300">
                     🏋️ Kostenloses Probetraining
-                </a>
-                <a href="#preise" class="border-2 border-white/30 hover:border-white/60 hover:bg-white/10 font-semibold px-8 py-4 rounded-full text-lg transition-all duration-300">
+                </button>
+                <button onclick="openModal('mitgliedschaft')" class="border-2 border-white/30 hover:border-accent hover:text-accent font-semibold px-8 py-4 rounded-full text-lg transition-all duration-300">
                     💪 Mitglied werden
-                </a>
+                </button>
+            </div>
+            
+            <!-- Trust Elements -->
+            <div class="flex flex-wrap justify-center gap-8 mt-12 text-sm text-white/60">
+                <span>✓ Seit 25+ Jahren</span>
+                <span>✓ 7.000+ zufriedene Mitglieder</span>
+                <span>✓ Technogym Geräte</span>
             </div>
         </div>
         
         <!-- Scroll Indicator -->
         <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-            <svg class="w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
             </svg>
         </div>
     </section>
 
     <!-- USPs Section -->
-    <section class="py-20 px-6">
+    <section id="angebot" class="py-20 px-6 bg-primary-dark">
         <div class="max-w-6xl mx-auto">
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- USP 1 -->
-                <div class="fade-in card-hover bg-white/5 backdrop-blur-sm rounded-2xl p-8 text-center border border-white/10">
-                    <div class="text-5xl mb-4">🕐</div>
-                    <h3 class="text-2xl font-bold mb-2">24/7 Zugang</h3>
-                    <p class="text-muted">Trainiere wann DU willst — morgens um 5, nachts um 2. Immer offen.</p>
-                </div>
-                
-                <!-- USP 2 -->
-                <div class="fade-in card-hover bg-white/5 backdrop-blur-sm rounded-2xl p-8 text-center border border-white/10" style="transition-delay: 0.1s">
-                    <div class="text-5xl mb-4">💶</div>
-                    <h3 class="text-2xl font-bold mb-2">Ab 19,90€/Monat</h3>
-                    <p class="text-muted">Faire Preise, keine versteckten Kosten. Punkt.</p>
-                </div>
-                
-                <!-- USP 3 -->
-                <div class="fade-in card-hover bg-white/5 backdrop-blur-sm rounded-2xl p-8 text-center border border-white/10" style="transition-delay: 0.2s">
-                    <div class="text-5xl mb-4">🚗</div>
-                    <h3 class="text-2xl font-bold mb-2">Gratis Parkplätze</h3>
-                    <p class="text-muted">Direkt vor der Tür. Kein Parkplatz-Stress.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Probetraining Section -->
-    <section id="probetraining" class="py-20 px-6 bg-gradient-to-b from-transparent via-accent/5 to-transparent">
-        <div class="max-w-xl mx-auto">
-            <div class="fade-in text-center mb-10">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    Starte mit einem <span class="text-accent">kostenlosen</span> Probetraining
-                </h2>
-                <p class="text-muted">Lern uns kennen. Kein Risiko, keine Verpflichtung.</p>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Warum FIT-INN?</h2>
+                <p class="text-white/60">Das macht uns besonders</p>
             </div>
             
-            <form class="fade-in bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10" action="#" method="POST">
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-2" for="name">Vorname</label>
-                        <input type="text" id="name" name="name" required
-                            class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
-                            placeholder="Max">
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium mb-2" for="email">E-Mail</label>
-                        <input type="email" id="email" name="email" required
-                            class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
-                            placeholder="max@beispiel.de">
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium mb-2" for="phone">Telefon</label>
-                        <input type="tel" id="phone" name="phone" required
-                            class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
-                            placeholder="0151 12345678">
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium mb-2" for="time">Wunschzeit</label>
-                        <select id="time" name="time" required
-                            class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors">
-                            <option value="">Bitte wählen...</option>
-                            <option value="morgens">Morgens (6-12 Uhr)</option>
-                            <option value="mittags">Mittags (12-17 Uhr)</option>
-                            <option value="abends">Abends (17-22 Uhr)</option>
-                            <option value="flexibel">Flexibel</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit" class="w-full glow-orange bg-accent hover:bg-accent-hover text-dark font-bold py-4 rounded-lg text-lg transition-all duration-300 mt-4">
-                        Termin anfragen →
-                    </button>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-8 text-center border border-white/10">
+                    <div class="text-5xl mb-4">👨‍👩‍👧‍👦</div>
+                    <h3 class="text-2xl font-bold mb-2">Familiäre Atmosphäre</h3>
+                    <p class="text-white/70">Bei uns bist du kein Kunde — du bist Teil der FIT-INN Familie.</p>
                 </div>
                 
-                <p class="text-center text-sm text-muted mt-4">
-                    ✓ Unverbindlich · ✓ Kein Verkaufsdruck · ✓ Versprochen
-                </p>
-            </form>
+                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-8 text-center border border-white/10" style="transition-delay: 0.1s">
+                    <div class="text-5xl mb-4">🎯</div>
+                    <h3 class="text-2xl font-bold mb-2">Persönliche Betreuung</h3>
+                    <p class="text-white/70">Individuelle Trainingspläne und echte Unterstützung auf deinem Weg.</p>
+                </div>
+                
+                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-8 text-center border border-white/10" style="transition-delay: 0.2s">
+                    <div class="text-5xl mb-4">💎</div>
+                    <h3 class="text-2xl font-bold mb-2">Premium Ausstattung</h3>
+                    <p class="text-white/70">Neueste Technogym Geräte und digitale Trainingspläne.</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Preise Section -->
-    <section id="preise" class="py-20 px-6">
+    <section id="preise" class="py-20 px-6 bg-primary">
         <div class="max-w-6xl mx-auto">
             <div class="fade-in text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Unsere Mitgliedschaften</h2>
-                <p class="text-muted">Wähle den Tarif, der zu dir passt</p>
+                <p class="text-white/60">Transparent und fair — wähle deinen Tarif</p>
             </div>
             
             <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
                 <!-- FLEX -->
-                <div class="fade-in card-hover bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+                <div class="fade-in card-hover bg-primary-dark/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
                     <h3 class="text-xl font-bold mb-2">FLEX</h3>
-                    <p class="text-muted text-sm mb-4">Maximale Flexibilität</p>
+                    <p class="text-white/60 text-sm mb-4">Maximale Flexibilität</p>
                     <div class="mb-6">
                         <span class="text-4xl font-bold">24,90€</span>
-                        <span class="text-muted">/Monat</span>
+                        <span class="text-white/60">/Monat</span>
                     </div>
                     <ul class="space-y-3 mb-8 text-sm">
-                        <li class="flex items-center gap-2">
-                            <span class="text-accent">✓</span> Monatlich kündbar
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-accent">✓</span> Alle Geräte
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-accent">✓</span> 24/7 Zugang
-                        </li>
-                        <li class="flex items-center gap-2 text-muted">
-                            <span>−</span> Kurse
-                        </li>
-                        <li class="flex items-center gap-2 text-muted">
-                            <span>−</span> Getränke-Flat
-                        </li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Monatlich kündbar</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Alle Geräte & Bereiche</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Digitaler Trainingsplan</li>
+                        <li class="flex items-center gap-2 text-white/40"><span>−</span> Kurse</li>
                     </ul>
-                    <a href="#probetraining" class="block text-center border-2 border-white/30 hover:border-accent hover:text-accent font-semibold py-3 rounded-lg transition-all duration-300">
+                    <button onclick="openModal('mitgliedschaft', 'flex')" class="w-full border-2 border-white/30 hover:border-accent hover:text-accent font-semibold py-3 rounded-lg transition-all duration-300">
                         Auswählen
-                    </a>
+                    </button>
                 </div>
                 
-                <!-- PREMIUM (Empfohlen) -->
-                <div class="fade-in card-hover relative bg-gradient-to-b from-accent/20 to-accent/5 rounded-2xl p-8 border-2 border-accent" style="transition-delay: 0.1s">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-dark text-xs font-bold px-3 py-1 rounded-full">
-                        BELIEBT
+                <!-- PREMIUM -->
+                <div class="fade-in card-hover relative bg-gradient-to-b from-accent/20 to-primary-dark/50 rounded-2xl p-8 border-2 border-accent" style="transition-delay: 0.1s">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-primary text-xs font-bold px-3 py-1 rounded-full">
+                        EMPFOHLEN
                     </div>
                     <h3 class="text-xl font-bold mb-2">PREMIUM</h3>
-                    <p class="text-muted text-sm mb-4">Unser Bestseller</p>
+                    <p class="text-white/60 text-sm mb-4">Unser Bestseller</p>
                     <div class="mb-6">
                         <span class="text-4xl font-bold text-accent">29,90€</span>
-                        <span class="text-muted">/Monat</span>
+                        <span class="text-white/60">/Monat</span>
                     </div>
                     <ul class="space-y-3 mb-8 text-sm">
-                        <li class="flex items-center gap-2">
-                            <span class="text-accent">✓</span> Monatlich kündbar
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-accent">✓</span> Alle Geräte
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-accent">✓</span> 24/7 Zugang
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-accent">✓</span> Kurse inklusive
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-accent">✓</span> Getränke-Flat
-                        </li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Monatlich kündbar</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Alle Geräte & Bereiche</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Digitaler Trainingsplan</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Alle Kurse inklusive</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Getränke-Flat</li>
                     </ul>
-                    <a href="#probetraining" class="block text-center glow-orange bg-accent hover:bg-accent-hover text-dark font-bold py-3 rounded-lg transition-all duration-300">
+                    <button onclick="openModal('mitgliedschaft', 'premium')" class="w-full glow-accent bg-accent hover:bg-accent-dark text-primary font-bold py-3 rounded-lg transition-all duration-300">
                         Jetzt starten
-                    </a>
+                    </button>
                 </div>
                 
                 <!-- RELOADED -->
-                <div class="fade-in card-hover bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10" style="transition-delay: 0.2s">
+                <div class="fade-in card-hover bg-primary-dark/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10" style="transition-delay: 0.2s">
                     <h3 class="text-xl font-bold mb-2">RELOADED</h3>
-                    <p class="text-muted text-sm mb-4">Bestes Preis-Leistung</p>
+                    <p class="text-white/60 text-sm mb-4">Beste Preis-Leistung</p>
                     <div class="mb-6">
                         <span class="text-4xl font-bold">19,90€</span>
-                        <span class="text-muted">/Monat</span>
+                        <span class="text-white/60">/Monat</span>
                     </div>
                     <ul class="space-y-3 mb-8 text-sm">
-                        <li class="flex items-center gap-2">
-                            <span class="text-accent">✓</span> 12 Monate Laufzeit
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-accent">✓</span> Alle Geräte
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <span class="text-accent">✓</span> 24/7 Zugang
-                        </li>
-                        <li class="flex items-center gap-2 text-muted">
-                            <span>−</span> Kurse
-                        </li>
-                        <li class="flex items-center gap-2 text-muted">
-                            <span>−</span> Getränke-Flat
-                        </li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> 12 Monate Laufzeit</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Alle Geräte & Bereiche</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Digitaler Trainingsplan</li>
+                        <li class="flex items-center gap-2 text-white/40"><span>−</span> Kurse</li>
                     </ul>
-                    <a href="#probetraining" class="block text-center border-2 border-white/30 hover:border-accent hover:text-accent font-semibold py-3 rounded-lg transition-all duration-300">
+                    <button onclick="openModal('mitgliedschaft', 'reloaded')" class="w-full border-2 border-white/30 hover:border-accent hover:text-accent font-semibold py-3 rounded-lg transition-all duration-300">
                         Auswählen
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="py-20 px-6 bg-gradient-to-b from-transparent via-white/5 to-transparent">
+    <!-- Testimonials -->
+    <section class="py-20 px-6 bg-primary-dark">
         <div class="max-w-4xl mx-auto">
             <div class="fade-in text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Das sagen unsere Mitglieder</h2>
+                <p class="text-white/60">Über 250 positive Bewertungen</p>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="fade-in bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="fade-in bg-primary/50 rounded-2xl p-6 border border-white/10">
                     <div class="text-accent mb-3">★★★★★</div>
-                    <p class="text-muted mb-4">"Endlich ein Studio ohne Poser-Atmosphäre. Hier kann man einfach trainieren."</p>
-                    <p class="font-semibold">— Marc, 28</p>
+                    <p class="text-white/80 mb-4">"Hier macht's richtig Spaß zu trainieren. Die Geräte sind modern, das Team achtet auf einen und gibt super Tipps!"</p>
+                    <p class="font-semibold text-accent">— Google Bewertung</p>
                 </div>
                 
-                <div class="fade-in bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10" style="transition-delay: 0.1s">
+                <div class="fade-in bg-primary/50 rounded-2xl p-6 border border-white/10" style="transition-delay: 0.1s">
                     <div class="text-accent mb-3">★★★★★</div>
-                    <p class="text-muted mb-4">"Top Geräte, faire Preise und super nettes Team. Was will man mehr?"</p>
-                    <p class="font-semibold">— Sandra, 34</p>
-                </div>
-                
-                <div class="fade-in bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10" style="transition-delay: 0.2s">
-                    <div class="text-accent mb-3">★★★★★</div>
-                    <p class="text-muted mb-4">"Als Schichtarbeiter perfekt — 24/7 Zugang ist Gold wert!"</p>
-                    <p class="font-semibold">— Thomas, 41</p>
+                    <p class="text-white/80 mb-4">"Ein wirklich familiäres und toll ausgestattetes Studio. Ich fühle mich sehr wohl hier!"</p>
+                    <p class="font-semibold text-accent">— Google Bewertung</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Standort Section -->
-    <section id="kontakt" class="py-20 px-6">
+    <!-- Standort -->
+    <section id="kontakt" class="py-20 px-6 bg-primary">
         <div class="max-w-4xl mx-auto">
             <div class="fade-in text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Hier findest du uns</h2>
-                <p class="text-muted">FIT-INN Trier-Süd</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Besuche uns</h2>
+                <p class="text-white/60">FIT-INN Trier</p>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8 items-center">
-                <!-- Map Placeholder -->
-                <div class="fade-in bg-white/5 rounded-2xl overflow-hidden border border-white/10 aspect-video">
-                    <!-- TODO: Google Maps Embed einfügen -->
+                <div class="fade-in bg-primary-dark/50 rounded-2xl overflow-hidden border border-white/10 aspect-video">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2576.123456789!2d6.6234567!3d49.7234567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sFIT-INN!5e0!3m2!1sde!2sde!4v1234567890"
-                        width="100%" 
-                        height="100%" 
-                        style="border:0; min-height: 300px;" 
-                        allowfullscreen="" 
-                        loading="lazy">
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2576.5!2d6.67!3d49.73!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDQzJzQ4LjAiTiA2wrA0MCcxMi4wIkU!5e0!3m2!1sde!2sde!4v1234567890"
+                        width="100%" height="100%" style="border:0; min-height: 280px;" allowfullscreen="" loading="lazy">
                     </iframe>
                 </div>
                 
-                <!-- Contact Info -->
                 <div class="fade-in space-y-6" style="transition-delay: 0.1s">
                     <div>
-                        <h3 class="font-bold text-lg mb-2">📍 Adresse</h3>
-                        <p class="text-muted">
-                            FIT-INN Trier<br>
-                            Hürtenberg 1<br>
-                            54294 Trier
+                        <h3 class="font-bold text-lg mb-2 text-accent">📍 Adresse</h3>
+                        <p class="text-white/70">Im Hürtenberg 1<br>54294 Trier</p>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-2 text-accent">🕐 Öffnungszeiten</h3>
+                        <p class="text-white/70">
+                            Mo-Fr: 8:00 - 22:00 Uhr<br>
+                            Sa-So: 10:00 - 18:00 Uhr
                         </p>
                     </div>
-                    
                     <div>
-                        <h3 class="font-bold text-lg mb-2">🕐 Öffnungszeiten</h3>
-                        <p class="text-accent font-semibold">24/7 — Rund um die Uhr</p>
-                    </div>
-                    
-                    <div>
-                        <h3 class="font-bold text-lg mb-2">📞 Kontakt</h3>
-                        <p class="text-muted">
+                        <h3 class="font-bold text-lg mb-2 text-accent">📞 Kontakt</h3>
+                        <p class="text-white/70">
                             Tel: 0651 / 999 888 77<br>
-                            E-Mail: info@fit-inn-trier.de
+                            info@fit-inn-trier.de
                         </p>
                     </div>
-                    
-                    <div class="flex gap-4">
-                        <a href="https://instagram.com/fitinn_trier" target="_blank" class="bg-white/10 hover:bg-white/20 p-3 rounded-lg transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                        </a>
-                        <a href="https://facebook.com/fitinntrier" target="_blank" class="bg-white/10 hover:bg-white/20 p-3 rounded-lg transition-colors">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                        </a>
-                    </div>
+                    <button onclick="openModal('probetraining')" class="w-full bg-accent hover:bg-accent-dark text-primary font-bold py-3 rounded-lg transition-all">
+                        Jetzt Probetraining vereinbaren
+                    </button>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="py-20 px-6 bg-gradient-to-t from-accent/10 to-transparent">
-        <div class="max-w-2xl mx-auto text-center fade-in">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Bereit durchzustarten?</h2>
-            <p class="text-muted mb-8">Starte noch heute mit deinem kostenlosen Probetraining.</p>
-            <a href="#probetraining" class="inline-block glow-orange bg-accent hover:bg-accent-hover text-dark font-bold px-10 py-4 rounded-full text-lg transition-all duration-300">
-                Jetzt Probetraining sichern →
-            </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-10 px-6 border-t border-white/10">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="text-muted text-sm">
-                    © 2026 FIT-INN Trier. Alle Rechte vorbehalten.
-                </div>
-                <div class="flex gap-6 text-sm">
-                    <a href="#" class="text-muted hover:text-white transition-colors">Impressum</a>
-                    <a href="#" class="text-muted hover:text-white transition-colors">Datenschutz</a>
-                    <a href="#" class="text-muted hover:text-white transition-colors">AGB</a>
-                </div>
+    <footer class="py-10 px-6 bg-primary-dark border-t border-white/10">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-white/60 text-sm">© 2026 FIT-INN Trier. Alle Rechte vorbehalten.</div>
+            <div class="flex gap-6 text-sm">
+                <a href="https://fit-inn-trier.de/impressum" class="text-white/60 hover:text-accent transition-colors">Impressum</a>
+                <a href="https://fit-inn-trier.de/datenschutz" class="text-white/60 hover:text-accent transition-colors">Datenschutz</a>
+                <a href="https://fit-inn-trier.de/agb" class="text-white/60 hover:text-accent transition-colors">AGB</a>
             </div>
         </div>
     </footer>
 
-    <!-- Scroll Animation Script -->
+    <!-- ============================================ -->
+    <!-- MODAL: PROBETRAINING BUCHUNG -->
+    <!-- ============================================ -->
+    <div id="modal-probetraining" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+        <div class="modal-content bg-primary-dark rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto border border-white/20 shadow-2xl">
+            <!-- Header -->
+            <div class="sticky top-0 bg-primary-dark border-b border-white/10 p-6 flex justify-between items-center">
+                <div>
+                    <h2 class="text-xl font-bold">Kostenloses Probetraining</h2>
+                    <p class="text-sm text-white/60">Lerne uns unverbindlich kennen</p>
+                </div>
+                <button onclick="closeModal('probetraining')" class="text-white/60 hover:text-white p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Content -->
+            <div class="p-6">
+                <!-- Step 1: Persönliche Daten -->
+                <div id="pt-step-1" class="form-step active">
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Vorname *</label>
+                                <input type="text" id="pt-vorname" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors" placeholder="Max">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Nachname *</label>
+                                <input type="text" id="pt-nachname" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors" placeholder="Mustermann">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">E-Mail *</label>
+                            <input type="email" id="pt-email" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors" placeholder="max@beispiel.de">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Telefon *</label>
+                            <input type="tel" id="pt-telefon" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors" placeholder="0151 12345678">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Wunschtermin *</label>
+                            <input type="date" id="pt-datum" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Bevorzugte Uhrzeit</label>
+                            <select id="pt-uhrzeit" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <option value="morgens">Morgens (8-12 Uhr)</option>
+                                <option value="mittags">Mittags (12-15 Uhr)</option>
+                                <option value="nachmittags">Nachmittags (15-18 Uhr)</option>
+                                <option value="abends" selected>Abends (18-22 Uhr)</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Was ist dein Trainingsziel?</label>
+                            <select id="pt-ziel" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <option value="">Bitte wählen...</option>
+                                <option value="abnehmen">Abnehmen</option>
+                                <option value="muskelaufbau">Muskelaufbau</option>
+                                <option value="fitness">Allgemeine Fitness</option>
+                                <option value="ruecken">Rückentraining</option>
+                                <option value="ausdauer">Ausdauer verbessern</option>
+                            </select>
+                        </div>
+                        
+                        <div class="flex items-start gap-3 pt-2">
+                            <input type="checkbox" id="pt-datenschutz" required class="mt-1 accent-accent">
+                            <label for="pt-datenschutz" class="text-sm text-white/70">
+                                Ich stimme der <a href="https://fit-inn-trier.de/datenschutz" target="_blank" class="text-accent hover:underline">Datenschutzerklärung</a> zu.
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button onclick="submitProbetraining()" class="w-full bg-accent hover:bg-accent-dark text-primary font-bold py-4 rounded-lg mt-6 transition-all">
+                        Probetraining anfragen →
+                    </button>
+                    
+                    <p class="text-center text-xs text-white/50 mt-4">
+                        Wir melden uns innerhalb von 24 Stunden bei dir.
+                    </p>
+                </div>
+                
+                <!-- Step 2: Bestätigung -->
+                <div id="pt-step-2" class="form-step">
+                    <div class="text-center py-8">
+                        <div class="text-6xl mb-4">🎉</div>
+                        <h3 class="text-2xl font-bold mb-2">Anfrage gesendet!</h3>
+                        <p class="text-white/70 mb-6">
+                            Vielen Dank, <span id="pt-confirm-name">Max</span>!<br>
+                            Wir melden uns schnellstmöglich bei dir.
+                        </p>
+                        <div class="bg-white/10 rounded-xl p-4 text-left text-sm">
+                            <p class="font-semibold mb-2">Deine Anfrage:</p>
+                            <p class="text-white/70">📅 <span id="pt-confirm-date">-</span></p>
+                            <p class="text-white/70">🕐 <span id="pt-confirm-time">-</span></p>
+                            <p class="text-white/70">📧 <span id="pt-confirm-email">-</span></p>
+                        </div>
+                        <button onclick="closeModal('probetraining')" class="w-full border-2 border-accent text-accent hover:bg-accent hover:text-primary font-semibold py-3 rounded-lg mt-6 transition-all">
+                            Schließen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- MODAL: MITGLIEDSCHAFT BUCHUNG -->
+    <!-- ============================================ -->
+    <div id="modal-mitgliedschaft" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+        <div class="modal-content bg-primary-dark rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-white/20 shadow-2xl">
+            <!-- Header -->
+            <div class="sticky top-0 bg-primary-dark border-b border-white/10 p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold">Mitgliedschaft abschließen</h2>
+                        <p class="text-sm text-white/60">In wenigen Schritten zum Start</p>
+                    </div>
+                    <button onclick="closeModal('mitgliedschaft')" class="text-white/60 hover:text-white p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Step Indicators -->
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span id="ms-ind-1" class="step-indicator active w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-white/20">1</span>
+                        <span class="text-sm hidden sm:inline">Tarif</span>
+                    </div>
+                    <div class="flex-1 h-0.5 bg-white/20 mx-2"></div>
+                    <div class="flex items-center gap-2">
+                        <span id="ms-ind-2" class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-white/20">2</span>
+                        <span class="text-sm hidden sm:inline">Daten</span>
+                    </div>
+                    <div class="flex-1 h-0.5 bg-white/20 mx-2"></div>
+                    <div class="flex items-center gap-2">
+                        <span id="ms-ind-3" class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-white/20">3</span>
+                        <span class="text-sm hidden sm:inline">Zahlung</span>
+                    </div>
+                    <div class="flex-1 h-0.5 bg-white/20 mx-2"></div>
+                    <div class="flex items-center gap-2">
+                        <span id="ms-ind-4" class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-white/20">4</span>
+                        <span class="text-sm hidden sm:inline">Fertig</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="p-6">
+                
+                <!-- Step 1: Tarifwahl -->
+                <div id="ms-step-1" class="form-step active">
+                    <h3 class="text-lg font-semibold mb-4">Wähle deinen Tarif</h3>
+                    <div class="space-y-3">
+                        <label class="block cursor-pointer">
+                            <input type="radio" name="tarif" value="flex" class="hidden peer">
+                            <div class="peer-checked:border-accent peer-checked:bg-accent/10 border-2 border-white/20 rounded-xl p-4 transition-all hover:border-white/40">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="font-bold">FLEX</span>
+                                        <span class="text-white/60 text-sm ml-2">Monatlich kündbar</span>
+                                    </div>
+                                    <span class="text-xl font-bold">24,90€<span class="text-sm font-normal text-white/60">/Monat</span></span>
+                                </div>
+                            </div>
+                        </label>
+                        
+                        <label class="block cursor-pointer">
+                            <input type="radio" name="tarif" value="premium" checked class="hidden peer">
+                            <div class="peer-checked:border-accent peer-checked:bg-accent/10 border-2 border-white/20 rounded-xl p-4 transition-all hover:border-white/40 relative">
+                                <span class="absolute -top-2 right-4 bg-accent text-primary text-xs font-bold px-2 py-0.5 rounded">EMPFOHLEN</span>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="font-bold">PREMIUM</span>
+                                        <span class="text-white/60 text-sm ml-2">Inkl. Kurse & Getränke</span>
+                                    </div>
+                                    <span class="text-xl font-bold text-accent">29,90€<span class="text-sm font-normal text-white/60">/Monat</span></span>
+                                </div>
+                            </div>
+                        </label>
+                        
+                        <label class="block cursor-pointer">
+                            <input type="radio" name="tarif" value="reloaded" class="hidden peer">
+                            <div class="peer-checked:border-accent peer-checked:bg-accent/10 border-2 border-white/20 rounded-xl p-4 transition-all hover:border-white/40">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <span class="font-bold">RELOADED</span>
+                                        <span class="text-white/60 text-sm ml-2">12 Monate Laufzeit</span>
+                                    </div>
+                                    <span class="text-xl font-bold">19,90€<span class="text-sm font-normal text-white/60">/Monat</span></span>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <button onclick="msNextStep(2)" class="w-full bg-accent hover:bg-accent-dark text-primary font-bold py-4 rounded-lg mt-6 transition-all">
+                        Weiter →
+                    </button>
+                </div>
+                
+                <!-- Step 2: Persönliche Daten -->
+                <div id="ms-step-2" class="form-step">
+                    <h3 class="text-lg font-semibold mb-4">Deine Daten</h3>
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Vorname *</label>
+                                <input type="text" id="ms-vorname" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="Max">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Nachname *</label>
+                                <input type="text" id="ms-nachname" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="Mustermann">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Geburtsdatum *</label>
+                                <input type="date" id="ms-geburtsdatum" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Geschlecht</label>
+                                <select id="ms-geschlecht" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent">
+                                    <option value="m">Männlich</option>
+                                    <option value="w">Weiblich</option>
+                                    <option value="d">Divers</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">E-Mail *</label>
+                            <input type="email" id="ms-email" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="max@beispiel.de">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Telefon *</label>
+                            <input type="tel" id="ms-telefon" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="0151 12345678">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Straße & Hausnummer *</label>
+                            <input type="text" id="ms-strasse" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="Musterstraße 123">
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">PLZ *</label>
+                                <input type="text" id="ms-plz" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="54294">
+                            </div>
+                            <div class="col-span-2">
+                                <label class="block text-sm font-medium mb-2">Stadt *</label>
+                                <input type="text" id="ms-stadt" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="Trier">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4 mt-6">
+                        <button onclick="msNextStep(1)" class="flex-1 border-2 border-white/30 hover:border-white/60 font-semibold py-4 rounded-lg transition-all">
+                            ← Zurück
+                        </button>
+                        <button onclick="msNextStep(3)" class="flex-1 bg-accent hover:bg-accent-dark text-primary font-bold py-4 rounded-lg transition-all">
+                            Weiter →
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Zahlungsdaten -->
+                <div id="ms-step-3" class="form-step">
+                    <h3 class="text-lg font-semibold mb-4">Zahlungsdaten</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white/10 rounded-xl p-4 mb-4">
+                            <p class="text-sm text-white/60 mb-1">Gewählter Tarif:</p>
+                            <p class="font-bold text-lg" id="ms-selected-tarif">PREMIUM — 29,90€/Monat</p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Kontoinhaber *</label>
+                            <input type="text" id="ms-kontoinhaber" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="Max Mustermann">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">IBAN *</label>
+                            <input type="text" id="ms-iban" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent font-mono" placeholder="DE89 3704 0044 0532 0130 00">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">BIC (optional)</label>
+                            <input type="text" id="ms-bic" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent font-mono" placeholder="COBADEFFXXX">
+                        </div>
+                        
+                        <div class="bg-accent/10 border border-accent/30 rounded-xl p-4 text-sm">
+                            <p class="font-semibold text-accent mb-1">🔒 Sichere Zahlung</p>
+                            <p class="text-white/70">Der Beitrag wird monatlich per SEPA-Lastschrift eingezogen. Du kannst jederzeit widerrufen.</p>
+                        </div>
+                        
+                        <div class="space-y-3 pt-2">
+                            <div class="flex items-start gap-3">
+                                <input type="checkbox" id="ms-sepa" required class="mt-1 accent-accent">
+                                <label for="ms-sepa" class="text-sm text-white/70">
+                                    Ich erteile FIT-INN Trier ein SEPA-Lastschriftmandat für den monatlichen Beitrag.
+                                </label>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <input type="checkbox" id="ms-agb" required class="mt-1 accent-accent">
+                                <label for="ms-agb" class="text-sm text-white/70">
+                                    Ich akzeptiere die <a href="https://fit-inn-trier.de/agb" target="_blank" class="text-accent hover:underline">AGB</a> und <a href="https://fit-inn-trier.de/datenschutz" target="_blank" class="text-accent hover:underline">Datenschutzerklärung</a>.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-4 mt-6">
+                        <button onclick="msNextStep(2)" class="flex-1 border-2 border-white/30 hover:border-white/60 font-semibold py-4 rounded-lg transition-all">
+                            ← Zurück
+                        </button>
+                        <button onclick="submitMitgliedschaft()" class="flex-1 bg-accent hover:bg-accent-dark text-primary font-bold py-4 rounded-lg transition-all">
+                            Jetzt Mitglied werden ✓
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Bestätigung -->
+                <div id="ms-step-4" class="form-step">
+                    <div class="text-center py-8">
+                        <div class="text-6xl mb-4">🎊</div>
+                        <h3 class="text-2xl font-bold mb-2">Willkommen bei FIT-INN!</h3>
+                        <p class="text-white/70 mb-6">
+                            Deine Mitgliedschaft ist aktiv.<br>
+                            Wir freuen uns auf dich!
+                        </p>
+                        <div class="bg-white/10 rounded-xl p-4 text-left text-sm mb-6">
+                            <p class="font-semibold mb-2">Deine Mitgliedschaft:</p>
+                            <p class="text-white/70" id="ms-confirm-tarif">PREMIUM — 29,90€/Monat</p>
+                            <p class="text-white/70" id="ms-confirm-name">Max Mustermann</p>
+                            <p class="text-white/70" id="ms-confirm-email">max@beispiel.de</p>
+                        </div>
+                        <p class="text-sm text-white/60 mb-6">
+                            Du erhältst in Kürze eine Bestätigungsmail mit allen Details.
+                        </p>
+                        <button onclick="closeModal('mitgliedschaft')" class="w-full bg-accent hover:bg-accent-dark text-primary font-bold py-3 rounded-lg transition-all">
+                            Schließen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================================ -->
     <script>
+        // Scroll Animations
         const fadeElements = document.querySelectorAll('.fade-in');
-        
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Modal Functions
+        function openModal(type, tarif = null) {
+            document.getElementById(`modal-${type}`).classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            if (type === 'mitgliedschaft' && tarif) {
+                document.querySelector(`input[name="tarif"][value="${tarif}"]`).checked = true;
+            }
+            
+            // Reset steps
+            if (type === 'probetraining') {
+                document.getElementById('pt-step-1').classList.add('active');
+                document.getElementById('pt-step-2').classList.remove('active');
+            }
+            if (type === 'mitgliedschaft') {
+                msNextStep(1);
+            }
+        }
+
+        function closeModal(type) {
+            document.getElementById(`modal-${type}`).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
         });
+
+        // Probetraining Submit
+        function submitProbetraining() {
+            const vorname = document.getElementById('pt-vorname').value;
+            const nachname = document.getElementById('pt-nachname').value;
+            const email = document.getElementById('pt-email').value;
+            const telefon = document.getElementById('pt-telefon').value;
+            const datum = document.getElementById('pt-datum').value;
+            const uhrzeit = document.getElementById('pt-uhrzeit').value;
+            const datenschutz = document.getElementById('pt-datenschutz').checked;
+
+            if (!vorname || !nachname || !email || !telefon || !datum || !datenschutz) {
+                alert('Bitte fülle alle Pflichtfelder aus.');
+                return;
+            }
+
+            // TODO: Hier API-Call zum Backend
+            console.log('Probetraining Anfrage:', { vorname, nachname, email, telefon, datum, uhrzeit });
+
+            // Show confirmation
+            document.getElementById('pt-confirm-name').textContent = vorname;
+            document.getElementById('pt-confirm-date').textContent = new Date(datum).toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
+            document.getElementById('pt-confirm-time').textContent = uhrzeit.charAt(0).toUpperCase() + uhrzeit.slice(1);
+            document.getElementById('pt-confirm-email').textContent = email;
+
+            document.getElementById('pt-step-1').classList.remove('active');
+            document.getElementById('pt-step-2').classList.add('active');
+        }
+
+        // Mitgliedschaft Steps
+        let currentMsStep = 1;
         
-        fadeElements.forEach(el => observer.observe(el));
+        function msNextStep(step) {
+            currentMsStep = step;
+            
+            // Update step indicators
+            for (let i = 1; i <= 4; i++) {
+                const ind = document.getElementById(`ms-ind-${i}`);
+                ind.classList.remove('active', 'completed');
+                if (i < step) ind.classList.add('completed');
+                if (i === step) ind.classList.add('active');
+            }
+            
+            // Update content
+            document.querySelectorAll('#modal-mitgliedschaft .form-step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`ms-step-${step}`).classList.add('active');
+            
+            // Update tarif display in step 3
+            if (step === 3) {
+                const tarif = document.querySelector('input[name="tarif"]:checked').value;
+                const tarifTexts = {
+                    'flex': 'FLEX — 24,90€/Monat',
+                    'premium': 'PREMIUM — 29,90€/Monat',
+                    'reloaded': 'RELOADED — 19,90€/Monat (12 Monate)'
+                };
+                document.getElementById('ms-selected-tarif').textContent = tarifTexts[tarif];
+            }
+        }
+
+        function submitMitgliedschaft() {
+            const vorname = document.getElementById('ms-vorname').value;
+            const nachname = document.getElementById('ms-nachname').value;
+            const email = document.getElementById('ms-email').value;
+            const iban = document.getElementById('ms-iban').value;
+            const sepa = document.getElementById('ms-sepa').checked;
+            const agb = document.getElementById('ms-agb').checked;
+            const tarif = document.querySelector('input[name="tarif"]:checked').value;
+
+            if (!vorname || !nachname || !email || !iban || !sepa || !agb) {
+                alert('Bitte fülle alle Pflichtfelder aus und akzeptiere die Bedingungen.');
+                return;
+            }
+
+            // TODO: Hier API-Call zum Backend / Magicline
+            console.log('Mitgliedschaft:', { vorname, nachname, email, iban, tarif });
+
+            // Show confirmation
+            const tarifTexts = {
+                'flex': 'FLEX — 24,90€/Monat',
+                'premium': 'PREMIUM — 29,90€/Monat',
+                'reloaded': 'RELOADED — 19,90€/Monat'
+            };
+            document.getElementById('ms-confirm-tarif').textContent = tarifTexts[tarif];
+            document.getElementById('ms-confirm-name').textContent = `${vorname} ${nachname}`;
+            document.getElementById('ms-confirm-email').textContent = email;
+
+            msNextStep(4);
+        }
+
+        // Set min date for Probetraining
+        document.addEventListener('DOMContentLoaded', () => {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('pt-datum').min = tomorrow.toISOString().split('T')[0];
+        });
     </script>
 
-    <!-- Structured Data for SEO -->
+    <!-- Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "GymOrFitnessCenter",
         "name": "FIT-INN Trier",
-        "image": "",
+        "image": "https://fit-inn-trier.de/logo.png",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Hürtenberg 1",
+            "streetAddress": "Im Hürtenberg 1",
             "addressLocality": "Trier",
             "postalCode": "54294",
             "addressCountry": "DE"
         },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 49.7234567,
-            "longitude": 6.6234567
-        },
         "url": "https://fit-inn-trier.de",
         "telephone": "+496519998877",
-        "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-            "opens": "00:00",
-            "closes": "23:59"
-        },
         "priceRange": "€€",
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "4.8",
-            "reviewCount": "127"
+            "reviewCount": "250"
         }
     }
     </script>
