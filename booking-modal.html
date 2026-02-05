@@ -347,9 +347,13 @@
                     </div>
                 </div>
                 
+                <div id="bk-age-error" class="bg-red-500/20 border border-red-500/30 text-red-400 text-sm rounded-xl p-4 mt-4" style="display: none;">
+                    Du musst mindestens 18 Jahre alt sein, um einen Vertrag abzuschließen.
+                </div>
+                
                 <div class="flex gap-3 mt-6">
                     <button onclick="bkGoToStep(2)" class="flex-1 py-4 rounded-full border border-white/20 font-semibold hover:border-white/40 transition-all">Zurück</button>
-                    <button id="bk-btn-3" onclick="bkGoToStep(4)" class="flex-1 bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">Weiter</button>
+                    <button id="bk-btn-3" onclick="bkValidateAgeAndContinue()" class="flex-1 bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">Weiter</button>
                 </div>
             </div>
             
@@ -949,6 +953,42 @@ function updateBkBirthdate() {
 document.getElementById('bk-birth-day')?.addEventListener('change', updateBkBirthdate);
 document.getElementById('bk-birth-month')?.addEventListener('change', updateBkBirthdate);
 document.getElementById('bk-birth-year')?.addEventListener('change', updateBkBirthdate);
+
+// Age validation - must be 18+
+function bkCalculateAge(birthDate) {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+        age--;
+    }
+    return age;
+}
+
+function bkValidateAgeAndContinue() {
+    const birthdate = document.getElementById('bk-birthdate').value;
+    const errorDiv = document.getElementById('bk-age-error');
+    
+    // Check if birthdate is filled
+    if (!birthdate) {
+        errorDiv.textContent = 'Bitte gib dein Geburtsdatum ein.';
+        errorDiv.style.display = 'block';
+        return;
+    }
+    
+    const age = bkCalculateAge(birthdate);
+    
+    if (age < 18) {
+        errorDiv.textContent = `Du musst mindestens 18 Jahre alt sein, um einen Vertrag abzuschließen. (Aktuelles Alter: ${age} Jahre)`;
+        errorDiv.style.display = 'block';
+        return;
+    }
+    
+    // Age OK - hide error and continue
+    errorDiv.style.display = 'none';
+    bkGoToStep(4);
+}
 
 // Demo function to preview success page
 function bkShowDemoSuccess() {
