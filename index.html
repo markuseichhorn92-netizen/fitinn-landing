@@ -81,15 +81,34 @@
         /* Card Stack Scroll Effect */
         .stack-section {
             position: relative;
-            transition: transform 0.1s ease-out, border-radius 0.1s ease-out;
-            will-change: transform;
+            will-change: transform, opacity, filter;
+            transform-origin: center top;
         }
         .stack-section:not(:first-of-type) {
-            border-radius: 32px 32px 0 0;
-            box-shadow: 0 -15px 50px rgba(0,0,0,0.25);
+            border-radius: 40px 40px 0 0;
+            box-shadow: 
+                0 -20px 60px rgba(0,0,0,0.3),
+                0 -5px 20px rgba(0,0,0,0.2);
         }
         .stack-section.section-light:not(:first-of-type) {
-            box-shadow: 0 -15px 50px rgba(0,0,0,0.1);
+            box-shadow: 
+                0 -20px 60px rgba(0,0,0,0.12),
+                0 -5px 20px rgba(0,0,0,0.08);
+        }
+        /* Subtle inner highlight on rounded sections */
+        .stack-section:not(:first-of-type)::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 40px;
+            right: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            border-radius: 40px;
+            z-index: 10;
+        }
+        .stack-section.section-light:not(:first-of-type)::before {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
         }
         
         /* Reveal animations - Apple style */
@@ -1805,10 +1824,16 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
         reveals.forEach(el => revealObserver.observe(el));
         
-        // Card Stack Scroll Effect
+        // Card Stack Scroll Effect - Enhanced
         (function() {
-            const sections = document.querySelectorAll('#angebot, #features, #preise, #kontakt');
+            // Include testimonials section too
+            const sections = document.querySelectorAll('#angebot, #features, #preise, section.overflow-hidden, #kontakt');
             sections.forEach(s => s.classList.add('stack-section'));
+            
+            // Easing function for smoother animation
+            function easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
             
             function updateStack() {
                 sections.forEach((section, i) => {
@@ -1817,14 +1842,38 @@
                     
                     // When section top goes above viewport
                     if (rect.top < 0) {
-                        const progress = Math.min(Math.abs(rect.top) / (rect.height * 0.5), 1);
-                        const scale = 1 - (progress * 0.05);
-                        const translateY = progress * -30;
+                        // Progress from 0 to 1 as section scrolls out
+                        const rawProgress = Math.min(Math.abs(rect.top) / (rect.height * 0.6), 1);
+                        const progress = easeOutCubic(rawProgress);
+                        
+                        // Scale: 1 → 0.92
+                        const scale = 1 - (progress * 0.08);
+                        
+                        // Translate up slightly
+                        const translateY = progress * -50;
+                        
+                        // Opacity: 1 → 0.4
+                        const opacity = 1 - (progress * 0.6);
+                        
+                        // Blur: 0 → 3px
+                        const blur = progress * 3;
+                        
                         section.style.transform = `scale(${scale}) translateY(${translateY}px)`;
-                        section.style.opacity = 1 - (progress * 0.3);
-                    } else {
+                        section.style.opacity = opacity;
+                        section.style.filter = `blur(${blur}px)`;
+                    } 
+                    // Slight parallax when section is entering
+                    else if (rect.top < windowHeight && rect.top > 0) {
+                        const enterProgress = 1 - (rect.top / windowHeight);
+                        const translateY = (1 - enterProgress) * 30;
+                        section.style.transform = `translateY(${translateY}px)`;
+                        section.style.opacity = '';
+                        section.style.filter = '';
+                    }
+                    else {
                         section.style.transform = '';
                         section.style.opacity = '';
+                        section.style.filter = '';
                     }
                 });
             }
@@ -1839,6 +1888,9 @@
                     ticking = true;
                 }
             });
+            
+            // Initial call
+            updateStack();
         })();
 
         // Modal functions
