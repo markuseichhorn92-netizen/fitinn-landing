@@ -2440,6 +2440,34 @@
             const btn = document.getElementById('pt-submit-btn');
             const errDiv = document.getElementById('pt-form-error');
             errDiv.style.display = 'none';
+            
+            // Validate required fields before submit
+            const requiredFields = [
+                { id: 'pt-gender', name: 'Anrede' },
+                { id: 'pt-firstname', name: 'Vorname' },
+                { id: 'pt-lastname', name: 'Nachname' },
+                { id: 'pt-email', name: 'E-Mail' },
+                { id: 'pt-birthdate', name: 'Geburtsdatum' },
+                { id: 'pt-zip', name: 'PLZ' },
+                { id: 'pt-city', name: 'Stadt' },
+                { id: 'pt-street', name: 'Straße' }
+            ];
+            
+            // Update birthdate hidden field first
+            updatePtBirthdate();
+            
+            const missingFields = requiredFields.filter(f => !document.getElementById(f.id)?.value?.trim());
+            if (!ptSelectedSlot) {
+                errDiv.textContent = 'Bitte wähle einen Termin aus';
+                errDiv.style.display = 'block';
+                return;
+            }
+            if (missingFields.length > 0) {
+                errDiv.textContent = `Bitte fülle folgende Felder aus: ${missingFields.map(f => f.name).join(', ')}`;
+                errDiv.style.display = 'block';
+                return;
+            }
+            
             btn.disabled = true;
             btn.innerHTML = '<span class="pt-spinner inline-block w-4 h-4 mr-2 align-middle"></span>Wird gebucht...';
             const data = {
@@ -2457,6 +2485,7 @@
                 trainerRequired: ptSurveyData.trainerRequired,
                 note: `Ziel: ${ptSurveyData.goal}${ptSurveyData.bringFriend === 'Ja' ? ' | Bringt Freund mit' : ''}`
             };
+            console.log('Submitting PT data:', data);
             try {
                 const res = await fetch(PT_API, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data) });
                 const result = await res.json();
