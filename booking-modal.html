@@ -739,7 +739,13 @@ async function bkSubmit() {
             }
         };
         
-        console.log('Sending to Magicline:', JSON.stringify(payload, null, 2));
+        // Debug: Check if fields exist
+        console.log('DEBUG - Field values:');
+        console.log('  firstname input:', document.getElementById('bk-firstname'));
+        console.log('  firstname value:', document.getElementById('bk-firstname')?.value);
+        console.log('  lastname value:', document.getElementById('bk-lastname')?.value);
+        console.log('  birthdate value:', document.getElementById('bk-birthdate')?.value);
+        console.log('FULL PAYLOAD:', JSON.stringify(payload, null, 2));
         console.log('reCAPTCHA token:', recaptchaToken ? 'present (' + recaptchaToken.substring(0,20) + '...)' : 'MISSING');
         
         // Magicline expects recaptchaToken as query parameter
