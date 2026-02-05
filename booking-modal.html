@@ -1,189 +1,160 @@
-<!-- ============================================ -->
-<!-- MODAL: MITGLIEDSCHAFT BUCHEN (CONNECT API) -->
-<!-- ============================================ -->
+<!-- BOOKING MODAL - Apple Style -->
 <style>
-    /* Booking Modal Styles */
-    .bk-rate-card { border: 2px solid rgba(255,255,255,0.15); cursor: pointer; transition: all 0.3s; }
-    .bk-rate-card:hover { border-color: rgba(221,155,67,0.5); background: rgba(221,155,67,0.1); }
-    .bk-rate-card.selected { border-color: #DD9B43; background: rgba(221,155,67,0.2); }
-    .bk-rate-card.recommended { border-color: #DD9B43; }
-    .bk-module-opt { border: 2px solid rgba(255,255,255,0.15); cursor: pointer; transition: all 0.2s; }
+    .bk-rate-card { border: 2px solid rgba(255,255,255,0.1); cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+    .bk-rate-card:hover { border-color: rgba(221,155,67,0.4); background: rgba(221,155,67,0.05); }
+    .bk-rate-card.selected { border-color: #DD9B43; background: rgba(221,155,67,0.1); }
+    .bk-rate-card.recommended { border-color: rgba(221,155,67,0.5); }
+    .bk-module-opt { border: 2px solid rgba(255,255,255,0.1); cursor: pointer; transition: all 0.2s; }
     .bk-module-opt:hover { border-color: rgba(221,155,67,0.3); }
-    .bk-module-opt.selected { border-color: #DD9B43; background: rgba(221,155,67,0.15); }
-    .bk-summary-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .bk-module-opt.selected { border-color: #DD9B43; background: rgba(221,155,67,0.1); }
+    .bk-summary-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .bk-summary-row:last-child { border-bottom: none; }
-    .bk-spinner { width: 24px; height: 24px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #DD9B43; border-radius: 50%; animation: bk-spin 0.8s linear infinite; }
+    .bk-spinner { width: 20px; height: 20px; border: 2px solid rgba(0,0,0,0.2); border-top-color: #000; border-radius: 50%; animation: bk-spin 0.6s linear infinite; display: inline-block; vertical-align: middle; margin-right: 8px; }
     @keyframes bk-spin { to { transform: rotate(360deg); } }
-    .bk-input { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 10px 12px; font-size: 0.875rem; color: white; transition: border-color 0.2s; }
+    .bk-input { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 14px 16px; font-size: 16px; color: white; transition: border-color 0.2s; }
     .bk-input:focus { outline: none; border-color: #DD9B43; }
-    .bk-input::placeholder { color: rgba(255,255,255,0.4); }
+    .bk-input::placeholder { color: rgba(255,255,255,0.35); }
     .bk-form-step { display: none; }
-    .bk-form-step.active { display: block; animation: bkFadeIn 0.4s ease; }
-    @keyframes bkFadeIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+    .bk-form-step.active { display: block; animation: bkFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes bkFadeIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
 </style>
 
-<div id="modal-booking" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-    <div class="modal-content bg-primary-dark rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto border border-white/20 shadow-2xl">
+<div id="modal-booking" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl">
+    <div class="modal-content bg-[#1c1c1e] rounded-3xl w-full max-w-xl max-h-[90vh] overflow-y-auto border border-white/10">
         <!-- Header -->
-        <div class="sticky top-0 bg-primary-dark border-b border-white/10 p-5 flex justify-between items-center z-10">
+        <div class="sticky top-0 bg-[#1c1c1e]/95 backdrop-blur-xl border-b border-white/10 p-6 flex justify-between items-center z-10">
             <div>
-                <h2 class="text-xl font-bold">Mitgliedschaft abschließen</h2>
-                <p class="text-sm text-white/60" id="bk-header-subtitle">Wähle deinen Tarif</p>
+                <h2 class="text-xl font-bold">Mitgliedschaft</h2>
+                <p class="text-sm text-white/50" id="bk-header-subtitle">Wähle deinen Tarif</p>
             </div>
-            <button onclick="closeModal('booking')" class="text-white/60 hover:text-white p-2">
+            <button onclick="closeModal('booking')" class="text-white/40 hover:text-white p-2 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
         </div>
         
-        <!-- Promo -->
-        <div class="bg-accent/20 border-b border-accent/30 px-5 py-2.5 text-center">
-            <p class="text-sm text-accent font-semibold">🎁 2 Monate geschenkt bei Basic & Premium!</p>
-        </div>
-        
-        <!-- Progress Bar -->
-        <div class="px-5 py-4 border-b border-white/10">
-            <div class="flex justify-between text-xs text-white/50 mb-2">
+        <!-- Progress -->
+        <div class="px-6 py-4 border-b border-white/10">
+            <div class="flex justify-between text-xs text-white/40 mb-2">
                 <span>Schritt <span id="bk-current-step">1</span> von 6</span>
-                <span id="bk-step-name">Tarif wählen</span>
+                <span id="bk-step-name">Tarif</span>
             </div>
-            <div class="h-2 bg-white/10 rounded-full overflow-hidden">
-                <div id="bk-progress-bar" class="h-full bg-accent rounded-full transition-all duration-300" style="width: 16.66%"></div>
+            <div class="h-1 bg-white/10 rounded-full overflow-hidden">
+                <div id="bk-progress-bar" class="h-full bg-[#DD9B43] rounded-full transition-all" style="width: 16.66%"></div>
             </div>
         </div>
         
         <!-- Content -->
-        <div class="p-5">
+        <div class="p-6">
             
-            <!-- Step 1: Tarif wählen -->
+            <!-- Step 1: Tarif -->
             <div id="bk-step-1" class="bk-form-step active">
-                <h3 class="text-lg font-bold mb-4">Welche Mitgliedschaft passt zu dir?</h3>
+                <h3 class="text-lg font-semibold mb-6">Welcher Tarif passt zu dir?</h3>
                 
                 <div class="space-y-4" id="bk-rates-container">
-                    <!-- FLEX -->
-                    <div class="bk-rate-card rounded-xl p-5" data-rate-id="1213385750" data-term-id="1213385760" data-price="15" data-term="4 Wochen" data-name="Flex">
-                        <div class="flex justify-between items-start mb-3">
+                    <!-- Flex -->
+                    <div class="bk-rate-card rounded-2xl p-5" data-rate-id="1213385750" data-term-id="1213385760" data-price="15" data-term="4 Wochen" data-name="Flex">
+                        <div class="flex justify-between items-start">
                             <div>
-                                <h4 class="font-bold text-lg">Flex</h4>
-                                <p class="text-sm text-white/60">4 Wochen Erstlaufzeit</p>
+                                <h4 class="font-semibold text-lg">Flex</h4>
+                                <p class="text-sm text-white/50">4 Wochen Erstlaufzeit</p>
                             </div>
                             <div class="text-right">
                                 <span class="text-2xl font-bold">15€</span>
-                                <span class="text-white/60">/Woche</span>
+                                <span class="text-white/50 text-sm">/Woche</span>
                             </div>
                         </div>
-                        <ul class="text-sm text-white/70 space-y-1">
-                            <li>✓ Maximale Flexibilität</li>
-                            <li>✓ Komplette Club-Nutzung</li>
-                            <li>✓ Alle Geräte & Services</li>
-                        </ul>
-                        <p class="text-xs text-white/50 mt-3">+ 39€ Startpaket (einmalig)</p>
                     </div>
                     
-                    <!-- BASIC -->
-                    <div class="bk-rate-card rounded-xl p-5" data-rate-id="1213385780" data-term-id="1213385761" data-price="12" data-term="12 Monate" data-name="Basic">
-                        <div class="flex justify-between items-start mb-3">
+                    <!-- Premium -->
+                    <div class="bk-rate-card recommended rounded-2xl p-5 relative" data-rate-id="1213385790" data-term-id="1213385800" data-price="9" data-term="24 Monate" data-name="Premium">
+                        <div class="absolute -top-3 left-5 bg-[#DD9B43] text-black text-xs font-bold px-3 py-1 rounded-full">Empfohlen</div>
+                        <div class="flex justify-between items-start pt-1">
                             <div>
-                                <h4 class="font-bold text-lg">Basic</h4>
-                                <p class="text-sm text-white/60">52 Wochen Laufzeit</p>
+                                <h4 class="font-semibold text-lg text-[#DD9B43]">Premium</h4>
+                                <p class="text-sm text-white/50">24 Monate · Bester Preis</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-bold text-[#DD9B43]">9€</span>
+                                <span class="text-white/50 text-sm">/Woche</span>
+                            </div>
+                        </div>
+                        <div class="mt-2 inline-block bg-[#DD9B43]/20 text-[#DD9B43] text-xs font-medium px-2 py-1 rounded">+ 2 Monate gratis</div>
+                    </div>
+                    
+                    <!-- Basic -->
+                    <div class="bk-rate-card rounded-2xl p-5" data-rate-id="1213385780" data-term-id="1213385761" data-price="12" data-term="12 Monate" data-name="Basic">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-semibold text-lg">Basic</h4>
+                                <p class="text-sm text-white/50">12 Monate Laufzeit</p>
                             </div>
                             <div class="text-right">
                                 <span class="text-2xl font-bold">12€</span>
-                                <span class="text-white/60">/Woche</span>
+                                <span class="text-white/50 text-sm">/Woche</span>
                             </div>
                         </div>
-                        <div class="bg-accent/20 text-accent text-xs font-semibold px-2 py-1 rounded inline-block mb-2">+ 2 Monate GRATIS</div>
-                        <ul class="text-sm text-white/70 space-y-1">
-                            <li>✓ 20% Ersparnis vs. Flex</li>
-                            <li>✓ Komplette Club-Nutzung</li>
-                            <li>✓ Alle Geräte & Services</li>
-                        </ul>
-                        <p class="text-xs text-white/50 mt-3">+ 39€ Startpaket (einmalig)</p>
-                    </div>
-                    
-                    <!-- PREMIUM -->
-                    <div class="bk-rate-card recommended rounded-xl p-5 relative" data-rate-id="1213385790" data-term-id="1213385800" data-price="9" data-term="24 Monate" data-name="Premium">
-                        <div class="absolute -top-3 left-4 bg-accent text-primary text-xs font-bold px-3 py-1 rounded-full">BESTE WAHL</div>
-                        <div class="flex justify-between items-start mb-3 pt-2">
-                            <div>
-                                <h4 class="font-bold text-lg text-accent">Premium</h4>
-                                <p class="text-sm text-white/60">104 Wochen Laufzeit</p>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-2xl font-bold text-accent">9€</span>
-                                <span class="text-white/60">/Woche</span>
-                            </div>
-                        </div>
-                        <div class="bg-accent/20 text-accent text-xs font-semibold px-2 py-1 rounded inline-block mb-2">+ 2 Monate GRATIS + Check-up</div>
-                        <ul class="text-sm text-white/70 space-y-1">
-                            <li>✓ 40% Ersparnis vs. Flex</li>
-                            <li>✓ Gesundheits-Check-up inkl.</li>
-                            <li>✓ Bestes Preis-Leistungs-Verhältnis</li>
-                        </ul>
-                        <p class="text-xs text-white/50 mt-3">+ 39€ Startpaket (einmalig)</p>
+                        <div class="mt-2 inline-block bg-[#DD9B43]/20 text-[#DD9B43] text-xs font-medium px-2 py-1 rounded">+ 2 Monate gratis</div>
                     </div>
                 </div>
                 
-                <button id="bk-btn-1" disabled onclick="bkGoToStep(2)" class="w-full bg-accent hover:bg-accent-dark disabled:opacity-50 disabled:cursor-not-allowed text-primary font-bold py-3.5 rounded-lg mt-5 transition-all">
-                    Weiter →
+                <button id="bk-btn-1" disabled onclick="bkGoToStep(2)" class="w-full bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full mt-6 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+                    Weiter
                 </button>
             </div>
             
-            <!-- Step 2: Optionale Module (nur für Basic) -->
+            <!-- Step 2: Module -->
             <div id="bk-step-2" class="bk-form-step">
-                <h3 class="text-lg font-bold mb-2">Upgrade dein Training</h3>
-                <p class="text-sm text-white/60 mb-5">Optional — verbessere deine Ergebnisse:</p>
+                <h3 class="text-lg font-semibold mb-2">Upgrade dein Training</h3>
+                <p class="text-sm text-white/50 mb-6">Optional:</p>
                 
-                <div id="bk-modules-container" class="space-y-3">
-                    <!-- Wird dynamisch befüllt -->
+                <div id="bk-modules-container" class="space-y-3"></div>
+                <div id="bk-no-modules" class="text-center py-10 text-white/50" style="display: none;">
+                    <span class="text-4xl block mb-2">✨</span>
+                    <p>Alles inklusive in deinem Tarif!</p>
                 </div>
                 
-                <div id="bk-no-modules" class="text-center py-8 text-white/60" style="display: none;">
-                    <p class="text-3xl mb-2">✨</p>
-                    <p>In deinem Tarif ist bereits alles enthalten!</p>
-                </div>
-                
-                <div class="flex gap-3 mt-5">
-                    <button type="button" onclick="bkGoToStep(1)" class="flex-1 border-2 border-white/20 hover:border-white/40 py-3 rounded-lg font-semibold transition-all">← Zurück</button>
-                    <button id="bk-btn-2" onclick="bkGoToStep(3)" class="flex-1 bg-accent hover:bg-accent-dark text-primary font-bold py-3 rounded-lg transition-all">Weiter →</button>
+                <div class="flex gap-3 mt-6">
+                    <button onclick="bkGoToStep(1)" class="flex-1 py-4 rounded-full border border-white/20 font-semibold hover:border-white/40 transition-all">Zurück</button>
+                    <button id="bk-btn-2" onclick="bkGoToStep(3)" class="flex-1 bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">Weiter</button>
                 </div>
             </div>
             
             <!-- Step 3: Persönliche Daten -->
             <div id="bk-step-3" class="bk-form-step">
-                <h3 class="text-lg font-bold mb-4">Persönliche Angaben</h3>
+                <h3 class="text-lg font-semibold mb-6">Persönliche Angaben</h3>
                 
                 <div class="space-y-4">
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-sm font-medium mb-1.5">Vorname *</label>
+                            <label class="block text-sm font-medium mb-2">Vorname</label>
                             <input type="text" id="bk-firstname" required class="bk-input">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-1.5">Nachname *</label>
+                            <label class="block text-sm font-medium mb-2">Nachname</label>
                             <input type="text" id="bk-lastname" required class="bk-input">
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-sm font-medium mb-1.5">E-Mail *</label>
+                            <label class="block text-sm font-medium mb-2">E-Mail</label>
                             <input type="email" id="bk-email" required class="bk-input">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-1.5">Telefon *</label>
+                            <label class="block text-sm font-medium mb-2">Telefon</label>
                             <input type="tel" id="bk-phone" required class="bk-input" placeholder="+49...">
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-sm font-medium mb-1.5">Geburtsdatum *</label>
+                            <label class="block text-sm font-medium mb-2">Geburtsdatum</label>
                             <input type="date" id="bk-birthdate" required class="bk-input">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-1.5">Anrede *</label>
+                            <label class="block text-sm font-medium mb-2">Anrede</label>
                             <select id="bk-gender" required class="bk-input">
-                                <option value="">Bitte wählen</option>
+                                <option value="">Wählen</option>
                                 <option value="MALE">Herr</option>
                                 <option value="FEMALE">Frau</option>
                                 <option value="UNISEX">Divers</option>
@@ -192,150 +163,127 @@
                     </div>
                 </div>
                 
-                <div class="flex gap-3 mt-5">
-                    <button type="button" onclick="bkGoToStep(2)" class="flex-1 border-2 border-white/20 hover:border-white/40 py-3 rounded-lg font-semibold transition-all">← Zurück</button>
-                    <button id="bk-btn-3" onclick="bkGoToStep(4)" class="flex-1 bg-accent hover:bg-accent-dark text-primary font-bold py-3 rounded-lg transition-all">Weiter →</button>
+                <div class="flex gap-3 mt-6">
+                    <button onclick="bkGoToStep(2)" class="flex-1 py-4 rounded-full border border-white/20 font-semibold hover:border-white/40 transition-all">Zurück</button>
+                    <button id="bk-btn-3" onclick="bkGoToStep(4)" class="flex-1 bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">Weiter</button>
                 </div>
             </div>
             
             <!-- Step 4: Adresse -->
             <div id="bk-step-4" class="bk-form-step">
-                <h3 class="text-lg font-bold mb-4">Deine Adresse</h3>
+                <h3 class="text-lg font-semibold mb-6">Adresse</h3>
                 
                 <div class="space-y-4">
                     <div class="grid grid-cols-3 gap-3">
                         <div class="col-span-2">
-                            <label class="block text-sm font-medium mb-1.5">Straße *</label>
+                            <label class="block text-sm font-medium mb-2">Straße</label>
                             <input type="text" id="bk-street" required class="bk-input">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-1.5">Hausnr. *</label>
+                            <label class="block text-sm font-medium mb-2">Nr.</label>
                             <input type="text" id="bk-housenumber" required class="bk-input">
                         </div>
                     </div>
                     <div class="grid grid-cols-3 gap-3">
                         <div>
-                            <label class="block text-sm font-medium mb-1.5">PLZ *</label>
+                            <label class="block text-sm font-medium mb-2">PLZ</label>
                             <input type="text" id="bk-zip" required class="bk-input" maxlength="5">
                         </div>
                         <div class="col-span-2">
-                            <label class="block text-sm font-medium mb-1.5">Stadt *</label>
+                            <label class="block text-sm font-medium mb-2">Stadt</label>
                             <input type="text" id="bk-city" required class="bk-input">
                         </div>
                     </div>
                 </div>
                 
-                <div class="flex gap-3 mt-5">
-                    <button type="button" onclick="bkGoToStep(3)" class="flex-1 border-2 border-white/20 hover:border-white/40 py-3 rounded-lg font-semibold transition-all">← Zurück</button>
-                    <button id="bk-btn-4" onclick="bkGoToStep(5)" class="flex-1 bg-accent hover:bg-accent-dark text-primary font-bold py-3 rounded-lg transition-all">Weiter →</button>
+                <div class="flex gap-3 mt-6">
+                    <button onclick="bkGoToStep(3)" class="flex-1 py-4 rounded-full border border-white/20 font-semibold hover:border-white/40 transition-all">Zurück</button>
+                    <button id="bk-btn-4" onclick="bkGoToStep(5)" class="flex-1 bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">Weiter</button>
                 </div>
             </div>
             
-            <!-- Step 5: Bankdaten (SEPA) -->
+            <!-- Step 5: Bankdaten -->
             <div id="bk-step-5" class="bk-form-step">
-                <h3 class="text-lg font-bold mb-2">Zahlungsdaten</h3>
-                <p class="text-sm text-white/60 mb-4">Abbuchung alle 14 Tage per SEPA-Lastschrift</p>
+                <h3 class="text-lg font-semibold mb-2">Zahlungsdaten</h3>
+                <p class="text-sm text-white/50 mb-6">SEPA-Lastschrift alle 14 Tage</p>
                 
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium mb-1.5">Kontoinhaber *</label>
-                        <input type="text" id="bk-accountholder" required class="bk-input" placeholder="Wie auf der Karte/Konto">
+                        <label class="block text-sm font-medium mb-2">Kontoinhaber</label>
+                        <input type="text" id="bk-accountholder" required class="bk-input">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium mb-1.5">IBAN *</label>
+                        <label class="block text-sm font-medium mb-2">IBAN</label>
                         <input type="text" id="bk-iban" required class="bk-input" placeholder="DE89 3704 0044 0532 0130 00">
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1.5">BIC (optional)</label>
-                        <input type="text" id="bk-bic" class="bk-input" placeholder="Wird automatisch ermittelt">
-                    </div>
                 </div>
                 
-                <div class="bg-white/5 border border-white/10 rounded-lg p-3 mt-4 text-xs text-white/60">
-                    🔒 <strong class="text-white/80">Sichere Übertragung:</strong> Deine Bankdaten werden verschlüsselt an Magicline übertragen und nicht auf unseren Servern gespeichert.
+                <div class="bg-white/5 border border-white/10 rounded-xl p-4 mt-4 text-xs text-white/50">
+                    🔒 Deine Daten werden verschlüsselt übertragen.
                 </div>
                 
-                <div class="flex gap-3 mt-5">
-                    <button type="button" onclick="bkGoToStep(4)" class="flex-1 border-2 border-white/20 hover:border-white/40 py-3 rounded-lg font-semibold transition-all">← Zurück</button>
-                    <button id="bk-btn-5" onclick="bkGoToStep(6)" class="flex-1 bg-accent hover:bg-accent-dark text-primary font-bold py-3 rounded-lg transition-all">Weiter →</button>
+                <div class="flex gap-3 mt-6">
+                    <button onclick="bkGoToStep(4)" class="flex-1 py-4 rounded-full border border-white/20 font-semibold hover:border-white/40 transition-all">Zurück</button>
+                    <button id="bk-btn-5" onclick="bkGoToStep(6)" class="flex-1 bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">Weiter</button>
                 </div>
             </div>
             
-            <!-- Step 6: Zusammenfassung & AGB -->
+            <!-- Step 6: Zusammenfassung -->
             <div id="bk-step-6" class="bk-form-step">
-                <h3 class="text-lg font-bold mb-4">Zusammenfassung</h3>
+                <h3 class="text-lg font-semibold mb-6">Zusammenfassung</h3>
                 
-                <div class="bg-white/5 rounded-xl p-4 mb-4">
-                    <h4 class="font-semibold mb-3 text-accent">Deine Mitgliedschaft</h4>
-                    <div id="bk-summary-content">
-                        <!-- Dynamisch befüllt -->
-                    </div>
+                <div class="bg-white/5 rounded-2xl p-5 mb-4">
+                    <div id="bk-summary-content"></div>
                 </div>
                 
-                <div class="bg-accent/10 border border-accent/30 rounded-xl p-4 mb-4">
+                <div class="bg-[#DD9B43]/10 border border-[#DD9B43]/30 rounded-2xl p-5 mb-6">
                     <div class="flex justify-between items-center">
-                        <span class="font-semibold">Erste Zahlung (heute)</span>
-                        <span id="bk-first-payment" class="text-xl font-bold text-accent">39€</span>
+                        <span class="font-medium">Erste Zahlung</span>
+                        <span id="bk-first-payment" class="text-xl font-bold text-[#DD9B43]">39€</span>
                     </div>
-                    <p class="text-xs text-white/60 mt-1">Startpaket einmalig — Beiträge ab April</p>
+                    <p class="text-xs text-white/50 mt-1">Startpaket einmalig</p>
                 </div>
                 
-                <div class="space-y-3 mb-5">
+                <div class="space-y-3 mb-6">
                     <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="bk-agb" required class="mt-1 accent-accent">
-                        <span class="text-sm text-white/80">
-                            Ich akzeptiere die <a href="https://fit-inn-trier.de/agb" target="_blank" rel="noopener" class="text-accent hover:underline">AGB</a> und <a href="https://fit-inn-trier.de/datenschutz" target="_blank" rel="noopener" class="text-accent hover:underline">Datenschutzerklärung</a>. *
-                        </span>
+                        <input type="checkbox" id="bk-agb" required class="mt-1 accent-[#DD9B43] w-5 h-5">
+                        <span class="text-sm text-white/70">Ich akzeptiere die <a href="https://fit-inn-trier.de/agb" target="_blank" rel="noopener" class="text-[#DD9B43] hover:underline">AGB</a> und <a href="https://fit-inn-trier.de/datenschutz" target="_blank" rel="noopener" class="text-[#DD9B43] hover:underline">Datenschutzerklärung</a>.</span>
                     </label>
                     <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="bk-sepa" required class="mt-1 accent-accent">
-                        <span class="text-sm text-white/80">
-                            Ich ermächtige FIT-INN GmbH, Zahlungen von meinem Konto mittels SEPA-Lastschrift einzuziehen. *
-                        </span>
+                        <input type="checkbox" id="bk-sepa" required class="mt-1 accent-[#DD9B43] w-5 h-5">
+                        <span class="text-sm text-white/70">Ich ermächtige FIT-INN, Zahlungen per SEPA-Lastschrift einzuziehen.</span>
                     </label>
                     <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="bk-widerruf" required class="mt-1 accent-accent">
-                        <span class="text-sm text-white/80">
-                            Ich habe die <a href="https://fit-inn-trier.de/widerruf" target="_blank" rel="noopener" class="text-accent hover:underline">Widerrufsbelehrung</a> gelesen und verstanden. *
-                        </span>
+                        <input type="checkbox" id="bk-widerruf" required class="mt-1 accent-[#DD9B43] w-5 h-5">
+                        <span class="text-sm text-white/70">Ich habe die <a href="https://fit-inn-trier.de/widerruf" target="_blank" rel="noopener" class="text-[#DD9B43] hover:underline">Widerrufsbelehrung</a> gelesen.</span>
                     </label>
                 </div>
                 
-                <div id="bk-form-error" class="bg-red-500/20 border border-red-500/30 text-red-300 text-sm rounded-lg p-3 mb-4" style="display: none;"></div>
+                <div id="bk-form-error" class="bg-red-500/20 border border-red-500/30 text-red-400 text-sm rounded-xl p-4 mb-4" style="display: none;"></div>
                 
                 <div class="flex gap-3">
-                    <button type="button" onclick="bkGoToStep(5)" class="flex-1 border-2 border-white/20 hover:border-white/40 py-3 rounded-lg font-semibold transition-all">← Zurück</button>
-                    <button id="bk-submit-btn" onclick="bkSubmit()" class="flex-1 bg-accent hover:bg-accent-dark text-primary font-bold py-3.5 rounded-lg transition-all">
-                        Jetzt Mitglied werden
+                    <button onclick="bkGoToStep(5)" class="flex-1 py-4 rounded-full border border-white/20 font-semibold hover:border-white/40 transition-all">Zurück</button>
+                    <button id="bk-submit-btn" onclick="bkSubmit()" class="flex-1 bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">
+                        Mitglied werden
                     </button>
                 </div>
             </div>
             
             <!-- Step 7: Bestätigung -->
             <div id="bk-step-7" class="bk-form-step">
-                <div class="text-center py-6">
-                    <div class="text-6xl mb-4">🎉</div>
-                    <h3 class="text-2xl font-bold mb-2 text-accent">Willkommen bei FIT-INN!</h3>
-                    <p class="text-white/70 mb-6">Deine Mitgliedschaft wurde erfolgreich abgeschlossen.</p>
+                <div class="text-center py-8">
+                    <div class="text-6xl mb-4">✓</div>
+                    <h3 class="text-2xl font-bold mb-2 text-[#DD9B43]">Willkommen!</h3>
+                    <p class="text-white/50 mb-8">Deine Mitgliedschaft ist aktiv.</p>
                     
-                    <div class="bg-white/10 rounded-xl p-4 text-left text-sm mb-5">
-                        <div class="bk-summary-row"><span class="text-white/60">📋 Tarif</span><span id="bk-confirm-rate" class="font-semibold">-</span></div>
-                        <div class="bk-summary-row"><span class="text-white/60">👤 Name</span><span id="bk-confirm-name" class="font-semibold">-</span></div>
-                        <div class="bk-summary-row"><span class="text-white/60">🔢 Vertragsnr.</span><span id="bk-confirm-contract" class="font-semibold text-accent">-</span></div>
-                        <div class="bk-summary-row"><span class="text-white/60">📅 Start</span><span id="bk-confirm-start" class="font-semibold">-</span></div>
+                    <div class="bg-white/5 rounded-2xl p-5 text-left text-sm mb-6">
+                        <div class="bk-summary-row"><span class="text-white/50">Tarif</span><span id="bk-confirm-rate">-</span></div>
+                        <div class="bk-summary-row"><span class="text-white/50">Name</span><span id="bk-confirm-name">-</span></div>
+                        <div class="bk-summary-row"><span class="text-white/50">Vertragsnr.</span><span id="bk-confirm-contract" class="text-[#DD9B43]">-</span></div>
                     </div>
                     
-                    <div class="bg-accent/20 border border-accent/30 rounded-xl p-4 mb-5 text-left">
-                        <p class="text-accent font-semibold mb-2">🎯 Nächste Schritte:</p>
-                        <ul class="text-sm text-white/70 space-y-1">
-                            <li>✓ Du erhältst eine Bestätigungs-E-Mail</li>
-                            <li>✓ Komm vorbei für dein erstes Training</li>
-                            <li>✓ Februar & März = beitragsfrei! 🎁</li>
-                        </ul>
-                    </div>
-                    
-                    <button onclick="closeModal('booking')" class="w-full bg-accent hover:bg-accent-dark text-primary font-bold py-3 rounded-lg transition-all">
-                        Super, los geht's!
+                    <button onclick="closeModal('booking')" class="w-full bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">
+                        Fertig
                     </button>
                 </div>
             </div>
@@ -344,25 +292,13 @@
 </div>
 
 <script>
-// ============ BOOKING SYSTEM (MAGICLINE CONNECT API) ============
 const BK_API = 'https://fit-inn-trier.api.magicline.com/connect/v1';
 const BK_STUDIO_ID = 1210005460;
-
 let bkCurrentStep = 1;
 let bkSelectedRate = null;
 let bkSelectedModules = [];
+const bkStepNames = { 1: 'Tarif', 2: 'Upgrades', 3: 'Daten', 4: 'Adresse', 5: 'Zahlung', 6: 'Bestätigen', 7: 'Fertig' };
 
-const bkStepNames = {
-    1: 'Tarif wählen',
-    2: 'Upgrades',
-    3: 'Persönliche Daten',
-    4: 'Adresse',
-    5: 'Zahlungsdaten',
-    6: 'Zusammenfassung',
-    7: 'Bestätigung'
-};
-
-// Rate selection
 document.querySelectorAll('.bk-rate-card').forEach(card => {
     card.onclick = () => {
         document.querySelectorAll('.bk-rate-card').forEach(c => c.classList.remove('selected'));
@@ -380,37 +316,15 @@ document.querySelectorAll('.bk-rate-card').forEach(card => {
 
 function bkGoToStep(n) {
     bkCurrentStep = n;
-    
-    // Update form steps
     document.querySelectorAll('.bk-form-step').forEach(s => s.classList.remove('active'));
     document.getElementById(`bk-step-${n}`).classList.add('active');
-    
-    // Update progress
     document.getElementById('bk-progress-bar').style.width = `${(n/7)*100}%`;
     document.getElementById('bk-current-step').textContent = n;
     document.getElementById('bk-step-name').textContent = bkStepNames[n];
-    
-    // Subtitle
-    const subtitles = {
-        1: 'Wähle deinen Tarif',
-        2: 'Optionale Upgrades',
-        3: 'Erzähl uns von dir',
-        4: 'Für deinen Vertrag',
-        5: 'SEPA-Lastschrift',
-        6: 'Fast geschafft!',
-        7: 'Willkommen!'
-    };
+    const subtitles = { 1: 'Wähle deinen Tarif', 2: 'Optionale Extras', 3: 'Über dich', 4: 'Für den Vertrag', 5: 'SEPA-Lastschrift', 6: 'Prüfen & Bestätigen', 7: 'Willkommen!' };
     document.getElementById('bk-header-subtitle').textContent = subtitles[n] || '';
-    
-    // Step 2: Render modules based on selected rate
-    if (n === 2) {
-        bkRenderModules();
-    }
-    
-    // Step 6: Render summary
-    if (n === 6) {
-        bkRenderSummary();
-    }
+    if (n === 2) bkRenderModules();
+    if (n === 6) bkRenderSummary();
 }
 
 function bkRenderModules() {
@@ -418,50 +332,27 @@ function bkRenderModules() {
     const noModules = document.getElementById('bk-no-modules');
     container.innerHTML = '';
     bkSelectedModules = [];
-    
-    // Module data (from API)
     const modulesByRate = {
-        1213385750: [ // Flex
-            { id: 1213385815, name: '12 Monate Ernährungsplan', price: 119, desc: 'Individueller Plan für deine Ziele' }
+        1213385750: [{ id: 1213385815, name: 'Ernährungsplan 12 Monate', price: 119, desc: 'Individuell für dich' }],
+        1213385780: [
+            { id: 1213878351, name: 'Activity Analyse', price: 39, desc: 'Bewegungsmuster-Check' },
+            { id: 1213878352, name: 'Food & Stress Analyse', price: 19, desc: 'Ernährung & Stress' },
+            { id: 1213878353, name: 'Longevity Checkup', price: 49, desc: 'Langlebigkeitsanalyse' }
         ],
-        1213385780: [ // Basic
-            { id: 1213878351, name: 'Activity Analyse + Coaching', price: 39, desc: 'Analyse deiner Bewegungsmuster' },
-            { id: 1213878352, name: 'Food & Stress Analyse', price: 19, desc: 'Ernährung & Stress-Level Check' },
-            { id: 1213878353, name: 'Longevity Checkup', price: 49, desc: 'Gesundheits-Langlebigkeitsanalyse' }
-        ],
-        1213385790: [] // Premium - alles inkl.
+        1213385790: []
     };
-    
     const modules = modulesByRate[bkSelectedRate.rateId] || [];
-    
-    if (modules.length === 0) {
-        container.style.display = 'none';
-        noModules.style.display = 'block';
-    } else {
-        container.style.display = 'block';
-        noModules.style.display = 'none';
-        
+    if (!modules.length) { container.style.display = 'none'; noModules.style.display = 'block'; }
+    else {
+        container.style.display = 'block'; noModules.style.display = 'none';
         modules.forEach(mod => {
             const div = document.createElement('div');
             div.className = 'bk-module-opt rounded-xl p-4 flex justify-between items-center';
-            div.dataset.moduleId = mod.id;
-            div.innerHTML = `
-                <div>
-                    <h4 class="font-semibold">${mod.name}</h4>
-                    <p class="text-xs text-white/60">${mod.desc}</p>
-                </div>
-                <div class="text-right">
-                    <span class="font-bold text-accent">+${mod.price}€</span>
-                    <span class="text-xs text-white/50 block">einmalig</span>
-                </div>
-            `;
+            div.innerHTML = `<div><h4 class="font-medium">${mod.name}</h4><p class="text-xs text-white/50">${mod.desc}</p></div><div class="text-right"><span class="font-bold text-[#DD9B43]">+${mod.price}€</span></div>`;
             div.onclick = () => {
                 div.classList.toggle('selected');
-                if (div.classList.contains('selected')) {
-                    bkSelectedModules.push({ id: mod.id, name: mod.name, price: mod.price });
-                } else {
-                    bkSelectedModules = bkSelectedModules.filter(m => m.id !== mod.id);
-                }
+                if (div.classList.contains('selected')) bkSelectedModules.push(mod);
+                else bkSelectedModules = bkSelectedModules.filter(m => m.id !== mod.id);
             };
             container.appendChild(div);
         });
@@ -471,44 +362,31 @@ function bkRenderModules() {
 function bkRenderSummary() {
     const container = document.getElementById('bk-summary-content');
     let html = `
-        <div class="bk-summary-row"><span class="text-white/60">Tarif</span><span class="font-semibold">${bkSelectedRate.name}</span></div>
-        <div class="bk-summary-row"><span class="text-white/60">Laufzeit</span><span>${bkSelectedRate.term}</span></div>
-        <div class="bk-summary-row"><span class="text-white/60">Beitrag</span><span>${bkSelectedRate.price}€ / Woche</span></div>
-        <div class="bk-summary-row"><span class="text-white/60">Startpaket</span><span>39€ (einmalig)</span></div>
+        <div class="bk-summary-row"><span class="text-white/50">Tarif</span><span class="font-medium">${bkSelectedRate.name}</span></div>
+        <div class="bk-summary-row"><span class="text-white/50">Laufzeit</span><span>${bkSelectedRate.term}</span></div>
+        <div class="bk-summary-row"><span class="text-white/50">Beitrag</span><span>${bkSelectedRate.price}€/Woche</span></div>
+        <div class="bk-summary-row"><span class="text-white/50">Startpaket</span><span>39€</span></div>
     `;
-    
-    let totalFirst = 39;
-    
-    if (bkSelectedModules.length > 0) {
+    let total = 39;
+    if (bkSelectedModules.length) {
         html += `<div class="border-t border-white/10 my-2"></div>`;
-        bkSelectedModules.forEach(mod => {
-            html += `<div class="bk-summary-row"><span class="text-white/60">${mod.name}</span><span>+${mod.price}€</span></div>`;
-            totalFirst += mod.price;
-        });
+        bkSelectedModules.forEach(m => { html += `<div class="bk-summary-row"><span class="text-white/50">${m.name}</span><span>+${m.price}€</span></div>`; total += m.price; });
     }
-    
     container.innerHTML = html;
-    document.getElementById('bk-first-payment').textContent = totalFirst + '€';
+    document.getElementById('bk-first-payment').textContent = total + '€';
 }
 
 async function bkSubmit() {
     const btn = document.getElementById('bk-submit-btn');
     const errDiv = document.getElementById('bk-form-error');
     errDiv.style.display = 'none';
-    
-    // Validate checkboxes
-    if (!document.getElementById('bk-agb').checked || 
-        !document.getElementById('bk-sepa').checked || 
-        !document.getElementById('bk-widerruf').checked) {
-        errDiv.textContent = '❌ Bitte alle Checkboxen bestätigen';
+    if (!document.getElementById('bk-agb').checked || !document.getElementById('bk-sepa').checked || !document.getElementById('bk-widerruf').checked) {
+        errDiv.textContent = 'Bitte alle Checkboxen bestätigen.';
         errDiv.style.display = 'block';
         return;
     }
-    
     btn.disabled = true;
-    btn.innerHTML = '<span class="bk-spinner inline-block mr-2 align-middle"></span>Wird gesendet...';
-    
-    // Build payload for Magicline Connect API
+    btn.innerHTML = '<span class="bk-spinner"></span>Wird gesendet...';
     const payload = {
         studioId: BK_STUDIO_ID,
         termId: bkSelectedRate.termId,
@@ -520,59 +398,29 @@ async function bkSubmit() {
             email: document.getElementById('bk-email').value,
             mobileNumber: document.getElementById('bk-phone').value,
             dateOfBirth: document.getElementById('bk-birthdate').value,
-            address: {
-                street: document.getElementById('bk-street').value,
-                houseNumber: document.getElementById('bk-housenumber').value,
-                zip: document.getElementById('bk-zip').value,
-                city: document.getElementById('bk-city').value,
-                countryCode: 'DE'
-            }
+            address: { street: document.getElementById('bk-street').value, houseNumber: document.getElementById('bk-housenumber').value, zip: document.getElementById('bk-zip').value, city: document.getElementById('bk-city').value, countryCode: 'DE' }
         },
-        bankAccount: {
-            accountHolder: document.getElementById('bk-accountholder').value,
-            iban: document.getElementById('bk-iban').value.replace(/\s/g, ''),
-            bic: document.getElementById('bk-bic').value || undefined
-        },
-        consents: {
-            termsAndConditions: true,
-            privacyPolicy: true,
-            sepaMandate: true
-        }
+        bankAccount: { accountHolder: document.getElementById('bk-accountholder').value, iban: document.getElementById('bk-iban').value.replace(/\s/g, '') },
+        consents: { termsAndConditions: true, privacyPolicy: true, sepaMandate: true }
     };
-    
     try {
-        const res = await fetch(`${BK_API}/contract`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-        
+        const res = await fetch(`${BK_API}/contract`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         const result = await res.json();
-        
-        if (!res.ok) {
-            throw new Error(result.message || result.error || 'Fehler beim Vertragsabschluss');
-        }
-        
-        // Success!
+        if (!res.ok) throw new Error(result.message || result.error || 'Fehler');
         document.getElementById('bk-confirm-rate').textContent = bkSelectedRate.name;
         document.getElementById('bk-confirm-name').textContent = `${payload.customer.firstname} ${payload.customer.lastname}`;
         document.getElementById('bk-confirm-contract').textContent = result.contractNumber || result.id || '-';
-        document.getElementById('bk-confirm-start').textContent = new Date().toLocaleDateString('de-DE');
-        
         bkGoToStep(7);
-        
     } catch (err) {
-        errDiv.textContent = '❌ ' + err.message;
+        errDiv.textContent = err.message;
         errDiv.style.display = 'block';
         btn.disabled = false;
-        btn.textContent = 'Jetzt Mitglied werden';
+        btn.textContent = 'Mitglied werden';
     }
 }
 
-// IBAN formatting
 document.getElementById('bk-iban')?.addEventListener('input', function(e) {
-    let val = e.target.value.replace(/\s/g, '').toUpperCase();
-    val = val.replace(/(.{4})/g, '$1 ').trim();
-    e.target.value = val;
+    let v = e.target.value.replace(/\s/g, '').toUpperCase();
+    e.target.value = v.replace(/(.{4})/g, '$1 ').trim();
 });
 </script>
