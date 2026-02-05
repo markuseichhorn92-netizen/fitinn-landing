@@ -1045,6 +1045,18 @@
         document.querySelectorAll('.modal-overlay').forEach(m => {
             m.addEventListener('click', e => { if (e.target === m) closeModal(m.id.replace('modal-','')); });
         });
+        
+        // Auto-open modal from URL hash (#probetraining or #mitgliedschaft)
+        function checkHashAndOpenModal() {
+            const hash = window.location.hash.replace('#', '').toLowerCase();
+            if (hash === 'probetraining') {
+                setTimeout(() => openModal('probetraining'), 500);
+            } else if (hash === 'mitgliedschaft' || hash === 'booking') {
+                setTimeout(() => openModal('booking'), 500);
+            }
+        }
+        checkHashAndOpenModal();
+        window.addEventListener('hashchange', checkHashAndOpenModal);
 
         // Probetraining Logic
         const PT_API = 'https://srv1309486.hstgr.cloud/api/probetraining';
