@@ -559,15 +559,32 @@
     </footer>
 
     <!-- ============================================ -->
-    <!-- MODAL: PROBETRAINING BUCHUNG -->
+    <!-- MODAL: PROBETRAINING MIT MAGICLINE KALENDER -->
     <!-- ============================================ -->
+    <style>
+        /* Kalender Styles */
+        .pt-calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .pt-weekday { text-align: center; font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.5); padding: 8px 0; }
+        .pt-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; position: relative; }
+        .pt-day.disabled { color: rgba(255,255,255,0.3); cursor: not-allowed; }
+        .pt-day.has-slots { background: rgba(221,155,67,0.2); color: #DD9B43; font-weight: 600; }
+        .pt-day.has-slots:hover { background: rgba(221,155,67,0.4); }
+        .pt-day.selected { background: #DD9B43; color: #094957; }
+        .pt-day .slot-badge { position: absolute; bottom: 2px; right: 4px; font-size: 0.6rem; background: #DD9B43; color: #094957; padding: 1px 3px; border-radius: 4px; }
+        .pt-time-slot { padding: 12px; border: 2px solid rgba(255,255,255,0.2); border-radius: 10px; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .pt-time-slot:hover { border-color: #DD9B43; background: rgba(221,155,67,0.1); }
+        .pt-time-slot.selected { border-color: #DD9B43; background: #DD9B43; color: #094957; }
+        .pt-spinner { width: 24px; height: 24px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #DD9B43; border-radius: 50%; animation: pt-spin 0.8s linear infinite; margin: 0 auto; }
+        @keyframes pt-spin { to { transform: rotate(360deg); } }
+    </style>
+    
     <div id="modal-probetraining" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
         <div class="modal-content bg-primary-dark rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto border border-white/20 shadow-2xl">
             <!-- Header -->
-            <div class="sticky top-0 bg-primary-dark border-b border-white/10 p-6 flex justify-between items-center">
+            <div class="sticky top-0 bg-primary-dark border-b border-white/10 p-5 flex justify-between items-center z-10">
                 <div>
                     <h2 class="text-xl font-bold">Kostenloses Probetraining</h2>
-                    <p class="text-sm text-white/60">Lernen du uns unverbindlich kennen</p>
+                    <p class="text-sm text-white/60">Wähle deinen Wunschtermin</p>
                 </div>
                 <button onclick="closeModal('probetraining')" class="text-white/60 hover:text-white p-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -576,109 +593,161 @@
                 </button>
             </div>
             
-            <!-- Promo Reminder -->
-            <div class="bg-accent/20 border-b border-accent/30 px-6 py-3 text-center">
-                <p class="text-sm text-accent font-semibold">🎁 Nicht vergessen: Februar & März beitragsfrei!</p>
+            <!-- Promo -->
+            <div class="bg-accent/20 border-b border-accent/30 px-5 py-2.5 text-center">
+                <p class="text-sm text-accent font-semibold">🎁 Februar & März beitragsfrei!</p>
+            </div>
+            
+            <!-- Progress -->
+            <div class="flex justify-center gap-8 py-4 border-b border-white/10">
+                <div class="pt-progress-step flex flex-col items-center" data-step="1">
+                    <div class="w-8 h-8 rounded-full bg-accent text-primary flex items-center justify-center font-bold text-sm">1</div>
+                    <span class="text-xs mt-1 text-accent">Termin</span>
+                </div>
+                <div class="pt-progress-step flex flex-col items-center opacity-40" data-step="2">
+                    <div class="w-8 h-8 rounded-full bg-white/20 text-white/60 flex items-center justify-center font-bold text-sm">2</div>
+                    <span class="text-xs mt-1">Daten</span>
+                </div>
+                <div class="pt-progress-step flex flex-col items-center opacity-40" data-step="3">
+                    <div class="w-8 h-8 rounded-full bg-white/20 text-white/60 flex items-center justify-center font-bold text-sm">3</div>
+                    <span class="text-xs mt-1">Fertig</span>
+                </div>
             </div>
             
             <!-- Content -->
-            <div class="p-6">
-                <!-- Step 1: Persönliche Daten -->
+            <div class="p-5">
+                <!-- Step 1: Kalender -->
                 <div id="pt-step-1" class="form-step active">
-                    <div class="space-y-4">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Vorname *</label>
-                                <input type="text" id="pt-vorname" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors" placeholder="Max">
+                    <div id="pt-loading" class="text-center py-10">
+                        <div class="pt-spinner mb-3"></div>
+                        <p class="text-white/60 text-sm">Lade verfügbare Termine...</p>
+                    </div>
+                    
+                    <div id="pt-calendar-section" style="display: none;">
+                        <div class="flex justify-between items-center mb-4">
+                            <span id="pt-month-label" class="font-semibold"></span>
+                            <div class="flex gap-2">
+                                <button id="pt-prev-month" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center">‹</button>
+                                <button id="pt-next-month" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center">›</button>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Nachname *</label>
-                                <input type="text" id="pt-nachname" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors" placeholder="Mustermann">
-                            </div>
                         </div>
                         
-                        <div>
-                            <label class="block text-sm font-medium mb-2">E-Mail *</label>
-                            <input type="email" id="pt-email" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors" placeholder="max@beispiel.de">
+                        <div class="pt-calendar-grid mb-1">
+                            <div class="pt-weekday">Mo</div>
+                            <div class="pt-weekday">Di</div>
+                            <div class="pt-weekday">Mi</div>
+                            <div class="pt-weekday">Do</div>
+                            <div class="pt-weekday">Fr</div>
+                            <div class="pt-weekday">Sa</div>
+                            <div class="pt-weekday">So</div>
                         </div>
+                        <div id="pt-calendar-days" class="pt-calendar-grid"></div>
                         
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Telefon *</label>
-                            <input type="tel" id="pt-telefon" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors" placeholder="0651 12345678">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Wunschtermin *</label>
-                            <input type="date" id="pt-datum" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Bevorzugte Uhrzeit</label>
-                            <select id="pt-uhrzeit" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors">
-                                <option value="vormittags">Vormittags (8-12 Uhr) — besonders ruhig</option>
-                                <option value="mittags">Mittags (12-15 Uhr)</option>
-                                <option value="nachmittags">Nachmittags (15-18 Uhr)</option>
-                                <option value="abends">Abends (18-20 Uhr)</option>
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Was ist dein Ziel?</label>
-                            <select id="pt-ziel" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors">
-                                <option value="">Bitte wählen...</option>
-                                <option value="ruecken">Rücken stärken / Schmerzen lindern</option>
-                                <option value="beweglichkeit">Beweglichkeit verbessern</option>
-                                <option value="abnehmen">Gewicht reduzieren</option>
-                                <option value="fitness">Allgemeine Fitness steigern</option>
-                                <option value="kraft">Muskulatur aufbauen</option>
-                                <option value="gesundheit">Gesundheitswerte verbessern</option>
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Nachricht (optional)</label>
-                            <textarea id="pt-nachricht" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors h-20 resize-none" placeholder="Gibt es etwas, das wir wissen sollten?"></textarea>
-                        </div>
-                        
-                        <div class="flex items-start gap-3 pt-2">
-                            <input type="checkbox" id="pt-datenschutz" required class="mt-1 accent-accent">
-                            <label for="pt-datenschutz" class="text-sm text-white/70">
-                                Ich stimme der <a href="https://fit-inn-trier.de/datenschutz" target="_blank" class="text-accent hover:underline">Datenschutzerklärung</a> zu.
-                            </label>
+                        <div id="pt-time-section" class="mt-5 pt-5 border-t border-white/10" style="display: none;">
+                            <p class="text-sm font-semibold mb-3">Verfügbare Zeiten für <span id="pt-selected-date" class="text-accent"></span></p>
+                            <div id="pt-time-slots" class="grid grid-cols-3 gap-2"></div>
                         </div>
                     </div>
                     
-                    <button onclick="submitProbetraining()" class="w-full bg-accent hover:bg-accent-dark text-primary font-bold py-4 rounded-lg mt-6 transition-all">
-                        Probetraining anfragen →
+                    <button id="pt-to-step-2" disabled onclick="ptGoToStep(2)" class="w-full bg-accent hover:bg-accent-dark disabled:opacity-50 disabled:cursor-not-allowed text-primary font-bold py-3.5 rounded-lg mt-5 transition-all">
+                        Weiter →
                     </button>
-                    
-                    <p class="text-center text-xs text-white/50 mt-4">
-                        Wir melden uns innerhalb von 24 Stunden bei dir.
-                    </p>
                 </div>
                 
-                <!-- Step 2: Bestätigung -->
+                <!-- Step 2: Formular -->
                 <div id="pt-step-2" class="form-step">
-                    <div class="text-center py-8">
-                        <div class="text-6xl mb-4">🎉</div>
-                        <h3 class="text-2xl font-bold mb-2">Anfrage gesendet!</h3>
-                        <p class="text-white/70 mb-6">
-                            Vielen Dank, <span id="pt-confirm-name">Max</span>!<br>
-                            Wir melden uns schnellstmöglich bei dir.
-                        </p>
-                        <div class="bg-white/10 rounded-xl p-4 text-left text-sm mb-6">
-                            <p class="font-semibold mb-2">deine Anfrage:</p>
-                            <p class="text-white/70">📅 <span id="pt-confirm-date">-</span></p>
-                            <p class="text-white/70">🕐 <span id="pt-confirm-time">-</span></p>
-                            <p class="text-white/70">📧 <span id="pt-confirm-email">-</span></p>
+                    <div class="bg-accent/20 rounded-xl p-4 mb-5">
+                        <div class="flex justify-between text-sm"><span class="text-white/70">📅 Datum</span><span id="pt-summary-date" class="font-semibold text-accent">-</span></div>
+                        <div class="flex justify-between text-sm mt-2"><span class="text-white/70">🕐 Uhrzeit</span><span id="pt-summary-time" class="font-semibold text-accent">-</span></div>
+                    </div>
+                    
+                    <form id="pt-form" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium mb-1.5">Vorname *</label>
+                                <input type="text" id="pt-firstname" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-1.5">Nachname *</label>
+                                <input type="text" id="pt-lastname" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
+                            </div>
                         </div>
-                        <div class="bg-accent/20 border border-accent/30 rounded-xl p-4 mb-6">
-                            <p class="text-accent font-semibold">🎁 Denken du daran:</p>
-                            <p class="text-sm text-white/70">Februar & März sind bei uns beitragsfrei!</p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium mb-1.5">E-Mail *</label>
+                                <input type="email" id="pt-email" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-1.5">Telefon</label>
+                                <input type="tel" id="pt-phone" class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
+                            </div>
                         </div>
-                        <button onclick="closeModal('probetraining')" class="w-full border-2 border-accent text-accent hover:bg-accent hover:text-primary font-semibold py-3 rounded-lg transition-all">
-                            Schließen
-                        </button>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium mb-1.5">Geburtsdatum *</label>
+                                <input type="date" id="pt-birthdate" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-1.5">PLZ *</label>
+                                <input type="text" id="pt-zip" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium mb-1.5">Stadt *</label>
+                                <input type="text" id="pt-city" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-1.5">Straße + Nr. *</label>
+                                <input type="text" id="pt-street" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent" placeholder="Musterstr. 1">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1.5">Anrede *</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="pt-gender-opt flex items-center justify-center p-2.5 bg-white/10 border border-white/20 rounded-lg cursor-pointer hover:border-accent transition-all text-sm">
+                                    <input type="radio" name="pt-gender" value="MALE" required class="hidden"> Herr
+                                </label>
+                                <label class="pt-gender-opt flex items-center justify-center p-2.5 bg-white/10 border border-white/20 rounded-lg cursor-pointer hover:border-accent transition-all text-sm">
+                                    <input type="radio" name="pt-gender" value="FEMALE" class="hidden"> Frau
+                                </label>
+                                <label class="pt-gender-opt flex items-center justify-center p-2.5 bg-white/10 border border-white/20 rounded-lg cursor-pointer hover:border-accent transition-all text-sm">
+                                    <input type="radio" name="pt-gender" value="UNISEX" class="hidden"> Divers
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 pt-2">
+                            <input type="checkbox" id="pt-privacy" required class="mt-1 accent-accent">
+                            <label for="pt-privacy" class="text-xs text-white/70">Ich akzeptiere die <a href="https://fit-inn-trier.de/datenschutz" target="_blank" class="text-accent hover:underline">Datenschutzerklärung</a> *</label>
+                        </div>
+                        <div id="pt-form-error" class="bg-red-500/20 border border-red-500/30 text-red-300 text-sm rounded-lg p-3" style="display: none;"></div>
+                        <div class="flex gap-3 pt-2">
+                            <button type="button" onclick="ptGoToStep(1)" class="flex-1 border-2 border-white/20 hover:border-white/40 py-3 rounded-lg font-semibold transition-all">← Zurück</button>
+                            <button type="submit" id="pt-submit-btn" class="flex-1 bg-accent hover:bg-accent-dark text-primary py-3 rounded-lg font-bold transition-all">Jetzt buchen</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Step 3: Bestätigung -->
+                <div id="pt-step-3" class="form-step">
+                    <div class="text-center py-6">
+                        <div class="text-5xl mb-4">🎉</div>
+                        <h3 class="text-2xl font-bold mb-2">Gebucht!</h3>
+                        <p class="text-white/70 mb-5">Dein Probetraining wurde in unserem Kalender eingetragen.</p>
+                        <div class="bg-white/10 rounded-xl p-4 text-left text-sm mb-5">
+                            <div class="flex justify-between py-2 border-b border-white/10"><span class="text-white/60">📅 Datum</span><span id="pt-confirm-date" class="font-semibold">-</span></div>
+                            <div class="flex justify-between py-2 border-b border-white/10"><span class="text-white/60">🕐 Uhrzeit</span><span id="pt-confirm-time" class="font-semibold">-</span></div>
+                            <div class="flex justify-between py-2 border-b border-white/10"><span class="text-white/60">👤 Name</span><span id="pt-confirm-name" class="font-semibold">-</span></div>
+                            <div class="flex justify-between py-2"><span class="text-white/60">🔢 Kundennr.</span><span id="pt-confirm-number" class="font-semibold text-accent">-</span></div>
+                        </div>
+                        <div class="bg-accent/20 border border-accent/30 rounded-xl p-4 mb-5 text-left">
+                            <p class="text-accent font-semibold mb-2">🎯 So geht's weiter:</p>
+                            <ul class="text-sm text-white/70 space-y-1">
+                                <li>✓ Sportkleidung & Handtuch mitbringen</li>
+                                <li>✓ 15 Min. vor dem Termin da sein</li>
+                            </ul>
+                        </div>
+                        <button onclick="closeModal('probetraining')" class="w-full border-2 border-accent text-accent hover:bg-accent hover:text-primary font-semibold py-3 rounded-lg transition-all">Schließen</button>
                     </div>
                 </div>
             </div>
@@ -698,16 +767,25 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
         fadeElements.forEach(el => observer.observe(el));
 
-        // Modal Functions
+        // Navbar scroll
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            nav.style.top = currentScroll > 100 ? '0' : '44px';
+            lastScroll = currentScroll;
+        });
+
+        // ============ PROBETRAINING BOOKING ============
+        const PT_API = 'https://srv1309486.hstgr.cloud/api/probetraining';
+        let ptCurrentDate = new Date();
+        let ptSlotsData = null;
+        let ptSelectedSlot = null;
+
         function openModal(type) {
             document.getElementById(`modal-${type}`).classList.add('active');
             document.body.style.overflow = 'hidden';
-            
-            // Reset steps
-            if (type === 'probetraining') {
-                document.getElementById('pt-step-1').classList.add('active');
-                document.getElementById('pt-step-2').classList.remove('active');
-            }
+            if (type === 'probetraining' && !ptSlotsData) ptFetchSlots();
         }
 
         function closeModal(type) {
@@ -715,65 +793,167 @@
             document.body.style.overflow = '';
         }
 
-        // Close modal on overlay click
-        document.querySelectorAll('.modal-overlay').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                    document.body.style.overflow = '';
-                }
-            });
+        document.querySelectorAll('.modal-overlay').forEach(m => {
+            m.addEventListener('click', e => { if (e.target === m) closeModal(m.id.replace('modal-','')); });
         });
 
-        // Probetraining Submit
-        function submitProbetraining() {
-            const vorname = document.getElementById('pt-vorname').value;
-            const nachname = document.getElementById('pt-nachname').value;
-            const email = document.getElementById('pt-email').value;
-            const telefon = document.getElementById('pt-telefon').value;
-            const datum = document.getElementById('pt-datum').value;
-            const uhrzeit = document.getElementById('pt-uhrzeit').value;
-            const ziel = document.getElementById('pt-ziel').value;
-            const nachricht = document.getElementById('pt-nachricht').value;
-            const datenschutz = document.getElementById('pt-datenschutz').checked;
-
-            if (!vorname || !nachname || !email || !telefon || !datum || !datenschutz) {
-                alert('Bitte füllen du alle Pflichtfelder aus.');
-                return;
+        async function ptFetchSlots() {
+            try {
+                const res = await fetch(`${PT_API}/slots`);
+                if (!res.ok) throw new Error();
+                ptSlotsData = await res.json();
+                document.getElementById('pt-loading').style.display = 'none';
+                document.getElementById('pt-calendar-section').style.display = 'block';
+                ptRenderCalendar();
+            } catch (e) {
+                document.getElementById('pt-loading').innerHTML = '<p class="text-red-400">❌ Fehler beim Laden</p>';
             }
-
-            // TODO: Hier API-Call zum Backend
-            console.log('Probetraining Anfrage:', { vorname, nachname, email, telefon, datum, uhrzeit, ziel, nachricht });
-
-            // Show confirmation
-            document.getElementById('pt-confirm-name').textContent = vorname;
-            document.getElementById('pt-confirm-date').textContent = new Date(datum).toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
-            document.getElementById('pt-confirm-time').textContent = uhrzeit.charAt(0).toUpperCase() + uhrzeit.slice(1);
-            document.getElementById('pt-confirm-email').textContent = email;
-
-            document.getElementById('pt-step-1').classList.remove('active');
-            document.getElementById('pt-step-2').classList.add('active');
         }
 
-        // Set min date for Probetraining
-        document.addEventListener('DOMContentLoaded', () => {
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            document.getElementById('pt-datum').min = tomorrow.toISOString().split('T')[0];
+        function ptRenderCalendar() {
+            const year = ptCurrentDate.getFullYear(), month = ptCurrentDate.getMonth();
+            const months = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+            document.getElementById('pt-month-label').textContent = `${months[month]} ${year}`;
+            
+            const today = new Date();
+            document.getElementById('pt-prev-month').disabled = (year === today.getFullYear() && month <= today.getMonth());
+            
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            let startDay = firstDay.getDay() - 1; if (startDay < 0) startDay = 6;
+            
+            const container = document.getElementById('pt-calendar-days');
+            container.innerHTML = '';
+            
+            for (let i = 0; i < startDay; i++) container.innerHTML += '<div class="pt-day"></div>';
+            
+            for (let day = 1; day <= lastDay.getDate(); day++) {
+                const d = new Date(year, month, day);
+                const ds = d.toISOString().split('T')[0];
+                const slots = ptSlotsData?.slotsByDate?.[ds] || [];
+                const div = document.createElement('div');
+                div.className = 'pt-day';
+                div.textContent = day;
+                
+                if (d < today || !slots.length) {
+                    div.classList.add('disabled');
+                } else {
+                    div.classList.add('has-slots');
+                    const badge = document.createElement('span');
+                    badge.className = 'slot-badge';
+                    badge.textContent = slots.length;
+                    div.appendChild(badge);
+                    div.onclick = () => ptSelectDate(ds, slots, div);
+                }
+                container.appendChild(div);
+            }
+        }
+
+        function ptSelectDate(dateStr, slots, el) {
+            document.querySelectorAll('.pt-day.selected').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            
+            const d = new Date(dateStr + 'T12:00:00');
+            document.getElementById('pt-selected-date').textContent = d.toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long'});
+            
+            const container = document.getElementById('pt-time-slots');
+            container.innerHTML = '';
+            slots.forEach(slot => {
+                const div = document.createElement('div');
+                div.className = 'pt-time-slot';
+                div.innerHTML = `<div class="font-semibold">${slot.time}</div><div class="text-xs opacity-60">Uhr</div>`;
+                div.onclick = () => ptSelectSlot(slot, div);
+                container.appendChild(div);
+            });
+            
+            document.getElementById('pt-time-section').style.display = 'block';
+            ptSelectedSlot = null;
+            document.getElementById('pt-to-step-2').disabled = true;
+        }
+
+        function ptSelectSlot(slot, el) {
+            document.querySelectorAll('.pt-time-slot.selected').forEach(e => e.classList.remove('selected'));
+            el.classList.add('selected');
+            ptSelectedSlot = slot;
+            document.getElementById('pt-to-step-2').disabled = false;
+        }
+
+        document.getElementById('pt-prev-month').onclick = () => { ptCurrentDate.setMonth(ptCurrentDate.getMonth() - 1); ptRenderCalendar(); };
+        document.getElementById('pt-next-month').onclick = () => { ptCurrentDate.setMonth(ptCurrentDate.getMonth() + 1); ptRenderCalendar(); };
+
+        function ptGoToStep(n) {
+            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`pt-step-${n}`).classList.add('active');
+            document.querySelectorAll('.pt-progress-step').forEach((s, i) => {
+                s.classList.toggle('opacity-40', i >= n);
+                s.querySelector('div').classList.toggle('bg-accent', i < n);
+                s.querySelector('div').classList.toggle('text-primary', i < n);
+                s.querySelector('div').classList.toggle('bg-white/20', i >= n);
+            });
+            if (n === 2 && ptSelectedSlot) {
+                const d = new Date(ptSelectedSlot.start);
+                document.getElementById('pt-summary-date').textContent = d.toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long'});
+                document.getElementById('pt-summary-time').textContent = ptSelectedSlot.time + ' Uhr';
+            }
+        }
+
+        // Gender selection
+        document.querySelectorAll('.pt-gender-opt').forEach(opt => {
+            opt.onclick = () => {
+                document.querySelectorAll('.pt-gender-opt').forEach(o => o.classList.remove('border-accent', 'bg-accent/20'));
+                opt.classList.add('border-accent', 'bg-accent/20');
+            };
         });
 
-        // Navbar scroll behavior - hide promo banner on scroll
-        let lastScroll = 0;
-        const nav = document.querySelector('nav');
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            if (currentScroll > 100) {
-                nav.style.top = '0';
-            } else {
-                nav.style.top = '44px';
+        // Form submit
+        document.getElementById('pt-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('pt-submit-btn');
+            const errDiv = document.getElementById('pt-form-error');
+            errDiv.style.display = 'none';
+            btn.disabled = true;
+            btn.innerHTML = '<span class="pt-spinner inline-block w-4 h-4 mr-2 align-middle"></span>Wird gebucht...';
+            
+            const streetInput = document.getElementById('pt-street').value.trim();
+            const match = streetInput.match(/^(.+?)\s+(\d+\s*\w*)$/);
+            
+            const data = {
+                startDateTime: ptSelectedSlot.start,
+                gender: document.querySelector('input[name="pt-gender"]:checked')?.value,
+                firstname: document.getElementById('pt-firstname').value,
+                lastname: document.getElementById('pt-lastname').value,
+                email: document.getElementById('pt-email').value,
+                phone: document.getElementById('pt-phone').value,
+                dateOfBirth: document.getElementById('pt-birthdate').value,
+                zipCode: document.getElementById('pt-zip').value,
+                city: document.getElementById('pt-city').value,
+                street: match ? match[1] : streetInput,
+                houseNumber: match ? match[2] : '',
+                marketingConsent: false,
+                trainerRequired: false
+            };
+            
+            try {
+                const res = await fetch(PT_API, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                const result = await res.json();
+                if (!res.ok) throw new Error(result.message || 'Fehler');
+                
+                document.getElementById('pt-confirm-date').textContent = result.booking.date;
+                document.getElementById('pt-confirm-time').textContent = result.booking.time + ' Uhr';
+                document.getElementById('pt-confirm-name').textContent = result.booking.name;
+                document.getElementById('pt-confirm-number').textContent = result.booking.customerNumber || '-';
+                ptGoToStep(3);
+            } catch (err) {
+                errDiv.textContent = '❌ ' + err.message;
+                errDiv.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Jetzt buchen';
             }
-            lastScroll = currentScroll;
-        });
+        };
     </script>
 
     <!-- Structured Data -->
