@@ -472,6 +472,7 @@
 
 <script>
 const BK_API = 'https://fit-inn-trier.api.magicline.com/connect/v1';
+const BK_RECAPTCHA_KEY = '6Lf42WEsAAAAAJklBBd1adX2vCMeR6AnfQUE6Ve_'; // FIT-INN reCAPTCHA v3 key
 const BK_STUDIO_ID = 1210005460;
 const BK_LEADS_API = window.LEADS_API || 'https://srv1309486.hstgr.cloud/api/leads';
 let bkCurrentStep = 0;
@@ -696,62 +697,91 @@ async function bkSubmit() {
     btn.disabled = true;
     btn.innerHTML = '<span class="bk-spinner"></span>Wird gesendet...';
     
-    const payload = {
-        studioId: BK_STUDIO_ID,
-        termId: bkSelectedRate.termId,
-        optionalModuleIds: bkSelectedModules.map(m => m.id),
-        customer: {
-            gender: document.getElementById('bk-gender').value,
-            firstname: document.getElementById('bk-firstname').value.trim(),
-            lastname: document.getElementById('bk-lastname').value.trim(),
-            email: document.getElementById('bk-email').value.trim().toLowerCase(),
-            mobileNumber: bkFormatPhone(rawPhone),
-            dateOfBirth: document.getElementById('bk-birthdate').value,
-            address: { 
-                street: document.getElementById('bk-street').value.trim(), 
-                houseNumber: document.getElementById('bk-housenumber').value.trim(), 
-                zip: document.getElementById('bk-zip').value.trim(), 
-                city: document.getElementById('bk-city').value.trim(), 
-                countryCode: 'DE' 
-            }
-        },
-        bankAccount: { 
-            accountHolder: document.getElementById('bk-accountholder').value.trim(), 
-            iban: ibanResult.iban 
-        },
-        consents: { termsAndConditions: true, privacyPolicy: true, sepaMandate: true }
-    };
-    
     try {
-        const res = await fetch(`${BK_API}/contract`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-        const result = await res.json();
+        // Get reCAPTCHA token
+        let recaptchaToken = '';
+        if (typeof grecaptcha !== 'undefined' && BK_RECAPTCHA_KEY) {
+            try {
+                recaptchaToken = await grecaptcha.execute(BK_RECAPTCHA_KEY, { action: 'contract' });
+            } catch (recaptchaErr) {
+                console.warn('reCAPTCHA failed:', recaptchaErr);
+            }
+        }
+        
+        const payload = {
+            studioId: BK_STUDIO_ID,
+            termId: bkSelectedRate.termId,
+            optionalModuleIds: bkSelectedModules.map(m => m.id),
+            recaptchaToken: recaptchaToken,
+            customer: {
+                gender: document.getElementById('bk-gender').value,
+                firstname: document.getElementById('bk-firstname').value.trim(),
+                lastname: document.getElementById('bk-lastname').value.trim(),
+                email: document.getElementById('bk-email').value.trim().toLowerCase(),
+                mobileNumber: bkFormatPhone(rawPhone),
+                dateOfBirth: document.getElementById('bk-birthdate').value,
+                address: { 
+                    street: document.getElementById('bk-street').value.trim(), 
+                    houseNumber: document.getElementById('bk-housenumber').value.trim(), 
+                    zip: document.getElementById('bk-zip').value.trim(), 
+                    city: document.getElementById('bk-city').value.trim(), 
+                    countryCode: 'DE' 
+                }
+            },
+            bankAccount: { 
+                accountHolder: document.getElementById('bk-accountholder').value.trim(), 
+                iban: ibanResult.iban 
+            },
+            consents: { termsAndConditions: true, privacyPolicy: true, sepaMandate: true }
+        };
+        
+        console.log('Sending to Magicline:', JSON.stringify(payload, null, 2));
+        
+        const res = await fetch(`${BK_API}/contracts`, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify(payload) 
+        });
+        
+        // Handle empty or HTML responses
+        const contentType = res.headers.get('content-type') || '';
+        let result;
+        const responseText = await res.text();
+        
+        if (contentType.includes('application/json') && responseText) {
+            result = JSON.parse(responseText);
+        } else if (responseText.includes('<!DOCTYPE') || responseText.includes('<html')) {
+            // HTML error response
+            const match = responseText.match(/MESSAGE:<\/td><td>([^<]+)/i) || responseText.match(/<title>([^<]+)/i);
+            throw new Error(match ? match[1] : 'Server-Fehler. Bitte später erneut versuchen.');
+        } else if (!responseText) {
+            throw new Error('Keine Antwort vom Server. Bitte später erneut versuchen.');
+        } else {
+            result = { message: responseText };
+        }
         
         if (!res.ok) {
-            // Log full error for debugging
-            console.error('Magicline API Error:', JSON.stringify(result, null, 2));
+            console.error('Magicline API Error:', res.status, result);
             
-            // Parse Magicline error - can come in various formats
+            // Parse error message
             let errorMsg = '';
             const fullJson = JSON.stringify(result).toLowerCase();
             
-            // Try different error structures
-            if (result.violations && result.violations.length > 0) {
+            if (result.violations?.length > 0) {
                 errorMsg = result.violations.map(v => v.message || v.field).join(', ');
-            } else if (result.errors && result.errors.length > 0) {
+            } else if (result.errors?.length > 0) {
                 errorMsg = result.errors.map(e => e.message || e.detail || e).join(', ');
-            } else if (result.detail) {
-                errorMsg = result.detail;
             } else {
-                errorMsg = result.message || result.error || 'Ein Fehler ist aufgetreten.';
+                errorMsg = result.detail || result.message || result.error || 'Ein Fehler ist aufgetreten.';
             }
             
-            // Map to user-friendly German messages
-            if (fullJson.includes('pattern') || fullJson.includes('invalid') || fullJson.includes('format')) {
-                if (fullJson.includes('iban')) errorMsg = 'Die IBAN ist ungültig. Bitte überprüfen.';
-                else if (fullJson.includes('phone') || fullJson.includes('mobile')) errorMsg = 'Die Telefonnummer ist ungültig. Bitte im Format 0176 12345678 eingeben.';
+            // User-friendly messages
+            if (fullJson.includes('recaptcha')) errorMsg = 'Sicherheitsüberprüfung fehlgeschlagen. Bitte Seite neu laden.';
+            else if (fullJson.includes('pattern') || fullJson.includes('invalid')) {
+                if (fullJson.includes('iban')) errorMsg = 'Die IBAN ist ungültig.';
+                else if (fullJson.includes('phone') || fullJson.includes('mobile')) errorMsg = 'Telefonnummer ungültig. Format: 0176 12345678';
                 else if (fullJson.includes('email')) errorMsg = 'Die E-Mail-Adresse ist ungültig.';
-                else if (fullJson.includes('zip') || fullJson.includes('postal')) errorMsg = 'Die PLZ ist ungültig (5 Ziffern).';
-                else if (fullJson.includes('birth') || fullJson.includes('date')) errorMsg = 'Das Geburtsdatum ist ungültig.';
+                else if (fullJson.includes('zip')) errorMsg = 'Die PLZ ist ungültig (5 Ziffern).';
                 else errorMsg = 'Eingabefehler: ' + errorMsg;
             }
             throw new Error(errorMsg);
