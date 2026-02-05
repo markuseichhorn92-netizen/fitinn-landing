@@ -322,7 +322,7 @@
         <div class="relative z-10 max-w-[1000px] mx-auto px-6 text-center pt-20">
             <!-- Promo Tag -->
             <div class="reveal inline-flex items-center gap-2 glass rounded-full px-5 py-2.5 mb-8">
-                <span class="text-accent text-sm font-medium">Februar & März beitragsfrei</span>
+                <span class="text-accent text-sm font-medium">Noch <span id="hero-promo-days" class="font-bold">--</span> Tage beitragsfrei</span>
             </div>
             
             <!-- Main Headline -->
@@ -360,11 +360,16 @@
         <div class="max-w-[1000px] mx-auto px-6 text-center">
             <p class="reveal text-accent text-sm font-semibold tracking-wide uppercase mb-4">Exklusives Angebot</p>
             <h2 class="reveal reveal-delay-1 text-headline md:text-display-3 font-bold mb-6">
-                2 Monate geschenkt.
+                <span id="promo-days-headline">2 Monate</span> geschenkt.
             </h2>
-            <p class="reveal reveal-delay-2 text-body-large text-apple-gray-400 max-w-[600px] mx-auto mb-12">
-                Bei Abschluss einer Jahres- oder Zweijahres-Mitgliedschaft trainierst du Februar und März komplett beitragsfrei.
+            <p class="reveal reveal-delay-2 text-body-large text-apple-gray-400 max-w-[600px] mx-auto mb-4">
+                Bei Abschluss einer Jahres- oder Zweijahres-Mitgliedschaft trainierst du bis zum <strong class="text-white">31. März 2026</strong> komplett beitragsfrei.
             </p>
+            <!-- Dynamic Countdown -->
+            <div class="reveal reveal-delay-2 inline-flex items-center gap-3 glass rounded-full px-6 py-3 mb-12">
+                <span class="text-accent text-2xl font-bold" id="promo-days-count">--</span>
+                <span class="text-apple-gray-300 text-sm">Tage geschenkt bei Anmeldung heute</span>
+            </div>
             
             <!-- Feature Grid -->
             <div class="reveal reveal-delay-3 grid md:grid-cols-3 gap-6 mt-16 stagger-children">
@@ -618,7 +623,7 @@
                 Bereit zu starten?
             </h2>
             <p class="text-xl text-black/70 mb-10">
-                Februar & März beitragsfrei. Nur für kurze Zeit.
+                Noch <span id="cta-promo-days" class="font-bold">--</span> Tage beitragsfrei trainieren. Nur bis 31. März.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <button onclick="openModal('booking')" class="bg-black hover:bg-apple-gray-800 text-white font-semibold px-10 py-4 rounded-full transition-all">
@@ -911,6 +916,45 @@
 
     <!-- JavaScript -->
     <script>
+        // Promo Countdown - Tage bis 31.03.2026
+        function updatePromoCountdown() {
+            const promoEnd = new Date('2026-03-31T23:59:59');
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            const diffTime = promoEnd - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            // Alle Countdown-Elemente aktualisieren
+            const elements = {
+                'promo-days-count': diffDays,
+                'hero-promo-days': diffDays,
+                'cta-promo-days': diffDays
+            };
+            
+            for (const [id, value] of Object.entries(elements)) {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value > 0 ? value : '0';
+            }
+            
+            // Headline dynamisch anpassen
+            const headlineEl = document.getElementById('promo-days-headline');
+            if (headlineEl) {
+                if (diffDays > 0) {
+                    if (diffDays >= 60) {
+                        headlineEl.textContent = '2 Monate';
+                    } else if (diffDays >= 30) {
+                        headlineEl.textContent = diffDays + ' Tage';
+                    } else {
+                        headlineEl.textContent = 'Noch ' + diffDays + ' Tage';
+                    }
+                } else {
+                    headlineEl.textContent = 'Angebot beendet';
+                }
+            }
+        }
+        updatePromoCountdown();
+        
         // Reveal animations
         const reveals = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {
