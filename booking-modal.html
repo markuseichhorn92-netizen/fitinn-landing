@@ -221,7 +221,6 @@
                         <div class="grid grid-cols-3 gap-2">
                             <select id="bk-birth-day" required class="bk-input text-center">
                                 <option value="">Tag</option>
-                                <script>for(let d=1;d<=31;d++)document.write(`<option value="${d}">${d}</option>`)</script>
                             </select>
                             <select id="bk-birth-month" required class="bk-input text-center">
                                 <option value="">Monat</option>
@@ -240,7 +239,6 @@
                             </select>
                             <select id="bk-birth-year" required class="bk-input text-center">
                                 <option value="">Jahr</option>
-                                <script>const bkCy=new Date().getFullYear();for(let y=bkCy-16;y>=bkCy-100;y--)document.write(`<option value="${y}">${y}</option>`)</script>
                             </select>
                         </div>
                         <input type="hidden" id="bk-birthdate">
@@ -552,6 +550,23 @@ document.getElementById('bk-iban')?.addEventListener('input', function(e) {
     let v = e.target.value.replace(/\s/g, '').toUpperCase();
     e.target.value = v.replace(/(.{4})/g, '$1 ').trim();
 });
+
+// Populate birthdate dropdowns
+(function() {
+    const daySelect = document.getElementById('bk-birth-day');
+    const yearSelect = document.getElementById('bk-birth-year');
+    if (daySelect) {
+        for (let d = 1; d <= 31; d++) {
+            daySelect.innerHTML += `<option value="${d}">${d}</option>`;
+        }
+    }
+    if (yearSelect) {
+        const currentYear = new Date().getFullYear();
+        for (let y = currentYear - 16; y >= currentYear - 100; y--) {
+            yearSelect.innerHTML += `<option value="${y}">${y}</option>`;
+        }
+    }
+})();
 
 // Combine birthdate dropdowns into hidden field
 function updateBkBirthdate() {

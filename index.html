@@ -906,11 +906,10 @@
                         <div>
                             <label class="block text-sm font-medium mb-2">Geburtsdatum</label>
                             <div class="grid grid-cols-3 gap-2">
-                                <select id="pt-birth-day" class="bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center appearance-none">
+                                <select id="pt-birth-day" class="bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center">
                                     <option value="">Tag</option>
-                                    <script>for(let d=1;d<=31;d++)document.write(`<option value="${d}">${d}</option>`)</script>
                                 </select>
-                                <select id="pt-birth-month" class="bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center appearance-none">
+                                <select id="pt-birth-month" class="bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center">
                                     <option value="">Monat</option>
                                     <option value="01">Jan</option>
                                     <option value="02">Feb</option>
@@ -925,9 +924,8 @@
                                     <option value="11">Nov</option>
                                     <option value="12">Dez</option>
                                 </select>
-                                <select id="pt-birth-year" class="bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center appearance-none">
+                                <select id="pt-birth-year" class="bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center">
                                     <option value="">Jahr</option>
-                                    <script>const cy=new Date().getFullYear();for(let y=cy-16;y>=cy-100;y--)document.write(`<option value="${y}">${y}</option>`)</script>
                                 </select>
                             </div>
                             <input type="hidden" id="pt-birthdate">
@@ -1228,6 +1226,23 @@
             };
         });
 
+        // Populate birthdate dropdowns
+        (function() {
+            const daySelect = document.getElementById('pt-birth-day');
+            const yearSelect = document.getElementById('pt-birth-year');
+            if (daySelect) {
+                for (let d = 1; d <= 31; d++) {
+                    daySelect.innerHTML += `<option value="${d}">${d}</option>`;
+                }
+            }
+            if (yearSelect) {
+                const currentYear = new Date().getFullYear();
+                for (let y = currentYear - 16; y >= currentYear - 100; y--) {
+                    yearSelect.innerHTML += `<option value="${y}">${y}</option>`;
+                }
+            }
+        })();
+        
         // Combine birthdate dropdowns into hidden field
         function updatePtBirthdate() {
             const day = document.getElementById('pt-birth-day').value.padStart(2, '0');
