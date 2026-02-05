@@ -708,31 +708,35 @@ async function bkSubmit() {
             }
         }
         
-        // Magicline expects fields at root level with camelCase
+        // Magicline expects nested structure: customer{} + contract{} + studioId
         const payload = {
             studioId: BK_STUDIO_ID,
-            termId: bkSelectedRate.termId,
-            optionalModuleIds: bkSelectedModules.map(m => m.id),
-            // Root level required fields
-            firstName: document.getElementById('bk-firstname').value.trim(),
-            lastName: document.getElementById('bk-lastname').value.trim(),
-            dateOfBirth: document.getElementById('bk-birthdate').value,
-            gender: document.getElementById('bk-gender').value,
-            email: document.getElementById('bk-email').value.trim().toLowerCase(),
-            mobileNumber: bkFormatPhone(rawPhone),
-            // Address
-            street: document.getElementById('bk-street').value.trim(),
-            houseNumber: document.getElementById('bk-housenumber').value.trim(),
-            zip: document.getElementById('bk-zip').value.trim(),
-            city: document.getElementById('bk-city').value.trim(),
-            countryCode: 'DE',
-            // Bank account
-            accountHolder: document.getElementById('bk-accountholder').value.trim(),
-            iban: ibanResult.iban,
-            // Consents
-            termsAndConditionsAccepted: true,
-            privacyPolicyAccepted: true,
-            sepaMandateAccepted: true
+            contract: {
+                rateBundleTermId: bkSelectedRate.termId,
+                optionalRateBundleTermModules: bkSelectedModules.map(m => ({ id: m.id })),
+                startDate: new Date().toISOString().split('T')[0]
+            },
+            customer: {
+                // Personal data (lowercase field names per API spec!)
+                firstname: document.getElementById('bk-firstname').value.trim(),
+                lastname: document.getElementById('bk-lastname').value.trim(),
+                dateOfBirth: document.getElementById('bk-birthdate').value,
+                gender: document.getElementById('bk-gender').value,
+                email: document.getElementById('bk-email').value.trim().toLowerCase(),
+                telephone_mobile: bkFormatPhone(rawPhone),
+                // Address
+                street: document.getElementById('bk-street').value.trim(),
+                houseNumber: document.getElementById('bk-housenumber').value.trim(),
+                zipCode: document.getElementById('bk-zip').value.trim(),
+                city: document.getElementById('bk-city').value.trim(),
+                countryCode: 'DE',
+                // Bank account
+                bankAccount: {
+                    accountHolder: document.getElementById('bk-accountholder').value.trim(),
+                    iban: ibanResult.iban
+                },
+                paymentChoice: 'DIRECT_DEBIT'
+            }
         };
         
         console.log('Sending to Magicline:', JSON.stringify(payload, null, 2));
