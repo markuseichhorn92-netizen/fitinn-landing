@@ -645,37 +645,99 @@ function bkRenderSummary() {
     document.getElementById('bk-first-payment').textContent = total + '€';
 }
 
+// Format phone number for Magicline API
+function bkFormatPhone(phone) {
+    let p = phone.replace(/[\s\-\/\(\)]/g, '');
+    // Convert German formats to international
+    if (p.startsWith('00')) p = '+' + p.slice(2);
+    else if (p.startsWith('0')) p = '+49' + p.slice(1);
+    else if (!p.startsWith('+')) p = '+49' + p;
+    return p;
+}
+
+// Validate IBAN (basic check for German IBANs)
+function bkValidateIBAN(iban) {
+    const clean = iban.replace(/\s/g, '').toUpperCase();
+    if (clean.length !== 22) return { valid: false, error: 'IBAN muss 22 Zeichen haben' };
+    if (!clean.startsWith('DE')) return { valid: false, error: 'Nur deutsche IBANs (DE...) werden akzeptiert' };
+    if (!/^DE\d{20}$/.test(clean)) return { valid: false, error: 'IBAN enthält ungültige Zeichen' };
+    return { valid: true, iban: clean };
+}
+
 async function bkSubmit() {
     const btn = document.getElementById('bk-submit-btn');
     const errDiv = document.getElementById('bk-form-error');
     errDiv.style.display = 'none';
+    
+    // Checkbox validation
     if (!document.getElementById('bk-agb').checked || !document.getElementById('bk-sepa').checked || !document.getElementById('bk-widerruf').checked) {
         errDiv.textContent = 'Bitte alle Checkboxen bestätigen.';
         errDiv.style.display = 'block';
         return;
     }
+    
+    // IBAN validation
+    const ibanResult = bkValidateIBAN(document.getElementById('bk-iban').value);
+    if (!ibanResult.valid) {
+        errDiv.textContent = ibanResult.error;
+        errDiv.style.display = 'block';
+        return;
+    }
+    
+    // Phone validation
+    const rawPhone = document.getElementById('bk-phone').value.trim();
+    if (rawPhone.length < 6) {
+        errDiv.textContent = 'Bitte eine gültige Telefonnummer eingeben.';
+        errDiv.style.display = 'block';
+        return;
+    }
+    
     btn.disabled = true;
     btn.innerHTML = '<span class="bk-spinner"></span>Wird gesendet...';
+    
     const payload = {
         studioId: BK_STUDIO_ID,
         termId: bkSelectedRate.termId,
         optionalModuleIds: bkSelectedModules.map(m => m.id),
         customer: {
             gender: document.getElementById('bk-gender').value,
-            firstname: document.getElementById('bk-firstname').value,
-            lastname: document.getElementById('bk-lastname').value,
-            email: document.getElementById('bk-email').value,
-            mobileNumber: document.getElementById('bk-phone').value,
+            firstname: document.getElementById('bk-firstname').value.trim(),
+            lastname: document.getElementById('bk-lastname').value.trim(),
+            email: document.getElementById('bk-email').value.trim().toLowerCase(),
+            mobileNumber: bkFormatPhone(rawPhone),
             dateOfBirth: document.getElementById('bk-birthdate').value,
-            address: { street: document.getElementById('bk-street').value, houseNumber: document.getElementById('bk-housenumber').value, zip: document.getElementById('bk-zip').value, city: document.getElementById('bk-city').value, countryCode: 'DE' }
+            address: { 
+                street: document.getElementById('bk-street').value.trim(), 
+                houseNumber: document.getElementById('bk-housenumber').value.trim(), 
+                zip: document.getElementById('bk-zip').value.trim(), 
+                city: document.getElementById('bk-city').value.trim(), 
+                countryCode: 'DE' 
+            }
         },
-        bankAccount: { accountHolder: document.getElementById('bk-accountholder').value, iban: document.getElementById('bk-iban').value.replace(/\s/g, '') },
+        bankAccount: { 
+            accountHolder: document.getElementById('bk-accountholder').value.trim(), 
+            iban: ibanResult.iban 
+        },
         consents: { termsAndConditions: true, privacyPolicy: true, sepaMandate: true }
     };
+    
     try {
         const res = await fetch(`${BK_API}/contract`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         const result = await res.json();
-        if (!res.ok) throw new Error(result.message || result.error || 'Fehler');
+        
+        if (!res.ok) {
+            // Parse Magicline error for user-friendly message
+            let errorMsg = result.message || result.error || 'Ein Fehler ist aufgetreten.';
+            if (errorMsg.includes('pattern')) {
+                if (errorMsg.toLowerCase().includes('iban')) errorMsg = 'Die IBAN ist ungültig. Bitte überprüfen.';
+                else if (errorMsg.toLowerCase().includes('phone') || errorMsg.toLowerCase().includes('mobile')) errorMsg = 'Die Telefonnummer ist ungültig. Format: +49 176 12345678';
+                else if (errorMsg.toLowerCase().includes('email')) errorMsg = 'Die E-Mail-Adresse ist ungültig.';
+                else if (errorMsg.toLowerCase().includes('zip')) errorMsg = 'Die PLZ ist ungültig (5 Ziffern).';
+                else errorMsg = 'Ein Feld enthält ungültige Daten. Bitte alle Eingaben prüfen.';
+            }
+            throw new Error(errorMsg);
+        }
+        
         document.getElementById('bk-confirm-rate').textContent = bkSelectedRate.name;
         document.getElementById('bk-confirm-name').textContent = `${payload.customer.firstname} ${payload.customer.lastname}`;
         document.getElementById('bk-confirm-contract').textContent = result.contractNumber || result.id || '-';
