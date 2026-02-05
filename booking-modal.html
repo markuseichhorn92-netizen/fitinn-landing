@@ -701,18 +701,38 @@ function bkGoToStep(n) {
     document.getElementById('bk-header-subtitle').textContent = subtitles[n] || '';
     if (n === 2) bkRenderModules();
     if (n === 6) bkRenderSummary();
-    // Pre-fill from lead data
-    if (n === 3 && bkLeadData.name) {
-        const nameParts = bkLeadData.name.split(' ');
-        if (!document.getElementById('bk-firstname').value) {
-            document.getElementById('bk-firstname').value = nameParts[0] || '';
-            document.getElementById('bk-lastname').value = nameParts.slice(1).join(' ') || '';
+    // Pre-fill from lead data on Step 3 (Personal Data)
+    if (n === 3 && bkLeadData) {
+        console.log('Pre-filling Step 3 with lead data:', bkLeadData);
+        
+        // Always pre-fill if we have lead data (even if fields have values - user can change them)
+        if (bkLeadData.name) {
+            const nameParts = bkLeadData.name.trim().split(' ');
+            const firstname = nameParts[0] || '';
+            const lastname = nameParts.slice(1).join(' ') || '';
+            
+            const fnField = document.getElementById('bk-firstname');
+            const lnField = document.getElementById('bk-lastname');
+            
+            if (fnField && !fnField.value) fnField.value = firstname;
+            if (lnField && !lnField.value) lnField.value = lastname;
         }
-        if (!document.getElementById('bk-email').value && bkLeadData.email) {
-            document.getElementById('bk-email').value = bkLeadData.email;
+        
+        if (bkLeadData.email) {
+            const emailField = document.getElementById('bk-email');
+            if (emailField && !emailField.value) emailField.value = bkLeadData.email;
         }
-        if (!document.getElementById('bk-phone').value && bkLeadData.phone) {
-            document.getElementById('bk-phone').value = bkLeadData.phone;
+        
+        if (bkLeadData.phone) {
+            const phoneField = document.getElementById('bk-phone');
+            if (phoneField && !phoneField.value) {
+                // Format phone number
+                let phone = bkLeadData.phone.replace(/\s/g, '');
+                if (!phone.startsWith('+') && !phone.startsWith('0')) {
+                    phone = '+49' + phone;
+                }
+                phoneField.value = phone;
+            }
         }
     }
 }
