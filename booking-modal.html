@@ -389,7 +389,7 @@
 <script>
 const BK_API = 'https://fit-inn-trier.api.magicline.com/connect/v1';
 const BK_STUDIO_ID = 1210005460;
-const LEADS_API = 'https://srv1309486.hstgr.cloud/api/leads';
+const BK_LEADS_API = window.LEADS_API || 'https://srv1309486.hstgr.cloud/api/leads';
 let bkCurrentStep = 0;
 let bkSelectedRate = null;
 let bkSelectedModules = [];
@@ -411,7 +411,7 @@ async function bkCaptureLeadAndContinue() {
     bkLeadData = { name, phone };
     
     // Save lead to backend (async, don't wait)
-    fetch(LEADS_API, {
+    fetch(BK_LEADS_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, phone, type: 'mitgliedschaft', source: 'landing-page' })
