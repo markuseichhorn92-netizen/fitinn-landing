@@ -828,8 +828,9 @@
             for (let i = 0; i < startDay; i++) container.innerHTML += '<div class="pt-day"></div>';
             
             for (let day = 1; day <= lastDay.getDate(); day++) {
+                // Fix: Manual date string to avoid timezone issues with toISOString()
+                const ds = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
                 const d = new Date(year, month, day);
-                const ds = d.toISOString().split('T')[0];
                 const slots = ptSlotsData?.slotsByDate?.[ds] || [];
                 const div = document.createElement('div');
                 div.className = 'pt-day';
