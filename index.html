@@ -1367,13 +1367,31 @@
             <div class="reveal reveal-delay-3 grid md:grid-cols-3 gap-6 text-left mb-12">
                 <div class="liquid-glass liquid-glass-hover p-6">
                     <div class="relative z-10">
-                        <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center text-lg mb-4">🕐</div>
-                        <h3 class="font-semibold mb-2">Öffnungszeiten</h3>
-                        <p class="text-sm text-apple-gray-400">
-                            Mo-Fr: 09:30-13:00 | 15:00-21:30<br>
-                            Sa: 13:00-18:00<br>
-                            So: 09:00-15:00
-                        </p>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center text-lg">🕐</div>
+                            <div>
+                                <h3 class="font-semibold">Öffnungszeiten</h3>
+                                <p id="open-status" class="text-xs text-green-400 font-medium"></p>
+                            </div>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between items-center py-1.5 border-b border-white/5">
+                                <span class="text-apple-gray-300">Mo – Fr</span>
+                                <div class="text-right">
+                                    <span class="text-white font-medium">09:30 – 13:00</span>
+                                    <span class="text-apple-gray-500 mx-1">&</span>
+                                    <span class="text-white font-medium">15:00 – 21:30</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center py-1.5 border-b border-white/5">
+                                <span class="text-apple-gray-300">Samstag</span>
+                                <span class="text-white font-medium">13:00 – 18:00</span>
+                            </div>
+                            <div class="flex justify-between items-center py-1.5">
+                                <span class="text-apple-gray-300">Sonntag</span>
+                                <span class="text-white font-medium">09:00 – 15:00</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="liquid-glass liquid-glass-hover p-6">
@@ -1428,6 +1446,7 @@
                 <span class="text-apple-gray-500 text-sm">© 2026</span>
             </div>
             <div class="flex gap-6 text-sm">
+                <a href="/agb.html" class="text-apple-gray-500 hover:text-white transition-colors">AGB</a>
                 <a href="/impressum.html" class="text-apple-gray-500 hover:text-white transition-colors">Impressum</a>
                 <a href="/datenschutz.html" class="text-apple-gray-500 hover:text-white transition-colors">Datenschutz</a>
             </div>
@@ -1775,6 +1794,60 @@
                 requestAnimationFrame(updateParallax);
             }, { passive: true });
         })();
+        
+        // Open Status - Dynamisch berechnen
+        function updateOpenStatus() {
+            const statusEl = document.getElementById('open-status');
+            if (!statusEl) return;
+            
+            const now = new Date();
+            const day = now.getDay(); // 0 = Sonntag
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const time = hours * 60 + minutes;
+            
+            let isOpen = false;
+            let closesAt = '';
+            let opensAt = '';
+            
+            if (day >= 1 && day <= 5) { // Mo-Fr
+                if ((time >= 570 && time < 780) || (time >= 900 && time < 1290)) { // 9:30-13:00 oder 15:00-21:30
+                    isOpen = true;
+                    closesAt = time < 780 ? '13:00' : '21:30';
+                } else if (time < 570) {
+                    opensAt = '09:30';
+                } else if (time >= 780 && time < 900) {
+                    opensAt = '15:00';
+                }
+            } else if (day === 6) { // Sa
+                if (time >= 780 && time < 1080) { // 13:00-18:00
+                    isOpen = true;
+                    closesAt = '18:00';
+                } else if (time < 780) {
+                    opensAt = '13:00';
+                }
+            } else if (day === 0) { // So
+                if (time >= 540 && time < 900) { // 9:00-15:00
+                    isOpen = true;
+                    closesAt = '15:00';
+                } else if (time < 540) {
+                    opensAt = '09:00';
+                }
+            }
+            
+            if (isOpen) {
+                statusEl.innerHTML = `<span class="inline-block w-2 h-2 rounded-full bg-green-400 mr-1 animate-pulse"></span>Jetzt geöffnet · bis ${closesAt}`;
+                statusEl.className = 'text-xs text-green-400 font-medium';
+            } else if (opensAt) {
+                statusEl.innerHTML = `Öffnet um ${opensAt}`;
+                statusEl.className = 'text-xs text-apple-gray-500 font-medium';
+            } else {
+                statusEl.innerHTML = 'Heute geschlossen';
+                statusEl.className = 'text-xs text-apple-gray-500 font-medium';
+            }
+        }
+        updateOpenStatus();
+        setInterval(updateOpenStatus, 60000); // Update every minute
         
         // Promo Countdown - Tage bis 31.03.2026
         function updatePromoCountdown() {
