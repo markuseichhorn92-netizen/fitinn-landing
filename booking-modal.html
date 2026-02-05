@@ -161,13 +161,18 @@
                         <input type="text" id="bk-lead-name" placeholder="Vor- und Nachname" class="bk-input">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium mb-2">Handynummer</label>
+                        <label class="block text-sm font-medium mb-2">E-Mail</label>
+                        <input type="email" id="bk-lead-email" placeholder="deine@email.de" class="bk-input">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Handynummer <span class="text-white/40 font-normal">(optional für WhatsApp)</span></label>
                         <input type="tel" id="bk-lead-phone" placeholder="0176 12345678" class="bk-input">
                     </div>
                 </div>
                 
                 <p class="text-xs text-white/40 mt-4">
-                    📱 Wir schicken dir eine kurze Bestätigung per WhatsApp.
+                    📧 Du erhältst eine Bestätigung per E-Mail.<br>
+                    📱 Mit Handynummer auch per WhatsApp.
                 </p>
                 
                 <button type="button" id="bk-btn-0" onclick="bkCaptureLeadAndContinue()" class="w-full bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full mt-6 transition-all">
@@ -564,24 +569,37 @@ const bkStepNames = { 0: 'Kontakt', 1: 'Tarif', 2: 'Upgrades', 3: 'Daten', 4: 'A
 async function bkCaptureLeadAndContinue() {
     console.log('bkCaptureLeadAndContinue called');
     const name = document.getElementById('bk-lead-name')?.value?.trim() || '';
+    const email = document.getElementById('bk-lead-email')?.value?.trim() || '';
     const phone = document.getElementById('bk-lead-phone')?.value?.trim() || '';
-    console.log('Name:', name, 'Phone:', phone);
+    console.log('Name:', name, 'Email:', email, 'Phone:', phone);
     
-    if (!name || !phone) {
-        alert('Bitte Name und Handynummer eingeben');
+    // Validate: Name and Email required, Phone optional
+    if (!name) {
+        alert('Bitte gib deinen Namen ein');
+        return;
+    }
+    if (!email || !email.includes('@')) {
+        alert('Bitte gib eine gültige E-Mail-Adresse ein');
         return;
     }
     
-    bkLeadData = { name, phone };
+    bkLeadData = { name, email, phone };
     
-    // Save lead to backend (async, don't wait)
+    // Save lead to backend - sends WhatsApp (if phone) AND Email
     fetch(BK_LEADS_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, type: 'mitgliedschaft', source: 'landing-page' })
+        body: JSON.stringify({ 
+            name, 
+            email,
+            phone: phone || null, 
+            type: 'mitgliedschaft', 
+            source: 'landing-page',
+            sendConfirmation: true  // Trigger WhatsApp + Email
+        })
     }).catch(e => console.error('Lead save error:', e));
     
-    // Continue to next step
+    // Continue to next step immediately
     bkGoToStep(1);
 }
 
@@ -621,6 +639,9 @@ function bkGoToStep(n) {
         if (!document.getElementById('bk-firstname').value) {
             document.getElementById('bk-firstname').value = nameParts[0] || '';
             document.getElementById('bk-lastname').value = nameParts.slice(1).join(' ') || '';
+        }
+        if (!document.getElementById('bk-email').value && bkLeadData.email) {
+            document.getElementById('bk-email').value = bkLeadData.email;
         }
         if (!document.getElementById('bk-phone').value && bkLeadData.phone) {
             document.getElementById('bk-phone').value = bkLeadData.phone;
