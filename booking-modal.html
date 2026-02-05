@@ -62,10 +62,12 @@
     }
     .pb-safe-bk { padding-bottom: env(safe-area-inset-bottom, 20px); }
 </style>
-<div id="modal-booking" class="modal-overlay fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/80 backdrop-blur-xl">
-    <div class="modal-content bg-[#1c1c1e] rounded-t-3xl md:rounded-3xl w-full md:max-w-xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto border-t md:border border-white/10 pb-safe-bk">
+<div id="modal-booking" class="modal-overlay fixed inset-0 z-[100] bg-black/80 backdrop-blur-xl">
+    <div class="modal-content bg-[#1c1c1e] w-full overflow-y-auto border-t border-white/10 pb-safe-bk">
+        <!-- Handle (Mobile) -->
+        <div class="modal-handle md:hidden" style="width:40px;height:5px;background:rgba(255,255,255,0.3);border-radius:3px;margin:12px auto;"></div>
         <!-- Header -->
-        <div class="sticky top-0 bg-[#1c1c1e]/95 backdrop-blur-xl border-b border-white/10 p-6 flex justify-between items-center z-10">
+        <div class="sticky top-0 bg-[#1c1c1e]/95 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex justify-between items-center z-10">
             <div>
                 <h2 class="text-xl font-bold">Mitgliedschaft</h2>
                 <p class="text-sm text-white/50" id="bk-header-subtitle">Wähle deinen Tarif</p>
