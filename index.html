@@ -93,17 +93,35 @@
             background-attachment: fixed;
         }
         
-        /* Wave divider */
-        .wave-divider {
-            position: relative;
-            height: 80px;
-            overflow: hidden;
+        /* Gradient divider */
+        .gradient-divider {
+            height: 120px;
+            background: linear-gradient(180deg, transparent 0%, rgba(221,155,67,0.03) 50%, transparent 100%);
         }
-        .wave-divider svg {
+        .gradient-divider-teal {
+            height: 120px;
+            background: linear-gradient(180deg, transparent 0%, rgba(9,73,87,0.08) 50%, transparent 100%);
+        }
+        
+        /* Section background decorations */
+        .section-bg-icon {
             position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 80px;
+            opacity: 0.02;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Clean card style (less glassy) */
+        .clean-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .clean-card:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-4px);
         }
         
         /* Element-based scroll transitions */
@@ -802,21 +820,21 @@
             
             <!-- Feature Grid - Liquid Glass -->
             <div class="reveal reveal-delay-3 grid md:grid-cols-3 gap-6 mt-16 stagger-children">
-                <div class="liquid-glass liquid-glass-hover p-8 text-left cursor-default">
+                <div class="clean-card p-8 text-left cursor-default">
                     <div class="relative z-10">
                         <div class="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center text-3xl mb-5">🏋️</div>
                         <h3 class="text-lg font-semibold mb-2">Voller Zugang</h3>
                         <p class="text-apple-gray-400 text-sm">Alle Geräte. Alle Bereiche. Keine Einschränkungen.</p>
                     </div>
                 </div>
-                <div class="liquid-glass liquid-glass-hover p-8 text-left cursor-default">
+                <div class="clean-card p-8 text-left cursor-default">
                     <div class="relative z-10">
                         <div class="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center text-3xl mb-5">📋</div>
                         <h3 class="text-lg font-semibold mb-2">Trainingsplan</h3>
                         <p class="text-apple-gray-400 text-sm">Individuell auf dich abgestimmt. Von Experten erstellt.</p>
                     </div>
                 </div>
-                <div class="liquid-glass liquid-glass-hover p-8 text-left cursor-default">
+                <div class="clean-card p-8 text-left cursor-default">
                     <div class="relative z-10">
                         <div class="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center text-3xl mb-5">📊</div>
                         <h3 class="text-lg font-semibold mb-2">Körperanalyse</h3>
@@ -828,15 +846,17 @@
     </section>
 
     <!-- Features - Light Section: Was uns unterscheidet -->
-    <!-- Wave Divider -->
-    <div class="wave-divider">
-        <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
-            <path d="M0,40 C300,80 600,0 900,40 C1050,60 1150,50 1200,40 L1200,80 L0,80 Z" fill="rgba(9,73,87,0.15)"/>
-        </svg>
-    </div>
+    <!-- Gradient Divider -->
+    <div class="gradient-divider-teal"></div>
     
-    <section id="features" class="py-32 section-dark">
-        <div class="max-w-[1200px] mx-auto px-6">
+    <section id="features" class="py-32 section-dark relative">
+        <!-- Background decoration -->
+        <div class="section-bg-icon absolute -right-20 top-1/2 -translate-y-1/2">
+            <svg width="500" height="500" viewBox="0 0 24 24" fill="rgba(9,73,87,0.4)">
+                <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
+            </svg>
+        </div>
+        <div class="max-w-[1200px] mx-auto px-6 relative z-10">
             <div class="text-center mb-16">
                 <p class="reveal text-teal text-sm font-semibold tracking-wide uppercase mb-4">Warum FIT-INN</p>
                 <h2 class="reveal reveal-delay-1 text-headline md:text-display-3 font-bold">
@@ -850,7 +870,7 @@
             <!-- USP Grid - Liquid Glass Light -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
                 <!-- USP 1 -->
-                <div class="reveal liquid-glass liquid-glass-hover p-8">
+                <div class="reveal clean-card p-8">
                     <div class="relative z-10">
                         <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -863,7 +883,7 @@
                 </div>
                 
                 <!-- USP 2 -->
-                <div class="reveal reveal-delay-1 liquid-glass liquid-glass-hover p-8">
+                <div class="reveal reveal-delay-1 clean-card p-8">
                     <div class="relative z-10">
                         <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -876,7 +896,7 @@
                 </div>
                 
                 <!-- USP 3 -->
-                <div class="reveal reveal-delay-2 liquid-glass liquid-glass-hover p-8">
+                <div class="reveal reveal-delay-2 clean-card p-8">
                     <div class="relative z-10">
                         <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -889,7 +909,7 @@
                 </div>
                 
                 <!-- USP 4 -->
-                <div class="reveal liquid-glass liquid-glass-hover p-8">
+                <div class="reveal clean-card p-8">
                     <div class="relative z-10">
                         <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -902,7 +922,7 @@
                 </div>
                 
                 <!-- USP 5 -->
-                <div class="reveal reveal-delay-1 liquid-glass liquid-glass-hover p-8">
+                <div class="reveal reveal-delay-1 clean-card p-8">
                     <div class="relative z-10">
                         <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -915,7 +935,7 @@
                 </div>
                 
                 <!-- USP 6 -->
-                <div class="reveal reveal-delay-2 liquid-glass liquid-glass-hover p-8">
+                <div class="reveal reveal-delay-2 clean-card p-8">
                     <div class="relative z-10">
                         <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -931,12 +951,8 @@
     </section>
 
     <!-- Pricing - Dark Section with Liquid Glass -->
-    <!-- Wave Divider -->
-    <div class="wave-divider">
-        <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
-            <path d="M0,60 C150,40 350,80 600,50 C850,20 1050,60 1200,40 L1200,80 L0,80 Z" fill="rgba(221,155,67,0.05)"/>
-        </svg>
-    </div>
+    <!-- Gradient Divider -->
+    <div class="gradient-divider"></div>
 
     <section id="preise" class="py-32 section-dark relative overflow-hidden">
         <!-- Ambient background glow -->
@@ -968,7 +984,7 @@
             
             <div class="grid md:grid-cols-3 gap-6 lg:gap-8 stagger-children items-stretch pt-6">
                 <!-- Flex -->
-                <div class="reveal liquid-glass liquid-glass-hover p-8 relative z-10 h-full">
+                <div class="reveal clean-card p-8 relative z-10 h-full">
                     <div class="relative z-10">
                         <h3 class="text-xl font-bold mb-1">Flex</h3>
                         <p class="text-apple-gray-400 text-sm mb-8">Maximale Flexibilität</p>
@@ -1038,7 +1054,7 @@
                 </div>
                 
                 <!-- Basic -->
-                <div class="reveal reveal-delay-2 liquid-glass liquid-glass-hover p-8 relative z-10 h-full">
+                <div class="reveal reveal-delay-2 clean-card p-8 relative z-10 h-full">
                     <div class="relative z-10">
                         <h3 class="text-xl font-bold mb-1">Basic</h3>
                         <p class="text-apple-gray-400 text-sm mb-8">Der Klassiker</p>
@@ -1079,12 +1095,8 @@
         </div>
     </section>
 
-    <!-- Wave Divider -->
-    <div class="wave-divider">
-        <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
-            <path d="M0,40 C200,10 400,70 600,40 C800,10 1000,60 1200,40 L1200,80 L0,80 Z" fill="rgba(221,155,67,0.08)"/>
-        </svg>
-    </div>
+    <!-- Gradient Divider -->
+    <div class="gradient-divider"></div>
 
     <!-- Testimonials - Carousel with Google Reviews -->
     <section class="py-32 section-dark overflow-hidden">
@@ -1461,7 +1473,16 @@
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="py-32 section-dark">
+    <!-- Gradient Divider -->
+    <div class="gradient-divider-teal"></div>
+    
+    <section id="faq" class="py-32 section-dark relative">
+        <!-- Background decoration -->
+        <div class="section-bg-icon absolute -left-20 top-1/2 -translate-y-1/2">
+            <svg width="400" height="400" viewBox="0 0 24 24" fill="rgba(221,155,67,0.3)">
+                <path d="M11.07 12.85c.77-1.39 2.25-2.21 3.11-3.44.91-1.29.4-3.7-2.18-3.7-1.69 0-2.52 1.28-2.87 2.34L6.54 6.96C7.25 4.83 9.18 3 11.99 3c2.35 0 3.96 1.07 4.78 2.41.7 1.15 1.11 3.3.03 4.9-1.2 1.77-2.35 2.31-2.97 3.45-.25.46-.35.76-.35 2.24h-2.89c-.01-.78-.13-2.05.48-3.15zM14 20c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/>
+            </svg>
+        </div>
         <div class="max-w-[800px] mx-auto px-6">
             <div class="text-center mb-16">
                 <p class="reveal text-accent text-sm font-semibold tracking-wide uppercase mb-4">Häufige Fragen</p>
@@ -1530,7 +1551,16 @@
     </section>
 
     <!-- Contact - Dark -->
-    <section id="kontakt" class="py-32 section-dark">
+    <!-- Gradient Divider -->
+    <div class="gradient-divider"></div>
+    
+    <section id="kontakt" class="py-32 section-dark relative">
+        <!-- Background decoration -->
+        <div class="section-bg-icon absolute -right-10 top-1/3">
+            <svg width="350" height="350" viewBox="0 0 24 24" fill="rgba(9,73,87,0.3)">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+        </div>
         <div class="max-w-[800px] mx-auto px-6 text-center">
             <p class="reveal text-accent text-sm font-semibold tracking-wide uppercase mb-4">Kontakt</p>
             <h2 class="reveal reveal-delay-1 text-headline md:text-display-3 font-bold mb-6">
@@ -1541,7 +1571,7 @@
             </p>
             
             <div class="reveal reveal-delay-3 grid md:grid-cols-3 gap-6 text-left mb-12">
-                <div class="liquid-glass liquid-glass-hover p-6 h-full">
+                <div class="clean-card p-6 h-full">
                     <div class="relative z-10 h-full flex flex-col">
                         <div class="flex items-center gap-3 mb-4">
                             <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center text-lg">🕐</div>
@@ -1570,7 +1600,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="liquid-glass liquid-glass-hover p-6 h-full">
+                <div class="clean-card p-6 h-full">
                     <div class="relative z-10 h-full flex flex-col">
                         <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center text-lg mb-4">📍</div>
                         <h3 class="font-semibold mb-3">Adresse</h3>
@@ -1584,7 +1614,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="liquid-glass liquid-glass-hover p-6 h-full">
+                <div class="clean-card p-6 h-full">
                     <div class="relative z-10 h-full flex flex-col">
                         <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center text-lg mb-4">💬</div>
                         <h3 class="font-semibold mb-3">Kontakt</h3>
