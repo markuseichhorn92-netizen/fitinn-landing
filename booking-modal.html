@@ -712,7 +712,6 @@ async function bkSubmit() {
             studioId: BK_STUDIO_ID,
             termId: bkSelectedRate.termId,
             optionalModuleIds: bkSelectedModules.map(m => m.id),
-            recaptchaToken: recaptchaToken,
             customer: {
                 gender: document.getElementById('bk-gender').value,
                 firstname: document.getElementById('bk-firstname').value.trim(),
@@ -736,8 +735,11 @@ async function bkSubmit() {
         };
         
         console.log('Sending to Magicline:', JSON.stringify(payload, null, 2));
+        console.log('reCAPTCHA token:', recaptchaToken ? 'present (' + recaptchaToken.substring(0,20) + '...)' : 'MISSING');
         
-        const res = await fetch(`${BK_API}/contracts`, { 
+        // Magicline expects recaptchaToken as query parameter
+        const apiUrl = `${BK_API}/contracts?recaptchaToken=${encodeURIComponent(recaptchaToken)}`;
+        const res = await fetch(apiUrl, { 
             method: 'POST', 
             headers: { 'Content-Type': 'application/json' }, 
             body: JSON.stringify(payload) 
