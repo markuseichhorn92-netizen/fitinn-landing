@@ -648,11 +648,12 @@ function bkRenderSummary() {
 // Format phone number for Magicline API
 function bkFormatPhone(phone) {
     let p = phone.replace(/[\s\-\/\(\)]/g, '');
-    // Convert German formats to international
+    // Convert German formats to international E.164
     if (p.startsWith('00')) p = '+' + p.slice(2);
     else if (p.startsWith('0')) p = '+49' + p.slice(1);
     else if (!p.startsWith('+')) p = '+49' + p;
-    return p;
+    // Ensure only digits after + (E.164 format)
+    return '+' + p.slice(1).replace(/\D/g, '');
 }
 
 // Validate IBAN (basic check for German IBANs)
@@ -726,14 +727,32 @@ async function bkSubmit() {
         const result = await res.json();
         
         if (!res.ok) {
-            // Parse Magicline error for user-friendly message
-            let errorMsg = result.message || result.error || 'Ein Fehler ist aufgetreten.';
-            if (errorMsg.includes('pattern')) {
-                if (errorMsg.toLowerCase().includes('iban')) errorMsg = 'Die IBAN ist ungültig. Bitte überprüfen.';
-                else if (errorMsg.toLowerCase().includes('phone') || errorMsg.toLowerCase().includes('mobile')) errorMsg = 'Die Telefonnummer ist ungültig. Format: +49 176 12345678';
-                else if (errorMsg.toLowerCase().includes('email')) errorMsg = 'Die E-Mail-Adresse ist ungültig.';
-                else if (errorMsg.toLowerCase().includes('zip')) errorMsg = 'Die PLZ ist ungültig (5 Ziffern).';
-                else errorMsg = 'Ein Feld enthält ungültige Daten. Bitte alle Eingaben prüfen.';
+            // Log full error for debugging
+            console.error('Magicline API Error:', JSON.stringify(result, null, 2));
+            
+            // Parse Magicline error - can come in various formats
+            let errorMsg = '';
+            const fullJson = JSON.stringify(result).toLowerCase();
+            
+            // Try different error structures
+            if (result.violations && result.violations.length > 0) {
+                errorMsg = result.violations.map(v => v.message || v.field).join(', ');
+            } else if (result.errors && result.errors.length > 0) {
+                errorMsg = result.errors.map(e => e.message || e.detail || e).join(', ');
+            } else if (result.detail) {
+                errorMsg = result.detail;
+            } else {
+                errorMsg = result.message || result.error || 'Ein Fehler ist aufgetreten.';
+            }
+            
+            // Map to user-friendly German messages
+            if (fullJson.includes('pattern') || fullJson.includes('invalid') || fullJson.includes('format')) {
+                if (fullJson.includes('iban')) errorMsg = 'Die IBAN ist ungültig. Bitte überprüfen.';
+                else if (fullJson.includes('phone') || fullJson.includes('mobile')) errorMsg = 'Die Telefonnummer ist ungültig. Bitte im Format 0176 12345678 eingeben.';
+                else if (fullJson.includes('email')) errorMsg = 'Die E-Mail-Adresse ist ungültig.';
+                else if (fullJson.includes('zip') || fullJson.includes('postal')) errorMsg = 'Die PLZ ist ungültig (5 Ziffern).';
+                else if (fullJson.includes('birth') || fullJson.includes('date')) errorMsg = 'Das Geburtsdatum ist ungültig.';
+                else errorMsg = 'Eingabefehler: ' + errorMsg;
             }
             throw new Error(errorMsg);
         }
