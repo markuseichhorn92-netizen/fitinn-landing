@@ -562,8 +562,42 @@ const BK_LEADS_API = window.LEADS_API || 'https://srv1309486.hstgr.cloud/api/lea
 let bkCurrentStep = 0;
 let bkSelectedRate = null;
 let bkSelectedModules = [];
-let bkLeadData = { name: null, phone: null };
+let bkLeadData = { name: null, email: null, phone: null };
 const bkStepNames = { 0: 'Kontakt', 1: 'Tarif', 2: 'Upgrades', 3: 'Daten', 4: 'Adresse', 5: 'Zahlung', 6: 'Bestätigen', 7: 'Fertig' };
+
+// Check URL params for returning leads (from email link)
+function bkCheckReturningLead() {
+    const params = new URLSearchParams(window.location.search);
+    const leadId = params.get('lead');
+    const name = params.get('name');
+    const email = params.get('email');
+    
+    if (leadId && name) {
+        // Returning lead from email - skip Step 0
+        bkLeadData = { 
+            id: leadId,
+            name: decodeURIComponent(name), 
+            email: email ? decodeURIComponent(email) : null,
+            phone: null,
+            isReturning: true 
+        };
+        console.log('Returning lead detected:', bkLeadData);
+        return true;
+    }
+    return false;
+}
+
+// Initialize on modal open - check for returning lead
+const bkOriginalOpenModal = window.openModal;
+window.openModal = function(type) {
+    if (type === 'booking') {
+        if (bkCheckReturningLead()) {
+            // Skip to Step 1 for returning leads
+            setTimeout(() => bkGoToStep(1), 100);
+        }
+    }
+    if (bkOriginalOpenModal) bkOriginalOpenModal(type);
+};
 
 // Lead Capture Function for Booking
 async function bkCaptureLeadAndContinue() {
