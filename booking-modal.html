@@ -398,8 +398,10 @@ const bkStepNames = { 0: 'Kontakt', 1: 'Tarif', 2: 'Upgrades', 3: 'Daten', 4: 'A
 
 // Lead Capture Function for Booking
 async function bkCaptureLeadAndContinue() {
-    const name = document.getElementById('bk-lead-name').value.trim();
-    const phone = document.getElementById('bk-lead-phone').value.trim();
+    console.log('bkCaptureLeadAndContinue called');
+    const name = document.getElementById('bk-lead-name')?.value?.trim() || '';
+    const phone = document.getElementById('bk-lead-phone')?.value?.trim() || '';
+    console.log('Name:', name, 'Phone:', phone);
     
     if (!name || !phone) {
         alert('Bitte Name und Handynummer eingeben');
@@ -435,9 +437,12 @@ document.querySelectorAll('.bk-rate-card').forEach(card => {
 });
 
 function bkGoToStep(n) {
+    console.log('bkGoToStep called with:', n);
     bkCurrentStep = n;
     document.querySelectorAll('.bk-form-step').forEach(s => s.classList.remove('active'));
-    document.getElementById(`bk-step-${n}`).classList.add('active');
+    const stepEl = document.getElementById(`bk-step-${n}`);
+    console.log('Step element:', stepEl);
+    if (stepEl) stepEl.classList.add('active');
     document.getElementById('bk-progress-bar').style.width = `${((n+1)/8)*100}%`;
     document.getElementById('bk-current-step').textContent = n;
     document.getElementById('bk-step-name').textContent = bkStepNames[n];
