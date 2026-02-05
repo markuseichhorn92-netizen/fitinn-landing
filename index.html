@@ -133,12 +133,259 @@
             box-shadow: 0 0 60px rgba(221, 155, 67, 0.3);
         }
         
-        /* Glass morphism */
+        /* Glass morphism - Basic */
         .glass {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* ============================================ */
+        /* LIQUID GLASS - iOS 26 Style */
+        /* ============================================ */
+        
+        .liquid-glass {
+            position: relative;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.12) 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                rgba(255, 255, 255, 0.08) 100%
+            );
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-radius: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+        
+        /* Light reflection on top */
+        .liquid-glass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.5),
+                transparent
+            );
+        }
+        
+        /* Subtle inner glow */
+        .liquid-glass::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.08) 0%,
+                transparent 100%
+            );
+            pointer-events: none;
+            border-radius: 32px 32px 0 0;
+        }
+        
+        /* Liquid Glass - Highlighted (Featured) */
+        .liquid-glass-accent {
+            position: relative;
+            background: linear-gradient(
+                135deg,
+                rgba(221, 155, 67, 0.15) 0%,
+                rgba(221, 155, 67, 0.05) 50%,
+                rgba(221, 155, 67, 0.1) 100%
+            );
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-radius: 32px;
+            border: 1px solid rgba(221, 155, 67, 0.4);
+            box-shadow: 
+                0 8px 32px rgba(221, 155, 67, 0.2),
+                0 0 80px rgba(221, 155, 67, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(221, 155, 67, 0.1);
+            overflow: hidden;
+        }
+        
+        .liquid-glass-accent::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(221, 155, 67, 0.8),
+                transparent
+            );
+        }
+        
+        .liquid-glass-accent::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(
+                180deg,
+                rgba(221, 155, 67, 0.1) 0%,
+                transparent 100%
+            );
+            pointer-events: none;
+            border-radius: 32px 32px 0 0;
+        }
+        
+        /* Liquid Glass Hover Effect */
+        .liquid-glass-hover {
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .liquid-glass-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+        
+        .liquid-glass-accent.liquid-glass-hover:hover {
+            box-shadow: 
+                0 20px 60px rgba(221, 155, 67, 0.3),
+                0 0 100px rgba(221, 155, 67, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border-color: rgba(221, 155, 67, 0.6);
+        }
+        
+        /* Social Proof Pills - PeakWatch style */
+        .proof-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Floating badge for featured card */
+        .floating-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #DD9B43 0%, #e6ac5a 100%);
+            color: #000;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 100px;
+            box-shadow: 0 4px 20px rgba(221, 155, 67, 0.4);
+            z-index: 10;
+        }
+        
+        /* Liquid Glass - Light Mode (for light sections) */
+        .liquid-glass-light {
+            position: relative;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(255, 255, 255, 0.7) 50%,
+                rgba(255, 255, 255, 0.85) 100%
+            );
+            backdrop-filter: blur(40px) saturate(150%);
+            -webkit-backdrop-filter: blur(40px) saturate(150%);
+            border-radius: 28px;
+            border: 1px solid rgba(9, 73, 87, 0.1);
+            box-shadow: 
+                0 8px 32px rgba(9, 73, 87, 0.08),
+                0 2px 8px rgba(0, 0, 0, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 1),
+                inset 0 -1px 0 rgba(9, 73, 87, 0.05);
+            overflow: hidden;
+        }
+        
+        .liquid-glass-light::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 1),
+                transparent
+            );
+        }
+        
+        .liquid-glass-light::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(
+                180deg,
+                rgba(255, 255, 255, 0.5) 0%,
+                transparent 100%
+            );
+            pointer-events: none;
+            border-radius: 28px 28px 0 0;
+        }
+        
+        .liquid-glass-light.liquid-glass-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 20px 50px rgba(9, 73, 87, 0.12),
+                0 4px 12px rgba(0, 0, 0, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+            border-color: rgba(9, 73, 87, 0.2);
+        }
+        
+        /* Liquid Glass - Teal Accent (for light sections) */
+        .liquid-glass-teal {
+            position: relative;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(9, 73, 87, 0.03) 50%,
+                rgba(255, 255, 255, 0.9) 100%
+            );
+            backdrop-filter: blur(40px) saturate(150%);
+            -webkit-backdrop-filter: blur(40px) saturate(150%);
+            border-radius: 28px;
+            border: 2px solid rgba(9, 73, 87, 0.15);
+            box-shadow: 
+                0 8px 32px rgba(9, 73, 87, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 1),
+                inset 0 -1px 0 rgba(9, 73, 87, 0.05);
+            overflow: hidden;
+        }
+        
+        .liquid-glass-teal.liquid-glass-hover:hover {
+            border-color: rgba(9, 73, 87, 0.3);
+            box-shadow: 
+                0 20px 50px rgba(9, 73, 87, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
         }
         
         /* Apple-style button */
@@ -320,8 +567,8 @@
 </head>
 <body class="font-sans antialiased">
 
-    <!-- Navigation - Apple Style -->
-    <nav class="fixed top-0 left-0 right-0 z-50 glass">
+    <!-- Navigation - Liquid Glass -->
+    <nav class="fixed top-0 left-0 right-0 z-50" style="background: rgba(0,0,0,0.4); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%); border-bottom: 1px solid rgba(255,255,255,0.08);">
         <div class="max-w-[1200px] mx-auto px-6 h-16 flex justify-between items-center">
             <a href="#" class="flex items-center">
                 <img src="https://cdn.sanity.io/images/6qiktmvm/production/e33b949b11d3aa8b60befb3f5f537803a8c48700-2917x486.png" 
@@ -357,8 +604,9 @@
         </div>
         
         <div class="relative z-10 max-w-[1000px] mx-auto px-6 text-center pt-20">
-            <!-- Promo Tag -->
-            <div class="reveal inline-flex items-center gap-2 glass rounded-full px-5 py-2.5 mb-8">
+            <!-- Promo Tag - Liquid Glass Pill -->
+            <div class="reveal inline-flex items-center gap-2 rounded-full px-6 py-3 mb-8" style="background: linear-gradient(135deg, rgba(221,155,67,0.15) 0%, rgba(221,155,67,0.05) 100%); backdrop-filter: blur(20px); border: 1px solid rgba(221,155,67,0.3); box-shadow: 0 0 30px rgba(221,155,67,0.2);">
+                <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
                 <span class="text-accent text-sm font-medium">Noch <span id="hero-promo-days" class="font-bold">--</span> Tage beitragsfrei</span>
             </div>
             
@@ -408,22 +656,28 @@
                 <span class="text-apple-gray-300 text-sm">Tage geschenkt bei Anmeldung heute</span>
             </div>
             
-            <!-- Feature Grid -->
+            <!-- Feature Grid - Liquid Glass -->
             <div class="reveal reveal-delay-3 grid md:grid-cols-3 gap-6 mt-16 stagger-children">
-                <div class="glass rounded-3xl p-8 text-left hover-lift cursor-default">
-                    <div class="text-3xl mb-4">🏋️</div>
-                    <h3 class="text-lg font-semibold mb-2">Voller Zugang</h3>
-                    <p class="text-apple-gray-400 text-sm">Alle Geräte. Alle Bereiche. Keine Einschränkungen.</p>
+                <div class="liquid-glass liquid-glass-hover p-8 text-left cursor-default">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center text-3xl mb-5">🏋️</div>
+                        <h3 class="text-lg font-semibold mb-2">Voller Zugang</h3>
+                        <p class="text-apple-gray-400 text-sm">Alle Geräte. Alle Bereiche. Keine Einschränkungen.</p>
+                    </div>
                 </div>
-                <div class="glass rounded-3xl p-8 text-left hover-lift cursor-default">
-                    <div class="text-3xl mb-4">📋</div>
-                    <h3 class="text-lg font-semibold mb-2">Trainingsplan</h3>
-                    <p class="text-apple-gray-400 text-sm">Individuell auf dich abgestimmt. Von Experten erstellt.</p>
+                <div class="liquid-glass liquid-glass-hover p-8 text-left cursor-default">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center text-3xl mb-5">📋</div>
+                        <h3 class="text-lg font-semibold mb-2">Trainingsplan</h3>
+                        <p class="text-apple-gray-400 text-sm">Individuell auf dich abgestimmt. Von Experten erstellt.</p>
+                    </div>
                 </div>
-                <div class="glass rounded-3xl p-8 text-left hover-lift cursor-default">
-                    <div class="text-3xl mb-4">📊</div>
-                    <h3 class="text-lg font-semibold mb-2">Körperanalyse</h3>
-                    <p class="text-apple-gray-400 text-sm">InBody Check-up für präzise Messwerte.</p>
+                <div class="liquid-glass liquid-glass-hover p-8 text-left cursor-default">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center text-3xl mb-5">📊</div>
+                        <h3 class="text-lg font-semibold mb-2">Körperanalyse</h3>
+                        <p class="text-apple-gray-400 text-sm">InBody Check-up für präzise Messwerte.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -442,155 +696,226 @@
                 </p>
             </div>
             
-            <!-- USP Grid - Hervorgehobene Boxen -->
+            <!-- USP Grid - Liquid Glass Light -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
                 <!-- USP 1 -->
-                <div class="reveal bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 hover-lift">
-                    <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mb-5">
-                        <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                        </svg>
+                <div class="reveal liquid-glass-teal liquid-glass-hover p-8">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
+                            <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-apple-gray-700 mb-3">Gesundheitspartner</h3>
+                        <p class="text-apple-gray-500">Kein anonymes Muckibuden-Feeling. Bei uns bist du keine Nummer, sondern Mensch mit individuellen Zielen.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-apple-gray-700 mb-3">Gesundheitspartner</h3>
-                    <p class="text-apple-gray-500">Kein anonymes Muckibuden-Feeling. Bei uns bist du keine Nummer, sondern Mensch mit individuellen Zielen.</p>
                 </div>
                 
                 <!-- USP 2 -->
-                <div class="reveal reveal-delay-1 bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 hover-lift">
-                    <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mb-5">
-                        <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                        </svg>
+                <div class="reveal reveal-delay-1 liquid-glass-teal liquid-glass-hover p-8">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
+                            <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-apple-gray-700 mb-3">TechnoGym Biostrength</h3>
+                        <p class="text-apple-gray-500">Intelligente Geräte der Spitzenklasse, die sich automatisch auf dich einstellen — sicher und gelenkschonend.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-apple-gray-700 mb-3">TechnoGym Biostrength</h3>
-                    <p class="text-apple-gray-500">Intelligente Geräte der Spitzenklasse, die sich automatisch auf dich einstellen — sicher und gelenkschonend.</p>
                 </div>
                 
                 <!-- USP 3 -->
-                <div class="reveal reveal-delay-2 bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 hover-lift">
-                    <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mb-5">
-                        <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
+                <div class="reveal reveal-delay-2 liquid-glass-teal liquid-glass-hover p-8">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
+                            <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-apple-gray-700 mb-3">Echte Betreuung</h3>
+                        <p class="text-apple-gray-500">Qualifizierte Trainer, die sich Zeit nehmen. Mit Geduld, Fachwissen und echter persönlicher Unterstützung.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-apple-gray-700 mb-3">Echte Betreuung</h3>
-                    <p class="text-apple-gray-500">Qualifizierte Trainer, die sich Zeit nehmen. Mit Geduld, Fachwissen und echter persönlicher Unterstützung.</p>
                 </div>
                 
                 <!-- USP 4 -->
-                <div class="reveal bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 hover-lift">
-                    <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mb-5">
-                        <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
+                <div class="reveal liquid-glass-teal liquid-glass-hover p-8">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
+                            <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-apple-gray-700 mb-3">25+ Jahre Erfahrung</h3>
+                        <p class="text-apple-gray-500">Seit über 25 Jahren dein verlässlicher Partner für Gesundheit und Fitness in Trier. Das spricht für sich.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-apple-gray-700 mb-3">25+ Jahre Erfahrung</h3>
-                    <p class="text-apple-gray-500">Seit über 25 Jahren dein verlässlicher Partner für Gesundheit und Fitness in Trier. Das spricht für sich.</p>
                 </div>
                 
                 <!-- USP 5 -->
-                <div class="reveal reveal-delay-1 bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 hover-lift">
-                    <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mb-5">
-                        <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                        </svg>
+                <div class="reveal reveal-delay-1 liquid-glass-teal liquid-glass-hover p-8">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
+                            <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-apple-gray-700 mb-3">Ruhige Atmosphäre</h3>
+                        <p class="text-apple-gray-500">Keine laute Musik, keine überfüllten Räume. Trainiere entspannt in deinem eigenen Tempo.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-apple-gray-700 mb-3">Ruhige Atmosphäre</h3>
-                    <p class="text-apple-gray-500">Keine laute Musik, keine überfüllten Räume. Trainiere entspannt in deinem eigenen Tempo.</p>
                 </div>
                 
                 <!-- USP 6 -->
-                <div class="reveal reveal-delay-2 bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 hover-lift">
-                    <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mb-5">
-                        <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
-                        </svg>
+                <div class="reveal reveal-delay-2 liquid-glass-teal liquid-glass-hover p-8">
+                    <div class="relative z-10">
+                        <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
+                            <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-apple-gray-700 mb-3">Individuelle Pläne</h3>
+                        <p class="text-apple-gray-500">Kein Training von der Stange — dein persönlicher Plan, angepasst an deine Ziele und Möglichkeiten.</p>
                     </div>
-                    <h3 class="text-xl font-bold text-apple-gray-700 mb-3">Individuelle Pläne</h3>
-                    <p class="text-apple-gray-500">Kein Training von der Stange — dein persönlicher Plan, angepasst an deine Ziele und Möglichkeiten.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Pricing - Dark Section -->
-    <section id="preise" class="py-32 section-dark">
-        <div class="max-w-[1200px] mx-auto px-6">
-            <div class="text-center mb-16">
+    <!-- Pricing - Dark Section with Liquid Glass -->
+    <section id="preise" class="py-32 section-dark relative overflow-hidden">
+        <!-- Ambient background glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/5 rounded-full blur-[150px] pointer-events-none"></div>
+        
+        <div class="max-w-[1200px] mx-auto px-6 relative z-10">
+            <div class="text-center mb-20">
                 <p class="reveal text-accent text-sm font-semibold tracking-wide uppercase mb-4">Mitgliedschaften</p>
-                <h2 class="reveal reveal-delay-1 text-headline md:text-display-3 font-bold">
+                <h2 class="reveal reveal-delay-1 text-headline md:text-display-3 font-bold mb-6">
                     Faire Preise.
                 </h2>
+                
+                <!-- Social Proof Pills - PeakWatch style -->
+                <div class="reveal reveal-delay-2 flex flex-wrap justify-center gap-3 mt-8">
+                    <div class="proof-pill">
+                        <span class="text-accent">★</span>
+                        <span>4.8 Google Rating</span>
+                    </div>
+                    <div class="proof-pill">
+                        <span class="text-accent">✓</span>
+                        <span>25+ Jahre Erfahrung</span>
+                    </div>
+                    <div class="proof-pill">
+                        <span class="text-accent">♥</span>
+                        <span>500+ aktive Mitglieder</span>
+                    </div>
+                </div>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-6 lg:gap-8 stagger-children">
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8 stagger-children items-start">
                 <!-- Flex -->
-                <div class="reveal glass rounded-3xl p-8 hover-lift">
-                    <h3 class="text-xl font-bold mb-1">Flex</h3>
-                    <p class="text-apple-gray-400 text-sm mb-6">Maximale Flexibilität</p>
-                    <div class="mb-6">
-                        <span class="text-5xl font-bold">15€</span>
-                        <span class="text-apple-gray-400">/Woche</span>
+                <div class="reveal liquid-glass liquid-glass-hover p-8 relative z-10">
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold mb-1">Flex</h3>
+                        <p class="text-apple-gray-400 text-sm mb-8">Maximale Flexibilität</p>
+                        <div class="mb-8">
+                            <span class="text-6xl font-bold tracking-tight">15€</span>
+                            <span class="text-apple-gray-400 text-lg">/Woche</span>
+                        </div>
+                        <ul class="space-y-4 mb-10 text-sm text-apple-gray-300">
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs">✓</span>
+                                4 Wochen Erstlaufzeit
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs">✓</span>
+                                Voller Club-Zugang
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs">✓</span>
+                                Trainingsplan & Check-up
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs">✓</span>
+                                TechnoGym App
+                            </li>
+                        </ul>
+                        <button onclick="openModal('booking')" class="w-full py-4 rounded-full border border-white/20 text-white font-semibold hover:border-accent hover:text-accent transition-all duration-300 press-scale backdrop-blur-sm">
+                            Auswählen
+                        </button>
+                        <p class="text-center text-xs text-apple-gray-500 mt-4">+ 39€ Startpaket</p>
                     </div>
-                    <ul class="space-y-3 mb-8 text-sm text-apple-gray-300">
-                        <li class="flex items-center gap-3"><span class="text-accent">✓</span> 4 Wochen Erstlaufzeit</li>
-                        <li class="flex items-center gap-3"><span class="text-accent">✓</span> Voller Club-Zugang</li>
-                        <li class="flex items-center gap-3"><span class="text-accent">✓</span> Trainingsplan & Check-up</li>
-                        <li class="flex items-center gap-3"><span class="text-accent">✓</span> TechnoGym App</li>
-                    </ul>
-                    <button onclick="openModal('booking')" class="w-full py-4 rounded-full border border-apple-gray-600 text-white font-semibold hover:border-accent hover:text-accent transition-all duration-300 press-scale">
-                        Auswählen
-                    </button>
-                    <p class="text-center text-xs text-apple-gray-500 mt-4">+ 39€ Startpaket</p>
                 </div>
                 
-                <!-- Premium - Featured -->
-                <div class="reveal reveal-delay-1 relative glass rounded-3xl p-8 border border-accent/50 hover-lift">
-                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-black text-xs font-bold px-4 py-1.5 rounded-full">
-                        Empfohlen
+                <!-- Premium - Featured with Liquid Glass Accent -->
+                <div class="reveal reveal-delay-1 liquid-glass-accent liquid-glass-hover p-8 relative z-10 md:-mt-4 md:mb-4">
+                    <div class="floating-badge">Empfohlen</div>
+                    <div class="relative z-10 pt-2">
+                        <h3 class="text-xl font-bold mb-1 text-accent">Premium</h3>
+                        <p class="text-apple-gray-400 text-sm mb-8">Bestes Preis-Leistungs-Verhältnis</p>
+                        <div class="mb-2">
+                            <span class="text-6xl font-bold tracking-tight text-accent">9€</span>
+                            <span class="text-apple-gray-400 text-lg">/Woche</span>
+                        </div>
+                        <p class="text-accent text-sm font-semibold mb-8">+ 2 Monate gratis</p>
+                        <ul class="space-y-4 mb-10 text-sm text-apple-gray-300">
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-accent/30 flex items-center justify-center text-accent text-xs">✓</span>
+                                24 Monate Laufzeit
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-accent/30 flex items-center justify-center text-accent text-xs">✓</span>
+                                Voller Club-Zugang
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-accent/30 flex items-center justify-center text-accent text-xs">✓</span>
+                                Gesundheits-Check-up inkl.
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-accent/30 flex items-center justify-center text-accent text-xs">✓</span>
+                                <strong class="text-white">40% Ersparnis</strong>
+                            </li>
+                        </ul>
+                        <button onclick="openModal('booking')" class="w-full btn-primary press-scale">
+                            Jetzt starten
+                        </button>
+                        <p class="text-center text-xs text-apple-gray-500 mt-4">+ 39€ Startpaket</p>
                     </div>
-                    <h3 class="text-xl font-bold mb-1 text-accent">Premium</h3>
-                    <p class="text-apple-gray-400 text-sm mb-6">Bestes Preis-Leistungs-Verhältnis</p>
-                    <div class="mb-2">
-                        <span class="text-5xl font-bold text-accent">9€</span>
-                        <span class="text-apple-gray-400">/Woche</span>
-                    </div>
-                    <p class="text-accent text-sm font-semibold mb-6">+ 2 Monate gratis</p>
-                    <ul class="space-y-3 mb-8 text-sm text-apple-gray-300">
-                        <li class="flex items-center gap-3"><span class="text-accent">✓</span> 24 Monate Laufzeit</li>
-                        <li class="flex items-center gap-3"><span class="text-accent">✓</span> Voller Club-Zugang</li>
-                        <li class="flex items-center gap-3"><span class="text-accent">✓</span> Gesundheits-Check-up inkl.</li>
-                        <li class="flex items-center gap-3"><span class="text-accent">✓</span> 40% Ersparnis</li>
-                    </ul>
-                    <button onclick="openModal('booking')" class="w-full btn-primary press-scale">
-                        Jetzt starten
-                    </button>
-                    <p class="text-center text-xs text-apple-gray-500 mt-4">+ 39€ Startpaket</p>
                 </div>
                 
                 <!-- Basic -->
-                <div class="reveal reveal-delay-2 glass rounded-3xl p-8 hover-lift">
-                    <h3 class="text-xl font-bold mb-1">Basic</h3>
-                    <p class="text-apple-gray-400 text-sm mb-6">Der Klassiker</p>
-                    <div class="mb-2">
-                        <span class="text-5xl font-bold">12€</span>
-                        <span class="text-apple-gray-400">/Woche</span>
+                <div class="reveal reveal-delay-2 liquid-glass liquid-glass-hover p-8 relative z-10">
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold mb-1">Basic</h3>
+                        <p class="text-apple-gray-400 text-sm mb-8">Der Klassiker</p>
+                        <div class="mb-2">
+                            <span class="text-6xl font-bold tracking-tight">12€</span>
+                            <span class="text-apple-gray-400 text-lg">/Woche</span>
+                        </div>
+                        <p class="text-accent text-sm font-semibold mb-8">+ 2 Monate gratis</p>
+                        <ul class="space-y-4 mb-10 text-sm text-apple-gray-300">
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs">✓</span>
+                                12 Monate Laufzeit
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs">✓</span>
+                                Voller Club-Zugang
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs">✓</span>
+                                Trainingsplan & Check-up
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span class="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs">✓</span>
+                                20% Ersparnis
+                            </li>
+                        </ul>
+                        <button onclick="openModal('booking')" class="w-full py-4 rounded-full border border-white/20 text-white font-semibold hover:border-accent hover:text-accent transition-all duration-300 press-scale backdrop-blur-sm">
+                            Auswählen
+                        </button>
+                        <p class="text-center text-xs text-apple-gray-500 mt-4">+ 39€ Startpaket</p>
                     </div>
-                    <p class="text-accent text-sm font-semibold mb-6">+ 2 Monate gratis</p>
-                    <ul class="space-y-3 mb-8 text-sm text-apple-gray-300">
-                        <li class="flex items-center gap-3"><span class="text-accent">✓</span> 12 Monate Laufzeit</li>
-                        <li class="flex items-center gap-3"><span class="text-accent">✓</span> Voller Club-Zugang</li>
-                        <li class="flex items-center gap-3"><span class="text-accent">✓</span> Trainingsplan & Check-up</li>
-                        <li class="flex items-center gap-3"><span class="text-accent">✓</span> 20% Ersparnis</li>
-                    </ul>
-                    <button onclick="openModal('booking')" class="w-full py-4 rounded-full border border-apple-gray-600 text-white font-semibold hover:border-accent hover:text-accent transition-all duration-300 press-scale">
-                        Auswählen
-                    </button>
-                    <p class="text-center text-xs text-apple-gray-500 mt-4">+ 39€ Startpaket</p>
                 </div>
             </div>
             
-            <p class="text-center text-apple-gray-500 text-sm mt-10">
+            <p class="text-center text-apple-gray-500 text-sm mt-12">
                 Alle Preise inkl. MwSt. · Abbuchung alle 14 Tage · Schüler/Studenten: 3€ Rabatt/Woche
             </p>
         </div>
@@ -607,15 +932,35 @@
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="reveal bg-white rounded-3xl p-8 shadow-sm">
-                    <div class="text-accent mb-4">★★★★★</div>
-                    <p class="text-apple-gray-600 mb-6">"Endlich ein Studio, wo man sich als älterer Mensch nicht fehl am Platz fühlt. Das Team erklärt alles geduldig."</p>
-                    <p class="font-semibold text-apple-gray-700">Helga M., 58</p>
+                <div class="reveal liquid-glass-light liquid-glass-hover p-8">
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-1 text-accent mb-4">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <p class="text-apple-gray-600 mb-6 text-lg leading-relaxed">"Endlich ein Studio, wo man sich als älterer Mensch nicht fehl am Platz fühlt. Das Team erklärt alles geduldig."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold">H</div>
+                            <div>
+                                <p class="font-semibold text-apple-gray-700">Helga M.</p>
+                                <p class="text-sm text-apple-gray-500">Mitglied seit 2024</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="reveal reveal-delay-1 bg-white rounded-3xl p-8 shadow-sm">
-                    <div class="text-accent mb-4">★★★★★</div>
-                    <p class="text-apple-gray-600 mb-6">"Mein Arzt hat mir Bewegung empfohlen wegen dem Rücken. Nach 3 Monaten hier sind die Schmerzen fast weg."</p>
-                    <p class="font-semibold text-apple-gray-700">Werner K., 63</p>
+                <div class="reveal reveal-delay-1 liquid-glass-light liquid-glass-hover p-8">
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-1 text-accent mb-4">
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                        </div>
+                        <p class="text-apple-gray-600 mb-6 text-lg leading-relaxed">"Mein Arzt hat mir Bewegung empfohlen wegen dem Rücken. Nach 3 Monaten hier sind die Schmerzen fast weg."</p>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold">W</div>
+                            <div>
+                                <p class="font-semibold text-apple-gray-700">Werner K.</p>
+                                <p class="text-sm text-apple-gray-500">Mitglied seit 2023</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -632,18 +977,27 @@
                 Auf Hirtenberg 8, 54296 Trier
             </p>
             
-            <div class="reveal reveal-delay-3 grid md:grid-cols-3 gap-8 text-left mb-12">
-                <div class="glass rounded-2xl p-6">
-                    <h3 class="font-semibold mb-2">Öffnungszeiten</h3>
-                    <p class="text-sm text-apple-gray-400">Mo-Fr: 8-22 Uhr<br>Sa-So: 10-18 Uhr</p>
+            <div class="reveal reveal-delay-3 grid md:grid-cols-3 gap-6 text-left mb-12">
+                <div class="liquid-glass liquid-glass-hover p-6">
+                    <div class="relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center text-lg mb-4">🕐</div>
+                        <h3 class="font-semibold mb-2">Öffnungszeiten</h3>
+                        <p class="text-sm text-apple-gray-400">Mo-Fr: 8-22 Uhr<br>Sa-So: 10-18 Uhr</p>
+                    </div>
                 </div>
-                <div class="glass rounded-2xl p-6">
-                    <h3 class="font-semibold mb-2">Telefon</h3>
-                    <p class="text-sm text-apple-gray-400">0651 / 99 88 44 0</p>
+                <div class="liquid-glass liquid-glass-hover p-6">
+                    <div class="relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center text-lg mb-4">📞</div>
+                        <h3 class="font-semibold mb-2">Telefon</h3>
+                        <p class="text-sm text-apple-gray-400">0651 / 99 88 44 0</p>
+                    </div>
                 </div>
-                <div class="glass rounded-2xl p-6">
-                    <h3 class="font-semibold mb-2">E-Mail</h3>
-                    <p class="text-sm text-apple-gray-400">info@fit-inn-trier.de</p>
+                <div class="liquid-glass liquid-glass-hover p-6">
+                    <div class="relative z-10">
+                        <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center text-lg mb-4">✉️</div>
+                        <h3 class="font-semibold mb-2">E-Mail</h3>
+                        <p class="text-sm text-apple-gray-400">info@fit-inn-trier.de</p>
+                    </div>
                 </div>
             </div>
             
