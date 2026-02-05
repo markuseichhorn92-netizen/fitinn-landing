@@ -1820,10 +1820,9 @@
                     const rect = el.getBoundingClientRect();
                     const elCenter = rect.top + rect.height / 2;
                     
-                    // Element is going out the top
-                    if (rect.bottom < windowHeight * 0.15) {
-                        // Progress: 0 at 15% from top, 1 when completely out
-                        const rawProgress = Math.min(1, (windowHeight * 0.15 - rect.bottom) / (windowHeight * 0.15));
+                    // Element is going out the top - starts at 30% from top
+                    if (rect.bottom < windowHeight * 0.30) {
+                        const rawProgress = Math.min(1, (windowHeight * 0.30 - rect.bottom) / (windowHeight * 0.30));
                         const progress = easeOutCubic(rawProgress);
                         
                         const scale = 1 - (progress * 0.08);
@@ -1833,9 +1832,9 @@
                         el.style.transform = `scale(${scale}) translateY(${translateY}px)`;
                         el.style.opacity = opacity;
                     }
-                    // Element entering from bottom
-                    else if (rect.top > windowHeight * 0.85) {
-                        const rawProgress = Math.min(1, (rect.top - windowHeight * 0.85) / (windowHeight * 0.15));
+                    // Element entering from bottom - starts at 30% from bottom
+                    else if (rect.top > windowHeight * 0.70) {
+                        const rawProgress = Math.min(1, (rect.top - windowHeight * 0.70) / (windowHeight * 0.30));
                         const progress = easeOutCubic(rawProgress);
                         
                         const translateY = progress * 30;
