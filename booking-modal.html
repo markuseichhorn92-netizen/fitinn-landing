@@ -58,6 +58,40 @@
         padding: 12px;
     }
     
+    /* Dark styled checkboxes */
+    #modal-booking input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        min-height: 22px;
+        background: rgba(255,255,255,0.08);
+        border: 2px solid rgba(255,255,255,0.2);
+        border-radius: 6px;
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+        position: relative;
+        flex-shrink: 0;
+    }
+    #modal-booking input[type="checkbox"]:checked {
+        background: #DD9B43;
+        border-color: #DD9B43;
+    }
+    #modal-booking input[type="checkbox"]:checked::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #000;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    #modal-booking input[type="checkbox"]:focus {
+        outline: none;
+        border-color: #DD9B43;
+    }
+    
     /* Date input fix - prevent oversized native picker */
     #modal-booking input[type="date"] {
         height: 48px;
