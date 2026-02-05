@@ -2365,6 +2365,10 @@
             document.getElementById('pt-progress-bar').style.width = `${((n+1)/8)*100}%`;
             document.getElementById('pt-current-step').textContent = n;
             document.getElementById('pt-step-name').textContent = ptStepNames[n];
+            
+            // Scroll modal content to top on step change
+            const modalContent = document.querySelector('#modal-probetraining .modal-content');
+            if (modalContent) modalContent.scrollTop = 0;
             if (n === 4 && !ptSlotsData) ptFetchSlots();
             if (n === 5 && ptSelectedSlot) {
                 const d = new Date(ptSelectedSlot.start);

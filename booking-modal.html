@@ -690,6 +690,10 @@ function bkGoToStep(n) {
     const stepEl = document.getElementById(`bk-step-${n}`);
     console.log('Step element:', stepEl);
     if (stepEl) stepEl.classList.add('active');
+    
+    // Scroll modal content to top on step change
+    const modalContent = document.querySelector('#modal-booking .modal-content');
+    if (modalContent) modalContent.scrollTop = 0;
     document.getElementById('bk-progress-bar').style.width = `${((n+1)/8)*100}%`;
     document.getElementById('bk-current-step').textContent = n;
     document.getElementById('bk-step-name').textContent = bkStepNames[n];
