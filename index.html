@@ -153,6 +153,16 @@
         button, a { min-height: 44px; }
         input[type="checkbox"] { width: 22px; height: 22px; min-width: 22px; }
         
+        /* Mobile modal bottom sheet */
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
+        
+        /* Mobile form grids */
+        @media (max-width: 640px) {
+            .modal-content .grid-cols-2 { grid-template-columns: 1fr !important; }
+            .modal-content .grid-cols-3 { grid-template-columns: 1fr !important; }
+            .modal-content .col-span-2 { grid-column: span 1 !important; }
+        }
+        
         /* Modal */
         .modal-overlay {
             opacity: 0;
@@ -503,10 +513,10 @@
     </footer>
 
     <!-- ============================================ -->
-    <!-- MODAL: PROBETRAINING -->
+    <!-- MODAL: PROBETRAINING - Mobile Optimized -->
     <!-- ============================================ -->
-    <div id="modal-probetraining" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl">
-        <div class="modal-content bg-apple-gray-800 rounded-3xl w-full max-w-lg max-h-[90vh] overflow-y-auto border border-apple-gray-700">
+    <div id="modal-probetraining" class="modal-overlay fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/80 backdrop-blur-xl">
+        <div class="modal-content bg-apple-gray-800 rounded-t-3xl md:rounded-3xl w-full md:max-w-lg max-h-[95vh] md:max-h-[90vh] overflow-y-auto border-t md:border border-apple-gray-700 pb-safe">
             <!-- Header -->
             <div class="sticky top-0 bg-apple-gray-800/95 backdrop-blur-xl border-b border-apple-gray-700 p-6 flex justify-between items-center z-10">
                 <div>
@@ -539,25 +549,25 @@
                     <p class="text-sm text-apple-gray-400 mb-6">Wähle eine Option:</p>
                     
                     <div class="space-y-3">
-                        <label class="pt-survey-opt flex items-center gap-4 p-4 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer">
+                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-goal" value="Abnehmen" class="hidden">
-                            <span class="text-2xl">🏋️</span>
-                            <span class="font-medium">Abnehmen</span>
+                            <span class="text-3xl">🏋️</span>
+                            <span class="font-medium text-lg">Abnehmen</span>
                         </label>
-                        <label class="pt-survey-opt flex items-center gap-4 p-4 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer">
+                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-goal" value="Allgemeine Fitness" class="hidden">
-                            <span class="text-2xl">❤️</span>
-                            <span class="font-medium">Fitness verbessern</span>
+                            <span class="text-3xl">❤️</span>
+                            <span class="font-medium text-lg">Fitness verbessern</span>
                         </label>
-                        <label class="pt-survey-opt flex items-center gap-4 p-4 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer">
+                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-goal" value="Gesundheit" class="hidden">
-                            <span class="text-2xl">🩺</span>
-                            <span class="font-medium">Gesundheit</span>
+                            <span class="text-3xl">🩺</span>
+                            <span class="font-medium text-lg">Gesundheit</span>
                         </label>
-                        <label class="pt-survey-opt flex items-center gap-4 p-4 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer">
+                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-goal" value="Muskelaufbau" class="hidden">
-                            <span class="text-2xl">💪</span>
-                            <span class="font-medium">Muskelaufbau</span>
+                            <span class="text-3xl">💪</span>
+                            <span class="font-medium text-lg">Muskelaufbau</span>
                         </label>
                     </div>
                     
@@ -572,15 +582,15 @@
                     <p class="text-sm text-apple-gray-400 mb-6">Kostenlos zu deinem Termin:</p>
                     
                     <div class="grid grid-cols-2 gap-4">
-                        <label class="pt-survey-opt flex flex-col items-center justify-center p-8 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer">
+                        <label class="pt-survey-opt flex flex-col items-center justify-center p-8 md:p-8 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-friend" value="Ja" class="hidden">
-                            <span class="text-4xl mb-2">👥</span>
-                            <span class="font-medium">Ja</span>
+                            <span class="text-5xl mb-3">👥</span>
+                            <span class="font-medium text-lg">Ja</span>
                         </label>
-                        <label class="pt-survey-opt flex flex-col items-center justify-center p-8 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer">
+                        <label class="pt-survey-opt flex flex-col items-center justify-center p-8 md:p-8 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-friend" value="Nein" class="hidden">
-                            <span class="text-4xl mb-2">👤</span>
-                            <span class="font-medium">Nein</span>
+                            <span class="text-5xl mb-3">👤</span>
+                            <span class="font-medium text-lg">Nein</span>
                         </label>
                     </div>
                     
@@ -596,20 +606,20 @@
                     <p class="text-sm text-apple-gray-400 mb-6">Professionelle Begleitung?</p>
                     
                     <div class="space-y-3">
-                        <label class="pt-survey-opt flex items-center gap-4 p-4 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer">
+                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-trainer" value="true" class="hidden">
-                            <div class="w-12 h-12 bg-accent/20 rounded-xl flex items-center justify-center text-2xl">👨‍🏫</div>
+                            <div class="w-14 h-14 bg-accent/20 rounded-xl flex items-center justify-center text-3xl flex-shrink-0">👨‍🏫</div>
                             <div>
-                                <span class="font-medium block">Mit Trainer</span>
-                                <span class="text-xs text-apple-gray-500">Empfohlen</span>
+                                <span class="font-medium text-lg block">Mit Trainer</span>
+                                <span class="text-sm text-apple-gray-400">Empfohlen für Einsteiger</span>
                             </div>
                         </label>
-                        <label class="pt-survey-opt flex items-center gap-4 p-4 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer">
+                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-trainer" value="false" class="hidden">
-                            <div class="w-12 h-12 bg-apple-gray-600 rounded-xl flex items-center justify-center text-2xl">🏃</div>
+                            <div class="w-14 h-14 bg-apple-gray-600 rounded-xl flex items-center justify-center text-3xl flex-shrink-0">🏃</div>
                             <div>
-                                <span class="font-medium block">Ohne Trainer</span>
-                                <span class="text-xs text-apple-gray-500">Für Erfahrene</span>
+                                <span class="font-medium text-lg block">Ohne Trainer</span>
+                                <span class="text-sm text-apple-gray-400">Für Erfahrene</span>
                             </div>
                         </label>
                     </div>
@@ -649,7 +659,7 @@
                         
                         <div id="pt-time-section" class="mt-6 pt-6 border-t border-apple-gray-700" style="display: none;">
                             <p class="text-sm font-medium mb-4">Zeiten für <span id="pt-selected-date" class="text-accent"></span></p>
-                            <div id="pt-time-slots" class="grid grid-cols-3 gap-2"></div>
+                            <div id="pt-time-slots" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
                         </div>
                     </div>
                     

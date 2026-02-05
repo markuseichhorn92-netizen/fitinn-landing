@@ -19,8 +19,17 @@
     @keyframes bkFadeIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
 </style>
 
-<div id="modal-booking" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl">
-    <div class="modal-content bg-[#1c1c1e] rounded-3xl w-full max-w-xl max-h-[90vh] overflow-y-auto border border-white/10">
+<style>
+    /* Mobile modal adjustments */
+    @media (max-width: 640px) {
+        #modal-booking .grid-cols-2 { grid-template-columns: 1fr !important; }
+        #modal-booking .grid-cols-3 { grid-template-columns: 1fr !important; }
+        #modal-booking .col-span-2 { grid-column: span 1 !important; }
+    }
+    .pb-safe-bk { padding-bottom: env(safe-area-inset-bottom, 20px); }
+</style>
+<div id="modal-booking" class="modal-overlay fixed inset-0 z-[100] flex items-end md:items-center justify-center bg-black/80 backdrop-blur-xl">
+    <div class="modal-content bg-[#1c1c1e] rounded-t-3xl md:rounded-3xl w-full md:max-w-xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto border-t md:border border-white/10 pb-safe-bk">
         <!-- Header -->
         <div class="sticky top-0 bg-[#1c1c1e]/95 backdrop-blur-xl border-b border-white/10 p-6 flex justify-between items-center z-10">
             <div>
