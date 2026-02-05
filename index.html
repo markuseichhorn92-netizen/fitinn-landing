@@ -650,11 +650,13 @@
 
     <!-- Hero - Full Screen with Background Image -->
     <section class="relative min-h-screen flex flex-col justify-center items-center section-dark overflow-hidden">
-        <!-- Background Image -->
-        <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80" 
+        <!-- Background Image - Parallax -->
+        <div class="absolute inset-0 overflow-hidden">
+            <img id="hero-parallax-img" 
+                 src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80" 
                  alt="Fitness Studio" 
-                 class="w-full h-full object-cover opacity-40">
+                 class="w-full h-[120%] object-cover opacity-40"
+                 style="transform: translate3d(0,0,0); will-change: transform;">
             <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
             <div class="absolute inset-0 bg-gradient-to-r from-teal/30 via-transparent to-teal/20"></div>
         </div>
@@ -1749,6 +1751,27 @@
 
     <!-- JavaScript -->
     <script>
+        // Hero Parallax Effect
+        (function() {
+            const heroImg = document.getElementById('hero-parallax-img');
+            if (!heroImg) return;
+            
+            function updateParallax() {
+                const scrollY = window.scrollY;
+                const heroHeight = window.innerHeight;
+                
+                // Only apply parallax while hero is visible
+                if (scrollY < heroHeight * 1.5) {
+                    const parallaxY = scrollY * 0.4; // Image moves at 40% of scroll speed
+                    heroImg.style.transform = `translate3d(0, ${parallaxY}px, 0)`;
+                }
+            }
+            
+            window.addEventListener('scroll', () => {
+                requestAnimationFrame(updateParallax);
+            }, { passive: true });
+        })();
+        
         // Promo Countdown - Tage bis 31.03.2026
         function updatePromoCountdown() {
             const promoEnd = new Date('2026-03-31T23:59:59');
