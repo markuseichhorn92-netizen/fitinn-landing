@@ -831,6 +831,19 @@ function bkRenderSummary() {
         `;
     }
     
+    // Rechtliche Hinweise vor Vertragsabschluss
+    html += `
+        <div class="border-t border-white/10 my-3"></div>
+        <div class="bg-white/5 rounded-lg p-3 text-xs text-white/50 space-y-2">
+            <p class="text-white/70 font-medium">📋 Vertragsdetails</p>
+            <p>• <strong class="text-white/60">Vertragsbeginn:</strong> Mit Bestätigung</p>
+            <p>• <strong class="text-white/60">Laufzeit:</strong> ${bkSelectedRate.term}, verlängert sich automatisch</p>
+            <p>• <strong class="text-white/60">Kündigung:</strong> 4 Wochen vor Ende in Textform</p>
+            <p>• <strong class="text-white/60">Zahlung:</strong> SEPA-Lastschrift, 14-tägig</p>
+            <p>• <strong class="text-white/60">Widerruf:</strong> 14 Tage ab Vertragsschluss (<a href="/widerruf.html" target="_blank" class="text-[#DD9B43] hover:underline">Details</a>)</p>
+        </div>
+    `;
+    
     container.innerHTML = html;
     document.getElementById('bk-first-payment').textContent = total + '€';
 }
