@@ -1050,12 +1050,12 @@
         function checkHashAndOpenModal() {
             const hash = window.location.hash.replace('#', '').toLowerCase();
             if (hash === 'probetraining') {
-                setTimeout(() => openModal('probetraining'), 500);
+                openModal('probetraining');
             } else if (hash === 'mitgliedschaft' || hash === 'booking') {
-                setTimeout(() => openModal('booking'), 500);
+                openModal('booking');
             }
         }
-        checkHashAndOpenModal();
+        // Note: checkHashAndOpenModal is called AFTER booking modal loads (see bottom of page)
         window.addEventListener('hashchange', checkHashAndOpenModal);
 
         // Probetraining Logic
@@ -1246,6 +1246,8 @@
             document.getElementById('booking-modal-container').innerHTML = html;
             const scripts = document.getElementById('booking-modal-container').querySelectorAll('script');
             scripts.forEach(s => { const ns = document.createElement('script'); ns.textContent = s.textContent; document.body.appendChild(ns); });
+            // Check hash after booking modal is loaded
+            checkHashAndOpenModal();
         });
     </script>
 </body>
