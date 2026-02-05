@@ -901,7 +901,7 @@
                             <span class="text-6xl font-bold tracking-tight text-accent">9€</span>
                             <span class="text-apple-gray-400 text-lg">/Woche</span>
                         </div>
-                        <p class="text-accent text-sm font-semibold mb-8">+ 2 Monate gratis</p>
+                        <p class="text-accent text-sm font-semibold mb-8">+ <span id="pricing-premium-days" class="font-bold">--</span> Tage gratis</p>
                         <ul class="space-y-4 mb-10 text-sm text-apple-gray-300">
                             <li class="flex items-center gap-3">
                                 <span class="w-5 h-5 rounded-full bg-accent/30 flex items-center justify-center text-accent text-xs">✓</span>
@@ -936,7 +936,7 @@
                             <span class="text-6xl font-bold tracking-tight">12€</span>
                             <span class="text-apple-gray-400 text-lg">/Woche</span>
                         </div>
-                        <p class="text-accent text-sm font-semibold mb-8">+ 2 Monate gratis</p>
+                        <p class="text-accent text-sm font-semibold mb-8">+ <span id="pricing-basic-days" class="font-bold">--</span> Tage gratis</p>
                         <ul class="space-y-4 mb-10 text-sm text-apple-gray-300">
                             <li class="flex items-center gap-3">
                                 <span class="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs">✓</span>
@@ -1754,7 +1754,9 @@
             const elements = {
                 'promo-days-count': diffDays,
                 'hero-promo-days': diffDays,
-                'cta-promo-days': diffDays
+                'cta-promo-days': diffDays,
+                'pricing-premium-days': diffDays,
+                'pricing-basic-days': diffDays
             };
             
             for (const [id, value] of Object.entries(elements)) {
