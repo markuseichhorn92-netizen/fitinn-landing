@@ -82,19 +82,44 @@
         <!-- Progress -->
         <div class="px-6 py-4 border-b border-white/10">
             <div class="flex justify-between text-xs text-white/40 mb-2">
-                <span>Schritt <span id="bk-current-step">1</span> von 6</span>
-                <span id="bk-step-name">Tarif</span>
+                <span>Schritt <span id="bk-current-step">0</span> von 7</span>
+                <span id="bk-step-name">Kontakt</span>
             </div>
             <div class="h-1 bg-white/10 rounded-full overflow-hidden">
-                <div id="bk-progress-bar" class="h-full bg-[#DD9B43] rounded-full transition-all" style="width: 16.66%"></div>
+                <div id="bk-progress-bar" class="h-full bg-[#DD9B43] rounded-full transition-all" style="width: 14.28%"></div>
             </div>
         </div>
         
         <!-- Content -->
         <div class="p-6">
             
+            <!-- Step 0: Lead Capture (NEU) -->
+            <div id="bk-step-0" class="bk-form-step active">
+                <h3 class="text-lg font-semibold mb-2">Kurz kennenlernen 👋</h3>
+                <p class="text-sm text-white/50 mb-6">Damit wir dich erreichen können:</p>
+                
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Dein Name</label>
+                        <input type="text" id="bk-lead-name" placeholder="Vor- und Nachname" class="bk-input">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Handynummer</label>
+                        <input type="tel" id="bk-lead-phone" placeholder="0176 12345678" class="bk-input">
+                    </div>
+                </div>
+                
+                <p class="text-xs text-white/40 mt-4">
+                    📱 Wir schicken dir eine kurze Bestätigung per WhatsApp.
+                </p>
+                
+                <button id="bk-btn-0" onclick="bkCaptureLeadAndContinue()" class="w-full bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full mt-6 transition-all">
+                    Weiter
+                </button>
+            </div>
+            
             <!-- Step 1: Tarif -->
-            <div id="bk-step-1" class="bk-form-step active">
+            <div id="bk-step-1" class="bk-form-step">
                 <h3 class="text-lg font-semibold mb-6">Welcher Tarif passt zu dir?</h3>
                 
                 <div class="space-y-4" id="bk-rates-container">
@@ -339,10 +364,35 @@
 <script>
 const BK_API = 'https://fit-inn-trier.api.magicline.com/connect/v1';
 const BK_STUDIO_ID = 1210005460;
-let bkCurrentStep = 1;
+const LEADS_API = 'https://srv1309486.hstgr.cloud/api/leads';
+let bkCurrentStep = 0;
 let bkSelectedRate = null;
 let bkSelectedModules = [];
-const bkStepNames = { 1: 'Tarif', 2: 'Upgrades', 3: 'Daten', 4: 'Adresse', 5: 'Zahlung', 6: 'Bestätigen', 7: 'Fertig' };
+let bkLeadData = { name: null, phone: null };
+const bkStepNames = { 0: 'Kontakt', 1: 'Tarif', 2: 'Upgrades', 3: 'Daten', 4: 'Adresse', 5: 'Zahlung', 6: 'Bestätigen', 7: 'Fertig' };
+
+// Lead Capture Function for Booking
+async function bkCaptureLeadAndContinue() {
+    const name = document.getElementById('bk-lead-name').value.trim();
+    const phone = document.getElementById('bk-lead-phone').value.trim();
+    
+    if (!name || !phone) {
+        alert('Bitte Name und Handynummer eingeben');
+        return;
+    }
+    
+    bkLeadData = { name, phone };
+    
+    // Save lead to backend (async, don't wait)
+    fetch(LEADS_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, type: 'mitgliedschaft', source: 'landing-page' })
+    }).catch(e => console.error('Lead save error:', e));
+    
+    // Continue to next step
+    bkGoToStep(1);
+}
 
 document.querySelectorAll('.bk-rate-card').forEach(card => {
     card.onclick = () => {
@@ -363,13 +413,24 @@ function bkGoToStep(n) {
     bkCurrentStep = n;
     document.querySelectorAll('.bk-form-step').forEach(s => s.classList.remove('active'));
     document.getElementById(`bk-step-${n}`).classList.add('active');
-    document.getElementById('bk-progress-bar').style.width = `${(n/7)*100}%`;
+    document.getElementById('bk-progress-bar').style.width = `${((n+1)/8)*100}%`;
     document.getElementById('bk-current-step').textContent = n;
     document.getElementById('bk-step-name').textContent = bkStepNames[n];
-    const subtitles = { 1: 'Wähle deinen Tarif', 2: 'Optionale Extras', 3: 'Über dich', 4: 'Für den Vertrag', 5: 'SEPA-Lastschrift', 6: 'Prüfen & Bestätigen', 7: 'Willkommen!' };
+    const subtitles = { 0: 'Kurz kennenlernen', 1: 'Wähle deinen Tarif', 2: 'Optionale Extras', 3: 'Über dich', 4: 'Für den Vertrag', 5: 'SEPA-Lastschrift', 6: 'Prüfen & Bestätigen', 7: 'Willkommen!' };
     document.getElementById('bk-header-subtitle').textContent = subtitles[n] || '';
     if (n === 2) bkRenderModules();
     if (n === 6) bkRenderSummary();
+    // Pre-fill from lead data
+    if (n === 3 && bkLeadData.name) {
+        const nameParts = bkLeadData.name.split(' ');
+        if (!document.getElementById('bk-firstname').value) {
+            document.getElementById('bk-firstname').value = nameParts[0] || '';
+            document.getElementById('bk-lastname').value = nameParts.slice(1).join(' ') || '';
+        }
+        if (!document.getElementById('bk-phone').value && bkLeadData.phone) {
+            document.getElementById('bk-phone').value = bkLeadData.phone;
+        }
+    }
 }
 
 function bkRenderModules() {

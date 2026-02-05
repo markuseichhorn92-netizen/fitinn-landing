@@ -712,18 +712,43 @@
             <!-- Progress -->
             <div class="px-6 py-4 border-b border-apple-gray-700">
                 <div class="flex justify-between text-xs text-apple-gray-500 mb-2">
-                    <span>Schritt <span id="pt-current-step">1</span> von 7</span>
-                    <span id="pt-step-name">Fitnessziel</span>
+                    <span>Schritt <span id="pt-current-step">0</span> von 8</span>
+                    <span id="pt-step-name">Kontakt</span>
                 </div>
                 <div class="h-1 bg-apple-gray-700 rounded-full overflow-hidden">
-                    <div id="pt-progress-bar" class="h-full bg-accent rounded-full transition-all" style="width: 14.28%"></div>
+                    <div id="pt-progress-bar" class="h-full bg-accent rounded-full transition-all" style="width: 12.5%"></div>
                 </div>
             </div>
             
             <!-- Content -->
             <div class="p-6">
+                <!-- Step 0: Lead Capture (NEU) -->
+                <div id="pt-step-0" class="form-step active">
+                    <h3 class="text-lg font-semibold mb-2">Kurz kennenlernen 👋</h3>
+                    <p class="text-sm text-apple-gray-400 mb-6">Damit wir dich erreichen können:</p>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Dein Name</label>
+                            <input type="text" id="pt-lead-name" placeholder="Vor- und Nachname" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-4 focus:outline-none focus:border-accent transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Handynummer</label>
+                            <input type="tel" id="pt-lead-phone" placeholder="0176 12345678" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-4 focus:outline-none focus:border-accent transition-colors">
+                        </div>
+                    </div>
+                    
+                    <p class="text-xs text-apple-gray-500 mt-4">
+                        📱 Wir schicken dir eine kurze Bestätigung per WhatsApp.
+                    </p>
+                    
+                    <button id="pt-btn-0" onclick="ptCaptureLeadAndContinue()" class="w-full btn-primary mt-6 disabled:opacity-50 disabled:cursor-not-allowed">
+                        Weiter
+                    </button>
+                </div>
+                
                 <!-- Step 1: Fitnessziel -->
-                <div id="pt-step-1" class="form-step active">
+                <div id="pt-step-1" class="form-step">
                     <h3 class="text-lg font-semibold mb-2">Was ist dein wichtigstes Ziel?</h3>
                     <p class="text-sm text-apple-gray-400 mb-6">Wähle eine Option:</p>
                     
@@ -1023,11 +1048,36 @@
 
         // Probetraining Logic
         const PT_API = 'https://srv1309486.hstgr.cloud/api/probetraining';
+        const LEADS_API = 'https://srv1309486.hstgr.cloud/api/leads';
         let ptCurrentDate = new Date();
         let ptSlotsData = null;
         let ptSelectedSlot = null;
         let ptSurveyData = { goal: null, bringFriend: null, trainerRequired: null };
-        const ptStepNames = { 1: 'Fitnessziel', 2: 'Begleitung', 3: 'Trainer', 4: 'Termin', 5: 'Daten', 6: 'Adresse', 7: 'Fertig' };
+        let ptLeadData = { name: null, phone: null };
+        const ptStepNames = { 0: 'Kontakt', 1: 'Fitnessziel', 2: 'Begleitung', 3: 'Trainer', 4: 'Termin', 5: 'Daten', 6: 'Adresse', 7: 'Fertig' };
+        
+        // Lead Capture Function
+        async function ptCaptureLeadAndContinue() {
+            const name = document.getElementById('pt-lead-name').value.trim();
+            const phone = document.getElementById('pt-lead-phone').value.trim();
+            
+            if (!name || !phone) {
+                alert('Bitte Name und Handynummer eingeben');
+                return;
+            }
+            
+            ptLeadData = { name, phone };
+            
+            // Save lead to backend (async, don't wait)
+            fetch(LEADS_API, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, phone, type: 'probetraining', source: 'landing-page' })
+            }).catch(e => console.error('Lead save error:', e));
+            
+            // Continue to next step
+            ptGoToStep(1);
+        }
 
         async function ptFetchSlots() {
             try {
@@ -1097,9 +1147,9 @@
         document.getElementById('pt-next-month').onclick = () => { ptCurrentDate.setMonth(ptCurrentDate.getMonth() + 1); ptRenderCalendar(); };
 
         function ptGoToStep(n) {
-            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('#modal-probetraining .form-step').forEach(s => s.classList.remove('active'));
             document.getElementById(`pt-step-${n}`).classList.add('active');
-            document.getElementById('pt-progress-bar').style.width = `${(n/7)*100}%`;
+            document.getElementById('pt-progress-bar').style.width = `${((n+1)/8)*100}%`;
             document.getElementById('pt-current-step').textContent = n;
             document.getElementById('pt-step-name').textContent = ptStepNames[n];
             if (n === 4 && !ptSlotsData) ptFetchSlots();
@@ -1107,6 +1157,17 @@
                 const d = new Date(ptSelectedSlot.start);
                 document.getElementById('pt-summary-date').textContent = d.toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long'});
                 document.getElementById('pt-summary-time').textContent = ptSelectedSlot.time + ' Uhr';
+            }
+            // Pre-fill name from lead data if available
+            if (n === 5 && ptLeadData.name) {
+                const nameParts = ptLeadData.name.split(' ');
+                if (!document.getElementById('pt-firstname').value) {
+                    document.getElementById('pt-firstname').value = nameParts[0] || '';
+                    document.getElementById('pt-lastname').value = nameParts.slice(1).join(' ') || '';
+                }
+                if (!document.getElementById('pt-phone').value && ptLeadData.phone) {
+                    document.getElementById('pt-phone').value = ptLeadData.phone;
+                }
             }
         }
 
