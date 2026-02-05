@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIT-INN Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <nav class="bg-gray-800 border-b border-gray-700 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold text-amber-400">🏋️ FIT-INN Admin</h1>
+            <button onclick="refreshData()" class="px-4 py-2 bg-amber-500 text-black rounded-lg font-medium hover:bg-amber-400">
+                🔄 Aktualisieren
+            </button>
+        </div>
+    </nav>
+    
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                <p class="text-gray-400 text-sm">Seitenaufrufe</p>
+                <p id="stat-pageviews" class="text-3xl font-bold text-white">--</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                <p class="text-gray-400 text-sm">Leads gesamt</p>
+                <p id="stat-leads" class="text-3xl font-bold text-amber-400">--</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                <p class="text-gray-400 text-sm">Konvertiert</p>
+                <p id="stat-converted" class="text-3xl font-bold text-green-400">--</p>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                <p class="text-gray-400 text-sm">Ø Zeit auf Seite</p>
+                <p id="stat-time" class="text-3xl font-bold text-blue-400">--</p>
+            </div>
+        </div>
+        
+        <!-- Funnel -->
+        <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 mb-8">
+            <h2 class="text-lg font-bold mb-4">📊 Conversion Funnel</h2>
+            <div class="flex items-end gap-2 h-40">
+                <div class="flex-1 flex flex-col items-center">
+                    <div id="funnel-views" class="w-full bg-blue-500 rounded-t transition-all" style="height: 100%"></div>
+                    <p class="text-xs mt-2 text-gray-400">Besucher</p>
+                    <p id="funnel-views-num" class="font-bold">--</p>
+                </div>
+                <div class="flex-1 flex flex-col items-center">
+                    <div id="funnel-modals" class="w-full bg-purple-500 rounded-t transition-all" style="height: 60%"></div>
+                    <p class="text-xs mt-2 text-gray-400">Modal geöffnet</p>
+                    <p id="funnel-modals-num" class="font-bold">--</p>
+                </div>
+                <div class="flex-1 flex flex-col items-center">
+                    <div id="funnel-leads" class="w-full bg-amber-500 rounded-t transition-all" style="height: 30%"></div>
+                    <p class="text-xs mt-2 text-gray-400">Leads</p>
+                    <p id="funnel-leads-num" class="font-bold">--</p>
+                </div>
+                <div class="flex-1 flex flex-col items-center">
+                    <div id="funnel-converted" class="w-full bg-green-500 rounded-t transition-all" style="height: 15%"></div>
+                    <p class="text-xs mt-2 text-gray-400">Abgeschlossen</p>
+                    <p id="funnel-converted-num" class="font-bold">--</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sources & Channels -->
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                <h2 class="text-lg font-bold mb-4">🎯 Traffic-Quellen</h2>
+                <div id="sources-list" class="space-y-2">
+                    <p class="text-gray-500">Lädt...</p>
+                </div>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
+                <h2 class="text-lg font-bold mb-4">📱 Kommunikationskanal</h2>
+                <div id="channels-list" class="space-y-2">
+                    <p class="text-gray-500">Lädt...</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Leads Table -->
+        <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-700 flex justify-between items-center">
+                <h2 class="text-lg font-bold">👥 Leads</h2>
+                <div class="flex gap-2">
+                    <select id="filter-type" onchange="refreshData()" class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm">
+                        <option value="">Alle Typen</option>
+                        <option value="probetraining">Probetraining</option>
+                        <option value="mitgliedschaft">Mitgliedschaft</option>
+                    </select>
+                    <select id="filter-status" onchange="refreshData()" class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm">
+                        <option value="">Alle Status</option>
+                        <option value="new">Neu</option>
+                        <option value="converted">Konvertiert</option>
+                    </select>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-700/50 text-left text-sm text-gray-400">
+                        <tr>
+                            <th class="px-6 py-3">Name</th>
+                            <th class="px-6 py-3">Kontakt</th>
+                            <th class="px-6 py-3">Typ</th>
+                            <th class="px-6 py-3">Quelle</th>
+                            <th class="px-6 py-3">Kanal</th>
+                            <th class="px-6 py-3">Funnel-Step</th>
+                            <th class="px-6 py-3">Status</th>
+                            <th class="px-6 py-3">Datum</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leads-table" class="divide-y divide-gray-700">
+                        <tr><td colspan="8" class="px-6 py-8 text-center text-gray-500">Lädt...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = 'https://srv1309486.hstgr.cloud/api/admin';
+        
+        async function refreshData() {
+            try {
+                // Fetch stats
+                const statsRes = await fetch(`${API_BASE}/stats`);
+                const stats = await statsRes.json();
+                
+                // Fetch funnel
+                const funnelRes = await fetch(`${API_BASE}/funnel`);
+                const funnel = await funnelRes.json();
+                
+                // Fetch leads
+                const leadsRes = await fetch(`${API_BASE}/leads`);
+                const leadsData = await leadsRes.json();
+                
+                // Update stats
+                document.getElementById('stat-pageviews').textContent = funnel.pageViews || 0;
+                document.getElementById('stat-leads').textContent = stats.totalLeads || 0;
+                document.getElementById('stat-converted').textContent = stats.convertedLeads || 0;
+                document.getElementById('stat-time').textContent = Math.round(funnel.avgTimeOnPage || 0) + 's';
+                
+                // Update funnel
+                const maxFunnel = Math.max(funnel.pageViews || 1, 1);
+                document.getElementById('funnel-views').style.height = '100%';
+                document.getElementById('funnel-views-num').textContent = funnel.pageViews || 0;
+                
+                const modalTotal = (funnel.modalOpens?.probetraining || 0) + (funnel.modalOpens?.booking || 0);
+                document.getElementById('funnel-modals').style.height = (modalTotal / maxFunnel * 100) + '%';
+                document.getElementById('funnel-modals-num').textContent = modalTotal;
+                
+                document.getElementById('funnel-leads').style.height = (funnel.leadSubmits / maxFunnel * 100) + '%';
+                document.getElementById('funnel-leads-num').textContent = funnel.leadSubmits || 0;
+                
+                document.getElementById('funnel-converted').style.height = (funnel.bookingCompletes / maxFunnel * 100) + '%';
+                document.getElementById('funnel-converted-num').textContent = funnel.bookingCompletes || 0;
+                
+                // Update sources
+                const sourcesList = document.getElementById('sources-list');
+                sourcesList.innerHTML = Object.entries(stats.leadsBySource || {}).map(([source, count]) => `
+                    <div class="flex justify-between items-center py-2">
+                        <span class="capitalize">${source === 'direct' ? '🔗 Direkt' : source.includes('google') ? '🔍 Google' : source.includes('facebook') || source.includes('meta') ? '📘 Meta' : '🌐 ' + source}</span>
+                        <span class="font-bold">${count}</span>
+                    </div>
+                `).join('') || '<p class="text-gray-500">Keine Daten</p>';
+                
+                // Update channels
+                const channelsList = document.getElementById('channels-list');
+                channelsList.innerHTML = `
+                    <div class="flex justify-between items-center py-2">
+                        <span>📱 WhatsApp</span>
+                        <span class="font-bold text-green-400">${stats.messagesByChannel?.whatsapp || 0}</span>
+                    </div>
+                    <div class="flex justify-between items-center py-2">
+                        <span>📧 E-Mail</span>
+                        <span class="font-bold text-blue-400">${stats.messagesByChannel?.email || 0}</span>
+                    </div>
+                `;
+                
+                // Filter leads
+                const filterType = document.getElementById('filter-type').value;
+                const filterStatus = document.getElementById('filter-status').value;
+                let leads = leadsData.leads || [];
+                if (filterType) leads = leads.filter(l => l.type === filterType);
+                if (filterStatus === 'new') leads = leads.filter(l => !l.converted);
+                if (filterStatus === 'converted') leads = leads.filter(l => l.converted);
+                
+                // Update table
+                const tbody = document.getElementById('leads-table');
+                if (leads.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" class="px-6 py-8 text-center text-gray-500">Keine Leads gefunden</td></tr>';
+                } else {
+                    tbody.innerHTML = leads.map(lead => {
+                        const channel = lead.messages?.find(m => m.channel)?.channel || '-';
+                        const source = lead.source || 'landing-page';
+                        const funnelStep = lead.converted ? '✅ Abgeschlossen' : 
+                                          lead.nurturingStep > 0 ? `📨 Nachricht ${lead.nurturingStep}` : '🆕 Neu';
+                        return `
+                            <tr class="hover:bg-gray-700/50">
+                                <td class="px-6 py-4 font-medium">${lead.name}</td>
+                                <td class="px-6 py-4 text-sm">
+                                    ${lead.email ? `<div class="text-gray-400">${lead.email}</div>` : ''}
+                                    ${lead.phone ? `<div class="text-gray-400">${lead.phone}</div>` : ''}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="px-2 py-1 rounded text-xs font-medium ${lead.type === 'probetraining' ? 'bg-blue-500/20 text-blue-400' : 'bg-amber-500/20 text-amber-400'}">
+                                        ${lead.type === 'probetraining' ? 'Probetraining' : 'Mitgliedschaft'}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-400">${source}</td>
+                                <td class="px-6 py-4">
+                                    ${channel === 'whatsapp' ? '📱 WhatsApp' : channel === 'email' ? '📧 E-Mail' : '-'}
+                                </td>
+                                <td class="px-6 py-4 text-sm">${funnelStep}</td>
+                                <td class="px-6 py-4">
+                                    <span class="px-2 py-1 rounded text-xs font-medium ${lead.converted ? 'bg-green-500/20 text-green-400' : 'bg-gray-500/20 text-gray-400'}">
+                                        ${lead.converted ? 'Konvertiert' : 'Offen'}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-400">${new Date(lead.createdAt).toLocaleDateString('de-DE')}</td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        
+        // Initial load
+        refreshData();
+        // Auto-refresh every 30s
+        setInterval(refreshData, 30000);
+    </script>
+</body>
+</html>

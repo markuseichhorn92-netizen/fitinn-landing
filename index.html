@@ -2226,6 +2226,7 @@
         function openModal(type) {
             document.getElementById(`modal-${type}`).classList.add('active');
             document.body.style.overflow = 'hidden';
+            if (typeof trackModalOpen === 'function') trackModalOpen(type);
         }
         function closeModal(type) {
             document.getElementById(`modal-${type}`).classList.remove('active');
@@ -2489,6 +2490,141 @@
     
     <!-- Spacer for sticky CTA on mobile -->
     <div class="h-20 md:hidden"></div>
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-[200] bg-[#1c1c1e] border-t border-white/10 p-4 md:p-6 transform translate-y-full transition-transform duration-500" style="display: none;">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-4">
+            <div class="flex-1 text-sm text-white/70">
+                <p class="mb-1"><strong class="text-white">🍪 Diese Website verwendet Cookies</strong></p>
+                <p>Wir nutzen Cookies für Analyse und Marketing, um dir das beste Erlebnis zu bieten. 
+                <a href="/datenschutz" class="text-accent hover:underline">Mehr erfahren</a></p>
+            </div>
+            <div class="flex gap-3 flex-shrink-0">
+                <button onclick="acceptCookies(false)" class="px-5 py-2.5 text-sm border border-white/20 text-white rounded-full hover:bg-white/10 transition-all">
+                    Nur notwendige
+                </button>
+                <button onclick="acceptCookies(true)" class="px-5 py-2.5 text-sm bg-accent text-black font-semibold rounded-full hover:bg-accent-light transition-all">
+                    Alle akzeptieren
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Cookie Consent Management
+    function getCookieConsent() {
+        return localStorage.getItem('cookie_consent');
+    }
+    
+    function acceptCookies(all) {
+        const consent = all ? 'all' : 'necessary';
+        localStorage.setItem('cookie_consent', consent);
+        localStorage.setItem('cookie_consent_date', new Date().toISOString());
+        hideCookieBanner();
+        if (all) {
+            initTracking();
+        }
+    }
+    
+    function showCookieBanner() {
+        const banner = document.getElementById('cookie-banner');
+        banner.style.display = 'block';
+        setTimeout(() => banner.style.transform = 'translateY(0)', 100);
+    }
+    
+    function hideCookieBanner() {
+        const banner = document.getElementById('cookie-banner');
+        banner.style.transform = 'translateY(100%)';
+        setTimeout(() => banner.style.display = 'none', 500);
+    }
+    
+    // Tracking & Analytics
+    function initTracking() {
+        console.log('📊 Analytics initialized');
+        // Track page view with UTM params
+        trackEvent('page_view', {
+            url: window.location.href,
+            referrer: document.referrer,
+            utm_source: new URLSearchParams(window.location.search).get('utm_source'),
+            utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
+            utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign')
+        });
+    }
+    
+    // Session tracking
+    const SESSION_KEY = 'fitinn_session';
+    function getSession() {
+        let session = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
+        if (!session) {
+            session = {
+                id: 'S' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
+                started: new Date().toISOString(),
+                source: new URLSearchParams(window.location.search).get('utm_source') || document.referrer || 'direct',
+                events: []
+            };
+            localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+        }
+        return session;
+    }
+    
+    function trackEvent(name, data = {}) {
+        if (getCookieConsent() !== 'all') return;
+        
+        const session = getSession();
+        const event = {
+            name,
+            timestamp: new Date().toISOString(),
+            timeOnPage: Math.round((Date.now() - new Date(session.started).getTime()) / 1000),
+            ...data
+        };
+        session.events.push(event);
+        localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+        
+        // Send to backend
+        fetch('https://srv1309486.hstgr.cloud/api/track', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionId: session.id, event })
+        }).catch(() => {});
+        
+        console.log('📊 Event:', name, data);
+    }
+    
+    // Track specific actions
+    window.trackModalOpen = (type) => trackEvent('modal_open', { type });
+    window.trackLeadSubmit = (type) => trackEvent('lead_submit', { type });
+    window.trackBookingComplete = (type) => trackEvent('booking_complete', { type });
+    
+    // Track exit intent
+    let exitTracked = false;
+    document.addEventListener('mouseleave', (e) => {
+        if (e.clientY < 10 && !exitTracked) {
+            exitTracked = true;
+            trackEvent('exit_intent', { timeOnPage: getSession().events?.length || 0 });
+        }
+    });
+    
+    // Track scroll depth
+    let maxScroll = 0;
+    window.addEventListener('scroll', () => {
+        const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        if (scrollPercent > maxScroll) {
+            maxScroll = scrollPercent;
+            if ([25, 50, 75, 100].includes(scrollPercent)) {
+                trackEvent('scroll_depth', { percent: scrollPercent });
+            }
+        }
+    });
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!getCookieConsent()) {
+            setTimeout(showCookieBanner, 1500);
+        } else if (getCookieConsent() === 'all') {
+            initTracking();
+        }
+    });
+    </script>
 
     <!-- Booking Modal -->
     <div id="booking-modal-container"></div>
