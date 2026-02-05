@@ -427,7 +427,7 @@
             transform: scale(0.98);
         }
         
-        /* Testimonial Carousel */
+        /* Testimonial Carousel - Infinite Scroll */
         .hide-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
@@ -435,11 +435,43 @@
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
-        .scroll-snap-start {
-            scroll-snap-align: start;
+        
+        .testimonial-track {
+            display: flex;
+            gap: 24px;
+            animation: scroll-infinite 40s linear infinite;
+            width: max-content;
         }
-        .carousel-dot.active {
-            background: #094957 !important;
+        
+        .testimonial-track:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scroll-infinite {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        /* Stronger fade edges */
+        .carousel-fade-left {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            background: linear-gradient(to right, #f5f5f7 0%, #f5f5f7 20%, transparent 100%);
+            z-index: 10;
+            pointer-events: none;
+        }
+        .carousel-fade-right {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            background: linear-gradient(to left, #f5f5f7 0%, #f5f5f7 20%, transparent 100%);
+            z-index: 10;
+            pointer-events: none;
         }
         
         /* Mobile input fix */
@@ -965,17 +997,17 @@
                 </div>
             </div>
             
-            <!-- Testimonials Carousel -->
-            <div class="relative">
-                <!-- Gradient Fades -->
-                <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-apple-gray-100 to-transparent z-10 pointer-events-none"></div>
-                <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-apple-gray-100 to-transparent z-10 pointer-events-none"></div>
+            <!-- Testimonials Carousel - Infinite Auto-Scroll -->
+            <div class="relative overflow-hidden">
+                <!-- Fade edges -->
+                <div class="carousel-fade-left"></div>
+                <div class="carousel-fade-right"></div>
                 
-                <!-- Carousel Container -->
-                <div id="testimonial-carousel" class="flex gap-6 overflow-x-auto scroll-smooth pb-4 hide-scrollbar" style="scroll-snap-type: x mandatory;">
+                <!-- Infinite Scroll Track -->
+                <div class="testimonial-track">
                     
                     <!-- Review 1 -->
-                    <div class="flex-shrink-0 w-[350px] md:w-[400px] scroll-snap-start">
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
                         <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
@@ -985,7 +1017,7 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-600 mb-6 flex-grow">"Endlich ein Studio, wo man sich als älterer Mensch nicht fehl am Platz fühlt. Das Team erklärt alles geduldig und nimmt sich Zeit."</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Endlich ein Studio, wo man sich als älterer Mensch nicht fehl am Platz fühlt. Das Team erklärt alles geduldig."</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold text-sm">HM</div>
                                     <div>
@@ -998,7 +1030,7 @@
                     </div>
                     
                     <!-- Review 2 -->
-                    <div class="flex-shrink-0 w-[350px] md:w-[400px] scroll-snap-start">
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
                         <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
@@ -1008,7 +1040,7 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-600 mb-6 flex-grow">"Mein Arzt hat mir Bewegung empfohlen wegen dem Rücken. Nach 3 Monaten hier sind die Schmerzen fast weg. Kann ich nur empfehlen!"</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Mein Arzt hat mir Bewegung empfohlen wegen dem Rücken. Nach 3 Monaten hier sind die Schmerzen fast weg!"</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">WK</div>
                                     <div>
@@ -1021,7 +1053,7 @@
                     </div>
                     
                     <!-- Review 3 -->
-                    <div class="flex-shrink-0 w-[350px] md:w-[400px] scroll-snap-start">
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
                         <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
@@ -1031,7 +1063,7 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-600 mb-6 flex-grow">"Super freundliches Personal und moderne Geräte. Kein Vergleich zu den großen Ketten - hier kennt man noch jeden beim Namen."</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Super freundliches Personal. Kein Vergleich zu den großen Ketten - hier kennt man noch jeden beim Namen."</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-sm">SK</div>
                                     <div>
@@ -1044,7 +1076,7 @@
                     </div>
                     
                     <!-- Review 4 -->
-                    <div class="flex-shrink-0 w-[350px] md:w-[400px] scroll-snap-start">
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
                         <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
@@ -1054,7 +1086,7 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-600 mb-6 flex-grow">"Die TechnoGym Geräte sind der Wahnsinn! Stellen sich automatisch ein. Perfekt für Anfänger wie mich. Fühle mich sehr gut aufgehoben."</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Die TechnoGym Geräte sind der Wahnsinn! Stellen sich automatisch ein. Perfekt für Anfänger wie mich."</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-sm">MR</div>
                                     <div>
@@ -1067,7 +1099,7 @@
                     </div>
                     
                     <!-- Review 5 -->
-                    <div class="flex-shrink-0 w-[350px] md:w-[400px] scroll-snap-start">
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
                         <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
@@ -1077,7 +1109,7 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-600 mb-6 flex-grow">"Bin seit einem Jahr dabei und habe 15kg abgenommen. Die Trainer haben immer ein offenes Ohr und motivieren einen weiterzumachen."</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Bin seit einem Jahr dabei und habe 15kg abgenommen. Die Trainer motivieren einen immer weiterzumachen."</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm">PH</div>
                                     <div>
@@ -1090,7 +1122,7 @@
                     </div>
                     
                     <!-- Review 6 -->
-                    <div class="flex-shrink-0 w-[350px] md:w-[400px] scroll-snap-start">
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
                         <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
@@ -1100,7 +1132,7 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-600 mb-6 flex-grow">"Sehr sauberes Studio mit angenehmer Atmosphäre. Einziger Kritikpunkt: Parkplätze können knapp werden. Sonst top!"</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Sehr sauberes Studio mit angenehmer Atmosphäre. Parkplätze können knapp werden, sonst top!"</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-sm">AS</div>
                                     <div>
@@ -1113,7 +1145,7 @@
                     </div>
                     
                     <!-- Review 7 -->
-                    <div class="flex-shrink-0 w-[350px] md:w-[400px] scroll-snap-start">
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
                         <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
@@ -1123,7 +1155,7 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-600 mb-6 flex-grow">"Familiäre Atmosphäre, super nettes Team. Man merkt, dass hier der Mensch im Mittelpunkt steht und nicht der Profit. Absolute Empfehlung!"</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Familiäre Atmosphäre, super nettes Team. Hier steht der Mensch im Mittelpunkt. Absolute Empfehlung!"</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold text-sm">TM</div>
                                     <div>
@@ -1135,17 +1167,169 @@
                         </div>
                     </div>
                     
-                </div>
-                
-                <!-- Carousel Navigation Dots -->
-                <div class="flex justify-center gap-2 mt-6">
-                    <button onclick="scrollTestimonial(0)" class="w-2 h-2 rounded-full bg-teal/30 hover:bg-teal transition-colors carousel-dot active"></button>
-                    <button onclick="scrollTestimonial(1)" class="w-2 h-2 rounded-full bg-teal/30 hover:bg-teal transition-colors carousel-dot"></button>
-                    <button onclick="scrollTestimonial(2)" class="w-2 h-2 rounded-full bg-teal/30 hover:bg-teal transition-colors carousel-dot"></button>
-                    <button onclick="scrollTestimonial(3)" class="w-2 h-2 rounded-full bg-teal/30 hover:bg-teal transition-colors carousel-dot"></button>
-                    <button onclick="scrollTestimonial(4)" class="w-2 h-2 rounded-full bg-teal/30 hover:bg-teal transition-colors carousel-dot"></button>
-                    <button onclick="scrollTestimonial(5)" class="w-2 h-2 rounded-full bg-teal/30 hover:bg-teal transition-colors carousel-dot"></button>
-                    <button onclick="scrollTestimonial(6)" class="w-2 h-2 rounded-full bg-teal/30 hover:bg-teal transition-colors carousel-dot"></button>
+                    <!-- DUPLICATES for infinite scroll effect -->
+                    
+                    <!-- Review 1 (duplicate) -->
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
+                        <div class="liquid-glass-light p-6 h-full">
+                            <div class="relative z-10 h-full flex flex-col">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
+                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                                        <span>Google</span>
+                                    </div>
+                                </div>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Endlich ein Studio, wo man sich als älterer Mensch nicht fehl am Platz fühlt. Das Team erklärt alles geduldig."</p>
+                                <div class="flex items-center gap-3 mt-auto">
+                                    <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold text-sm">HM</div>
+                                    <div>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Helga M.</p>
+                                        <p class="text-xs text-apple-gray-400">vor 2 Monaten</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Review 2 (duplicate) -->
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
+                        <div class="liquid-glass-light p-6 h-full">
+                            <div class="relative z-10 h-full flex flex-col">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
+                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                                        <span>Google</span>
+                                    </div>
+                                </div>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Mein Arzt hat mir Bewegung empfohlen wegen dem Rücken. Nach 3 Monaten hier sind die Schmerzen fast weg!"</p>
+                                <div class="flex items-center gap-3 mt-auto">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">WK</div>
+                                    <div>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Werner K.</p>
+                                        <p class="text-xs text-apple-gray-400">vor 3 Monaten</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Review 3 (duplicate) -->
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
+                        <div class="liquid-glass-light p-6 h-full">
+                            <div class="relative z-10 h-full flex flex-col">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
+                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                                        <span>Google</span>
+                                    </div>
+                                </div>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Super freundliches Personal. Kein Vergleich zu den großen Ketten - hier kennt man noch jeden beim Namen."</p>
+                                <div class="flex items-center gap-3 mt-auto">
+                                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-sm">SK</div>
+                                    <div>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Sandra K.</p>
+                                        <p class="text-xs text-apple-gray-400">vor 1 Monat</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Review 4 (duplicate) -->
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
+                        <div class="liquid-glass-light p-6 h-full">
+                            <div class="relative z-10 h-full flex flex-col">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
+                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                                        <span>Google</span>
+                                    </div>
+                                </div>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Die TechnoGym Geräte sind der Wahnsinn! Stellen sich automatisch ein. Perfekt für Anfänger wie mich."</p>
+                                <div class="flex items-center gap-3 mt-auto">
+                                    <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-sm">MR</div>
+                                    <div>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Michael R.</p>
+                                        <p class="text-xs text-apple-gray-400">vor 2 Wochen</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Review 5 (duplicate) -->
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
+                        <div class="liquid-glass-light p-6 h-full">
+                            <div class="relative z-10 h-full flex flex-col">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
+                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                                        <span>Google</span>
+                                    </div>
+                                </div>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Bin seit einem Jahr dabei und habe 15kg abgenommen. Die Trainer motivieren einen immer weiterzumachen."</p>
+                                <div class="flex items-center gap-3 mt-auto">
+                                    <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm">PH</div>
+                                    <div>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Peter H.</p>
+                                        <p class="text-xs text-apple-gray-400">vor 3 Wochen</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Review 6 (duplicate) -->
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
+                        <div class="liquid-glass-light p-6 h-full">
+                            <div class="relative z-10 h-full flex flex-col">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-1 text-amber-400">★★★★<span class="text-apple-gray-300">★</span></div>
+                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                                        <span>Google</span>
+                                    </div>
+                                </div>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Sehr sauberes Studio mit angenehmer Atmosphäre. Parkplätze können knapp werden, sonst top!"</p>
+                                <div class="flex items-center gap-3 mt-auto">
+                                    <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-sm">AS</div>
+                                    <div>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Anna S.</p>
+                                        <p class="text-xs text-apple-gray-400">vor 1 Monat</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Review 7 (duplicate) -->
+                    <div class="flex-shrink-0 w-[320px] md:w-[380px]">
+                        <div class="liquid-glass-light p-6 h-full">
+                            <div class="relative z-10 h-full flex flex-col">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
+                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                        <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                                        <span>Google</span>
+                                    </div>
+                                </div>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Familiäre Atmosphäre, super nettes Team. Hier steht der Mensch im Mittelpunkt. Absolute Empfehlung!"</p>
+                                <div class="flex items-center gap-3 mt-auto">
+                                    <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold text-sm">TM</div>
+                                    <div>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Thomas M.</p>
+                                        <p class="text-xs text-apple-gray-400">vor 5 Tagen</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
             
@@ -1604,34 +1788,6 @@
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
         reveals.forEach(el => revealObserver.observe(el));
-
-        // Testimonial Carousel
-        function scrollTestimonial(index) {
-            const carousel = document.getElementById('testimonial-carousel');
-            const cards = carousel.children;
-            if (cards[index]) {
-                const cardWidth = cards[index].offsetWidth + 24; // width + gap
-                carousel.scrollTo({ left: cardWidth * index, behavior: 'smooth' });
-            }
-            // Update dots
-            document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-        }
-        
-        // Auto-update dots on scroll
-        document.addEventListener('DOMContentLoaded', () => {
-            const carousel = document.getElementById('testimonial-carousel');
-            if (carousel) {
-                carousel.addEventListener('scroll', () => {
-                    const cardWidth = carousel.children[0]?.offsetWidth + 24 || 400;
-                    const index = Math.round(carousel.scrollLeft / cardWidth);
-                    document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
-                        dot.classList.toggle('active', i === index);
-                    });
-                });
-            }
-        });
 
         // Modal functions
         function openModal(type) {
