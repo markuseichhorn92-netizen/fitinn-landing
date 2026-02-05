@@ -462,14 +462,29 @@
         
         .sticky-section {
             position: sticky;
-            top: 64px; /* Below navbar */
+            top: 0;
+            margin-bottom: -100vh; /* Overlap sections */
+        }
+        
+        .sticky-section:last-child {
+            margin-bottom: 0;
         }
         
         .sticky-section-inner {
             width: 100%;
-            min-height: calc(100vh - 64px);
-            display: flex;
-            align-items: center;
+            min-height: 100vh;
+            padding-top: 80px; /* Space for navbar */
+        }
+        
+        /* Backgrounds must be on inner for stack effect */
+        .sticky-section.section-dark .sticky-section-inner {
+            background: #000;
+            color: #f5f5f7;
+        }
+        
+        .sticky-section.section-light .sticky-section-inner {
+            background: #f5f5f7;
+            color: #1d1d1f;
         }
         
         /* Stack order - each section sits above the previous */
@@ -479,18 +494,19 @@
         .sticky-section:nth-child(4) { z-index: 4; }
         .sticky-section:nth-child(5) { z-index: 5; }
         .sticky-section:nth-child(6) { z-index: 6; }
-        .sticky-section:nth-child(7) { z-index: 7; }
-        .sticky-section:nth-child(8) { z-index: 8; }
-        .sticky-section:nth-child(9) { z-index: 9; }
-        .sticky-section:nth-child(10) { z-index: 10; }
         
-        /* Shadow on sections for depth */
+        /* Shadow on top edge for depth */
         .sticky-section .sticky-section-inner {
-            box-shadow: 0 -20px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 -30px 60px rgba(0,0,0,0.4);
         }
         
         .sticky-section.section-light .sticky-section-inner {
-            box-shadow: 0 -20px 50px rgba(0,0,0,0.1);
+            box-shadow: 0 -30px 60px rgba(0,0,0,0.15);
+        }
+        
+        /* Rounded top corners for card effect */
+        .sticky-section:not(:first-child) .sticky-section-inner {
+            border-radius: 40px 40px 0 0;
         }
         
         /* Stronger fade edges */
