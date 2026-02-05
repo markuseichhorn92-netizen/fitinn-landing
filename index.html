@@ -75,58 +75,12 @@
         }
         
         /* Apple-style section transitions */
-        .section-dark { background: transparent; color: #f5f5f7; }
-        .section-light { background: rgba(255,255,255,0.02); color: #f5f5f7; }
-        
-        /* Flowing gradient background */
-        body {
-            background: linear-gradient(
-                180deg,
-                #000000 0%,
-                #0a0a0a 15%,
-                #050810 30%,
-                #0a0d12 45%,
-                #080a0f 60%,
-                #050608 75%,
-                #000000 100%
-            );
-            background-attachment: fixed;
-        }
-        
-        /* Gradient divider */
-        .gradient-divider {
-            height: 120px;
-            background: linear-gradient(180deg, transparent 0%, rgba(221,155,67,0.03) 50%, transparent 100%);
-        }
-        .gradient-divider-teal {
-            height: 120px;
-            background: linear-gradient(180deg, transparent 0%, rgba(9,73,87,0.08) 50%, transparent 100%);
-        }
-        
-        /* Section background decorations */
-        .section-bg-icon {
-            position: absolute;
-            opacity: 0.02;
-            pointer-events: none;
-            z-index: 0;
-        }
-        
-        /* Clean card style (less glassy) */
-        .clean-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 24px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .clean-card:hover {
-            background: rgba(255,255,255,0.05);
-            border-color: rgba(255,255,255,0.15);
-            transform: translateY(-4px);
-        }
+        .section-dark { background: #000; color: #f5f5f7; }
+        .section-light { background: #f5f5f7; color: #1d1d1f; }
         
         /* Element-based scroll transitions */
         #angebot h2, #angebot p, #angebot .liquid-glass,
-        #features h2, #features p, #features .liquid-glass,
+        #features h2, #features p, #features .liquid-glass-teal,
         #preise h2, #preise .proof-pill, #preise .liquid-glass, #preise .liquid-glass-accent,
         #kontakt h2, #kontakt p, #kontakt .liquid-glass {
             transform-origin: center center;
@@ -356,7 +310,7 @@
         }
         
         /* Liquid Glass - Light Mode (for light sections) */
-        .liquid-glass {
+        .liquid-glass-light {
             position: relative;
             background: linear-gradient(
                 135deg,
@@ -376,7 +330,7 @@
             overflow: hidden;
         }
         
-        .liquid-glass::before {
+        .liquid-glass-light::before {
             content: '';
             position: absolute;
             top: 0;
@@ -391,7 +345,7 @@
             );
         }
         
-        .liquid-glass::after {
+        .liquid-glass-light::after {
             content: '';
             position: absolute;
             top: 0;
@@ -407,7 +361,7 @@
             border-radius: 28px 28px 0 0;
         }
         
-        .liquid-glass.liquid-glass-hover:hover {
+        .liquid-glass-light.liquid-glass-hover:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 
                 0 20px 50px rgba(9, 73, 87, 0.12),
@@ -417,7 +371,7 @@
         }
         
         /* Liquid Glass - Teal Accent (for light sections) */
-        .liquid-glass {
+        .liquid-glass-teal {
             position: relative;
             background: linear-gradient(
                 135deg,
@@ -436,7 +390,7 @@
             overflow: hidden;
         }
         
-        .liquid-glass.liquid-glass-hover:hover {
+        .liquid-glass-teal.liquid-glass-hover:hover {
             border-color: rgba(9, 73, 87, 0.3);
             box-shadow: 
                 0 20px 50px rgba(9, 73, 87, 0.15),
@@ -513,7 +467,7 @@
             top: 0;
             bottom: 0;
             width: 100px;
-            background: linear-gradient(to right, #000 0%, #000 20%, transparent 100%);
+            background: linear-gradient(to right, #f5f5f7 0%, #f5f5f7 20%, transparent 100%);
             z-index: 10;
             pointer-events: none;
         }
@@ -523,7 +477,7 @@
             top: 0;
             bottom: 0;
             width: 100px;
-            background: linear-gradient(to left, #000 0%, #000 20%, transparent 100%);
+            background: linear-gradient(to left, #f5f5f7 0%, #f5f5f7 20%, transparent 100%);
             z-index: 10;
             pointer-events: none;
         }
@@ -820,21 +774,21 @@
             
             <!-- Feature Grid - Liquid Glass -->
             <div class="reveal reveal-delay-3 grid md:grid-cols-3 gap-6 mt-16 stagger-children">
-                <div class="clean-card p-8 text-left cursor-default">
+                <div class="liquid-glass liquid-glass-hover p-8 text-left cursor-default">
                     <div class="relative z-10">
                         <div class="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center text-3xl mb-5">🏋️</div>
                         <h3 class="text-lg font-semibold mb-2">Voller Zugang</h3>
                         <p class="text-apple-gray-400 text-sm">Alle Geräte. Alle Bereiche. Keine Einschränkungen.</p>
                     </div>
                 </div>
-                <div class="clean-card p-8 text-left cursor-default">
+                <div class="liquid-glass liquid-glass-hover p-8 text-left cursor-default">
                     <div class="relative z-10">
                         <div class="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center text-3xl mb-5">📋</div>
                         <h3 class="text-lg font-semibold mb-2">Trainingsplan</h3>
                         <p class="text-apple-gray-400 text-sm">Individuell auf dich abgestimmt. Von Experten erstellt.</p>
                     </div>
                 </div>
-                <div class="clean-card p-8 text-left cursor-default">
+                <div class="liquid-glass liquid-glass-hover p-8 text-left cursor-default">
                     <div class="relative z-10">
                         <div class="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center text-3xl mb-5">📊</div>
                         <h3 class="text-lg font-semibold mb-2">Körperanalyse</h3>
@@ -846,23 +800,14 @@
     </section>
 
     <!-- Features - Light Section: Was uns unterscheidet -->
-    <!-- Gradient Divider -->
-    <div class="gradient-divider-teal"></div>
-    
-    <section id="features" class="py-32 section-dark relative">
-        <!-- Background decoration -->
-        <div class="section-bg-icon absolute -right-20 top-1/2 -translate-y-1/2">
-            <svg width="500" height="500" viewBox="0 0 24 24" fill="rgba(9,73,87,0.4)">
-                <path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"/>
-            </svg>
-        </div>
-        <div class="max-w-[1200px] mx-auto px-6 relative z-10">
+    <section id="features" class="py-32 section-light">
+        <div class="max-w-[1200px] mx-auto px-6">
             <div class="text-center mb-16">
                 <p class="reveal text-teal text-sm font-semibold tracking-wide uppercase mb-4">Warum FIT-INN</p>
                 <h2 class="reveal reveal-delay-1 text-headline md:text-display-3 font-bold">
                     Mehr als ein Studio.
                 </h2>
-                <p class="reveal reveal-delay-2 text-body-large text-apple-gray-400 max-w-2xl mx-auto mt-6">
+                <p class="reveal reveal-delay-2 text-body-large text-apple-gray-500 max-w-2xl mx-auto mt-6">
                     Das unterscheidet uns von anderen Fitnessstudios:
                 </p>
             </div>
@@ -870,79 +815,79 @@
             <!-- USP Grid - Liquid Glass Light -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
                 <!-- USP 1 -->
-                <div class="reveal clean-card p-8">
+                <div class="reveal liquid-glass-teal liquid-glass-hover p-8">
                     <div class="relative z-10">
                         <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">Gesundheitspartner</h3>
+                        <h3 class="text-xl font-bold text-apple-gray-700 mb-3">Gesundheitspartner</h3>
                         <p class="text-apple-gray-500">Kein anonymes Muckibuden-Feeling. Bei uns bist du keine Nummer, sondern Mensch mit individuellen Zielen.</p>
                     </div>
                 </div>
                 
                 <!-- USP 2 -->
-                <div class="reveal reveal-delay-1 clean-card p-8">
+                <div class="reveal reveal-delay-1 liquid-glass-teal liquid-glass-hover p-8">
                     <div class="relative z-10">
                         <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">TechnoGym Biostrength</h3>
+                        <h3 class="text-xl font-bold text-apple-gray-700 mb-3">TechnoGym Biostrength</h3>
                         <p class="text-apple-gray-500">Intelligente Geräte der Spitzenklasse, die sich automatisch auf dich einstellen — sicher und gelenkschonend.</p>
                     </div>
                 </div>
                 
                 <!-- USP 3 -->
-                <div class="reveal reveal-delay-2 clean-card p-8">
+                <div class="reveal reveal-delay-2 liquid-glass-teal liquid-glass-hover p-8">
                     <div class="relative z-10">
                         <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">Echte Betreuung</h3>
+                        <h3 class="text-xl font-bold text-apple-gray-700 mb-3">Echte Betreuung</h3>
                         <p class="text-apple-gray-500">Qualifizierte Trainer, die sich Zeit nehmen. Mit Geduld, Fachwissen und echter persönlicher Unterstützung.</p>
                     </div>
                 </div>
                 
                 <!-- USP 4 -->
-                <div class="reveal clean-card p-8">
+                <div class="reveal liquid-glass-teal liquid-glass-hover p-8">
                     <div class="relative z-10">
                         <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">25+ Jahre Erfahrung</h3>
+                        <h3 class="text-xl font-bold text-apple-gray-700 mb-3">25+ Jahre Erfahrung</h3>
                         <p class="text-apple-gray-500">Seit über 25 Jahren dein verlässlicher Partner für Gesundheit und Fitness in Trier. Das spricht für sich.</p>
                     </div>
                 </div>
                 
                 <!-- USP 5 -->
-                <div class="reveal reveal-delay-1 clean-card p-8">
+                <div class="reveal reveal-delay-1 liquid-glass-teal liquid-glass-hover p-8">
                     <div class="relative z-10">
                         <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">Ruhige Atmosphäre</h3>
+                        <h3 class="text-xl font-bold text-apple-gray-700 mb-3">Ruhige Atmosphäre</h3>
                         <p class="text-apple-gray-500">Keine laute Musik, keine überfüllten Räume. Trainiere entspannt in deinem eigenen Tempo.</p>
                     </div>
                 </div>
                 
                 <!-- USP 6 -->
-                <div class="reveal reveal-delay-2 clean-card p-8">
+                <div class="reveal reveal-delay-2 liquid-glass-teal liquid-glass-hover p-8">
                     <div class="relative z-10">
                         <div class="w-14 h-14 bg-gradient-to-br from-teal/20 to-teal/10 rounded-2xl flex items-center justify-center mb-5">
                             <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">Individuelle Pläne</h3>
+                        <h3 class="text-xl font-bold text-apple-gray-700 mb-3">Individuelle Pläne</h3>
                         <p class="text-apple-gray-500">Kein Training von der Stange — dein persönlicher Plan, angepasst an deine Ziele und Möglichkeiten.</p>
                     </div>
                 </div>
@@ -951,9 +896,6 @@
     </section>
 
     <!-- Pricing - Dark Section with Liquid Glass -->
-    <!-- Gradient Divider -->
-    <div class="gradient-divider"></div>
-
     <section id="preise" class="py-32 section-dark relative overflow-hidden">
         <!-- Ambient background glow -->
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/5 rounded-full blur-[150px] pointer-events-none"></div>
@@ -984,7 +926,7 @@
             
             <div class="grid md:grid-cols-3 gap-6 lg:gap-8 stagger-children items-stretch pt-6">
                 <!-- Flex -->
-                <div class="reveal clean-card p-8 relative z-10 h-full">
+                <div class="reveal liquid-glass liquid-glass-hover p-8 relative z-10 h-full">
                     <div class="relative z-10">
                         <h3 class="text-xl font-bold mb-1">Flex</h3>
                         <p class="text-apple-gray-400 text-sm mb-8">Maximale Flexibilität</p>
@@ -1054,7 +996,7 @@
                 </div>
                 
                 <!-- Basic -->
-                <div class="reveal reveal-delay-2 clean-card p-8 relative z-10 h-full">
+                <div class="reveal reveal-delay-2 liquid-glass liquid-glass-hover p-8 relative z-10 h-full">
                     <div class="relative z-10">
                         <h3 class="text-xl font-bold mb-1">Basic</h3>
                         <p class="text-apple-gray-400 text-sm mb-8">Der Klassiker</p>
@@ -1095,11 +1037,8 @@
         </div>
     </section>
 
-    <!-- Gradient Divider -->
-    <div class="gradient-divider"></div>
-
     <!-- Testimonials - Carousel with Google Reviews -->
-    <section class="py-32 section-dark overflow-hidden">
+    <section class="py-32 section-light overflow-hidden">
         <div class="max-w-[1200px] mx-auto px-6">
             <div class="text-center mb-12">
                 <p class="reveal text-teal text-sm font-semibold tracking-wide uppercase mb-4">Erfahrungen</p>
@@ -1117,7 +1056,7 @@
                     </svg>
                     <div class="text-left">
                         <div class="flex items-center gap-1">
-                            <span class="font-bold text-white">4,7</span>
+                            <span class="font-bold text-apple-gray-700">4,7</span>
                             <div class="flex text-amber-400 text-sm">★★★★★</div>
                         </div>
                         <p class="text-xs text-apple-gray-500">Basierend auf 171 Google Bewertungen</p>
@@ -1137,7 +1076,7 @@
                     
                     <!-- Review 1 -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
@@ -1146,11 +1085,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Endlich ein Studio, wo man sich als älterer Mensch nicht fehl am Platz fühlt. Das Team erklärt alles geduldig."</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Endlich ein Studio, wo man sich als älterer Mensch nicht fehl am Platz fühlt. Das Team erklärt alles geduldig."</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold text-sm">HM</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Helga M.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Helga M.</p>
                                         <p class="text-xs text-apple-gray-400">vor 2 Monaten</p>
                                     </div>
                                 </div>
@@ -1160,7 +1099,7 @@
                     
                     <!-- Review 2 -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
@@ -1169,11 +1108,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Mein Arzt hat mir Bewegung empfohlen wegen dem Rücken. Nach 3 Monaten hier sind die Schmerzen fast weg!"</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Mein Arzt hat mir Bewegung empfohlen wegen dem Rücken. Nach 3 Monaten hier sind die Schmerzen fast weg!"</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">WK</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Werner K.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Werner K.</p>
                                         <p class="text-xs text-apple-gray-400">vor 3 Monaten</p>
                                     </div>
                                 </div>
@@ -1183,7 +1122,7 @@
                     
                     <!-- Review 3 -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
@@ -1192,11 +1131,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Super freundliches Personal. Kein Vergleich zu den großen Ketten - hier kennt man noch jeden beim Namen."</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Super freundliches Personal. Kein Vergleich zu den großen Ketten - hier kennt man noch jeden beim Namen."</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-sm">SK</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Sandra K.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Sandra K.</p>
                                         <p class="text-xs text-apple-gray-400">vor 1 Monat</p>
                                     </div>
                                 </div>
@@ -1206,7 +1145,7 @@
                     
                     <!-- Review 4 -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
@@ -1215,11 +1154,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Die TechnoGym Geräte sind der Wahnsinn! Stellen sich automatisch ein. Perfekt für Anfänger wie mich."</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Die TechnoGym Geräte sind der Wahnsinn! Stellen sich automatisch ein. Perfekt für Anfänger wie mich."</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-sm">MR</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Michael R.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Michael R.</p>
                                         <p class="text-xs text-apple-gray-400">vor 2 Wochen</p>
                                     </div>
                                 </div>
@@ -1229,7 +1168,7 @@
                     
                     <!-- Review 5 -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
@@ -1238,11 +1177,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Bin seit einem Jahr dabei und habe 15kg abgenommen. Die Trainer motivieren einen immer weiterzumachen."</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Bin seit einem Jahr dabei und habe 15kg abgenommen. Die Trainer motivieren einen immer weiterzumachen."</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm">PH</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Peter H.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Peter H.</p>
                                         <p class="text-xs text-apple-gray-400">vor 3 Wochen</p>
                                     </div>
                                 </div>
@@ -1252,7 +1191,7 @@
                     
                     <!-- Review 6 -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★<span class="text-apple-gray-300">★</span></div>
@@ -1261,11 +1200,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Sehr sauberes Studio mit angenehmer Atmosphäre. Parkplätze können knapp werden, sonst top!"</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Sehr sauberes Studio mit angenehmer Atmosphäre. Parkplätze können knapp werden, sonst top!"</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-sm">AS</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Anna S.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Anna S.</p>
                                         <p class="text-xs text-apple-gray-400">vor 1 Monat</p>
                                     </div>
                                 </div>
@@ -1275,7 +1214,7 @@
                     
                     <!-- Review 7 -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
@@ -1284,11 +1223,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Familiäre Atmosphäre, super nettes Team. Hier steht der Mensch im Mittelpunkt. Absolute Empfehlung!"</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Familiäre Atmosphäre, super nettes Team. Hier steht der Mensch im Mittelpunkt. Absolute Empfehlung!"</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold text-sm">TM</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Thomas M.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Thomas M.</p>
                                         <p class="text-xs text-apple-gray-400">vor 5 Tagen</p>
                                     </div>
                                 </div>
@@ -1300,7 +1239,7 @@
                     
                     <!-- Review 1 (duplicate) -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
@@ -1309,11 +1248,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Endlich ein Studio, wo man sich als älterer Mensch nicht fehl am Platz fühlt. Das Team erklärt alles geduldig."</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Endlich ein Studio, wo man sich als älterer Mensch nicht fehl am Platz fühlt. Das Team erklärt alles geduldig."</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold text-sm">HM</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Helga M.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Helga M.</p>
                                         <p class="text-xs text-apple-gray-400">vor 2 Monaten</p>
                                     </div>
                                 </div>
@@ -1323,7 +1262,7 @@
                     
                     <!-- Review 2 (duplicate) -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
@@ -1332,11 +1271,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Mein Arzt hat mir Bewegung empfohlen wegen dem Rücken. Nach 3 Monaten hier sind die Schmerzen fast weg!"</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Mein Arzt hat mir Bewegung empfohlen wegen dem Rücken. Nach 3 Monaten hier sind die Schmerzen fast weg!"</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">WK</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Werner K.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Werner K.</p>
                                         <p class="text-xs text-apple-gray-400">vor 3 Monaten</p>
                                     </div>
                                 </div>
@@ -1346,7 +1285,7 @@
                     
                     <!-- Review 3 (duplicate) -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
@@ -1355,11 +1294,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Super freundliches Personal. Kein Vergleich zu den großen Ketten - hier kennt man noch jeden beim Namen."</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Super freundliches Personal. Kein Vergleich zu den großen Ketten - hier kennt man noch jeden beim Namen."</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-sm">SK</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Sandra K.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Sandra K.</p>
                                         <p class="text-xs text-apple-gray-400">vor 1 Monat</p>
                                     </div>
                                 </div>
@@ -1369,7 +1308,7 @@
                     
                     <!-- Review 4 (duplicate) -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
@@ -1378,11 +1317,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Die TechnoGym Geräte sind der Wahnsinn! Stellen sich automatisch ein. Perfekt für Anfänger wie mich."</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Die TechnoGym Geräte sind der Wahnsinn! Stellen sich automatisch ein. Perfekt für Anfänger wie mich."</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-sm">MR</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Michael R.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Michael R.</p>
                                         <p class="text-xs text-apple-gray-400">vor 2 Wochen</p>
                                     </div>
                                 </div>
@@ -1392,7 +1331,7 @@
                     
                     <!-- Review 5 (duplicate) -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
@@ -1401,11 +1340,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Bin seit einem Jahr dabei und habe 15kg abgenommen. Die Trainer motivieren einen immer weiterzumachen."</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Bin seit einem Jahr dabei und habe 15kg abgenommen. Die Trainer motivieren einen immer weiterzumachen."</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm">PH</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Peter H.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Peter H.</p>
                                         <p class="text-xs text-apple-gray-400">vor 3 Wochen</p>
                                     </div>
                                 </div>
@@ -1415,7 +1354,7 @@
                     
                     <!-- Review 6 (duplicate) -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★<span class="text-apple-gray-300">★</span></div>
@@ -1424,11 +1363,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Sehr sauberes Studio mit angenehmer Atmosphäre. Parkplätze können knapp werden, sonst top!"</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Sehr sauberes Studio mit angenehmer Atmosphäre. Parkplätze können knapp werden, sonst top!"</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-sm">AS</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Anna S.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Anna S.</p>
                                         <p class="text-xs text-apple-gray-400">vor 1 Monat</p>
                                     </div>
                                 </div>
@@ -1438,7 +1377,7 @@
                     
                     <!-- Review 7 (duplicate) -->
                     <div class="flex-shrink-0 w-[320px] md:w-[380px]">
-                        <div class="liquid-glass p-6 h-full">
+                        <div class="liquid-glass-light p-6 h-full">
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
@@ -1447,11 +1386,11 @@
                                         <span>Google</span>
                                     </div>
                                 </div>
-                                <p class="text-apple-gray-300 mb-6 flex-grow">"Familiäre Atmosphäre, super nettes Team. Hier steht der Mensch im Mittelpunkt. Absolute Empfehlung!"</p>
+                                <p class="text-apple-gray-600 mb-6 flex-grow">"Familiäre Atmosphäre, super nettes Team. Hier steht der Mensch im Mittelpunkt. Absolute Empfehlung!"</p>
                                 <div class="flex items-center gap-3 mt-auto">
                                     <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold text-sm">TM</div>
                                     <div>
-                                        <p class="font-semibold text-white text-sm">Thomas M.</p>
+                                        <p class="font-semibold text-apple-gray-700 text-sm">Thomas M.</p>
                                         <p class="text-xs text-apple-gray-400">vor 5 Tagen</p>
                                     </div>
                                 </div>
@@ -1473,16 +1412,7 @@
     </section>
 
     <!-- FAQ Section -->
-    <!-- Gradient Divider -->
-    <div class="gradient-divider-teal"></div>
-    
-    <section id="faq" class="py-32 section-dark relative">
-        <!-- Background decoration -->
-        <div class="section-bg-icon absolute -left-20 top-1/2 -translate-y-1/2">
-            <svg width="400" height="400" viewBox="0 0 24 24" fill="rgba(221,155,67,0.3)">
-                <path d="M11.07 12.85c.77-1.39 2.25-2.21 3.11-3.44.91-1.29.4-3.7-2.18-3.7-1.69 0-2.52 1.28-2.87 2.34L6.54 6.96C7.25 4.83 9.18 3 11.99 3c2.35 0 3.96 1.07 4.78 2.41.7 1.15 1.11 3.3.03 4.9-1.2 1.77-2.35 2.31-2.97 3.45-.25.46-.35.76-.35 2.24h-2.89c-.01-.78-.13-2.05.48-3.15zM14 20c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2z"/>
-            </svg>
-        </div>
+    <section id="faq" class="py-32 section-dark">
         <div class="max-w-[800px] mx-auto px-6">
             <div class="text-center mb-16">
                 <p class="reveal text-accent text-sm font-semibold tracking-wide uppercase mb-4">Häufige Fragen</p>
@@ -1551,16 +1481,7 @@
     </section>
 
     <!-- Contact - Dark -->
-    <!-- Gradient Divider -->
-    <div class="gradient-divider"></div>
-    
-    <section id="kontakt" class="py-32 section-dark relative">
-        <!-- Background decoration -->
-        <div class="section-bg-icon absolute -right-10 top-1/3">
-            <svg width="350" height="350" viewBox="0 0 24 24" fill="rgba(9,73,87,0.3)">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-            </svg>
-        </div>
+    <section id="kontakt" class="py-32 section-dark">
         <div class="max-w-[800px] mx-auto px-6 text-center">
             <p class="reveal text-accent text-sm font-semibold tracking-wide uppercase mb-4">Kontakt</p>
             <h2 class="reveal reveal-delay-1 text-headline md:text-display-3 font-bold mb-6">
@@ -1571,7 +1492,7 @@
             </p>
             
             <div class="reveal reveal-delay-3 grid md:grid-cols-3 gap-6 text-left mb-12">
-                <div class="clean-card p-6 h-full">
+                <div class="liquid-glass liquid-glass-hover p-6 h-full">
                     <div class="relative z-10 h-full flex flex-col">
                         <div class="flex items-center gap-3 mb-4">
                             <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center text-lg">🕐</div>
@@ -1600,7 +1521,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="clean-card p-6 h-full">
+                <div class="liquid-glass liquid-glass-hover p-6 h-full">
                     <div class="relative z-10 h-full flex flex-col">
                         <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center text-lg mb-4">📍</div>
                         <h3 class="font-semibold mb-3">Adresse</h3>
@@ -1614,7 +1535,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="clean-card p-6 h-full">
+                <div class="liquid-glass liquid-glass-hover p-6 h-full">
                     <div class="relative z-10 h-full flex flex-col">
                         <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center text-lg mb-4">💬</div>
                         <h3 class="font-semibold mb-3">Kontakt</h3>
@@ -2125,7 +2046,7 @@
         (function() {
             const elements = document.querySelectorAll(
                 '#angebot h2, #angebot p, #angebot .liquid-glass, ' +
-                '#features h2, #features p, #features .liquid-glass, ' +
+                '#features h2, #features p, #features .liquid-glass-teal, ' +
                 '#preise h2, #preise .proof-pill, #preise .liquid-glass, #preise .liquid-glass-accent, ' +
                 '#kontakt h2, #kontakt p, #kontakt .liquid-glass'
             );
