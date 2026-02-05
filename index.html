@@ -1824,48 +1824,52 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
         reveals.forEach(el => revealObserver.observe(el));
         
-        // Card Stack Scroll Effect - Enhanced
+        // Card Stack Scroll Effect - Screen-based
         (function() {
-            // Include testimonials section too
             const sections = document.querySelectorAll('#angebot, #features, #preise, section.overflow-hidden, #kontakt');
             sections.forEach(s => s.classList.add('stack-section'));
             
-            // Easing function for smoother animation
             function easeOutCubic(t) {
                 return 1 - Math.pow(1 - t, 3);
             }
             
             function updateStack() {
+                const windowHeight = window.innerHeight;
+                
                 sections.forEach((section, i) => {
                     const rect = section.getBoundingClientRect();
-                    const windowHeight = window.innerHeight;
                     
-                    // When section top goes above viewport
-                    if (rect.top < 0) {
-                        // Progress from 0 to 1 as section scrolls out
-                        const rawProgress = Math.min(Math.abs(rect.top) / (rect.height * 0.6), 1);
+                    // Calculate how much of the section is still visible
+                    const visibleHeight = Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
+                    const visiblePercent = Math.max(0, visibleHeight / rect.height);
+                    
+                    // Only start effect when less than 30% of section is visible
+                    // (i.e., 70% has scrolled out)
+                    if (rect.top < 0 && visiblePercent < 0.3) {
+                        // Progress: 0 when 30% visible, 1 when 0% visible
+                        const rawProgress = 1 - (visiblePercent / 0.3);
                         const progress = easeOutCubic(rawProgress);
                         
-                        // Scale: 1 → 0.92
-                        const scale = 1 - (progress * 0.08);
+                        // Scale: 1 → 0.94 (subtle)
+                        const scale = 1 - (progress * 0.06);
                         
-                        // Translate up slightly
-                        const translateY = progress * -50;
+                        // Translate up
+                        const translateY = progress * -40;
                         
-                        // Opacity: 1 → 0.4
-                        const opacity = 1 - (progress * 0.6);
+                        // Opacity: 1 → 0.5
+                        const opacity = 1 - (progress * 0.5);
                         
-                        // Blur: 0 → 3px
-                        const blur = progress * 3;
+                        // Blur: 0 → 2px (subtle)
+                        const blur = progress * 2;
                         
                         section.style.transform = `scale(${scale}) translateY(${translateY}px)`;
                         section.style.opacity = opacity;
                         section.style.filter = `blur(${blur}px)`;
                     } 
-                    // Slight parallax when section is entering
-                    else if (rect.top < windowHeight && rect.top > 0) {
-                        const enterProgress = 1 - (rect.top / windowHeight);
-                        const translateY = (1 - enterProgress) * 30;
+                    // Subtle parallax when entering from bottom
+                    else if (rect.top > windowHeight * 0.8 && rect.top < windowHeight) {
+                        const enterProgress = 1 - ((rect.top - windowHeight * 0.8) / (windowHeight * 0.2));
+                        const translateY = (1 - enterProgress) * 20;
                         section.style.transform = `translateY(${translateY}px)`;
                         section.style.opacity = '';
                         section.style.filter = '';
@@ -1889,7 +1893,6 @@
                 }
             });
             
-            // Initial call
             updateStack();
         })();
 
