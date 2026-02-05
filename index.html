@@ -2,15 +2,24 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#094957">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>FIT-INN Trier | Februar & März beitragsfrei trainieren</title>
     <meta name="description" content="Exklusives Angebot: 2 Monate beitragsfrei bei FIT-INN Trier! Ihr Gesundheitspartner für Best Ager 50+ mit professioneller Betreuung und TechnoGym Geräten.">
+    
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     
     <!-- Open Graph -->
     <meta property="og:title" content="FIT-INN Trier | 2 Monate geschenkt">
     <meta property="og:description" content="Februar & März beitragsfrei trainieren. Professionelle Betreuung für deine Gesundheit.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="de_DE">
+    <meta property="og:url" content="https://fitinn-landing.vercel.app">
+    <meta property="og:image" content="https://fit-inn-trier.de/logo.png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,7 +52,27 @@
     </script>
     <style>
         html { scroll-behavior: smooth; }
-        body { background-color: #094957; }
+        body { 
+            background-color: #094957; 
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        /* Mobile-first Input Fix (prevent iOS zoom) */
+        input, select, textarea { font-size: 16px !important; }
+        @media (min-width: 768px) {
+            input, select, textarea { font-size: 0.875rem !important; }
+        }
+        
+        /* Better touch targets */
+        button, a, label { min-height: 44px; }
+        
+        /* Checkbox size fix for mobile */
+        input[type="checkbox"] { 
+            width: 20px; 
+            height: 20px; 
+            min-width: 20px;
+        }
         
         .glow-accent {
             box-shadow: 0 0 40px rgba(221, 155, 67, 0.4);
@@ -146,9 +175,14 @@
                     Mitglied werden
                 </button>
             </div>
-            <button onclick="openModal('probetraining')" class="md:hidden bg-accent text-primary font-semibold px-4 py-2 rounded-full text-sm">
-                Starten
-            </button>
+            <div class="md:hidden flex items-center gap-2">
+                <button onclick="openModal('probetraining')" class="border border-white/30 text-white font-semibold px-3 py-2 rounded-full text-xs">
+                    Testen
+                </button>
+                <button onclick="openModal('booking')" class="bg-accent text-primary font-semibold px-3 py-2 rounded-full text-xs">
+                    Mitglied werden
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -169,7 +203,7 @@
             
             <!-- Headline -->
             <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                Investieren du in<br>
+                Investiere in<br>
                 <span class="text-accent">deine Gesundheit</span>
             </h1>
             
@@ -213,14 +247,14 @@
             <div class="text-center mb-12">
                 <p class="text-accent font-semibold mb-2">KENNST DU DAS AUCH?</p>
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Die Herausforderungen ab 50</h2>
-                <p class="text-white/60 max-w-2xl mx-auto">Mit den Jahren verändert sich der Körper. Das ist normal — aber du müssen das nicht einfach hinnehmen.</p>
+                <p class="text-white/60 max-w-2xl mx-auto">Mit den Jahren verändert sich der Körper. Das ist normal — aber du musst das nicht einfach hinnehmen.</p>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
                     <div class="text-4xl mb-4">😓</div>
                     <h3 class="text-xl font-bold mb-2">Rückenschmerzen & Verspannungen</h3>
-                    <p class="text-white/70 text-sm">Langes Sitzen, einseitige Belastung — der Rücken macht nicht mehr mit. Jede Bewegung erinnert du daran.</p>
+                    <p class="text-white/70 text-sm">Langes Sitzen, einseitige Belastung — der Rücken macht nicht mehr mit. Jede Bewegung erinnert dich daran.</p>
                 </div>
                 
                 <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10" style="transition-delay: 0.1s">
@@ -285,7 +319,7 @@
                         <span class="text-accent text-2xl">✓</span>
                         <div>
                             <h4 class="font-bold text-lg mb-1">TechnoGym Biostrength Geräte</h4>
-                            <p class="text-white/70 text-sm">Intelligente Geräte, die sich automatisch auf du einstellen — sicher, effektiv und gelenkschonend.</p>
+                            <p class="text-white/70 text-sm">Intelligente Geräte, die sich automatisch auf dich einstellen — sicher, effektiv und gelenkschonend.</p>
                         </div>
                     </div>
                     
@@ -303,7 +337,7 @@
                         <span class="text-accent text-2xl">✓</span>
                         <div>
                             <h4 class="font-bold text-lg mb-1">Qualifizierte Trainer an deiner Seite</h4>
-                            <p class="text-white/70 text-sm">Unser Team begleitet du bei jedem Schritt — mit Geduld, Fachwissen und echter Unterstützung.</p>
+                            <p class="text-white/70 text-sm">Unser Team begleitet dich bei jedem Schritt — mit Geduld, Fachwissen und echter Unterstützung.</p>
                         </div>
                     </div>
                     
@@ -311,7 +345,7 @@
                         <span class="text-accent text-2xl">✓</span>
                         <div>
                             <h4 class="font-bold text-lg mb-1">Angenehme, ruhige Atmosphäre</h4>
-                            <p class="text-white/70 text-sm">Kein überfülltes Muckibuden-Feeling. Trainieren du in deinem Wohlfühlbereich — ohne Stress.</p>
+                            <p class="text-white/70 text-sm">Kein überfülltes Muckibuden-Feeling. Trainiere in deinem Wohlfühlbereich — ohne Stress.</p>
                         </div>
                     </div>
                     
@@ -319,7 +353,7 @@
                         <span class="text-accent text-2xl">✓</span>
                         <div>
                             <h4 class="font-bold text-lg mb-1">Flexible Trainingszeiten</h4>
-                            <p class="text-white/70 text-sm">Kommen du, wann es dir passt. Morgens ist es besonders ruhig — ideal für entspanntes Training.</p>
+                            <p class="text-white/70 text-sm">Komm, wann es dir passt. Morgens ist es besonders ruhig — ideal für entspanntes Training.</p>
                         </div>
                     </div>
                 </div>
@@ -329,7 +363,7 @@
             <div class="fade-in bg-accent/10 border border-accent/30 rounded-2xl p-6 md:p-8 text-center">
                 <p class="text-accent font-semibold mb-2">DEIN GESUNDHEITSPARTNER</p>
                 <p class="text-xl md:text-2xl font-bold mb-4">
-                    "Bei uns bekommen du keine 0815-Betreuung, sondern<br class="hidden md:inline"> echte Unterstützung für deine Gesundheit."
+                    "Bei uns bekommst du keine 0815-Betreuung, sondern<br class="hidden md:inline"> echte Unterstützung für deine Gesundheit."
                 </p>
                 <p class="text-white/60">— Das FIT-INN Team</p>
             </div>
@@ -353,7 +387,7 @@
                 <p class="text-xl md:text-2xl mb-6">Februar & März 2026 komplett beitragsfrei!</p>
                 
                 <p class="text-white/70 mb-8 max-w-xl mx-auto">
-                    Bei Abschluss einer <strong class="text-white">Jahres-</strong> oder <strong class="text-white">Zweijahres-Mitgliedschaft</strong> schenken wir dir die ersten zwei Monate. Starten du jetzt — zahlen du später.
+                    Bei Abschluss einer <strong class="text-white">Jahres-</strong> oder <strong class="text-white">Zweijahres-Mitgliedschaft</strong> schenken wir dir die ersten zwei Monate. Starte jetzt — zahle später.
                 </p>
                 
                 <div class="bg-white/10 rounded-2xl p-6 mb-8 text-left max-w-md mx-auto">
@@ -388,7 +422,7 @@
             <div class="fade-in text-center mb-12">
                 <p class="text-accent font-semibold mb-2">FAIRE PREISE</p>
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Unsere Mitgliedschaften</h2>
-                <p class="text-white/60">Transparent und ehrlich — wählen du deinen Tarif</p>
+                <p class="text-white/60">Transparent und ehrlich — wähle deinen Tarif</p>
             </div>
             
             <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
@@ -565,8 +599,8 @@
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="text-white/60 text-sm">© 2026 FIT-INN Trier. Alle Rechte vorbehalten.</div>
             <div class="flex gap-6 text-sm">
-                <a href="https://fit-inn-trier.de/impressum" class="text-white/60 hover:text-accent transition-colors">Impressum</a>
-                <a href="https://fit-inn-trier.de/datenschutz" class="text-white/60 hover:text-accent transition-colors">Datenschutz</a>
+                <a href="https://fit-inn-trier.de/impressum" rel="noopener" class="text-white/60 hover:text-accent transition-colors">Impressum</a>
+                <a href="https://fit-inn-trier.de/datenschutz" rel="noopener" class="text-white/60 hover:text-accent transition-colors">Datenschutz</a>
             </div>
         </div>
     </footer>
@@ -840,7 +874,7 @@
                         </div>
                         <div class="flex items-start gap-2 pt-2">
                             <input type="checkbox" id="pt-privacy" required class="mt-1 accent-accent">
-                            <label for="pt-privacy" class="text-xs text-white/70">Ich akzeptiere die <a href="https://fit-inn-trier.de/datenschutz" target="_blank" class="text-accent hover:underline">Datenschutzerklärung</a> und erlaube die Kontaktaufnahme. *</label>
+                            <label for="pt-privacy" class="text-xs text-white/70">Ich akzeptiere die <a href="https://fit-inn-trier.de/datenschutz" target="_blank" rel="noopener" class="text-accent hover:underline">Datenschutzerklärung</a> und erlaube die Kontaktaufnahme. *</label>
                         </div>
                         <div id="pt-form-error" class="bg-red-500/20 border border-red-500/30 text-red-300 text-sm rounded-lg p-3" style="display: none;"></div>
                         <div class="flex gap-3 pt-2">
