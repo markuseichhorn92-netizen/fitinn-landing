@@ -181,52 +181,79 @@
             
             <!-- Step 1: Tarif -->
             <div id="bk-step-1" class="bk-form-step">
-                <h3 class="text-lg font-semibold mb-6">Welcher Tarif passt zu dir?</h3>
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="inline-block bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full">FRÜHLINGSSTART</span>
+                    <span class="text-xs text-white/40">Nur bis 31.03.2026</span>
+                </div>
+                <h3 class="text-lg font-semibold mb-6">Welche Laufzeit passt zu dir?</h3>
                 
                 <div class="space-y-4" id="bk-rates-container">
-                    <!-- Flex -->
-                    <div class="bk-rate-card rounded-2xl p-5" data-rate-id="1213385750" data-term-id="1213385760" data-price="15" data-term="4 Wochen" data-name="Flex">
-                        <div class="flex justify-between items-start">
+                    <!-- Frühlingsstart 12 Monate -->
+                    <div class="bk-rate-card rounded-2xl p-5" data-rate-id="1215992930" data-term-id="1215992950" data-price="0" data-price-after="12" data-term="12 Monate" data-name="Frühlingsstart 12M">
+                        <div class="flex justify-between items-start mb-3">
                             <div>
-                                <h4 class="font-semibold text-lg">Flex</h4>
-                                <p class="text-sm text-white/50">4 Wochen Erstlaufzeit</p>
+                                <h4 class="font-semibold text-lg">12 Monate</h4>
+                                <p class="text-sm text-white/50">Erstlaufzeit 52 Wochen</p>
                             </div>
                             <div class="text-right">
-                                <span class="text-2xl font-bold">15€</span>
+                                <span class="text-2xl font-bold text-green-400">0€</span>
                                 <span class="text-white/50 text-sm">/Woche</span>
+                            </div>
+                        </div>
+                        <!-- Preisänderung deutlich anzeigen -->
+                        <div class="bg-white/5 border border-white/10 rounded-lg p-3 mt-2">
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="text-green-400 font-medium">Jetzt bis 31.03.: 0€</span>
+                                <span class="text-white/30">→</span>
+                                <span class="text-white/70">Ab 01.04.: <strong>12€/Woche</strong></span>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Premium -->
-                    <div class="bk-rate-card recommended rounded-2xl p-5 relative" data-rate-id="1213385790" data-term-id="1213385800" data-price="9" data-term="24 Monate" data-name="Premium">
-                        <div class="absolute -top-3 left-5 bg-[#DD9B43] text-black text-xs font-bold px-3 py-1 rounded-full">Empfohlen</div>
-                        <div class="flex justify-between items-start pt-1">
+                    <!-- Frühlingsstart 24 Monate - Empfohlen -->
+                    <div class="bk-rate-card recommended rounded-2xl p-5 relative" data-rate-id="1215992930" data-term-id="1215992960" data-price="0" data-price-after="9" data-term="24 Monate" data-name="Frühlingsstart 24M">
+                        <div class="absolute -top-3 left-5 bg-[#DD9B43] text-black text-xs font-bold px-3 py-1 rounded-full">Empfohlen · Bester Preis</div>
+                        <div class="flex justify-between items-start pt-1 mb-3">
                             <div>
-                                <h4 class="font-semibold text-lg text-[#DD9B43]">Premium</h4>
-                                <p class="text-sm text-white/50">24 Monate · Bester Preis</p>
+                                <h4 class="font-semibold text-lg text-[#DD9B43]">24 Monate</h4>
+                                <p class="text-sm text-white/50">Erstlaufzeit 104 Wochen</p>
                             </div>
                             <div class="text-right">
-                                <span class="text-2xl font-bold text-[#DD9B43]">9€</span>
+                                <span class="text-2xl font-bold text-green-400">0€</span>
                                 <span class="text-white/50 text-sm">/Woche</span>
                             </div>
                         </div>
-                        <div class="mt-2 inline-block bg-[#DD9B43]/20 text-[#DD9B43] text-xs font-medium px-2 py-1 rounded">+ 2 Monate gratis</div>
+                        <!-- Preisänderung deutlich anzeigen -->
+                        <div class="bg-[#DD9B43]/10 border border-[#DD9B43]/30 rounded-lg p-3 mt-2">
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="text-green-400 font-medium">Jetzt bis 31.03.: 0€</span>
+                                <span class="text-white/30">→</span>
+                                <span class="text-[#DD9B43]">Ab 01.04.: <strong>9€/Woche</strong></span>
+                            </div>
+                            <p class="text-xs text-white/40 mt-1">25% günstiger als 12 Monate!</p>
+                        </div>
                     </div>
                     
-                    <!-- Basic -->
-                    <div class="bk-rate-card rounded-2xl p-5" data-rate-id="1213385780" data-term-id="1213385761" data-price="12" data-term="12 Monate" data-name="Basic">
-                        <div class="flex justify-between items-start">
+                    <!-- Frühlingsstart Schüler/Studenten/Azubis -->
+                    <div class="bk-rate-card rounded-2xl p-5" data-rate-id="1215992931" data-term-id="1215992990" data-price="0" data-price-after="9" data-term="12 Monate" data-name="Frühlingsstart Schüler/Student">
+                        <div class="flex justify-between items-start mb-3">
                             <div>
-                                <h4 class="font-semibold text-lg">Basic</h4>
-                                <p class="text-sm text-white/50">12 Monate Laufzeit</p>
+                                <h4 class="font-semibold text-lg">Schüler / Studenten / Azubis</h4>
+                                <p class="text-sm text-white/50">12 Monate · Mit Nachweis</p>
                             </div>
                             <div class="text-right">
-                                <span class="text-2xl font-bold">12€</span>
+                                <span class="text-2xl font-bold text-green-400">0€</span>
                                 <span class="text-white/50 text-sm">/Woche</span>
                             </div>
                         </div>
-                        <div class="mt-2 inline-block bg-[#DD9B43]/20 text-[#DD9B43] text-xs font-medium px-2 py-1 rounded">+ 2 Monate gratis</div>
+                        <!-- Preisänderung deutlich anzeigen -->
+                        <div class="bg-white/5 border border-white/10 rounded-lg p-3 mt-2">
+                            <div class="flex items-center gap-2 text-sm">
+                                <span class="text-green-400 font-medium">Jetzt bis 31.03.: 0€</span>
+                                <span class="text-white/30">→</span>
+                                <span class="text-white/70">Ab 01.04.: <strong>9€/Woche</strong></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -486,6 +513,7 @@ document.querySelectorAll('.bk-rate-card').forEach(card => {
             rateId: parseInt(card.dataset.rateId),
             termId: parseInt(card.dataset.termId),
             price: parseFloat(card.dataset.price),
+            priceAfter: parseFloat(card.dataset.priceAfter || card.dataset.price),
             term: card.dataset.term,
             name: card.dataset.name
         };
@@ -525,7 +553,14 @@ function bkRenderModules() {
     const noModules = document.getElementById('bk-no-modules');
     container.innerHTML = '';
     bkSelectedModules = [];
+    
+    // Frühlingsstart-Tarife haben keine optionalen Module
     const modulesByRate = {
+        // Frühlingsstart 12M/24M - keine Module
+        1215992930: [],
+        // Frühlingsstart Schüler/Studenten - keine Module
+        1215992931: [],
+        // Alte Tarife (falls noch benötigt)
         1213385750: [{ id: 1213385815, name: 'Ernährungsplan 12 Monate', price: 119, desc: 'Individuell für dich' }],
         1213385780: [
             { id: 1213878351, name: 'Activity Analyse', price: 39, desc: 'Bewegungsmuster-Check' },
@@ -534,10 +569,20 @@ function bkRenderModules() {
         ],
         1213385790: []
     };
+    
     const modules = modulesByRate[bkSelectedRate.rateId] || [];
-    if (!modules.length) { container.style.display = 'none'; noModules.style.display = 'block'; }
-    else {
-        container.style.display = 'block'; noModules.style.display = 'none';
+    if (!modules.length) { 
+        container.style.display = 'none'; 
+        noModules.style.display = 'block'; 
+        // Update message for Frühlingsstart
+        if (bkSelectedRate.rateId === 1215992930 || bkSelectedRate.rateId === 1215992931) {
+            noModules.innerHTML = '<span class="text-4xl block mb-2">🌸</span><p>Frühlingsstart-Aktion:<br>Alles inklusive!</p>';
+        } else {
+            noModules.innerHTML = '<span class="text-4xl block mb-2">✨</span><p>Alles inklusive in deinem Tarif!</p>';
+        }
+    } else {
+        container.style.display = 'block'; 
+        noModules.style.display = 'none';
         modules.forEach(mod => {
             const div = document.createElement('div');
             div.className = 'bk-module-opt rounded-xl p-4 flex justify-between items-center';
@@ -554,17 +599,48 @@ function bkRenderModules() {
 
 function bkRenderSummary() {
     const container = document.getElementById('bk-summary-content');
+    const isFruehling = bkSelectedRate.price === 0;
+    
     let html = `
         <div class="bk-summary-row"><span class="text-white/50">Tarif</span><span class="font-medium">${bkSelectedRate.name}</span></div>
         <div class="bk-summary-row"><span class="text-white/50">Laufzeit</span><span>${bkSelectedRate.term}</span></div>
-        <div class="bk-summary-row"><span class="text-white/50">Beitrag</span><span>${bkSelectedRate.price}€/Woche</span></div>
-        <div class="bk-summary-row"><span class="text-white/50">Startpaket</span><span>39€</span></div>
     `;
+    
+    // Preisanzeige mit Änderung
+    if (isFruehling) {
+        html += `
+            <div class="bk-summary-row">
+                <span class="text-white/50">Beitrag jetzt</span>
+                <span class="text-green-400 font-medium">0€/Woche</span>
+            </div>
+            <div class="bk-summary-row">
+                <span class="text-white/50">Ab 01.04.2026</span>
+                <span class="font-medium">${bkSelectedRate.priceAfter}€/Woche</span>
+            </div>
+        `;
+    } else {
+        html += `<div class="bk-summary-row"><span class="text-white/50">Beitrag</span><span>${bkSelectedRate.price}€/Woche</span></div>`;
+    }
+    
+    html += `<div class="bk-summary-row"><span class="text-white/50">Startpaket</span><span>39€</span></div>`;
+    
     let total = 39;
     if (bkSelectedModules.length) {
         html += `<div class="border-t border-white/10 my-2"></div>`;
         bkSelectedModules.forEach(m => { html += `<div class="bk-summary-row"><span class="text-white/50">${m.name}</span><span>+${m.price}€</span></div>`; total += m.price; });
     }
+    
+    // Frühlingsstart Info-Box
+    if (isFruehling) {
+        html += `
+            <div class="border-t border-white/10 my-3"></div>
+            <div class="bg-green-500/10 border border-green-500/30 rounded-lg p-3 text-xs">
+                <p class="text-green-400 font-medium mb-1">🎉 Frühlingsstart-Aktion</p>
+                <p class="text-white/60">Du trainierst bis 31.03.2026 komplett beitragsfrei. Ab 01.04.2026 zahlst du ${bkSelectedRate.priceAfter}€/Woche.</p>
+            </div>
+        `;
+    }
+    
     container.innerHTML = html;
     document.getElementById('bk-first-payment').textContent = total + '€';
 }
