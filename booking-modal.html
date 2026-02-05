@@ -165,14 +165,13 @@
                         <input type="email" id="bk-lead-email" placeholder="deine@email.de" class="bk-input">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium mb-2">Handynummer <span class="text-white/40 font-normal">(optional für WhatsApp)</span></label>
-                        <input type="tel" id="bk-lead-phone" placeholder="0176 12345678" class="bk-input">
+                        <label class="block text-sm font-medium mb-2">Handynummer</label>
+                        <input type="tel" id="bk-lead-phone" placeholder="0176 12345678" class="bk-input" required>
                     </div>
                 </div>
                 
                 <p class="text-xs text-white/40 mt-4">
-                    📧 Du erhältst eine Bestätigung per E-Mail.<br>
-                    📱 Mit Handynummer auch per WhatsApp.
+                    📱 Du erhältst eine Bestätigung per WhatsApp.
                 </p>
                 
                 <button type="button" id="bk-btn-0" onclick="bkCaptureLeadAndContinue()" class="w-full bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full mt-6 transition-all">
@@ -607,13 +606,17 @@ async function bkCaptureLeadAndContinue() {
     const phone = document.getElementById('bk-lead-phone')?.value?.trim() || '';
     console.log('Name:', name, 'Email:', email, 'Phone:', phone);
     
-    // Validate: Name and Email required, Phone optional
+    // Validate: Name, Email AND Phone required
     if (!name) {
         alert('Bitte gib deinen Namen ein');
         return;
     }
     if (!email || !email.includes('@')) {
         alert('Bitte gib eine gültige E-Mail-Adresse ein');
+        return;
+    }
+    if (!phone || phone.length < 6) {
+        alert('Bitte gib deine Handynummer ein');
         return;
     }
     

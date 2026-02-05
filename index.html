@@ -1674,13 +1674,17 @@
                             <input type="text" id="pt-lead-name" placeholder="Vor- und Nachname" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-4 focus:outline-none focus:border-accent transition-colors">
                         </div>
                         <div>
+                            <label class="block text-sm font-medium mb-2">E-Mail</label>
+                            <input type="email" id="pt-lead-email" placeholder="deine@email.de" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-4 focus:outline-none focus:border-accent transition-colors">
+                        </div>
+                        <div>
                             <label class="block text-sm font-medium mb-2">Handynummer</label>
                             <input type="tel" id="pt-lead-phone" placeholder="0176 12345678" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-4 focus:outline-none focus:border-accent transition-colors">
                         </div>
                     </div>
                     
                     <p class="text-xs text-apple-gray-500 mt-4">
-                        📱 Wir schicken dir eine kurze Bestätigung per WhatsApp.
+                        📱 Du erhältst eine Bestätigung per WhatsApp.
                     </p>
                     
                     <button type="button" id="pt-btn-0" onclick="ptCaptureLeadAndContinue()" class="w-full btn-primary mt-6">
@@ -2168,25 +2172,31 @@
         // Lead Capture Function
         async function ptCaptureLeadAndContinue() {
             console.log('ptCaptureLeadAndContinue called');
-            const nameEl = document.getElementById('pt-lead-name');
-            const phoneEl = document.getElementById('pt-lead-phone');
-            console.log('Name element:', nameEl, 'Phone element:', phoneEl);
-            const name = nameEl ? nameEl.value.trim() : '';
-            const phone = phoneEl ? phoneEl.value.trim() : '';
-            console.log('Name:', name, 'Phone:', phone);
+            const name = document.getElementById('pt-lead-name')?.value?.trim() || '';
+            const email = document.getElementById('pt-lead-email')?.value?.trim() || '';
+            const phone = document.getElementById('pt-lead-phone')?.value?.trim() || '';
+            console.log('Name:', name, 'Email:', email, 'Phone:', phone);
             
-            if (!name || !phone) {
-                alert('Bitte Name und Handynummer eingeben');
+            if (!name) {
+                alert('Bitte gib deinen Namen ein');
+                return;
+            }
+            if (!email || !email.includes('@')) {
+                alert('Bitte gib eine gültige E-Mail-Adresse ein');
+                return;
+            }
+            if (!phone || phone.length < 6) {
+                alert('Bitte gib deine Handynummer ein');
                 return;
             }
             
-            ptLeadData = { name, phone };
+            ptLeadData = { name, email, phone };
             
-            // Save lead to backend (async, don't wait)
+            // Save lead to backend - sends WhatsApp (primary) or Email (fallback)
             fetch(LEADS_API, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, phone, type: 'probetraining', source: 'landing-page' })
+                body: JSON.stringify({ name, email, phone, type: 'probetraining', source: 'landing-page' })
             }).catch(e => console.error('Lead save error:', e));
             
             // Continue to next step
