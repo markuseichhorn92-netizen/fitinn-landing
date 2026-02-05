@@ -1799,9 +1799,8 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
         reveals.forEach(el => revealObserver.observe(el));
         
-        // Element-based Scroll Effect - individual elements fade out
+        // Element-based Scroll Effect - optimized for mobile
         (function() {
-            // Target content elements, not whole sections
             const elements = document.querySelectorAll(
                 '#angebot h2, #angebot p, #angebot .liquid-glass, ' +
                 '#features h2, #features p, #features .liquid-glass-teal, ' +
@@ -1809,64 +1808,47 @@
                 '#kontakt h2, #kontakt p, #kontakt .liquid-glass'
             );
             
-            function easeOutCubic(t) {
-                return 1 - Math.pow(1 - t, 3);
-            }
+            // Prepare elements with GPU acceleration
+            elements.forEach(el => {
+                el.style.transform = 'translate3d(0,0,0)';
+                el.style.backfaceVisibility = 'hidden';
+                el.style.transition = 'transform 0.15s ease-out, opacity 0.15s ease-out';
+            });
+            
+            let lastScroll = 0;
+            let scrollTimeout;
             
             function updateElements() {
                 const windowHeight = window.innerHeight;
                 
                 elements.forEach((el) => {
                     const rect = el.getBoundingClientRect();
-                    const elCenter = rect.top + rect.height / 2;
                     
-                    // Element is going out the top - starts at 30% from top
-                    if (rect.bottom < windowHeight * 0.30) {
-                        const rawProgress = Math.min(1, (windowHeight * 0.30 - rect.bottom) / (windowHeight * 0.30));
-                        const progress = easeOutCubic(rawProgress);
+                    // Element going out top - starts at 25% from top
+                    if (rect.bottom < windowHeight * 0.25) {
+                        const progress = Math.min(1, (windowHeight * 0.25 - rect.bottom) / (windowHeight * 0.25));
+                        const opacity = 1 - (progress * 0.8);
                         
-                        const scale = 1 - (progress * 0.08);
-                        const translateY = progress * -30;
-                        const opacity = 1 - (progress * 0.7);
-                        
-                        el.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+                        el.style.transform = `translate3d(0, ${progress * -20}px, 0)`;
                         el.style.opacity = opacity;
                     }
-                    // Element entering from bottom - starts at 30% from bottom
-                    else if (rect.top > windowHeight * 0.70) {
-                        const rawProgress = Math.min(1, (rect.top - windowHeight * 0.70) / (windowHeight * 0.30));
-                        const progress = easeOutCubic(rawProgress);
-                        
-                        const translateY = progress * 30;
-                        const opacity = 1 - (progress * 0.3);
-                        
-                        el.style.transform = `translateY(${translateY}px)`;
-                        el.style.opacity = opacity;
-                    }
-                    // Element is in view - reset
+                    // Element in view - normal
                     else {
-                        el.style.transform = '';
-                        el.style.opacity = '';
+                        el.style.transform = 'translate3d(0,0,0)';
+                        el.style.opacity = '1';
                     }
                 });
             }
             
-            // Add will-change for performance
-            elements.forEach(el => {
-                el.style.willChange = 'transform, opacity';
-                el.style.transition = 'none';
-            });
-            
-            let ticking = false;
+            // Passive scroll listener for better performance
             window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    requestAnimationFrame(() => {
+                if (!scrollTimeout) {
+                    scrollTimeout = requestAnimationFrame(() => {
                         updateElements();
-                        ticking = false;
+                        scrollTimeout = null;
                     });
-                    ticking = true;
                 }
-            });
+            }, { passive: true });
             
             updateElements();
         })();
