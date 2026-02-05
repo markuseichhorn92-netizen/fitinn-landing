@@ -277,26 +277,19 @@
             margin: 12px auto;
         }
         
-        /* Desktop: Centered card instead of bottom sheet */
+        /* Desktop: Bottom sheet like mobile, but narrower */
         @media (min-width: 768px) {
             .modal-content {
-                position: relative;
-                bottom: auto;
-                left: auto;
+                max-width: 500px;
+                left: 50%;
+                transform: translateX(-50%) translateY(100%);
                 right: auto;
-                max-width: 520px;
-                max-height: 85vh;
-                margin: auto;
-                border-radius: 24px;
-                transform: translateY(50px) scale(0.95);
             }
             .modal-overlay.active .modal-content {
-                transform: translateY(0) scale(1);
+                transform: translateX(-50%) translateY(0);
             }
             .modal-overlay {
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                display: block;
             }
         }
         
