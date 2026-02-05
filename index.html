@@ -903,20 +903,43 @@
                                 <input type="tel" id="pt-phone" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Geburtsdatum</label>
-                                <input type="date" id="pt-birthdate" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Anrede</label>
-                                <select id="pt-gender" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
-                                    <option value="">Bitte wählen</option>
-                                    <option value="MALE">Herr</option>
-                                    <option value="FEMALE">Frau</option>
-                                    <option value="UNISEX">Divers</option>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Geburtsdatum</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <select id="pt-birth-day" class="bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center appearance-none">
+                                    <option value="">Tag</option>
+                                    <script>for(let d=1;d<=31;d++)document.write(`<option value="${d}">${d}</option>`)</script>
+                                </select>
+                                <select id="pt-birth-month" class="bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center appearance-none">
+                                    <option value="">Monat</option>
+                                    <option value="01">Jan</option>
+                                    <option value="02">Feb</option>
+                                    <option value="03">Mär</option>
+                                    <option value="04">Apr</option>
+                                    <option value="05">Mai</option>
+                                    <option value="06">Jun</option>
+                                    <option value="07">Jul</option>
+                                    <option value="08">Aug</option>
+                                    <option value="09">Sep</option>
+                                    <option value="10">Okt</option>
+                                    <option value="11">Nov</option>
+                                    <option value="12">Dez</option>
+                                </select>
+                                <select id="pt-birth-year" class="bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center appearance-none">
+                                    <option value="">Jahr</option>
+                                    <script>const cy=new Date().getFullYear();for(let y=cy-16;y>=cy-100;y--)document.write(`<option value="${y}">${y}</option>`)</script>
                                 </select>
                             </div>
+                            <input type="hidden" id="pt-birthdate">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Anrede</label>
+                            <select id="pt-gender" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <option value="">Bitte wählen</option>
+                                <option value="MALE">Herr</option>
+                                <option value="FEMALE">Frau</option>
+                                <option value="UNISEX">Divers</option>
+                            </select>
                         </div>
                     </div>
                     
@@ -1204,6 +1227,19 @@
                 else if (name === 'pt-trainer') { ptSurveyData.trainerRequired = input.value === 'true'; document.getElementById('pt-btn-3').disabled = false; }
             };
         });
+
+        // Combine birthdate dropdowns into hidden field
+        function updatePtBirthdate() {
+            const day = document.getElementById('pt-birth-day').value.padStart(2, '0');
+            const month = document.getElementById('pt-birth-month').value;
+            const year = document.getElementById('pt-birth-year').value;
+            if (day && month && year) {
+                document.getElementById('pt-birthdate').value = `${year}-${month}-${day}`;
+            }
+        }
+        document.getElementById('pt-birth-day')?.addEventListener('change', updatePtBirthdate);
+        document.getElementById('pt-birth-month')?.addEventListener('change', updatePtBirthdate);
+        document.getElementById('pt-birth-year')?.addEventListener('change', updatePtBirthdate);
 
         document.getElementById('pt-form').onsubmit = async (e) => {
             e.preventDefault();
