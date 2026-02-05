@@ -173,10 +173,15 @@
                 <button type="button" id="bk-btn-0" onclick="bkCaptureLeadAndContinue()" class="w-full bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full mt-6 transition-all">
                     Weiter
                 </button>
-                <!-- TEST MODE: Skip button -->
-                <button type="button" onclick="bkGoToStep(1)" class="w-full text-white/40 text-sm mt-3 hover:text-white">
-                    [Test] Überspringen
-                </button>
+                <!-- TEST MODE: Skip buttons -->
+                <div class="flex gap-2 mt-3">
+                    <button type="button" onclick="bkGoToStep(1)" class="flex-1 text-white/40 text-sm hover:text-white">
+                        [Test] Weiter
+                    </button>
+                    <button type="button" onclick="bkShowDemoSuccess()" class="flex-1 text-white/40 text-sm hover:text-white">
+                        [Test] Erfolgsseite
+                    </button>
+                </div>
             </div>
             
             <!-- Step 1: Tarif -->
@@ -944,4 +949,38 @@ function updateBkBirthdate() {
 document.getElementById('bk-birth-day')?.addEventListener('change', updateBkBirthdate);
 document.getElementById('bk-birth-month')?.addEventListener('change', updateBkBirthdate);
 document.getElementById('bk-birth-year')?.addEventListener('change', updateBkBirthdate);
+
+// Demo function to preview success page
+function bkShowDemoSuccess() {
+    // Set demo rate
+    bkSelectedRate = {
+        rateId: 1215992930,
+        termId: 1215992960,
+        price: 0,
+        priceAfter: 9,
+        term: '24 Monate',
+        name: 'Frühlingsstart 24M'
+    };
+    
+    // Demo data
+    const firstname = 'Markus';
+    const lastname = 'Eichhorn';
+    const email = 'markuseichhorn92@icloud.com';
+    const initials = 'ME';
+    const memberNumber = 'M-123456';
+    const contractNumber = 'V-2026-00001';
+    const formattedStartDate = '05.02.2026';
+    
+    // Fill confirmation fields
+    document.getElementById('bk-confirm-initials').textContent = initials;
+    document.getElementById('bk-confirm-name').textContent = `${firstname} ${lastname}`;
+    document.getElementById('bk-confirm-email').textContent = email;
+    document.getElementById('bk-confirm-email-2').textContent = email;
+    document.getElementById('bk-confirm-member-nr').textContent = memberNumber;
+    document.getElementById('bk-confirm-contract').textContent = contractNumber;
+    document.getElementById('bk-confirm-rate').textContent = bkSelectedRate.name;
+    document.getElementById('bk-confirm-start').textContent = formattedStartDate;
+    
+    bkGoToStep(7);
+}
 </script>
