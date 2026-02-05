@@ -78,19 +78,47 @@
         .section-dark { background: #000; color: #f5f5f7; }
         .section-light { background: #f5f5f7; color: #1d1d1f; }
         
-        /* Reveal animations */
+        /* Reveal animations - Apple style */
         .reveal {
             opacity: 0;
-            transform: translateY(60px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(80px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-1 { transition-delay: 0.15s; }
+        .reveal-delay-2 { transition-delay: 0.3s; }
+        .reveal-delay-3 { transition-delay: 0.45s; }
+        .reveal-delay-4 { transition-delay: 0.6s; }
+        
+        /* Apple-style hover lifts */
+        .hover-lift {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        /* Smooth scale on press */
+        .press-scale {
+            transition: transform 0.15s ease;
+        }
+        .press-scale:active {
+            transform: scale(0.97);
+        }
+        
+        /* Stagger children animations */
+        .stagger-children > *:nth-child(1) { transition-delay: 0s; }
+        .stagger-children > *:nth-child(2) { transition-delay: 0.1s; }
+        .stagger-children > *:nth-child(3) { transition-delay: 0.2s; }
+        .stagger-children > *:nth-child(4) { transition-delay: 0.3s; }
+        .stagger-children > *:nth-child(5) { transition-delay: 0.4s; }
+        .stagger-children > *:nth-child(6) { transition-delay: 0.5s; }
         
         /* Gradient text */
         .gradient-text {
@@ -121,11 +149,15 @@
             border-radius: 980px;
             font-weight: 600;
             font-size: 17px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .btn-primary:hover {
             background: #e6ac5a;
-            transform: scale(1.02);
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(221, 155, 67, 0.3);
+        }
+        .btn-primary:active {
+            transform: scale(0.98);
         }
         
         .btn-secondary {
@@ -136,11 +168,15 @@
             font-weight: 600;
             font-size: 17px;
             border: 2px solid rgba(221, 155, 67, 0.5);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .btn-secondary:hover {
             border-color: #DD9B43;
             background: rgba(221, 155, 67, 0.1);
+            transform: scale(1.02);
+        }
+        .btn-secondary:active {
+            transform: scale(0.98);
         }
         
         /* Mobile input fix */
@@ -156,30 +192,51 @@
         /* Mobile modal bottom sheet */
         .pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
         
-        /* Prevent horizontal scroll */
-        .modal-content { overflow-x: hidden; }
+        /* Prevent ALL horizontal scroll */
+        html, body { overflow-x: hidden; }
+        .modal-content { overflow-x: hidden; max-width: 100%; }
         
-        /* Uniform input sizing */
+        /* Uniform input sizing - FIXED */
         .modal-content input,
         .modal-content select {
             width: 100%;
-            height: 52px;
+            height: 48px;
+            max-height: 48px;
+            min-height: 48px;
             padding: 0 16px;
             border-radius: 12px;
+            box-sizing: border-box;
+        }
+        
+        /* Date input fix - prevent oversized native picker */
+        .modal-content input[type="date"] {
+            height: 48px;
+            max-height: 48px;
+            min-height: 48px;
+            -webkit-appearance: none;
+            appearance: none;
         }
         
         /* Mobile form grids - all single column */
         @media (max-width: 640px) {
             .modal-content .grid { 
-                grid-template-columns: 1fr !important; 
+                display: flex !important;
+                flex-direction: column !important;
                 gap: 12px !important;
             }
             .modal-content .grid > * { 
-                grid-column: span 1 !important; 
+                width: 100% !important;
+                max-width: 100% !important;
             }
             .modal-content { 
                 max-width: 100vw;
                 overflow-x: hidden;
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            .modal-content > .p-6 {
+                padding-left: 16px;
+                padding-right: 16px;
             }
         }
         
@@ -230,21 +287,21 @@
 
     <!-- Navigation - Apple Style -->
     <nav class="fixed top-0 left-0 right-0 z-50 glass">
-        <div class="max-w-[1200px] mx-auto px-6 h-14 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold tracking-tight">
+        <div class="max-w-[1200px] mx-auto px-6 h-16 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold tracking-tight">
                 <span class="text-accent">FIT</span><span class="text-white">-INN</span>
             </a>
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#angebot" class="text-sm text-apple-gray-300 hover:text-white transition-colors">Angebot</a>
-                <a href="#features" class="text-sm text-apple-gray-300 hover:text-white transition-colors">Vorteile</a>
-                <a href="#preise" class="text-sm text-apple-gray-300 hover:text-white transition-colors">Preise</a>
-                <a href="#kontakt" class="text-sm text-apple-gray-300 hover:text-white transition-colors">Kontakt</a>
+            <div class="hidden md:flex items-center justify-center gap-10 absolute left-1/2 -translate-x-1/2">
+                <a href="#angebot" class="text-base text-apple-gray-300 hover:text-white transition-colors duration-300">Angebot</a>
+                <a href="#features" class="text-base text-apple-gray-300 hover:text-white transition-colors duration-300">Vorteile</a>
+                <a href="#preise" class="text-base text-apple-gray-300 hover:text-white transition-colors duration-300">Preise</a>
+                <a href="#kontakt" class="text-base text-apple-gray-300 hover:text-white transition-colors duration-300">Kontakt</a>
             </div>
-            <div class="flex items-center gap-3">
-                <button onclick="openModal('probetraining')" class="hidden md:block text-sm text-accent hover:text-accent-light transition-colors">
+            <div class="flex items-center gap-4">
+                <button onclick="openModal('probetraining')" class="hidden md:block text-base text-accent hover:text-accent-light transition-colors duration-300">
                     Probetraining
                 </button>
-                <button onclick="openModal('booking')" class="bg-accent hover:bg-accent-light text-black text-sm font-semibold px-5 py-2 rounded-full transition-all">
+                <button onclick="openModal('booking')" class="bg-accent hover:bg-accent-light text-black text-base font-semibold px-6 py-2.5 rounded-full transition-all duration-300 hover:scale-105">
                     Mitglied werden
                 </button>
             </div>
@@ -310,18 +367,18 @@
             </p>
             
             <!-- Feature Grid -->
-            <div class="reveal reveal-delay-3 grid md:grid-cols-3 gap-6 mt-16">
-                <div class="glass rounded-3xl p-8 text-left">
+            <div class="reveal reveal-delay-3 grid md:grid-cols-3 gap-6 mt-16 stagger-children">
+                <div class="glass rounded-3xl p-8 text-left hover-lift cursor-default">
                     <div class="text-3xl mb-4">🏋️</div>
                     <h3 class="text-lg font-semibold mb-2">Voller Zugang</h3>
                     <p class="text-apple-gray-400 text-sm">Alle Geräte. Alle Bereiche. Keine Einschränkungen.</p>
                 </div>
-                <div class="glass rounded-3xl p-8 text-left">
+                <div class="glass rounded-3xl p-8 text-left hover-lift cursor-default">
                     <div class="text-3xl mb-4">📋</div>
                     <h3 class="text-lg font-semibold mb-2">Trainingsplan</h3>
                     <p class="text-apple-gray-400 text-sm">Individuell auf dich abgestimmt. Von Experten erstellt.</p>
                 </div>
-                <div class="glass rounded-3xl p-8 text-left">
+                <div class="glass rounded-3xl p-8 text-left hover-lift cursor-default">
                     <div class="text-3xl mb-4">📊</div>
                     <h3 class="text-lg font-semibold mb-2">Körperanalyse</h3>
                     <p class="text-apple-gray-400 text-sm">InBody Check-up für präzise Messwerte.</p>
@@ -344,9 +401,9 @@
             </div>
             
             <!-- USP Grid - Hervorgehobene Boxen -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
                 <!-- USP 1 -->
-                <div class="reveal bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 transition-all hover:shadow-xl">
+                <div class="reveal bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 hover-lift">
                     <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mb-5">
                         <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
@@ -357,7 +414,7 @@
                 </div>
                 
                 <!-- USP 2 -->
-                <div class="reveal reveal-delay-1 bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 transition-all hover:shadow-xl">
+                <div class="reveal reveal-delay-1 bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 hover-lift">
                     <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mb-5">
                         <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
@@ -368,7 +425,7 @@
                 </div>
                 
                 <!-- USP 3 -->
-                <div class="reveal reveal-delay-2 bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 transition-all hover:shadow-xl">
+                <div class="reveal reveal-delay-2 bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 hover-lift">
                     <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mb-5">
                         <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
@@ -379,7 +436,7 @@
                 </div>
                 
                 <!-- USP 4 -->
-                <div class="reveal bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 transition-all hover:shadow-xl">
+                <div class="reveal bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 hover-lift">
                     <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mb-5">
                         <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -390,7 +447,7 @@
                 </div>
                 
                 <!-- USP 5 -->
-                <div class="reveal reveal-delay-1 bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 transition-all hover:shadow-xl">
+                <div class="reveal reveal-delay-1 bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 hover-lift">
                     <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mb-5">
                         <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
@@ -401,7 +458,7 @@
                 </div>
                 
                 <!-- USP 6 -->
-                <div class="reveal reveal-delay-2 bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 transition-all hover:shadow-xl">
+                <div class="reveal reveal-delay-2 bg-white rounded-3xl p-8 shadow-lg border-2 border-teal/20 hover:border-teal/50 hover-lift">
                     <div class="w-14 h-14 bg-teal/10 rounded-2xl flex items-center justify-center mb-5">
                         <svg class="w-7 h-7 text-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
@@ -424,9 +481,9 @@
                 </h2>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8 stagger-children">
                 <!-- Flex -->
-                <div class="reveal glass rounded-3xl p-8">
+                <div class="reveal glass rounded-3xl p-8 hover-lift">
                     <h3 class="text-xl font-bold mb-1">Flex</h3>
                     <p class="text-apple-gray-400 text-sm mb-6">Maximale Flexibilität</p>
                     <div class="mb-6">
@@ -439,14 +496,14 @@
                         <li class="flex items-center gap-3"><span class="text-accent">✓</span> Trainingsplan & Check-up</li>
                         <li class="flex items-center gap-3"><span class="text-accent">✓</span> TechnoGym App</li>
                     </ul>
-                    <button onclick="openModal('booking')" class="w-full py-4 rounded-full border border-apple-gray-600 text-white font-semibold hover:border-accent hover:text-accent transition-all">
+                    <button onclick="openModal('booking')" class="w-full py-4 rounded-full border border-apple-gray-600 text-white font-semibold hover:border-accent hover:text-accent transition-all duration-300 press-scale">
                         Auswählen
                     </button>
                     <p class="text-center text-xs text-apple-gray-500 mt-4">+ 39€ Startpaket</p>
                 </div>
                 
                 <!-- Premium - Featured -->
-                <div class="reveal reveal-delay-1 relative glass rounded-3xl p-8 border border-accent/50">
+                <div class="reveal reveal-delay-1 relative glass rounded-3xl p-8 border border-accent/50 hover-lift">
                     <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-black text-xs font-bold px-4 py-1.5 rounded-full">
                         Empfohlen
                     </div>
@@ -463,14 +520,14 @@
                         <li class="flex items-center gap-3"><span class="text-accent">✓</span> Gesundheits-Check-up inkl.</li>
                         <li class="flex items-center gap-3"><span class="text-accent">✓</span> 40% Ersparnis</li>
                     </ul>
-                    <button onclick="openModal('booking')" class="w-full btn-primary">
+                    <button onclick="openModal('booking')" class="w-full btn-primary press-scale">
                         Jetzt starten
                     </button>
                     <p class="text-center text-xs text-apple-gray-500 mt-4">+ 39€ Startpaket</p>
                 </div>
                 
                 <!-- Basic -->
-                <div class="reveal reveal-delay-2 glass rounded-3xl p-8">
+                <div class="reveal reveal-delay-2 glass rounded-3xl p-8 hover-lift">
                     <h3 class="text-xl font-bold mb-1">Basic</h3>
                     <p class="text-apple-gray-400 text-sm mb-6">Der Klassiker</p>
                     <div class="mb-2">
@@ -484,7 +541,7 @@
                         <li class="flex items-center gap-3"><span class="text-accent">✓</span> Trainingsplan & Check-up</li>
                         <li class="flex items-center gap-3"><span class="text-accent">✓</span> 20% Ersparnis</li>
                     </ul>
-                    <button onclick="openModal('booking')" class="w-full py-4 rounded-full border border-apple-gray-600 text-white font-semibold hover:border-accent hover:text-accent transition-all">
+                    <button onclick="openModal('booking')" class="w-full py-4 rounded-full border border-apple-gray-600 text-white font-semibold hover:border-accent hover:text-accent transition-all duration-300 press-scale">
                         Auswählen
                     </button>
                     <p class="text-center text-xs text-apple-gray-500 mt-4">+ 39€ Startpaket</p>
