@@ -193,12 +193,12 @@
                 <h3 class="text-lg font-semibold mb-6">Welche Laufzeit passt zu dir?</h3>
                 
                 <div class="space-y-4" id="bk-rates-container">
-                    <!-- Frühlingsstart 12 Monate -->
-                    <div class="bk-rate-card rounded-2xl p-5" data-rate-id="1215992930" data-term-id="1215992950" data-price="0" data-price-after="12" data-term="12 Monate" data-name="Frühlingsstart 12M">
+                    <!-- Frühlingsstart 52 Wochen -->
+                    <div class="bk-rate-card rounded-2xl p-5" data-rate-id="1215992930" data-term-id="1215992950" data-price="0" data-price-after="12" data-term="52 Wochen" data-name="Frühlingsstart 52W">
                         <div class="flex justify-between items-start mb-3">
                             <div>
-                                <h4 class="font-semibold text-lg">12 Monate</h4>
-                                <p class="text-sm text-white/50">Erstlaufzeit 52 Wochen</p>
+                                <h4 class="font-semibold text-lg">52 Wochen</h4>
+                                <p class="text-sm text-white/50">Erstlaufzeit 1 Jahr</p>
                             </div>
                             <div class="text-right">
                                 <span class="text-2xl font-bold text-green-400">0€</span>
@@ -215,13 +215,13 @@
                         </div>
                     </div>
                     
-                    <!-- Frühlingsstart 24 Monate - Empfohlen -->
-                    <div class="bk-rate-card recommended rounded-2xl p-5 relative" data-rate-id="1215992930" data-term-id="1215992960" data-price="0" data-price-after="9" data-term="24 Monate" data-name="Frühlingsstart 24M">
+                    <!-- Frühlingsstart 104 Wochen - Empfohlen -->
+                    <div class="bk-rate-card recommended rounded-2xl p-5 relative" data-rate-id="1215992930" data-term-id="1215992960" data-price="0" data-price-after="9" data-term="104 Wochen" data-name="Frühlingsstart 104W">
                         <div class="absolute -top-3 left-5 bg-[#DD9B43] text-black text-xs font-bold px-3 py-1 rounded-full">Empfohlen · Bester Preis</div>
                         <div class="flex justify-between items-start pt-1 mb-3">
                             <div>
-                                <h4 class="font-semibold text-lg text-[#DD9B43]">24 Monate</h4>
-                                <p class="text-sm text-white/50">Erstlaufzeit 104 Wochen</p>
+                                <h4 class="font-semibold text-lg text-[#DD9B43]">104 Wochen</h4>
+                                <p class="text-sm text-white/50">Erstlaufzeit 2 Jahre</p>
                             </div>
                             <div class="text-right">
                                 <span class="text-2xl font-bold text-green-400">0€</span>
@@ -235,16 +235,16 @@
                                 <span class="text-white/30">→</span>
                                 <span class="text-[#DD9B43]">Ab 01.04.: <strong>9€/Woche</strong></span>
                             </div>
-                            <p class="text-xs text-white/40 mt-1">25% günstiger als 12 Monate!</p>
+                            <p class="text-xs text-white/40 mt-1">25% günstiger als 52 Wochen!</p>
                         </div>
                     </div>
                     
                     <!-- Frühlingsstart Schüler/Studenten/Azubis -->
-                    <div class="bk-rate-card rounded-2xl p-5" data-rate-id="1215992931" data-term-id="1215992990" data-price="0" data-price-after="9" data-term="12 Monate" data-name="Frühlingsstart Schüler/Student">
+                    <div class="bk-rate-card rounded-2xl p-5" data-rate-id="1215992931" data-term-id="1215992990" data-price="0" data-price-after="9" data-term="52 Wochen" data-name="Frühlingsstart Schüler/Student">
                         <div class="flex justify-between items-start mb-3">
                             <div>
                                 <h4 class="font-semibold text-lg">Schüler / Studenten / Azubis</h4>
-                                <p class="text-sm text-white/50">12 Monate · Mit Nachweis</p>
+                                <p class="text-sm text-white/50">52 Wochen · Mit Nachweis</p>
                             </div>
                             <div class="text-right">
                                 <span class="text-2xl font-bold text-green-400">0€</span>
@@ -637,7 +637,7 @@ function bkRenderModules() {
         // Frühlingsstart Schüler/Studenten - keine Module
         1215992931: [],
         // Alte Tarife (falls noch benötigt)
-        1213385750: [{ id: 1213385815, name: 'Ernährungsplan 12 Monate', price: 119, desc: 'Individuell für dich' }],
+        1213385750: [{ id: 1213385815, name: 'Ernährungsplan 52 Wochen', price: 119, desc: 'Individuell für dich' }],
         1213385780: [
             { id: 1213878351, name: 'Activity Analyse', price: 39, desc: 'Bewegungsmuster-Check' },
             { id: 1213878352, name: 'Food & Stress Analyse', price: 19, desc: 'Ernährung & Stress' },
@@ -958,8 +958,8 @@ function bkShowDemoSuccess() {
         termId: 1215992960,
         price: 0,
         priceAfter: 9,
-        term: '24 Monate',
-        name: 'Frühlingsstart 24M'
+        term: '104 Wochen',
+        name: 'Frühlingsstart 104W'
     };
     
     // Demo data
