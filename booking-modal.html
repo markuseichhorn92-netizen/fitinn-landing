@@ -450,19 +450,89 @@
             
             <!-- Step 7: Bestätigung -->
             <div id="bk-step-7" class="bk-form-step">
-                <div class="text-center py-8">
-                    <div class="text-6xl mb-4">✓</div>
-                    <h3 class="text-2xl font-bold mb-2 text-[#DD9B43]">Willkommen!</h3>
-                    <p class="text-white/50 mb-8">Deine Mitgliedschaft ist aktiv.</p>
-                    
-                    <div class="bg-white/5 rounded-2xl p-5 text-left text-sm mb-6">
-                        <div class="bk-summary-row"><span class="text-white/50">Tarif</span><span id="bk-confirm-rate">-</span></div>
-                        <div class="bk-summary-row"><span class="text-white/50">Name</span><span id="bk-confirm-name">-</span></div>
-                        <div class="bk-summary-row"><span class="text-white/50">Vertragsnr.</span><span id="bk-confirm-contract" class="text-[#DD9B43]">-</span></div>
+                <div class="text-center py-4">
+                    <!-- Success Animation -->
+                    <div class="relative w-24 h-24 mx-auto mb-6">
+                        <div class="absolute inset-0 bg-green-500/20 rounded-full animate-ping"></div>
+                        <div class="relative w-24 h-24 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
+                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
                     </div>
                     
+                    <h3 class="text-2xl font-bold mb-2">Willkommen bei FIT-INN! 🎉</h3>
+                    <p class="text-white/60 mb-6">Deine Mitgliedschaft wurde erfolgreich erstellt.</p>
+                    
+                    <!-- Contract Details Card -->
+                    <div class="bg-gradient-to-br from-[#DD9B43]/20 to-[#DD9B43]/5 border border-[#DD9B43]/30 rounded-2xl p-5 text-left mb-4">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-[#DD9B43] rounded-full flex items-center justify-center">
+                                <span class="text-black font-bold" id="bk-confirm-initials">ME</span>
+                            </div>
+                            <div>
+                                <p class="font-semibold" id="bk-confirm-name">-</p>
+                                <p class="text-sm text-white/50" id="bk-confirm-email">-</p>
+                            </div>
+                        </div>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between py-2 border-b border-white/10">
+                                <span class="text-white/50">Mitgliedsnummer</span>
+                                <span class="font-mono font-bold text-[#DD9B43]" id="bk-confirm-member-nr">-</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-white/10">
+                                <span class="text-white/50">Vertragsnummer</span>
+                                <span class="font-mono" id="bk-confirm-contract">-</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-white/10">
+                                <span class="text-white/50">Tarif</span>
+                                <span id="bk-confirm-rate">-</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-white/10">
+                                <span class="text-white/50">Startdatum</span>
+                                <span id="bk-confirm-start">-</span>
+                            </div>
+                            <div class="flex justify-between py-2">
+                                <span class="text-white/50">Status</span>
+                                <span class="text-green-400 font-medium">✓ Aktiv</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Next Steps -->
+                    <div class="bg-white/5 rounded-2xl p-5 text-left mb-6">
+                        <h4 class="font-semibold mb-3 flex items-center gap-2">
+                            <span>📋</span> Nächste Schritte
+                        </h4>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex gap-3">
+                                <div class="w-6 h-6 bg-[#DD9B43]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-[#DD9B43] text-xs font-bold">1</span>
+                                </div>
+                                <p class="text-white/70">Komm vorbei und hol dir deinen <strong class="text-white">Mitgliedsausweis</strong> an der Theke ab.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <div class="w-6 h-6 bg-[#DD9B43]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-[#DD9B43] text-xs font-bold">2</span>
+                                </div>
+                                <p class="text-white/70">Lade die <strong class="text-white">MySports App</strong> herunter für Kursbuchungen & Check-in.</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <div class="w-6 h-6 bg-[#DD9B43]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-[#DD9B43] text-xs font-bold">3</span>
+                                </div>
+                                <p class="text-white/70">Buche dein kostenloses <strong class="text-white">Einweisungstraining</strong> mit einem Trainer.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Confirmation Email Notice -->
+                    <p class="text-xs text-white/40 mb-6">
+                        📧 Eine Bestätigungsmail mit allen Details wurde an <span id="bk-confirm-email-2">deine E-Mail</span> gesendet.
+                    </p>
+                    
                     <button onclick="closeModal('booking')" class="w-full bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">
-                        Fertig
+                        Los geht's! 💪
                     </button>
                 </div>
             </div>
@@ -800,9 +870,37 @@ async function bkSubmit() {
             throw new Error(errorMsg);
         }
         
+        // Fill confirmation page with API response data
+        const firstname = payload.customer.firstname;
+        const lastname = payload.customer.lastname;
+        const email = payload.customer.email;
+        const initials = (firstname[0] + lastname[0]).toUpperCase();
+        
+        // Log full response for debugging
+        console.log('Magicline Success Response:', JSON.stringify(result, null, 2));
+        
+        // Extract data from response (Magicline returns different fields)
+        const memberNumber = result.memberNumber || result.customerId || result.member?.number || '-';
+        const contractNumber = result.contractNumber || result.contractId || result.contract?.number || result.id || '-';
+        const startDate = result.startDate || result.contract?.startDate || payload.contract.startDate;
+        
+        // Format start date
+        let formattedStartDate = '-';
+        if (startDate) {
+            const d = new Date(startDate);
+            formattedStartDate = d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+        
+        // Fill the confirmation fields
+        document.getElementById('bk-confirm-initials').textContent = initials;
+        document.getElementById('bk-confirm-name').textContent = `${firstname} ${lastname}`;
+        document.getElementById('bk-confirm-email').textContent = email;
+        document.getElementById('bk-confirm-email-2').textContent = email;
+        document.getElementById('bk-confirm-member-nr').textContent = memberNumber;
+        document.getElementById('bk-confirm-contract').textContent = contractNumber;
         document.getElementById('bk-confirm-rate').textContent = bkSelectedRate.name;
-        document.getElementById('bk-confirm-name').textContent = `${payload.customer.firstname} ${payload.customer.lastname}`;
-        document.getElementById('bk-confirm-contract').textContent = result.contractNumber || result.id || '-';
+        document.getElementById('bk-confirm-start').textContent = formattedStartDate;
+        
         bkGoToStep(7);
     } catch (err) {
         errDiv.textContent = err.message;
