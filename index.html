@@ -2229,6 +2229,33 @@
             document.getElementById(`modal-${type}`).classList.add('active');
             document.body.style.overflow = 'hidden';
             if (typeof trackModalOpen === 'function') trackModalOpen(type);
+            
+            // Check for returning lead (from email/WhatsApp link)
+            if (type === 'probetraining') {
+                ptCheckReturningLead();
+            }
+        }
+        
+        // Check if user is returning from email/WhatsApp link with lead data
+        function ptCheckReturningLead() {
+            const params = new URLSearchParams(window.location.search);
+            const leadId = params.get('lead');
+            const name = params.get('name');
+            const email = params.get('email');
+            const phone = params.get('phone');
+            
+            if (leadId && name) {
+                // Returning lead - skip Step 0
+                ptLeadData = { 
+                    name: decodeURIComponent(name), 
+                    email: email ? decodeURIComponent(email) : null,
+                    phone: phone ? decodeURIComponent(phone) : null,
+                    isReturning: true 
+                };
+                console.log('PT Returning lead detected:', ptLeadData);
+                // Skip to Step 1 (survey questions)
+                setTimeout(() => ptGoToStep(1), 100);
+            }
         }
         function closeModal(type) {
             document.getElementById(`modal-${type}`).classList.remove('active');
@@ -2257,7 +2284,7 @@
         let ptSlotsData = null;
         let ptSelectedSlot = null;
         let ptSurveyData = { goal: null, bringFriend: null, trainerRequired: null };
-        let ptLeadData = { name: null, phone: null };
+        let ptLeadData = { name: null, email: null, phone: null };
         const ptStepNames = { 0: 'Kontakt', 1: 'Fitnessziel', 2: 'Begleitung', 3: 'Trainer', 4: 'Termin', 5: 'Daten', 6: 'Adresse', 7: 'Fertig' };
         
         // Lead Capture Function
@@ -2383,6 +2410,9 @@
                 if (!document.getElementById('pt-firstname').value) {
                     document.getElementById('pt-firstname').value = nameParts[0] || '';
                     document.getElementById('pt-lastname').value = nameParts.slice(1).join(' ') || '';
+                }
+                if (!document.getElementById('pt-email').value && ptLeadData.email) {
+                    document.getElementById('pt-email').value = ptLeadData.email;
                 }
                 if (!document.getElementById('pt-phone').value && ptLeadData.phone) {
                     document.getElementById('pt-phone').value = ptLeadData.phone;

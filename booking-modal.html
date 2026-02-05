@@ -597,14 +597,15 @@ function bkCheckReturningLead() {
     const leadId = params.get('lead');
     const name = params.get('name');
     const email = params.get('email');
+    const phone = params.get('phone');
     
     if (leadId && name) {
-        // Returning lead from email - skip Step 0
+        // Returning lead from email/WhatsApp - skip Step 0
         bkLeadData = { 
             id: leadId,
             name: decodeURIComponent(name), 
             email: email ? decodeURIComponent(email) : null,
-            phone: null,
+            phone: phone ? decodeURIComponent(phone) : null,
             isReturning: true 
         };
         console.log('Returning lead detected:', bkLeadData);
