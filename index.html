@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIT-INN Trier | Dein Fitnessstudio in Trier-Süd</title>
-    <meta name="description" content="FIT-INN Trier-Süd: Dein familiäres Fitnessstudio mit persönlicher Betreuung. Jetzt kostenloses Probetraining sichern!">
+    <title>FIT-INN Trier | Februar & März beitragsfrei trainieren</title>
+    <meta name="description" content="Exklusives Angebot: 2 Monate beitragsfrei bei FIT-INN Trier! Ihr Gesundheitspartner für Best Ager 50+ mit professioneller Betreuung und TechnoGym Geräten.">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="FIT-INN Trier | Dein Fitnessstudio">
-    <meta property="og:description" content="Familiäres Fitnessstudio mit persönlicher Betreuung. Jetzt kostenloses Probetraining!">
+    <meta property="og:title" content="FIT-INN Trier | 2 Monate geschenkt">
+    <meta property="og:description" content="Februar & März beitragsfrei trainieren. Professionelle Betreuung für Ihre Gesundheit.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="de_DE">
     
@@ -32,6 +32,7 @@
                         'accent-light': '#e6ac5a',
                         dark: '#0a0a0a',
                         muted: '#a1a1a1',
+                        success: '#10b981',
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -68,6 +69,15 @@
             transform: translateY(-5px);
         }
         
+        /* Promo Banner Animation */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(221, 155, 67, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(221, 155, 67, 0.7); }
+        }
+        .promo-glow {
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
         /* Modal Styles */
         .modal-overlay {
             opacity: 0;
@@ -86,19 +96,6 @@
             transform: scale(1) translateY(0);
         }
         
-        /* Step Indicator */
-        .step-indicator {
-            transition: all 0.3s ease;
-        }
-        .step-indicator.active {
-            background-color: #DD9B43;
-            color: #094957;
-        }
-        .step-indicator.completed {
-            background-color: #10b981;
-            color: white;
-        }
-        
         /* Form Steps */
         .form-step {
             display: none;
@@ -111,20 +108,37 @@
             from { opacity: 0; transform: translateX(20px); }
             to { opacity: 1; transform: translateX(0); }
         }
+        
+        /* Step Indicator */
+        .step-indicator.active {
+            background-color: #DD9B43;
+            color: #094957;
+        }
+        .step-indicator.completed {
+            background-color: #10b981;
+            color: white;
+        }
     </style>
 </head>
 <body class="font-sans text-white antialiased">
     
+    <!-- Sticky Promo Banner -->
+    <div class="bg-accent text-primary text-center py-3 px-4 font-semibold text-sm md:text-base">
+        🎁 <strong>Exklusiv:</strong> Februar & März komplett beitragsfrei! 
+        <a href="#angebot" class="underline ml-2 hover:no-underline">Jetzt sichern →</a>
+    </div>
+
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-white/10">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-white/10" style="top: 44px;">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold">
                 <span class="text-accent">FIT</span>-INN
             </a>
             <div class="hidden md:flex items-center gap-6">
-                <a href="#angebot" class="text-sm hover:text-accent transition-colors">Angebote</a>
+                <a href="#probleme" class="text-sm hover:text-accent transition-colors">Ihre Situation</a>
+                <a href="#loesung" class="text-sm hover:text-accent transition-colors">Unsere Lösung</a>
+                <a href="#angebot" class="text-sm hover:text-accent transition-colors">Angebot</a>
                 <a href="#preise" class="text-sm hover:text-accent transition-colors">Preise</a>
-                <a href="#kontakt" class="text-sm hover:text-accent transition-colors">Kontakt</a>
                 <button onclick="openModal('probetraining')" class="bg-accent hover:bg-accent-dark text-primary font-semibold px-5 py-2 rounded-full text-sm transition-all">
                     Probetraining
                 </button>
@@ -136,47 +150,49 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden" style="padding-top: 120px;">
         <!-- Background -->
         <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-primary">
-            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1920&q=80')] bg-cover bg-center opacity-20"></div>
+            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1920&q=80')] bg-cover bg-center opacity-15"></div>
             <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent"></div>
         </div>
         
         <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-            <!-- Badge -->
-            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-8">
-                <span class="text-accent">★★★★★</span>
-                <span class="text-sm text-white/80">4.8 auf Google · Testsieger in Trier</span>
+            <!-- Promo Badge -->
+            <div class="promo-glow inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm rounded-full px-5 py-3 mb-8 border border-accent/50">
+                <span class="text-2xl">🎁</span>
+                <span class="text-accent font-bold">2 Monate geschenkt — Nur für kurze Zeit!</span>
             </div>
             
             <!-- Headline -->
             <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                Dein familiäres<br>
-                <span class="text-accent">Fitnessstudio</span><br>
-                in Trier
+                Investieren Sie in<br>
+                <span class="text-accent">Ihre Gesundheit</span>
             </h1>
             
             <!-- Subheadline -->
-            <p class="text-xl md:text-2xl text-white/80 mb-10 max-w-2xl mx-auto">
-                Persönliche Betreuung. Moderne Geräte. Echte Ergebnisse.
+            <p class="text-xl md:text-2xl text-white/80 mb-4 max-w-3xl mx-auto">
+                Februar & März <strong class="text-accent">komplett beitragsfrei</strong> trainieren.
+            </p>
+            <p class="text-lg text-white/70 mb-10 max-w-2xl mx-auto">
+                Professionelle Betreuung, moderne TechnoGym Geräte und ein Team, das Ihre Ziele versteht — bei FIT-INN Trier, Ihrem Gesundheitspartner.
             </p>
             
             <!-- CTAs -->
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <button onclick="openModal('probetraining')" class="glow-accent bg-accent hover:bg-accent-dark text-primary font-bold px-8 py-4 rounded-full text-lg transition-all duration-300">
-                    🏋️ Kostenloses Probetraining
+                    Kostenloses Probetraining →
                 </button>
-                <button onclick="openModal('mitgliedschaft')" class="border-2 border-white/30 hover:border-accent hover:text-accent font-semibold px-8 py-4 rounded-full text-lg transition-all duration-300">
-                    💪 Mitglied werden
-                </button>
+                <a href="#angebot" class="border-2 border-white/30 hover:border-accent hover:text-accent font-semibold px-8 py-4 rounded-full text-lg transition-all duration-300 inline-block">
+                    Mehr zum Angebot
+                </a>
             </div>
             
             <!-- Trust Elements -->
-            <div class="flex flex-wrap justify-center gap-8 mt-12 text-sm text-white/60">
-                <span>✓ Seit 25+ Jahren</span>
-                <span>✓ 7.000+ zufriedene Mitglieder</span>
-                <span>✓ Technogym Geräte</span>
+            <div class="flex flex-wrap justify-center gap-6 md:gap-10 mt-12 text-sm text-white/70">
+                <span class="flex items-center gap-2">✓ Seit 25+ Jahren in Trier</span>
+                <span class="flex items-center gap-2">✓ TechnoGym Ausstattung</span>
+                <span class="flex items-center gap-2">✓ Persönliche Betreuung</span>
             </div>
         </div>
         
@@ -188,32 +204,172 @@
         </div>
     </section>
 
-    <!-- USPs Section -->
-    <section id="angebot" class="py-20 px-6 bg-primary-dark">
+    <!-- Problem Section: Best Ager Challenges -->
+    <section id="probleme" class="py-20 px-6 bg-primary-dark">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Warum FIT-INN?</h2>
-                <p class="text-white/60">Das macht uns besonders</p>
+                <p class="text-accent font-semibold mb-2">KENNEN SIE DAS AUCH?</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Die Herausforderungen ab 50</h2>
+                <p class="text-white/60 max-w-2xl mx-auto">Mit den Jahren verändert sich der Körper. Das ist normal — aber Sie müssen das nicht einfach hinnehmen.</p>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-8 text-center border border-white/10">
-                    <div class="text-5xl mb-4">👨‍👩‍👧‍👦</div>
-                    <h3 class="text-2xl font-bold mb-2">Familiäre Atmosphäre</h3>
-                    <p class="text-white/70">Bei uns bist du kein Kunde — du bist Teil der FIT-INN Familie.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+                    <div class="text-4xl mb-4">😓</div>
+                    <h3 class="text-xl font-bold mb-2">Rückenschmerzen & Verspannungen</h3>
+                    <p class="text-white/70 text-sm">Langes Sitzen, einseitige Belastung — der Rücken macht nicht mehr mit. Jede Bewegung erinnert Sie daran.</p>
                 </div>
                 
-                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-8 text-center border border-white/10" style="transition-delay: 0.1s">
-                    <div class="text-5xl mb-4">🎯</div>
-                    <h3 class="text-2xl font-bold mb-2">Persönliche Betreuung</h3>
-                    <p class="text-white/70">Individuelle Trainingspläne und echte Unterstützung auf deinem Weg.</p>
+                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10" style="transition-delay: 0.1s">
+                    <div class="text-4xl mb-4">🦴</div>
+                    <h3 class="text-xl font-bold mb-2">Gelenkbeschwerden</h3>
+                    <p class="text-white/70 text-sm">Knie, Hüfte, Schulter — die Gelenke melden sich. Treppen steigen wird zur Herausforderung.</p>
                 </div>
                 
-                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-8 text-center border border-white/10" style="transition-delay: 0.2s">
-                    <div class="text-5xl mb-4">💎</div>
-                    <h3 class="text-2xl font-bold mb-2">Premium Ausstattung</h3>
-                    <p class="text-white/70">Neueste Technogym Geräte und digitale Trainingspläne.</p>
+                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10" style="transition-delay: 0.2s">
+                    <div class="text-4xl mb-4">😴</div>
+                    <h3 class="text-xl font-bold mb-2">Nachlassende Energie</h3>
+                    <p class="text-white/70 text-sm">Die Kondition lässt nach, abends fehlt die Kraft. Was früher leicht war, strengt heute an.</p>
                 </div>
+                
+                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10" style="transition-delay: 0.3s">
+                    <div class="text-4xl mb-4">⚖️</div>
+                    <h3 class="text-xl font-bold mb-2">Gewichtszunahme</h3>
+                    <p class="text-white/70 text-sm">Der Stoffwechsel verlangsamt sich. Was früher kein Problem war, setzt sich jetzt hartnäckig fest.</p>
+                </div>
+                
+                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10" style="transition-delay: 0.4s">
+                    <div class="text-4xl mb-4">💊</div>
+                    <h3 class="text-xl font-bold mb-2">Sorge um die Gesundheit</h3>
+                    <p class="text-white/70 text-sm">Blutdruck, Blutzucker, Cholesterin — die Werte sprechen eine deutliche Sprache. Der Arzt rät zu mehr Bewegung.</p>
+                </div>
+                
+                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10" style="transition-delay: 0.5s">
+                    <div class="text-4xl mb-4">🤔</div>
+                    <h3 class="text-xl font-bold mb-2">Unsicherheit im Studio</h3>
+                    <p class="text-white/70 text-sm">Wie funktionieren die Geräte? Mache ich etwas falsch? Die jungen Leute schauen komisch...</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <p class="text-xl text-white/80">
+                    <strong class="text-accent">Die gute Nachricht:</strong> Es ist nie zu spät, etwas zu ändern!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section: FIT-INN als Gesundheitspartner -->
+    <section id="loesung" class="py-20 px-6 bg-primary">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <p class="text-accent font-semibold mb-2">IHRE LÖSUNG</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">FIT-INN: Mehr als ein Fitnessstudio</h2>
+                <p class="text-white/60 max-w-2xl mx-auto">Wir sind Ihr <strong class="text-white">Gesundheitspartner</strong>. Mit professioneller Betreuung und einem Konzept, das auf Ihre Bedürfnisse zugeschnitten ist.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="space-y-6">
+                    <div class="fade-in flex gap-4 items-start bg-primary-dark/50 rounded-xl p-5 border border-white/10">
+                        <span class="text-accent text-2xl">✓</span>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">Persönlicher Gesundheits-Check-up</h4>
+                            <p class="text-white/70 text-sm">Wir analysieren Ihren Ist-Zustand und erstellen gemeinsam einen Plan, der zu Ihnen passt.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="fade-in flex gap-4 items-start bg-primary-dark/50 rounded-xl p-5 border border-white/10" style="transition-delay: 0.1s">
+                        <span class="text-accent text-2xl">✓</span>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">TechnoGym Biostrength Geräte</h4>
+                            <p class="text-white/70 text-sm">Intelligente Geräte, die sich automatisch auf Sie einstellen — sicher, effektiv und gelenkschonend.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="fade-in flex gap-4 items-start bg-primary-dark/50 rounded-xl p-5 border border-white/10" style="transition-delay: 0.2s">
+                        <span class="text-accent text-2xl">✓</span>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">Individuelle Trainingspläne</h4>
+                            <p class="text-white/70 text-sm">Kein Training von der Stange — Ihr Plan, Ihre Ziele, Ihr Tempo. Angepasst an Ihre Möglichkeiten.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="fade-in flex gap-4 items-start bg-primary-dark/50 rounded-xl p-5 border border-white/10" style="transition-delay: 0.3s">
+                        <span class="text-accent text-2xl">✓</span>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">Qualifizierte Trainer an Ihrer Seite</h4>
+                            <p class="text-white/70 text-sm">Unser Team begleitet Sie bei jedem Schritt — mit Geduld, Fachwissen und echter Unterstützung.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="fade-in flex gap-4 items-start bg-primary-dark/50 rounded-xl p-5 border border-white/10" style="transition-delay: 0.4s">
+                        <span class="text-accent text-2xl">✓</span>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">Angenehme, ruhige Atmosphäre</h4>
+                            <p class="text-white/70 text-sm">Kein überfülltes Muckibuden-Feeling. Trainieren Sie in Ihrem Wohlfühlbereich — ohne Stress.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="fade-in flex gap-4 items-start bg-primary-dark/50 rounded-xl p-5 border border-white/10" style="transition-delay: 0.5s">
+                        <span class="text-accent text-2xl">✓</span>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">Flexible Trainingszeiten</h4>
+                            <p class="text-white/70 text-sm">Kommen Sie, wann es Ihnen passt. Morgens ist es besonders ruhig — ideal für entspanntes Training.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trust Badge -->
+            <div class="fade-in bg-accent/10 border border-accent/30 rounded-2xl p-6 md:p-8 text-center">
+                <p class="text-accent font-semibold mb-2">IHR GESUNDHEITSPARTNER</p>
+                <p class="text-xl md:text-2xl font-bold mb-4">
+                    "Bei uns bekommen Sie keine 0815-Betreuung, sondern<br class="hidden md:inline"> echte Unterstützung für Ihre Gesundheit."
+                </p>
+                <p class="text-white/60">— Das FIT-INN Team</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Angebot Section: 2 Monate Gratis -->
+    <section id="angebot" class="py-20 px-6 bg-gradient-to-b from-primary-dark to-primary">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <p class="text-accent font-semibold mb-2">EXKLUSIVES ANGEBOT</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Unser Geschenk an Sie</h2>
+            </div>
+            
+            <div class="fade-in promo-glow bg-gradient-to-br from-accent/20 to-primary-dark rounded-3xl p-8 md:p-12 border-2 border-accent text-center">
+                <div class="inline-block bg-accent text-primary font-bold px-4 py-2 rounded-full text-sm mb-6">
+                    🎁 NUR FÜR KURZE ZEIT
+                </div>
+                
+                <h3 class="text-4xl md:text-6xl font-bold text-accent mb-4">2 Monate GRATIS</h3>
+                <p class="text-xl md:text-2xl mb-6">Februar & März 2026 komplett beitragsfrei!</p>
+                
+                <p class="text-white/70 mb-8 max-w-xl mx-auto">
+                    Bei Abschluss einer <strong class="text-white">Jahres-</strong> oder <strong class="text-white">Zweijahres-Mitgliedschaft</strong> schenken wir Ihnen die ersten zwei Monate. Starten Sie jetzt — zahlen Sie später.
+                </p>
+                
+                <div class="bg-white/10 rounded-2xl p-6 mb-8 text-left max-w-md mx-auto">
+                    <p class="font-semibold mb-3 text-center">Das ist alles inklusive:</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Voller Zugang zu allen Geräten</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Persönlicher Gesundheits-Check-up</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Individueller Trainingsplan</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> TechnoGym App zur Trainingssteuerung</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Mineralgetränke inklusive</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> W-LAN im gesamten Studio</li>
+                    </ul>
+                </div>
+                
+                <button onclick="openModal('probetraining')" class="glow-accent bg-accent hover:bg-accent-dark text-primary font-bold px-10 py-4 rounded-full text-lg transition-all duration-300">
+                    Jetzt Angebot sichern →
+                </button>
+                
+                <p class="text-white/50 text-sm mt-4">Unverbindliches Probetraining — wir beraten Sie persönlich.</p>
             </div>
         </div>
     </section>
@@ -222,72 +378,82 @@
     <section id="preise" class="py-20 px-6 bg-primary">
         <div class="max-w-6xl mx-auto">
             <div class="fade-in text-center mb-12">
+                <p class="text-accent font-semibold mb-2">FAIRE PREISE</p>
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Unsere Mitgliedschaften</h2>
-                <p class="text-white/60">Transparent und fair — wähle deinen Tarif</p>
+                <p class="text-white/60">Transparent und ehrlich — wählen Sie Ihren Tarif</p>
             </div>
             
             <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
                 <!-- FLEX -->
                 <div class="fade-in card-hover bg-primary-dark/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-                    <h3 class="text-xl font-bold mb-2">FLEX</h3>
-                    <p class="text-white/60 text-sm mb-4">Maximale Flexibilität</p>
-                    <div class="mb-6">
-                        <span class="text-4xl font-bold">24,90€</span>
-                        <span class="text-white/60">/Monat</span>
+                    <h3 class="text-xl font-bold mb-1">FLEX</h3>
+                    <p class="text-white/60 text-sm mb-4">4 Wochen Erstlaufzeit</p>
+                    <div class="mb-2">
+                        <span class="text-4xl font-bold">15€</span>
+                        <span class="text-white/60">/Woche</span>
                     </div>
+                    <p class="text-white/50 text-sm mb-6">Aktivierungsgebühr: 39€ einmalig</p>
                     <ul class="space-y-3 mb-8 text-sm">
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Monatlich kündbar</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Alle Geräte & Bereiche</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Digitaler Trainingsplan</li>
-                        <li class="flex items-center gap-2 text-white/40"><span>−</span> Kurse</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Maximale Flexibilität</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Komplette Club-Nutzung</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Alle Geräte & Services</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Trainingsplan & Check-up</li>
                     </ul>
-                    <button onclick="openModal('mitgliedschaft', 'flex')" class="w-full border-2 border-white/30 hover:border-accent hover:text-accent font-semibold py-3 rounded-lg transition-all duration-300">
-                        Auswählen
+                    <button onclick="openModal('probetraining')" class="w-full border-2 border-white/30 hover:border-accent hover:text-accent font-semibold py-3 rounded-lg transition-all duration-300">
+                        Probetraining
                     </button>
                 </div>
                 
-                <!-- PREMIUM -->
-                <div class="fade-in card-hover relative bg-gradient-to-b from-accent/20 to-primary-dark/50 rounded-2xl p-8 border-2 border-accent" style="transition-delay: 0.1s">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-primary text-xs font-bold px-3 py-1 rounded-full">
-                        EMPFOHLEN
+                <!-- BASIC - Mit Gratis-Monaten -->
+                <div class="fade-in card-hover bg-primary-dark/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10" style="transition-delay: 0.1s">
+                    <h3 class="text-xl font-bold mb-1">BASIC</h3>
+                    <p class="text-white/60 text-sm mb-4">52 Wochen Laufzeit</p>
+                    <div class="mb-2">
+                        <span class="text-4xl font-bold">12€</span>
+                        <span class="text-white/60">/Woche</span>
                     </div>
-                    <h3 class="text-xl font-bold mb-2">PREMIUM</h3>
-                    <p class="text-white/60 text-sm mb-4">Unser Bestseller</p>
-                    <div class="mb-6">
-                        <span class="text-4xl font-bold text-accent">29,90€</span>
-                        <span class="text-white/60">/Monat</span>
-                    </div>
+                    <p class="text-white/50 text-sm mb-2">Aktivierungsgebühr: 39€ einmalig</p>
+                    <p class="text-accent text-sm font-semibold mb-6">+ 2 Monate GRATIS (Feb & März)</p>
                     <ul class="space-y-3 mb-8 text-sm">
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Monatlich kündbar</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Alle Geräte & Bereiche</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Digitaler Trainingsplan</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Alle Kurse inklusive</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Getränke-Flat</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> 20% Ersparnis vs. Flex</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Komplette Club-Nutzung</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Alle Geräte & Services</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Trainingsplan & Check-up</li>
                     </ul>
-                    <button onclick="openModal('mitgliedschaft', 'premium')" class="w-full glow-accent bg-accent hover:bg-accent-dark text-primary font-bold py-3 rounded-lg transition-all duration-300">
+                    <button onclick="openModal('probetraining')" class="w-full border-2 border-white/30 hover:border-accent hover:text-accent font-semibold py-3 rounded-lg transition-all duration-300">
+                        Probetraining
+                    </button>
+                </div>
+                
+                <!-- PREMIUM - Empfohlen -->
+                <div class="fade-in card-hover relative bg-gradient-to-b from-accent/20 to-primary-dark/50 rounded-2xl p-8 border-2 border-accent" style="transition-delay: 0.2s">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-primary text-xs font-bold px-3 py-1 rounded-full">
+                        BESTE WAHL
+                    </div>
+                    <h3 class="text-xl font-bold mb-1">PREMIUM</h3>
+                    <p class="text-white/60 text-sm mb-4">104 Wochen Laufzeit</p>
+                    <div class="mb-2">
+                        <span class="text-4xl font-bold text-accent">9€</span>
+                        <span class="text-white/60">/Woche</span>
+                    </div>
+                    <p class="text-white/50 text-sm mb-2">Aktivierungsgebühr: 39€ einmalig</p>
+                    <p class="text-accent text-sm font-semibold mb-6">+ 2 Monate GRATIS (Feb & März)</p>
+                    <ul class="space-y-3 mb-8 text-sm">
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> 40% Ersparnis vs. Flex</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Bestes Preis-Leistungs-Verhältnis</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Komplette Club-Nutzung</li>
+                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Trainingsplan & Check-up</li>
+                    </ul>
+                    <button onclick="openModal('probetraining')" class="w-full glow-accent bg-accent hover:bg-accent-dark text-primary font-bold py-3 rounded-lg transition-all duration-300">
                         Jetzt starten
                     </button>
                 </div>
-                
-                <!-- RELOADED -->
-                <div class="fade-in card-hover bg-primary-dark/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10" style="transition-delay: 0.2s">
-                    <h3 class="text-xl font-bold mb-2">RELOADED</h3>
-                    <p class="text-white/60 text-sm mb-4">Beste Preis-Leistung</p>
-                    <div class="mb-6">
-                        <span class="text-4xl font-bold">19,90€</span>
-                        <span class="text-white/60">/Monat</span>
-                    </div>
-                    <ul class="space-y-3 mb-8 text-sm">
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> 12 Monate Laufzeit</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Alle Geräte & Bereiche</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Digitaler Trainingsplan</li>
-                        <li class="flex items-center gap-2 text-white/40"><span>−</span> Kurse</li>
-                    </ul>
-                    <button onclick="openModal('mitgliedschaft', 'reloaded')" class="w-full border-2 border-white/30 hover:border-accent hover:text-accent font-semibold py-3 rounded-lg transition-all duration-300">
-                        Auswählen
-                    </button>
-                </div>
             </div>
+            
+            <p class="text-center text-white/50 text-sm mt-8">
+                Alle Preise inkl. MwSt. · Kündigungsfrist: 4 Wochen · Abbuchung alle 14 Tage per SEPA-Lastschrift<br>
+                Schüler, Azubis & Studenten: 3€ Rabatt pro Woche
+            </p>
         </div>
     </section>
 
@@ -295,38 +461,50 @@
     <section class="py-20 px-6 bg-primary-dark">
         <div class="max-w-4xl mx-auto">
             <div class="fade-in text-center mb-12">
+                <p class="text-accent font-semibold mb-2">ZUFRIEDENE MITGLIEDER</p>
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Das sagen unsere Mitglieder</h2>
-                <p class="text-white/60">Über 250 positive Bewertungen</p>
             </div>
             
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="fade-in bg-primary/50 rounded-2xl p-6 border border-white/10">
                     <div class="text-accent mb-3">★★★★★</div>
-                    <p class="text-white/80 mb-4">"Hier macht's richtig Spaß zu trainieren. Die Geräte sind modern, das Team achtet auf einen und gibt super Tipps!"</p>
-                    <p class="font-semibold text-accent">— Google Bewertung</p>
+                    <p class="text-white/80 mb-4">"Endlich ein Studio, wo man sich als älterer Mensch nicht fehl am Platz fühlt. Das Team erklärt alles geduldig und die Geräte sind super modern."</p>
+                    <p class="font-semibold text-accent">— Helga M., 58</p>
                 </div>
                 
                 <div class="fade-in bg-primary/50 rounded-2xl p-6 border border-white/10" style="transition-delay: 0.1s">
                     <div class="text-accent mb-3">★★★★★</div>
-                    <p class="text-white/80 mb-4">"Ein wirklich familiäres und toll ausgestattetes Studio. Ich fühle mich sehr wohl hier!"</p>
-                    <p class="font-semibold text-accent">— Google Bewertung</p>
+                    <p class="text-white/80 mb-4">"Mein Arzt hat mir Bewegung empfohlen wegen dem Rücken. Nach 3 Monaten hier sind die Schmerzen fast weg. Kann ich nur empfehlen!"</p>
+                    <p class="font-semibold text-accent">— Werner K., 63</p>
+                </div>
+                
+                <div class="fade-in bg-primary/50 rounded-2xl p-6 border border-white/10" style="transition-delay: 0.2s">
+                    <div class="text-accent mb-3">★★★★★</div>
+                    <p class="text-white/80 mb-4">"Die persönliche Betreuung ist wirklich klasse. Man merkt, dass die sich Zeit nehmen und auf einen eingehen. Kein Vergleich zu großen Ketten."</p>
+                    <p class="font-semibold text-accent">— Ingrid S., 55</p>
+                </div>
+                
+                <div class="fade-in bg-primary/50 rounded-2xl p-6 border border-white/10" style="transition-delay: 0.3s">
+                    <div class="text-accent mb-3">★★★★★</div>
+                    <p class="text-white/80 mb-4">"Ich hatte Angst vor Fitnessstudios — die jungen Leute, die laute Musik. Hier ist es ganz anders: ruhig, freundlich und professionell."</p>
+                    <p class="font-semibold text-accent">— Klaus D., 67</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Standort -->
+    <!-- Standort & Kontakt -->
     <section id="kontakt" class="py-20 px-6 bg-primary">
         <div class="max-w-4xl mx-auto">
             <div class="fade-in text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Besuche uns</h2>
-                <p class="text-white/60">FIT-INN Trier</p>
+                <p class="text-accent font-semibold mb-2">BESUCHEN SIE UNS</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">FIT-INN Trier</h2>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8 items-center">
                 <div class="fade-in bg-primary-dark/50 rounded-2xl overflow-hidden border border-white/10 aspect-video">
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2576.5!2d6.67!3d49.73!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDQzJzQ4LjAiTiA2wrA0MCcxMi4wIkU!5e0!3m2!1sde!2sde!4v1234567890"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2576.8!2d6.6428!3d49.7361!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47957ca5bcd96b95%3A0x4d6ab9a16af4e4c9!2sFit-Inn%20GmbH!5e0!3m2!1sde!2sde!4v1707123456789"
                         width="100%" height="100%" style="border:0; min-height: 280px;" allowfullscreen="" loading="lazy">
                     </iframe>
                 </div>
@@ -334,7 +512,7 @@
                 <div class="fade-in space-y-6" style="transition-delay: 0.1s">
                     <div>
                         <h3 class="font-bold text-lg mb-2 text-accent">📍 Adresse</h3>
-                        <p class="text-white/70">Im Hürtenberg 1<br>54294 Trier</p>
+                        <p class="text-white/70">Auf Hirtenberg 8<br>54296 Trier</p>
                     </div>
                     <div>
                         <h3 class="font-bold text-lg mb-2 text-accent">🕐 Öffnungszeiten</h3>
@@ -346,15 +524,26 @@
                     <div>
                         <h3 class="font-bold text-lg mb-2 text-accent">📞 Kontakt</h3>
                         <p class="text-white/70">
-                            Tel: 0651 / 999 888 77<br>
+                            Tel: 0651 / 99 88 44 0<br>
                             info@fit-inn-trier.de
                         </p>
                     </div>
-                    <button onclick="openModal('probetraining')" class="w-full bg-accent hover:bg-accent-dark text-primary font-bold py-3 rounded-lg transition-all">
-                        Jetzt Probetraining vereinbaren
+                    <button onclick="openModal('probetraining')" class="w-full bg-accent hover:bg-accent-dark text-primary font-bold py-4 rounded-lg transition-all">
+                        Jetzt Probetraining vereinbaren →
                     </button>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-16 px-6 bg-gradient-to-r from-accent to-accent-dark text-primary">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Starten Sie jetzt — zahlen Sie später!</h2>
+            <p class="text-xl mb-8 opacity-90">Februar & März komplett beitragsfrei. Dieses Angebot gilt nur für kurze Zeit.</p>
+            <button onclick="openModal('probetraining')" class="bg-primary hover:bg-primary-dark text-white font-bold px-10 py-4 rounded-full text-lg transition-all duration-300">
+                Kostenloses Probetraining →
+            </button>
         </div>
     </section>
 
@@ -365,7 +554,6 @@
             <div class="flex gap-6 text-sm">
                 <a href="https://fit-inn-trier.de/impressum" class="text-white/60 hover:text-accent transition-colors">Impressum</a>
                 <a href="https://fit-inn-trier.de/datenschutz" class="text-white/60 hover:text-accent transition-colors">Datenschutz</a>
-                <a href="https://fit-inn-trier.de/agb" class="text-white/60 hover:text-accent transition-colors">AGB</a>
             </div>
         </div>
     </footer>
@@ -379,13 +567,18 @@
             <div class="sticky top-0 bg-primary-dark border-b border-white/10 p-6 flex justify-between items-center">
                 <div>
                     <h2 class="text-xl font-bold">Kostenloses Probetraining</h2>
-                    <p class="text-sm text-white/60">Lerne uns unverbindlich kennen</p>
+                    <p class="text-sm text-white/60">Lernen Sie uns unverbindlich kennen</p>
                 </div>
                 <button onclick="closeModal('probetraining')" class="text-white/60 hover:text-white p-2">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
+            </div>
+            
+            <!-- Promo Reminder -->
+            <div class="bg-accent/20 border-b border-accent/30 px-6 py-3 text-center">
+                <p class="text-sm text-accent font-semibold">🎁 Nicht vergessen: Februar & März beitragsfrei!</p>
             </div>
             
             <!-- Content -->
@@ -411,7 +604,7 @@
                         
                         <div>
                             <label class="block text-sm font-medium mb-2">Telefon *</label>
-                            <input type="tel" id="pt-telefon" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors" placeholder="0151 12345678">
+                            <input type="tel" id="pt-telefon" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors" placeholder="0651 12345678">
                         </div>
                         
                         <div>
@@ -422,23 +615,29 @@
                         <div>
                             <label class="block text-sm font-medium mb-2">Bevorzugte Uhrzeit</label>
                             <select id="pt-uhrzeit" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors">
-                                <option value="morgens">Morgens (8-12 Uhr)</option>
+                                <option value="vormittags">Vormittags (8-12 Uhr) — besonders ruhig</option>
                                 <option value="mittags">Mittags (12-15 Uhr)</option>
                                 <option value="nachmittags">Nachmittags (15-18 Uhr)</option>
-                                <option value="abends" selected>Abends (18-22 Uhr)</option>
+                                <option value="abends">Abends (18-20 Uhr)</option>
                             </select>
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-medium mb-2">Was ist dein Trainingsziel?</label>
+                            <label class="block text-sm font-medium mb-2">Was ist Ihr Ziel?</label>
                             <select id="pt-ziel" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                                 <option value="">Bitte wählen...</option>
-                                <option value="abnehmen">Abnehmen</option>
-                                <option value="muskelaufbau">Muskelaufbau</option>
-                                <option value="fitness">Allgemeine Fitness</option>
-                                <option value="ruecken">Rückentraining</option>
-                                <option value="ausdauer">Ausdauer verbessern</option>
+                                <option value="ruecken">Rücken stärken / Schmerzen lindern</option>
+                                <option value="beweglichkeit">Beweglichkeit verbessern</option>
+                                <option value="abnehmen">Gewicht reduzieren</option>
+                                <option value="fitness">Allgemeine Fitness steigern</option>
+                                <option value="kraft">Muskulatur aufbauen</option>
+                                <option value="gesundheit">Gesundheitswerte verbessern</option>
                             </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Nachricht (optional)</label>
+                            <textarea id="pt-nachricht" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent transition-colors h-20 resize-none" placeholder="Gibt es etwas, das wir wissen sollten?"></textarea>
                         </div>
                         
                         <div class="flex items-start gap-3 pt-2">
@@ -454,7 +653,7 @@
                     </button>
                     
                     <p class="text-center text-xs text-white/50 mt-4">
-                        Wir melden uns innerhalb von 24 Stunden bei dir.
+                        Wir melden uns innerhalb von 24 Stunden bei Ihnen.
                     </p>
                 </div>
                 
@@ -465,260 +664,19 @@
                         <h3 class="text-2xl font-bold mb-2">Anfrage gesendet!</h3>
                         <p class="text-white/70 mb-6">
                             Vielen Dank, <span id="pt-confirm-name">Max</span>!<br>
-                            Wir melden uns schnellstmöglich bei dir.
+                            Wir melden uns schnellstmöglich bei Ihnen.
                         </p>
-                        <div class="bg-white/10 rounded-xl p-4 text-left text-sm">
-                            <p class="font-semibold mb-2">Deine Anfrage:</p>
+                        <div class="bg-white/10 rounded-xl p-4 text-left text-sm mb-6">
+                            <p class="font-semibold mb-2">Ihre Anfrage:</p>
                             <p class="text-white/70">📅 <span id="pt-confirm-date">-</span></p>
                             <p class="text-white/70">🕐 <span id="pt-confirm-time">-</span></p>
                             <p class="text-white/70">📧 <span id="pt-confirm-email">-</span></p>
                         </div>
-                        <button onclick="closeModal('probetraining')" class="w-full border-2 border-accent text-accent hover:bg-accent hover:text-primary font-semibold py-3 rounded-lg mt-6 transition-all">
-                            Schließen
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================ -->
-    <!-- MODAL: MITGLIEDSCHAFT BUCHUNG -->
-    <!-- ============================================ -->
-    <div id="modal-mitgliedschaft" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-        <div class="modal-content bg-primary-dark rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-white/20 shadow-2xl">
-            <!-- Header -->
-            <div class="sticky top-0 bg-primary-dark border-b border-white/10 p-6">
-                <div class="flex justify-between items-center mb-4">
-                    <div>
-                        <h2 class="text-xl font-bold">Mitgliedschaft abschließen</h2>
-                        <p class="text-sm text-white/60">In wenigen Schritten zum Start</p>
-                    </div>
-                    <button onclick="closeModal('mitgliedschaft')" class="text-white/60 hover:text-white p-2">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-                
-                <!-- Step Indicators -->
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <span id="ms-ind-1" class="step-indicator active w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-white/20">1</span>
-                        <span class="text-sm hidden sm:inline">Tarif</span>
-                    </div>
-                    <div class="flex-1 h-0.5 bg-white/20 mx-2"></div>
-                    <div class="flex items-center gap-2">
-                        <span id="ms-ind-2" class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-white/20">2</span>
-                        <span class="text-sm hidden sm:inline">Daten</span>
-                    </div>
-                    <div class="flex-1 h-0.5 bg-white/20 mx-2"></div>
-                    <div class="flex items-center gap-2">
-                        <span id="ms-ind-3" class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-white/20">3</span>
-                        <span class="text-sm hidden sm:inline">Zahlung</span>
-                    </div>
-                    <div class="flex-1 h-0.5 bg-white/20 mx-2"></div>
-                    <div class="flex items-center gap-2">
-                        <span id="ms-ind-4" class="step-indicator w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-white/20">4</span>
-                        <span class="text-sm hidden sm:inline">Fertig</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Content -->
-            <div class="p-6">
-                
-                <!-- Step 1: Tarifwahl -->
-                <div id="ms-step-1" class="form-step active">
-                    <h3 class="text-lg font-semibold mb-4">Wähle deinen Tarif</h3>
-                    <div class="space-y-3">
-                        <label class="block cursor-pointer">
-                            <input type="radio" name="tarif" value="flex" class="hidden peer">
-                            <div class="peer-checked:border-accent peer-checked:bg-accent/10 border-2 border-white/20 rounded-xl p-4 transition-all hover:border-white/40">
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <span class="font-bold">FLEX</span>
-                                        <span class="text-white/60 text-sm ml-2">Monatlich kündbar</span>
-                                    </div>
-                                    <span class="text-xl font-bold">24,90€<span class="text-sm font-normal text-white/60">/Monat</span></span>
-                                </div>
-                            </div>
-                        </label>
-                        
-                        <label class="block cursor-pointer">
-                            <input type="radio" name="tarif" value="premium" checked class="hidden peer">
-                            <div class="peer-checked:border-accent peer-checked:bg-accent/10 border-2 border-white/20 rounded-xl p-4 transition-all hover:border-white/40 relative">
-                                <span class="absolute -top-2 right-4 bg-accent text-primary text-xs font-bold px-2 py-0.5 rounded">EMPFOHLEN</span>
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <span class="font-bold">PREMIUM</span>
-                                        <span class="text-white/60 text-sm ml-2">Inkl. Kurse & Getränke</span>
-                                    </div>
-                                    <span class="text-xl font-bold text-accent">29,90€<span class="text-sm font-normal text-white/60">/Monat</span></span>
-                                </div>
-                            </div>
-                        </label>
-                        
-                        <label class="block cursor-pointer">
-                            <input type="radio" name="tarif" value="reloaded" class="hidden peer">
-                            <div class="peer-checked:border-accent peer-checked:bg-accent/10 border-2 border-white/20 rounded-xl p-4 transition-all hover:border-white/40">
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <span class="font-bold">RELOADED</span>
-                                        <span class="text-white/60 text-sm ml-2">12 Monate Laufzeit</span>
-                                    </div>
-                                    <span class="text-xl font-bold">19,90€<span class="text-sm font-normal text-white/60">/Monat</span></span>
-                                </div>
-                            </div>
-                        </label>
-                    </div>
-                    
-                    <button onclick="msNextStep(2)" class="w-full bg-accent hover:bg-accent-dark text-primary font-bold py-4 rounded-lg mt-6 transition-all">
-                        Weiter →
-                    </button>
-                </div>
-                
-                <!-- Step 2: Persönliche Daten -->
-                <div id="ms-step-2" class="form-step">
-                    <h3 class="text-lg font-semibold mb-4">Deine Daten</h3>
-                    <div class="space-y-4">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Vorname *</label>
-                                <input type="text" id="ms-vorname" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="Max">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Nachname *</label>
-                                <input type="text" id="ms-nachname" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="Mustermann">
-                            </div>
+                        <div class="bg-accent/20 border border-accent/30 rounded-xl p-4 mb-6">
+                            <p class="text-accent font-semibold">🎁 Denken Sie daran:</p>
+                            <p class="text-sm text-white/70">Februar & März sind bei uns beitragsfrei!</p>
                         </div>
-                        
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Geburtsdatum *</label>
-                                <input type="date" id="ms-geburtsdatum" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Geschlecht</label>
-                                <select id="ms-geschlecht" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent">
-                                    <option value="m">Männlich</option>
-                                    <option value="w">Weiblich</option>
-                                    <option value="d">Divers</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2">E-Mail *</label>
-                            <input type="email" id="ms-email" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="max@beispiel.de">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Telefon *</label>
-                            <input type="tel" id="ms-telefon" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="0151 12345678">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Straße & Hausnummer *</label>
-                            <input type="text" id="ms-strasse" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="Musterstraße 123">
-                        </div>
-                        
-                        <div class="grid grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">PLZ *</label>
-                                <input type="text" id="ms-plz" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="54294">
-                            </div>
-                            <div class="col-span-2">
-                                <label class="block text-sm font-medium mb-2">Stadt *</label>
-                                <input type="text" id="ms-stadt" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="Trier">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-4 mt-6">
-                        <button onclick="msNextStep(1)" class="flex-1 border-2 border-white/30 hover:border-white/60 font-semibold py-4 rounded-lg transition-all">
-                            ← Zurück
-                        </button>
-                        <button onclick="msNextStep(3)" class="flex-1 bg-accent hover:bg-accent-dark text-primary font-bold py-4 rounded-lg transition-all">
-                            Weiter →
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Step 3: Zahlungsdaten -->
-                <div id="ms-step-3" class="form-step">
-                    <h3 class="text-lg font-semibold mb-4">Zahlungsdaten</h3>
-                    <div class="space-y-4">
-                        <div class="bg-white/10 rounded-xl p-4 mb-4">
-                            <p class="text-sm text-white/60 mb-1">Gewählter Tarif:</p>
-                            <p class="font-bold text-lg" id="ms-selected-tarif">PREMIUM — 29,90€/Monat</p>
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Kontoinhaber *</label>
-                            <input type="text" id="ms-kontoinhaber" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent" placeholder="Max Mustermann">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2">IBAN *</label>
-                            <input type="text" id="ms-iban" required class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent font-mono" placeholder="DE89 3704 0044 0532 0130 00">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium mb-2">BIC (optional)</label>
-                            <input type="text" id="ms-bic" class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 focus:outline-none focus:border-accent font-mono" placeholder="COBADEFFXXX">
-                        </div>
-                        
-                        <div class="bg-accent/10 border border-accent/30 rounded-xl p-4 text-sm">
-                            <p class="font-semibold text-accent mb-1">🔒 Sichere Zahlung</p>
-                            <p class="text-white/70">Der Beitrag wird monatlich per SEPA-Lastschrift eingezogen. Du kannst jederzeit widerrufen.</p>
-                        </div>
-                        
-                        <div class="space-y-3 pt-2">
-                            <div class="flex items-start gap-3">
-                                <input type="checkbox" id="ms-sepa" required class="mt-1 accent-accent">
-                                <label for="ms-sepa" class="text-sm text-white/70">
-                                    Ich erteile FIT-INN Trier ein SEPA-Lastschriftmandat für den monatlichen Beitrag.
-                                </label>
-                            </div>
-                            <div class="flex items-start gap-3">
-                                <input type="checkbox" id="ms-agb" required class="mt-1 accent-accent">
-                                <label for="ms-agb" class="text-sm text-white/70">
-                                    Ich akzeptiere die <a href="https://fit-inn-trier.de/agb" target="_blank" class="text-accent hover:underline">AGB</a> und <a href="https://fit-inn-trier.de/datenschutz" target="_blank" class="text-accent hover:underline">Datenschutzerklärung</a>.
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-4 mt-6">
-                        <button onclick="msNextStep(2)" class="flex-1 border-2 border-white/30 hover:border-white/60 font-semibold py-4 rounded-lg transition-all">
-                            ← Zurück
-                        </button>
-                        <button onclick="submitMitgliedschaft()" class="flex-1 bg-accent hover:bg-accent-dark text-primary font-bold py-4 rounded-lg transition-all">
-                            Jetzt Mitglied werden ✓
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Step 4: Bestätigung -->
-                <div id="ms-step-4" class="form-step">
-                    <div class="text-center py-8">
-                        <div class="text-6xl mb-4">🎊</div>
-                        <h3 class="text-2xl font-bold mb-2">Willkommen bei FIT-INN!</h3>
-                        <p class="text-white/70 mb-6">
-                            Deine Mitgliedschaft ist aktiv.<br>
-                            Wir freuen uns auf dich!
-                        </p>
-                        <div class="bg-white/10 rounded-xl p-4 text-left text-sm mb-6">
-                            <p class="font-semibold mb-2">Deine Mitgliedschaft:</p>
-                            <p class="text-white/70" id="ms-confirm-tarif">PREMIUM — 29,90€/Monat</p>
-                            <p class="text-white/70" id="ms-confirm-name">Max Mustermann</p>
-                            <p class="text-white/70" id="ms-confirm-email">max@beispiel.de</p>
-                        </div>
-                        <p class="text-sm text-white/60 mb-6">
-                            Du erhältst in Kürze eine Bestätigungsmail mit allen Details.
-                        </p>
-                        <button onclick="closeModal('mitgliedschaft')" class="w-full bg-accent hover:bg-accent-dark text-primary font-bold py-3 rounded-lg transition-all">
+                        <button onclick="closeModal('probetraining')" class="w-full border-2 border-accent text-accent hover:bg-accent hover:text-primary font-semibold py-3 rounded-lg transition-all">
                             Schließen
                         </button>
                     </div>
@@ -741,21 +699,14 @@
         fadeElements.forEach(el => observer.observe(el));
 
         // Modal Functions
-        function openModal(type, tarif = null) {
+        function openModal(type) {
             document.getElementById(`modal-${type}`).classList.add('active');
             document.body.style.overflow = 'hidden';
-            
-            if (type === 'mitgliedschaft' && tarif) {
-                document.querySelector(`input[name="tarif"][value="${tarif}"]`).checked = true;
-            }
             
             // Reset steps
             if (type === 'probetraining') {
                 document.getElementById('pt-step-1').classList.add('active');
                 document.getElementById('pt-step-2').classList.remove('active');
-            }
-            if (type === 'mitgliedschaft') {
-                msNextStep(1);
             }
         }
 
@@ -782,15 +733,17 @@
             const telefon = document.getElementById('pt-telefon').value;
             const datum = document.getElementById('pt-datum').value;
             const uhrzeit = document.getElementById('pt-uhrzeit').value;
+            const ziel = document.getElementById('pt-ziel').value;
+            const nachricht = document.getElementById('pt-nachricht').value;
             const datenschutz = document.getElementById('pt-datenschutz').checked;
 
             if (!vorname || !nachname || !email || !telefon || !datum || !datenschutz) {
-                alert('Bitte fülle alle Pflichtfelder aus.');
+                alert('Bitte füllen Sie alle Pflichtfelder aus.');
                 return;
             }
 
             // TODO: Hier API-Call zum Backend
-            console.log('Probetraining Anfrage:', { vorname, nachname, email, telefon, datum, uhrzeit });
+            console.log('Probetraining Anfrage:', { vorname, nachname, email, telefon, datum, uhrzeit, ziel, nachricht });
 
             // Show confirmation
             document.getElementById('pt-confirm-name').textContent = vorname;
@@ -802,71 +755,24 @@
             document.getElementById('pt-step-2').classList.add('active');
         }
 
-        // Mitgliedschaft Steps
-        let currentMsStep = 1;
-        
-        function msNextStep(step) {
-            currentMsStep = step;
-            
-            // Update step indicators
-            for (let i = 1; i <= 4; i++) {
-                const ind = document.getElementById(`ms-ind-${i}`);
-                ind.classList.remove('active', 'completed');
-                if (i < step) ind.classList.add('completed');
-                if (i === step) ind.classList.add('active');
-            }
-            
-            // Update content
-            document.querySelectorAll('#modal-mitgliedschaft .form-step').forEach(s => s.classList.remove('active'));
-            document.getElementById(`ms-step-${step}`).classList.add('active');
-            
-            // Update tarif display in step 3
-            if (step === 3) {
-                const tarif = document.querySelector('input[name="tarif"]:checked').value;
-                const tarifTexts = {
-                    'flex': 'FLEX — 24,90€/Monat',
-                    'premium': 'PREMIUM — 29,90€/Monat',
-                    'reloaded': 'RELOADED — 19,90€/Monat (12 Monate)'
-                };
-                document.getElementById('ms-selected-tarif').textContent = tarifTexts[tarif];
-            }
-        }
-
-        function submitMitgliedschaft() {
-            const vorname = document.getElementById('ms-vorname').value;
-            const nachname = document.getElementById('ms-nachname').value;
-            const email = document.getElementById('ms-email').value;
-            const iban = document.getElementById('ms-iban').value;
-            const sepa = document.getElementById('ms-sepa').checked;
-            const agb = document.getElementById('ms-agb').checked;
-            const tarif = document.querySelector('input[name="tarif"]:checked').value;
-
-            if (!vorname || !nachname || !email || !iban || !sepa || !agb) {
-                alert('Bitte fülle alle Pflichtfelder aus und akzeptiere die Bedingungen.');
-                return;
-            }
-
-            // TODO: Hier API-Call zum Backend / Magicline
-            console.log('Mitgliedschaft:', { vorname, nachname, email, iban, tarif });
-
-            // Show confirmation
-            const tarifTexts = {
-                'flex': 'FLEX — 24,90€/Monat',
-                'premium': 'PREMIUM — 29,90€/Monat',
-                'reloaded': 'RELOADED — 19,90€/Monat'
-            };
-            document.getElementById('ms-confirm-tarif').textContent = tarifTexts[tarif];
-            document.getElementById('ms-confirm-name').textContent = `${vorname} ${nachname}`;
-            document.getElementById('ms-confirm-email').textContent = email;
-
-            msNextStep(4);
-        }
-
         // Set min date for Probetraining
         document.addEventListener('DOMContentLoaded', () => {
             const tomorrow = new Date();
             tomorrow.setDate(tomorrow.getDate() + 1);
             document.getElementById('pt-datum').min = tomorrow.toISOString().split('T')[0];
+        });
+
+        // Navbar scroll behavior - hide promo banner on scroll
+        let lastScroll = 0;
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 100) {
+                nav.style.top = '0';
+            } else {
+                nav.style.top = '44px';
+            }
+            lastScroll = currentScroll;
         });
     </script>
 
@@ -879,18 +785,25 @@
         "image": "https://fit-inn-trier.de/logo.png",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Im Hürtenberg 1",
+            "streetAddress": "Auf Hirtenberg 8",
             "addressLocality": "Trier",
-            "postalCode": "54294",
+            "postalCode": "54296",
             "addressCountry": "DE"
         },
         "url": "https://fit-inn-trier.de",
-        "telephone": "+496519998877",
-        "priceRange": "€€",
+        "telephone": "+496519988440",
+        "priceRange": "€",
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "4.8",
             "reviewCount": "250"
+        },
+        "offers": {
+            "@type": "Offer",
+            "name": "2 Monate Gratis Aktion",
+            "description": "Februar und März beitragsfrei bei Jahres- oder Zweijahres-Mitgliedschaft",
+            "validFrom": "2026-01-01",
+            "validThrough": "2026-02-28"
         }
     }
     </script>
