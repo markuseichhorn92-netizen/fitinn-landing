@@ -708,30 +708,31 @@ async function bkSubmit() {
             }
         }
         
+        // Magicline expects fields at root level with camelCase
         const payload = {
             studioId: BK_STUDIO_ID,
             termId: bkSelectedRate.termId,
             optionalModuleIds: bkSelectedModules.map(m => m.id),
-            customer: {
-                gender: document.getElementById('bk-gender').value,
-                firstname: document.getElementById('bk-firstname').value.trim(),
-                lastname: document.getElementById('bk-lastname').value.trim(),
-                email: document.getElementById('bk-email').value.trim().toLowerCase(),
-                mobileNumber: bkFormatPhone(rawPhone),
-                dateOfBirth: document.getElementById('bk-birthdate').value,
-                address: { 
-                    street: document.getElementById('bk-street').value.trim(), 
-                    houseNumber: document.getElementById('bk-housenumber').value.trim(), 
-                    zip: document.getElementById('bk-zip').value.trim(), 
-                    city: document.getElementById('bk-city').value.trim(), 
-                    countryCode: 'DE' 
-                }
-            },
-            bankAccount: { 
-                accountHolder: document.getElementById('bk-accountholder').value.trim(), 
-                iban: ibanResult.iban 
-            },
-            consents: { termsAndConditions: true, privacyPolicy: true, sepaMandate: true }
+            // Root level required fields
+            firstName: document.getElementById('bk-firstname').value.trim(),
+            lastName: document.getElementById('bk-lastname').value.trim(),
+            dateOfBirth: document.getElementById('bk-birthdate').value,
+            gender: document.getElementById('bk-gender').value,
+            email: document.getElementById('bk-email').value.trim().toLowerCase(),
+            mobileNumber: bkFormatPhone(rawPhone),
+            // Address
+            street: document.getElementById('bk-street').value.trim(),
+            houseNumber: document.getElementById('bk-housenumber').value.trim(),
+            zip: document.getElementById('bk-zip').value.trim(),
+            city: document.getElementById('bk-city').value.trim(),
+            countryCode: 'DE',
+            // Bank account
+            accountHolder: document.getElementById('bk-accountholder').value.trim(),
+            iban: ibanResult.iban,
+            // Consents
+            termsAndConditionsAccepted: true,
+            privacyPolicyAccepted: true,
+            sepaMandateAccepted: true
         };
         
         console.log('Sending to Magicline:', JSON.stringify(payload, null, 2));
