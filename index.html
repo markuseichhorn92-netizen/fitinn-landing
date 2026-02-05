@@ -78,37 +78,12 @@
         .section-dark { background: #000; color: #f5f5f7; }
         .section-light { background: #f5f5f7; color: #1d1d1f; }
         
-        /* Card Stack Scroll Effect */
-        .stack-section {
-            position: relative;
-            will-change: transform, opacity, filter;
-            transform-origin: center top;
-        }
-        .stack-section:not(:first-of-type) {
-            border-radius: 40px 40px 0 0;
-            box-shadow: 
-                0 -20px 60px rgba(0,0,0,0.3),
-                0 -5px 20px rgba(0,0,0,0.2);
-        }
-        .stack-section.section-light:not(:first-of-type) {
-            box-shadow: 
-                0 -20px 60px rgba(0,0,0,0.12),
-                0 -5px 20px rgba(0,0,0,0.08);
-        }
-        /* Subtle inner highlight on rounded sections */
-        .stack-section:not(:first-of-type)::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 40px;
-            right: 40px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            border-radius: 40px;
-            z-index: 10;
-        }
-        .stack-section.section-light:not(:first-of-type)::before {
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+        /* Element-based scroll transitions */
+        #angebot h2, #angebot p, #angebot .liquid-glass,
+        #features h2, #features p, #features .liquid-glass-teal,
+        #preise h2, #preise .proof-pill, #preise .liquid-glass, #preise .liquid-glass-accent,
+        #kontakt h2, #kontakt p, #kontakt .liquid-glass {
+            transform-origin: center center;
         }
         
         /* Reveal animations - Apple style */
@@ -1824,76 +1799,77 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
         reveals.forEach(el => revealObserver.observe(el));
         
-        // Card Stack Scroll Effect - Screen-based
+        // Element-based Scroll Effect - individual elements fade out
         (function() {
-            const sections = document.querySelectorAll('#angebot, #features, #preise, section.overflow-hidden, #kontakt');
-            sections.forEach(s => s.classList.add('stack-section'));
+            // Target content elements, not whole sections
+            const elements = document.querySelectorAll(
+                '#angebot h2, #angebot p, #angebot .liquid-glass, ' +
+                '#features h2, #features p, #features .liquid-glass-teal, ' +
+                '#preise h2, #preise .proof-pill, #preise .liquid-glass, #preise .liquid-glass-accent, ' +
+                '#kontakt h2, #kontakt p, #kontakt .liquid-glass'
+            );
             
             function easeOutCubic(t) {
                 return 1 - Math.pow(1 - t, 3);
             }
             
-            function updateStack() {
+            function updateElements() {
                 const windowHeight = window.innerHeight;
                 
-                sections.forEach((section, i) => {
-                    const rect = section.getBoundingClientRect();
+                elements.forEach((el) => {
+                    const rect = el.getBoundingClientRect();
+                    const elCenter = rect.top + rect.height / 2;
                     
-                    // Calculate how much of the section is still visible
-                    const visibleHeight = Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
-                    const visiblePercent = Math.max(0, visibleHeight / rect.height);
-                    
-                    // Only start effect when less than 30% of section is visible
-                    // (i.e., 70% has scrolled out)
-                    if (rect.top < 0 && visiblePercent < 0.3) {
-                        // Progress: 0 when 30% visible, 1 when 0% visible
-                        const rawProgress = 1 - (visiblePercent / 0.3);
+                    // Element is going out the top
+                    if (rect.bottom < windowHeight * 0.15) {
+                        // Progress: 0 at 15% from top, 1 when completely out
+                        const rawProgress = Math.min(1, (windowHeight * 0.15 - rect.bottom) / (windowHeight * 0.15));
                         const progress = easeOutCubic(rawProgress);
                         
-                        // Scale: 1 → 0.94 (subtle)
-                        const scale = 1 - (progress * 0.06);
+                        const scale = 1 - (progress * 0.08);
+                        const translateY = progress * -30;
+                        const opacity = 1 - (progress * 0.7);
                         
-                        // Translate up
-                        const translateY = progress * -40;
-                        
-                        // Opacity: 1 → 0.5
-                        const opacity = 1 - (progress * 0.5);
-                        
-                        // Blur: 0 → 2px (subtle)
-                        const blur = progress * 2;
-                        
-                        section.style.transform = `scale(${scale}) translateY(${translateY}px)`;
-                        section.style.opacity = opacity;
-                        section.style.filter = `blur(${blur}px)`;
-                    } 
-                    // Subtle parallax when entering from bottom
-                    else if (rect.top > windowHeight * 0.8 && rect.top < windowHeight) {
-                        const enterProgress = 1 - ((rect.top - windowHeight * 0.8) / (windowHeight * 0.2));
-                        const translateY = (1 - enterProgress) * 20;
-                        section.style.transform = `translateY(${translateY}px)`;
-                        section.style.opacity = '';
-                        section.style.filter = '';
+                        el.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+                        el.style.opacity = opacity;
                     }
+                    // Element entering from bottom
+                    else if (rect.top > windowHeight * 0.85) {
+                        const rawProgress = Math.min(1, (rect.top - windowHeight * 0.85) / (windowHeight * 0.15));
+                        const progress = easeOutCubic(rawProgress);
+                        
+                        const translateY = progress * 30;
+                        const opacity = 1 - (progress * 0.3);
+                        
+                        el.style.transform = `translateY(${translateY}px)`;
+                        el.style.opacity = opacity;
+                    }
+                    // Element is in view - reset
                     else {
-                        section.style.transform = '';
-                        section.style.opacity = '';
-                        section.style.filter = '';
+                        el.style.transform = '';
+                        el.style.opacity = '';
                     }
                 });
             }
+            
+            // Add will-change for performance
+            elements.forEach(el => {
+                el.style.willChange = 'transform, opacity';
+                el.style.transition = 'none';
+            });
             
             let ticking = false;
             window.addEventListener('scroll', () => {
                 if (!ticking) {
                     requestAnimationFrame(() => {
-                        updateStack();
+                        updateElements();
                         ticking = false;
                     });
                     ticking = true;
                 }
             });
             
-            updateStack();
+            updateElements();
         })();
 
         // Modal functions
