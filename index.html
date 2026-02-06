@@ -2817,6 +2817,23 @@
         }
     });
     
+    // Live presence heartbeat (every 30 seconds)
+    function sendPresenceHeartbeat() {
+        if (getCookieConsent() !== 'all') return;
+        const session = getSession();
+        fetch('https://srv1309486.hstgr.cloud/api/presence', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                sessionId: session.id,
+                page: window.location.pathname,
+                source: session.source
+            })
+        }).catch(() => {});
+    }
+    sendPresenceHeartbeat();
+    setInterval(sendPresenceHeartbeat, 30000);
+    
     // Track scroll depth
     let maxScroll = 0;
     window.addEventListener('scroll', () => {
