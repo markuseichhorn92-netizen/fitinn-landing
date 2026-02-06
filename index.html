@@ -2922,6 +2922,28 @@
     function initExtendedTracking() {
         console.log('📊 Extended tracking initialized (with consent)');
         trackEvent('page_view', { url: window.location.href });
+        
+        // Microsoft Clarity Heatmaps & Session Recording
+        initMicrosoftClarity();
+    }
+    
+    function initMicrosoftClarity() {
+        // Clarity Project ID - FIT-INN Landing Page
+        const CLARITY_ID = 'DEIN_CLARITY_ID';  // TODO: Ersetzen mit echter ID
+        
+        if (CLARITY_ID === 'DEIN_CLARITY_ID') {
+            console.log('⚠️ Clarity: Bitte Project ID eintragen');
+            return;
+        }
+        
+        // Clarity Script dynamisch laden (nur mit Consent)
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", CLARITY_ID);
+        
+        console.log('🔥 Microsoft Clarity initialized (Heatmaps aktiv)');
     }
     
     function trackEvent(name, data = {}) {
