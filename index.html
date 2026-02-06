@@ -2741,108 +2741,168 @@
     <!-- Spacer for sticky CTA on mobile -->
     <div class="h-20 md:hidden"></div>
 
-    <!-- Cookie Banner -->
-    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 z-[200] bg-[#1c1c1e] border-t border-white/10 p-4 md:p-6 transform translate-y-full transition-transform duration-500" style="display: none;">
-        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-4">
-            <div class="flex-1 text-sm text-white/70">
-                <p class="mb-1"><strong class="text-white">🍪 Diese Website verwendet Cookies</strong></p>
-                <p>Wir nutzen Cookies für Analyse und Marketing, um dir das beste Erlebnis zu bieten. 
-                <a href="/datenschutz.html" class="text-accent hover:underline">Mehr erfahren</a></p>
+    <!-- Cookie Consent Modal (zentriert) -->
+    <div id="cookie-modal" class="fixed inset-0 z-[300] flex items-center justify-center p-4" style="display: none;">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+        
+        <!-- Modal Content -->
+        <div id="cookie-modal-content" class="relative w-full max-w-lg bg-[#1c1c1e] border border-white/10 rounded-3xl p-6 md:p-8 transform scale-95 opacity-0 transition-all duration-300">
+            <!-- Icon -->
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-accent/20 rounded-full mb-4">
+                    <span class="text-3xl">🍪</span>
+                </div>
+                <h2 class="text-xl md:text-2xl font-bold text-white mb-2">Deine Privatsphäre</h2>
+                <p class="text-white/60 text-sm">Wähle, welche Cookies du akzeptieren möchtest</p>
             </div>
-            <div class="flex gap-3 flex-shrink-0">
-                <button onclick="acceptCookies(false)" class="px-5 py-2.5 text-sm border border-white/20 text-white rounded-full hover:bg-white/10 transition-all">
-                    Nur notwendige
+            
+            <!-- Options -->
+            <div class="space-y-3 mb-6">
+                <!-- Essentiell (immer aktiv) -->
+                <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-semibold text-white">Essentielle Cookies</p>
+                            <p class="text-xs text-white/50 mt-1">Notwendig für Website-Funktion</p>
+                        </div>
+                        <div class="text-green-400 text-sm font-medium">Immer aktiv</div>
+                    </div>
+                </div>
+                
+                <!-- Analyse & Marketing (optional) -->
+                <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-semibold text-white">Analyse & Marketing</p>
+                            <p class="text-xs text-white/50 mt-1">Hilft uns, die Website zu verbessern</p>
+                        </div>
+                        <div class="text-white/50 text-sm">Optional</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons (gleichwertig) -->
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="acceptCookies(false)" class="flex-1 px-6 py-4 text-base font-semibold border border-white/20 text-white rounded-full hover:bg-white/10 transition-all">
+                    Nur Essentielle
                 </button>
-                <button onclick="acceptCookies(true)" class="px-5 py-2.5 text-sm bg-accent text-black font-semibold rounded-full hover:bg-accent-light transition-all">
+                <button onclick="acceptCookies(true)" class="flex-1 px-6 py-4 text-base font-semibold bg-accent text-black rounded-full hover:bg-accent-light transition-all">
                     Alle akzeptieren
                 </button>
             </div>
+            
+            <!-- Privacy Link -->
+            <p class="text-center text-xs text-white/40 mt-4">
+                <a href="/datenschutz.html" class="hover:text-accent underline">Datenschutzerklärung</a>
+            </p>
         </div>
     </div>
 
     <script>
-    // Cookie Consent Management
+    // ============================================
+    // COOKIE CONSENT MANAGEMENT
+    // ============================================
     function getCookieConsent() {
         return localStorage.getItem('cookie_consent');
     }
     
     function acceptCookies(all) {
-        const consent = all ? 'all' : 'necessary';
+        const consent = all ? 'all' : 'essential';
         localStorage.setItem('cookie_consent', consent);
         localStorage.setItem('cookie_consent_date', new Date().toISOString());
-        hideCookieBanner();
+        hideCookieModal();
         if (all) {
-            initTracking();
+            initExtendedTracking();
         }
     }
     
-    function showCookieBanner() {
-        const banner = document.getElementById('cookie-banner');
-        banner.style.display = 'block';
-        setTimeout(() => banner.style.transform = 'translateY(0)', 100);
+    function showCookieModal() {
+        const modal = document.getElementById('cookie-modal');
+        const content = document.getElementById('cookie-modal-content');
+        modal.style.display = 'flex';
+        setTimeout(() => {
+            content.style.opacity = '1';
+            content.style.transform = 'scale(1)';
+        }, 50);
     }
     
-    function hideCookieBanner() {
-        const banner = document.getElementById('cookie-banner');
-        banner.style.transform = 'translateY(100%)';
-        setTimeout(() => banner.style.display = 'none', 500);
+    function hideCookieModal() {
+        const modal = document.getElementById('cookie-modal');
+        const content = document.getElementById('cookie-modal-content');
+        content.style.opacity = '0';
+        content.style.transform = 'scale(0.95)';
+        setTimeout(() => modal.style.display = 'none', 300);
     }
     
-    // Tracking & Analytics
-    function initTracking() {
-        console.log('📊 Analytics initialized');
-        // Track page view with UTM params
-        trackEvent('page_view', {
-            url: window.location.href,
-            referrer: document.referrer,
-            utm_source: new URLSearchParams(window.location.search).get('utm_source'),
-            utm_medium: new URLSearchParams(window.location.search).get('utm_medium'),
-            utm_campaign: new URLSearchParams(window.location.search).get('utm_campaign')
-        });
-    }
-    
-    // Session tracking with full UTM & source detection
-    const SESSION_KEY = 'fitinn_session';
+    // ============================================
+    // TRAFFIC SOURCE DETECTION (used by both tracking levels)
+    // ============================================
     function detectTrafficSource() {
         const params = new URLSearchParams(window.location.search);
         const utm_source = params.get('utm_source');
         const utm_medium = params.get('utm_medium');
         const utm_campaign = params.get('utm_campaign');
-        const gclid = params.get('gclid'); // Google Ads Click ID
-        const fbclid = params.get('fbclid'); // Facebook/Meta Click ID
+        const gclid = params.get('gclid');
+        const fbclid = params.get('fbclid');
         const referrer = document.referrer;
         
-        // Determine source
         let source = 'Direkt';
         let medium = 'none';
-        let campaign = '';
         
-        if (gclid) {
-            source = 'Google Ads';
-            medium = 'cpc';
-        } else if (fbclid) {
-            source = 'Meta Ads';
-            medium = 'cpc';
-        } else if (utm_source) {
-            source = utm_source;
+        if (gclid) { source = 'Google Ads'; medium = 'cpc'; }
+        else if (fbclid) { source = 'Meta Ads'; medium = 'cpc'; }
+        else if (utm_source) {
+            if (utm_source === 'facebook' || utm_source === 'instagram' || utm_source === 'meta') source = 'Meta Ads';
+            else if (utm_source === 'google' && utm_medium === 'cpc') source = 'Google Ads';
+            else if (utm_source.includes('fit-inn')) source = 'Website';
+            else source = utm_source;
             medium = utm_medium || 'unknown';
-            campaign = utm_campaign || '';
         } else if (referrer) {
-            if (referrer.includes('fit-inn-trier.de') || referrer.includes('fit-inn.de')) {
-                source = 'Website (fit-inn-trier.de)';
-                medium = 'website';
-            }
-            else if (referrer.includes('google.')) source = 'Google (organisch)';
-            else if (referrer.includes('facebook.com') || referrer.includes('fb.com')) source = 'Facebook';
-            else if (referrer.includes('instagram.com')) source = 'Instagram';
-            else if (referrer.includes('t.co') || referrer.includes('twitter.com')) source = 'Twitter/X';
-            else if (referrer.includes('linkedin.com')) source = 'LinkedIn';
-            else source = new URL(referrer).hostname;
-            if (medium === 'none') medium = 'referral';
+            if (referrer.includes('fit-inn-trier.de') || referrer.includes('fit-inn.de')) { source = 'Website'; medium = 'website'; }
+            else if (referrer.includes('google.')) { source = 'Google (organisch)'; medium = 'organic'; }
+            else if (referrer.includes('facebook.com') || referrer.includes('fb.com')) { source = 'Facebook'; medium = 'social'; }
+            else if (referrer.includes('instagram.com')) { source = 'Instagram'; medium = 'social'; }
+            else { try { source = new URL(referrer).hostname; medium = 'referral'; } catch(e) {} }
         }
         
-        return { source, medium, campaign, gclid, fbclid, utm_source, utm_medium, utm_campaign, referrer };
+        return { source, medium, campaign: utm_campaign || '', gclid, fbclid, utm_source, utm_medium, utm_campaign, referrer };
     }
+    
+    // ============================================
+    // COOKIELESS BASIC TRACKING (ALWAYS ACTIVE - GDPR compliant)
+    // No personal data, no cookies, fully anonymous
+    // ============================================
+    function initBasicTracking() {
+        const traffic = detectTrafficSource();
+        
+        // Send anonymous pageview (no session ID, no user identification)
+        fetch('https://srv1309486.hstgr.cloud/api/track/basic', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                type: 'pageview',
+                timestamp: new Date().toISOString(),
+                page: window.location.pathname,
+                source: traffic.source,
+                medium: traffic.medium,
+                campaign: traffic.campaign,
+                gclid: traffic.gclid ? true : false, // Only boolean, not the actual ID
+                fbclid: traffic.fbclid ? true : false,
+                // Anonymous device info (no fingerprinting)
+                device: /Mobile|Android|iPhone/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+                // No IP, no session ID, no cookies
+            })
+        }).catch(() => {});
+        
+        console.log('📊 Basic tracking (cookieless):', traffic.source);
+    }
+    
+    // ============================================
+    // EXTENDED TRACKING (REQUIRES CONSENT)
+    // Full session tracking with user identification
+    // ============================================
+    const SESSION_KEY = 'fitinn_session';
     
     function getSession() {
         let session = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
@@ -2859,6 +2919,11 @@
         return session;
     }
     
+    function initExtendedTracking() {
+        console.log('📊 Extended tracking initialized (with consent)');
+        trackEvent('page_view', { url: window.location.href });
+    }
+    
     function trackEvent(name, data = {}) {
         if (getCookieConsent() !== 'all') return;
         
@@ -2869,7 +2934,6 @@
             timeOnPage: Math.round((Date.now() - new Date(session.started).getTime()) / 1000),
             url: window.location.href,
             referrer: document.referrer,
-            // Include traffic source data
             utm_source: session.utm_source || null,
             utm_medium: session.utm_medium || null,
             utm_campaign: session.utm_campaign || null,
@@ -2881,7 +2945,6 @@
         session.events.push(event);
         localStorage.setItem(SESSION_KEY, JSON.stringify(session));
         
-        // Send to backend
         fetch('https://srv1309486.hstgr.cloud/api/track', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -2891,40 +2954,35 @@
         console.log('📊 Event:', name, data);
     }
     
-    // Track specific actions
+    // Track specific actions (only with consent)
     window.trackModalOpen = (type) => trackEvent('modal_open', { type });
     window.trackLeadSubmit = (type) => trackEvent('lead_submit', { type });
     window.trackBookingComplete = (type) => trackEvent('booking_complete', { type });
     
-    // Track exit intent
+    // Exit intent tracking (only with consent)
     let exitTracked = false;
     document.addEventListener('mouseleave', (e) => {
-        if (e.clientY < 10 && !exitTracked) {
+        if (e.clientY < 10 && !exitTracked && getCookieConsent() === 'all') {
             exitTracked = true;
-            trackEvent('exit_intent', { timeOnPage: getSession().events?.length || 0 });
+            trackEvent('exit_intent', {});
         }
     });
     
-    // Live presence heartbeat (every 30 seconds)
+    // Live presence heartbeat (only with consent)
     function sendPresenceHeartbeat() {
         if (getCookieConsent() !== 'all') return;
         const session = getSession();
         fetch('https://srv1309486.hstgr.cloud/api/presence', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                sessionId: session.id,
-                page: window.location.pathname,
-                source: session.source
-            })
+            body: JSON.stringify({ sessionId: session.id, page: window.location.pathname, source: session.source })
         }).catch(() => {});
     }
-    sendPresenceHeartbeat();
-    setInterval(sendPresenceHeartbeat, 30000);
     
-    // Track scroll depth
+    // Scroll depth tracking (only with consent)
     let maxScroll = 0;
     window.addEventListener('scroll', () => {
+        if (getCookieConsent() !== 'all') return;
         const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
         if (scrollPercent > maxScroll) {
             maxScroll = scrollPercent;
@@ -2934,13 +2992,25 @@
         }
     });
     
-    // Initialize
+    // ============================================
+    // INITIALIZATION
+    // ============================================
     document.addEventListener('DOMContentLoaded', () => {
-        if (!getCookieConsent()) {
-            setTimeout(showCookieBanner, 1500);
-        } else if (getCookieConsent() === 'all') {
-            initTracking();
+        // ALWAYS run basic tracking (cookieless, anonymous)
+        initBasicTracking();
+        
+        // Check consent status
+        const consent = getCookieConsent();
+        if (!consent) {
+            // No consent yet - show modal
+            setTimeout(showCookieModal, 1500);
+        } else if (consent === 'all') {
+            // Full consent - init extended tracking
+            initExtendedTracking();
+            sendPresenceHeartbeat();
+            setInterval(sendPresenceHeartbeat, 30000);
         }
+        // If consent === 'essential', only basic tracking runs (already done above)
     });
     </script>
 
