@@ -1012,6 +1012,7 @@
                             Jetzt starten
                         </button>
                         <p class="text-center text-xs text-apple-gray-500 mt-3">+ 39€ Startpaket einmalig</p>
+                        <p class="text-center text-xs text-apple-gray-600 mt-1">Gesamtkosten: 52 × 12€ + 39€ = 663€</p>
                     </div>
                 </div>
                 
@@ -1058,6 +1059,7 @@
                             Jetzt starten
                         </button>
                         <p class="text-center text-xs text-apple-gray-500 mt-3">+ 39€ Startpaket einmalig</p>
+                        <p class="text-center text-xs text-apple-gray-600 mt-1">Gesamtkosten: 104 × 9€ + 39€ = 975€</p>
                     </div>
                 </div>
                 
@@ -1103,6 +1105,7 @@
                             Jetzt starten
                         </button>
                         <p class="text-center text-xs text-apple-gray-500 mt-3">+ 39€ Startpaket einmalig</p>
+                        <p class="text-center text-xs text-apple-gray-600 mt-1">Gesamtkosten: 52 × 9€ + 39€ = 507€</p>
                     </div>
                 </div>
             </div>
@@ -1646,7 +1649,7 @@
                         <div class="w-10 h-10 rounded-xl bg-accent/20 flex items-center justify-center text-lg mb-4">📍</div>
                         <h3 class="font-semibold mb-3">Adresse</h3>
                         <p class="text-sm text-apple-gray-300 leading-relaxed flex-grow">
-                            FIT-INN Trier GmbH<br>
+                            Fit-Inn Trier / Harald Eichhorn<br>
                             Auf Hirtenberg 8<br>
                             54296 Trier
                         </p>
@@ -1673,13 +1676,24 @@
                 </div>
             </div>
             
-            <!-- Google Maps -->
-            <div class="reveal reveal-delay-4 mb-12 rounded-2xl overflow-hidden border border-white/10" style="height: 300px;">
+            <!-- Google Maps (2-Klick für DSGVO) -->
+            <div id="maps-container" class="reveal reveal-delay-4 mb-12 rounded-2xl overflow-hidden border border-white/10 relative" style="height: 300px;">
+                <div id="maps-placeholder" class="absolute inset-0 bg-apple-gray-800 flex flex-col items-center justify-center text-center p-6">
+                    <svg class="w-12 h-12 text-apple-gray-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <p class="text-apple-gray-400 text-sm mb-4">Mit dem Laden der Karte akzeptierst du die <a href="/datenschutz.html" class="text-accent hover:underline">Datenschutzerklärung</a> von Google.</p>
+                    <button onclick="loadGoogleMaps()" class="px-6 py-3 bg-accent hover:bg-accent-light text-black font-semibold rounded-full transition-all">
+                        Karte laden
+                    </button>
+                </div>
                 <iframe 
-                    src="https://www.google.com/maps?q=FIT-INN+Trier,+Auf+Hirtenberg+8,+54296+Trier&output=embed"
+                    id="maps-iframe"
+                    data-src="https://www.google.com/maps?q=FIT-INN+Trier,+Auf+Hirtenberg+8,+54296+Trier&output=embed"
                     width="100%" 
                     height="100%" 
-                    style="border:0; filter: grayscale(100%) invert(92%) contrast(90%);" 
+                    style="border:0; filter: grayscale(100%) invert(92%) contrast(90%); display: none;" 
                     allowfullscreen="" 
                     loading="lazy" 
                     referrerpolicy="no-referrer-when-downgrade">
@@ -2219,6 +2233,23 @@
         }
         updatePromoCountdown();
         
+        // Google Maps 2-Klick-Lösung (DSGVO)
+        window.loadGoogleMaps = function() {
+            const placeholder = document.getElementById('maps-placeholder');
+            const iframe = document.getElementById('maps-iframe');
+            if (placeholder && iframe) {
+                iframe.src = iframe.dataset.src;
+                iframe.style.display = 'block';
+                placeholder.style.display = 'none';
+                // Speichere Consent für diese Session
+                sessionStorage.setItem('mapsConsent', 'true');
+            }
+        };
+        // Auto-load wenn bereits Consent gegeben
+        if (sessionStorage.getItem('mapsConsent') === 'true') {
+            loadGoogleMaps();
+        }
+        
         // Reveal animations
         const reveals = document.querySelectorAll('.reveal');
         const revealObserver = new IntersectionObserver((entries) => {
@@ -2598,7 +2629,7 @@
     </script>
 
     <!-- WhatsApp Float Button (Desktop only - Mobile has it in sticky footer) -->
-    <a href="https://wa.me/19477298856?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20FIT-INN%20Trier!" 
+    <a href="https://wa.me/4906513085247?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20FIT-INN%20Trier!" 
        target="_blank" 
        rel="noopener"
        onclick="if(typeof gtag!=='undefined')gtag('event','ads_conversion_Kontakt_1',{});"
@@ -2636,7 +2667,7 @@
             <div class="flex-1 text-sm text-white/70">
                 <p class="mb-1"><strong class="text-white">🍪 Diese Website verwendet Cookies</strong></p>
                 <p>Wir nutzen Cookies für Analyse und Marketing, um dir das beste Erlebnis zu bieten. 
-                <a href="/datenschutz" class="text-accent hover:underline">Mehr erfahren</a></p>
+                <a href="/datenschutz.html" class="text-accent hover:underline">Mehr erfahren</a></p>
             </div>
             <div class="flex gap-3 flex-shrink-0">
                 <button onclick="acceptCookies(false)" class="px-5 py-2.5 text-sm border border-white/20 text-white rounded-full hover:bg-white/10 transition-all">
