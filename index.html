@@ -2788,6 +2788,15 @@
             name,
             timestamp: new Date().toISOString(),
             timeOnPage: Math.round((Date.now() - new Date(session.started).getTime()) / 1000),
+            url: window.location.href,
+            referrer: document.referrer,
+            // Include traffic source data
+            utm_source: session.utm_source || null,
+            utm_medium: session.utm_medium || null,
+            utm_campaign: session.utm_campaign || null,
+            gclid: session.gclid || null,
+            fbclid: session.fbclid || null,
+            source: session.source || 'Direkt',
             ...data
         };
         session.events.push(event);
