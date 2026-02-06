@@ -1039,6 +1039,7 @@ async function bkSubmit() {
         
         // Google Ads Conversion Tracking
         if (typeof gtag !== 'undefined') {
+            gtag('event', 'ads_conversion_Termin_vereinbaren_1', {});
             gtag('event', 'ads_conversion_Termin_vereinbaren_2', {});
         }
         
