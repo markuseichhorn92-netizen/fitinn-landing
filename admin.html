@@ -3,246 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIT-INN Admin Dashboard</title>
+    <title>Admin | FIT-INN Trier</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #f5f5f7; }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
-    <nav class="bg-gray-800 border-b border-gray-700 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold text-amber-400">🏋️ FIT-INN Admin</h1>
-            <button onclick="refreshData()" class="px-4 py-2 bg-amber-500 text-black rounded-lg font-medium hover:bg-amber-400">
-                🔄 Aktualisieren
-            </button>
+<body class="min-h-screen">
+    <!-- Login Screen -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center p-6">
+        <div class="w-full max-w-md">
+            <div class="text-center mb-8">
+                <img src="https://cdn.sanity.io/images/6qiktmvm/production/e33b949b11d3aa8b60befb3f5f537803a8c48700-2917x486.png" alt="FIT-INN" class="h-10 mx-auto mb-6">
+                <h1 class="text-2xl font-bold">Admin-Bereich</h1>
+                <p class="text-gray-500 mt-2">Bitte anmelden</p>
+            </div>
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">E-Mail</label>
+                    <input type="email" id="login-email" required
+                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-[#DD9B43] focus:outline-none transition-colors"
+                        placeholder="E-Mail eingeben">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Passwort</label>
+                    <input type="password" id="login-password" required
+                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-[#DD9B43] focus:outline-none transition-colors"
+                        placeholder="Passwort eingeben">
+                </div>
+                <div id="login-error" class="text-red-400 text-sm hidden"></div>
+                <button type="submit" class="w-full py-4 bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold rounded-xl transition-colors">
+                    Anmelden
+                </button>
+            </form>
         </div>
-    </nav>
-    
-    <main class="max-w-7xl mx-auto px-6 py-8">
-        <!-- Stats Cards -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
-                <p class="text-gray-400 text-sm">Seitenaufrufe</p>
-                <p id="stat-pageviews" class="text-3xl font-bold text-white">--</p>
-            </div>
-            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
-                <p class="text-gray-400 text-sm">Leads gesamt</p>
-                <p id="stat-leads" class="text-3xl font-bold text-amber-400">--</p>
-            </div>
-            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
-                <p class="text-gray-400 text-sm">Konvertiert</p>
-                <p id="stat-converted" class="text-3xl font-bold text-green-400">--</p>
-            </div>
-            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
-                <p class="text-gray-400 text-sm">Ø Zeit auf Seite</p>
-                <p id="stat-time" class="text-3xl font-bold text-blue-400">--</p>
-            </div>
-        </div>
-        
-        <!-- Funnel -->
-        <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 mb-8">
-            <h2 class="text-lg font-bold mb-4">📊 Conversion Funnel</h2>
-            <div class="flex items-end gap-2 h-40">
-                <div class="flex-1 flex flex-col items-center">
-                    <div id="funnel-views" class="w-full bg-blue-500 rounded-t transition-all" style="height: 100%"></div>
-                    <p class="text-xs mt-2 text-gray-400">Besucher</p>
-                    <p id="funnel-views-num" class="font-bold">--</p>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="hidden">
+        <!-- Header -->
+        <header class="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                    <img src="https://cdn.sanity.io/images/6qiktmvm/production/e33b949b11d3aa8b60befb3f5f537803a8c48700-2917x486.png" alt="FIT-INN" class="h-8">
+                    <span class="text-gray-500">|</span>
+                    <span class="font-semibold">Admin Dashboard</span>
                 </div>
-                <div class="flex-1 flex flex-col items-center">
-                    <div id="funnel-modals" class="w-full bg-purple-500 rounded-t transition-all" style="height: 60%"></div>
-                    <p class="text-xs mt-2 text-gray-400">Modal geöffnet</p>
-                    <p id="funnel-modals-num" class="font-bold">--</p>
-                </div>
-                <div class="flex-1 flex flex-col items-center">
-                    <div id="funnel-leads" class="w-full bg-amber-500 rounded-t transition-all" style="height: 30%"></div>
-                    <p class="text-xs mt-2 text-gray-400">Leads</p>
-                    <p id="funnel-leads-num" class="font-bold">--</p>
-                </div>
-                <div class="flex-1 flex flex-col items-center">
-                    <div id="funnel-converted" class="w-full bg-green-500 rounded-t transition-all" style="height: 15%"></div>
-                    <p class="text-xs mt-2 text-gray-400">Abgeschlossen</p>
-                    <p id="funnel-converted-num" class="font-bold">--</p>
+                <div class="flex items-center gap-4">
+                    <span id="user-email" class="text-sm text-gray-400"></span>
+                    <button onclick="logout()" class="text-sm text-red-400 hover:text-red-300">Abmelden</button>
                 </div>
             </div>
-        </div>
-        
-        <!-- Sources & Channels -->
-        <div class="grid md:grid-cols-2 gap-6 mb-8">
-            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
-                <h2 class="text-lg font-bold mb-4">🎯 Traffic-Quellen</h2>
-                <div id="sources-list" class="space-y-2">
-                    <p class="text-gray-500">Lädt...</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-6 py-8">
+            <!-- Period Selector -->
+            <div class="flex flex-wrap gap-2 mb-8">
+                <button onclick="loadStats('24h')" class="period-btn px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm transition-colors" data-period="24h">Letzte 24h</button>
+                <button onclick="loadStats('daily')" class="period-btn px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm transition-colors" data-period="daily">Heute</button>
+                <button onclick="loadStats('weekly')" class="period-btn px-4 py-2 rounded-lg bg-[#DD9B43] text-black text-sm font-semibold transition-colors" data-period="weekly">Diese Woche</button>
+                <button onclick="loadStats('monthly')" class="period-btn px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm transition-colors" data-period="monthly">Dieser Monat</button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                    <p class="text-gray-400 text-sm mb-1">Seitenaufrufe</p>
+                    <p id="stat-pageviews" class="text-3xl font-bold">-</p>
+                    <p id="stat-pageviews-change" class="text-sm text-gray-500 mt-1"></p>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                    <p class="text-gray-400 text-sm mb-1">Besucher</p>
+                    <p id="stat-visitors" class="text-3xl font-bold">-</p>
+                    <p id="stat-visitors-change" class="text-sm text-gray-500 mt-1"></p>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                    <p class="text-gray-400 text-sm mb-1">Leads</p>
+                    <p id="stat-leads" class="text-3xl font-bold text-[#DD9B43]">-</p>
+                    <p id="stat-leads-change" class="text-sm text-gray-500 mt-1"></p>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                    <p class="text-gray-400 text-sm mb-1">Buchungen</p>
+                    <p id="stat-bookings" class="text-3xl font-bold text-green-400">-</p>
+                    <p id="stat-bookings-change" class="text-sm text-gray-500 mt-1"></p>
                 </div>
             </div>
-            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700">
-                <h2 class="text-lg font-bold mb-4">📱 Kommunikationskanal</h2>
-                <div id="channels-list" class="space-y-2">
-                    <p class="text-gray-500">Lädt...</p>
+
+            <!-- Conversion Stats -->
+            <div class="grid md:grid-cols-2 gap-4 mb-8">
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                    <h3 class="font-semibold mb-4">Conversion Funnel</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-400">Besucher → Lead</span>
+                                <span id="conv-visitor-lead" class="font-medium">-</span>
+                            </div>
+                            <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                <div id="conv-visitor-lead-bar" class="h-full bg-[#DD9B43] rounded-full transition-all" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span class="text-gray-400">Lead → Buchung</span>
+                                <span id="conv-lead-booking" class="font-medium">-</span>
+                            </div>
+                            <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                                <div id="conv-lead-booking-bar" class="h-full bg-green-400 rounded-full transition-all" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                    <h3 class="font-semibold mb-4">Lead-Quellen</h3>
+                    <div id="lead-sources" class="space-y-2">
+                        <p class="text-gray-500 text-sm">Lädt...</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Leads Table -->
-        <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-700 flex justify-between items-center">
-                <h2 class="text-lg font-bold">👥 Leads</h2>
-                <div class="flex gap-2">
-                    <select id="filter-type" onchange="refreshData()" class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm">
-                        <option value="">Alle Typen</option>
-                        <option value="probetraining">Probetraining</option>
-                        <option value="mitgliedschaft">Mitgliedschaft</option>
-                    </select>
-                    <select id="filter-status" onchange="refreshData()" class="bg-gray-700 border border-gray-600 rounded-lg px-3 py-1.5 text-sm">
-                        <option value="">Alle Status</option>
-                        <option value="new">Neu</option>
-                        <option value="converted">Konvertiert</option>
-                    </select>
+
+            <!-- Chart -->
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6 mb-8">
+                <h3 class="font-semibold mb-4">Verlauf</h3>
+                <div style="height: 300px;">
+                    <canvas id="stats-chart"></canvas>
                 </div>
             </div>
-            <div class="overflow-x-auto">
-                <table class="w-full">
-                    <thead class="bg-gray-700/50 text-left text-sm text-gray-400">
-                        <tr>
-                            <th class="px-6 py-3">Name</th>
-                            <th class="px-6 py-3">Kontakt</th>
-                            <th class="px-6 py-3">Typ</th>
-                            <th class="px-6 py-3">Quelle</th>
-                            <th class="px-6 py-3">Kanal</th>
-                            <th class="px-6 py-3">Funnel-Step</th>
-                            <th class="px-6 py-3">Status</th>
-                            <th class="px-6 py-3">Magicline</th>
-                            <th class="px-6 py-3">Datum</th>
-                        </tr>
-                    </thead>
-                    <tbody id="leads-table" class="divide-y divide-gray-700">
-                        <tr><td colspan="9" class="px-6 py-8 text-center text-gray-500">Lädt...</td></tr>
-                    </tbody>
-                </table>
+
+            <!-- Recent Leads -->
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-6">
+                <h3 class="font-semibold mb-4">Neueste Leads</h3>
+                <div id="recent-leads" class="space-y-3">
+                    <p class="text-gray-500 text-sm">Lädt...</p>
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <script>
-        const API_BASE = 'https://srv1309486.hstgr.cloud/api/admin';
-        
-        async function refreshData() {
+        const API_BASE = 'https://srv1309486.hstgr.cloud/api';
+        const VALID_EMAIL = 'info@fit-inn-trier.de';
+        const VALID_PASS = 'Markus005588!';
+        let statsChart = null;
+        let currentPeriod = 'weekly';
+
+        // Check if already logged in
+        if (sessionStorage.getItem('adminAuth') === 'true') {
+            showDashboard();
+        }
+
+        // Login Form
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            if (email === VALID_EMAIL && password === VALID_PASS) {
+                sessionStorage.setItem('adminAuth', 'true');
+                sessionStorage.setItem('adminEmail', email);
+                showDashboard();
+            } else {
+                document.getElementById('login-error').textContent = 'Ungültige Anmeldedaten';
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        });
+
+        function showDashboard() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            document.getElementById('user-email').textContent = sessionStorage.getItem('adminEmail') || '';
+            loadStats('weekly');
+        }
+
+        function logout() {
+            sessionStorage.removeItem('adminAuth');
+            sessionStorage.removeItem('adminEmail');
+            location.reload();
+        }
+
+        async function loadStats(period) {
+            currentPeriod = period;
+            
+            // Update button styles
+            document.querySelectorAll('.period-btn').forEach(btn => {
+                if (btn.dataset.period === period) {
+                    btn.className = 'period-btn px-4 py-2 rounded-lg bg-[#DD9B43] text-black text-sm font-semibold transition-colors';
+                } else {
+                    btn.className = 'period-btn px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-sm transition-colors';
+                }
+            });
+
             try {
-                // Fetch stats
-                const statsRes = await fetch(`${API_BASE}/stats`);
-                const stats = await statsRes.json();
-                
-                // Fetch funnel
-                const funnelRes = await fetch(`${API_BASE}/funnel`);
-                const funnel = await funnelRes.json();
-                
-                // Fetch leads with Magicline data
-                const leadsRes = await fetch(`${API_BASE}/leads/enriched`);
+                // Fetch leads data
+                const leadsRes = await fetch(`${API_BASE}/leads/stats?period=${period}`);
                 const leadsData = await leadsRes.json();
                 
                 // Update stats
-                document.getElementById('stat-pageviews').textContent = funnel.pageViews || 0;
-                document.getElementById('stat-leads').textContent = stats.totalLeads || 0;
-                document.getElementById('stat-converted').textContent = stats.convertedLeads || 0;
-                document.getElementById('stat-time').textContent = Math.round(funnel.avgTimeOnPage || 0) + 's';
+                document.getElementById('stat-leads').textContent = leadsData.totalLeads || 0;
+                document.getElementById('stat-bookings').textContent = leadsData.conversions || 0;
+                document.getElementById('stat-pageviews').textContent = leadsData.pageviews || '-';
+                document.getElementById('stat-visitors').textContent = leadsData.visitors || '-';
                 
-                // Update funnel
-                const maxFunnel = Math.max(funnel.pageViews || 1, 1);
-                document.getElementById('funnel-views').style.height = '100%';
-                document.getElementById('funnel-views-num').textContent = funnel.pageViews || 0;
+                // Conversion rates
+                const visitorLeadRate = leadsData.visitors > 0 ? ((leadsData.totalLeads / leadsData.visitors) * 100).toFixed(1) : 0;
+                const leadBookingRate = leadsData.totalLeads > 0 ? ((leadsData.conversions / leadsData.totalLeads) * 100).toFixed(1) : 0;
                 
-                const modalTotal = (funnel.modalOpens?.probetraining || 0) + (funnel.modalOpens?.booking || 0);
-                document.getElementById('funnel-modals').style.height = (modalTotal / maxFunnel * 100) + '%';
-                document.getElementById('funnel-modals-num').textContent = modalTotal;
+                document.getElementById('conv-visitor-lead').textContent = visitorLeadRate + '%';
+                document.getElementById('conv-visitor-lead-bar').style.width = Math.min(visitorLeadRate, 100) + '%';
+                document.getElementById('conv-lead-booking').textContent = leadBookingRate + '%';
+                document.getElementById('conv-lead-booking-bar').style.width = Math.min(leadBookingRate, 100) + '%';
                 
-                document.getElementById('funnel-leads').style.height = (funnel.leadSubmits / maxFunnel * 100) + '%';
-                document.getElementById('funnel-leads-num').textContent = funnel.leadSubmits || 0;
-                
-                document.getElementById('funnel-converted').style.height = (funnel.bookingCompletes / maxFunnel * 100) + '%';
-                document.getElementById('funnel-converted-num').textContent = funnel.bookingCompletes || 0;
-                
-                // Update sources
-                const sourcesList = document.getElementById('sources-list');
-                sourcesList.innerHTML = Object.entries(stats.leadsBySource || {}).map(([source, count]) => `
-                    <div class="flex justify-between items-center py-2">
-                        <span class="capitalize">${source === 'direct' ? '🔗 Direkt' : source.includes('google') ? '🔍 Google' : source.includes('facebook') || source.includes('meta') ? '📘 Meta' : '🌐 ' + source}</span>
-                        <span class="font-bold">${count}</span>
-                    </div>
-                `).join('') || '<p class="text-gray-500">Keine Daten</p>';
-                
-                // Update channels
-                const channelsList = document.getElementById('channels-list');
-                channelsList.innerHTML = `
-                    <div class="flex justify-between items-center py-2">
-                        <span>📱 WhatsApp</span>
-                        <span class="font-bold text-green-400">${stats.messagesByChannel?.whatsapp || 0}</span>
-                    </div>
-                    <div class="flex justify-between items-center py-2">
-                        <span>📧 E-Mail</span>
-                        <span class="font-bold text-blue-400">${stats.messagesByChannel?.email || 0}</span>
-                    </div>
-                `;
-                
-                // Filter leads
-                const filterType = document.getElementById('filter-type').value;
-                const filterStatus = document.getElementById('filter-status').value;
-                let leads = leadsData.leads || [];
-                if (filterType) leads = leads.filter(l => l.type === filterType);
-                if (filterStatus === 'new') leads = leads.filter(l => !l.converted);
-                if (filterStatus === 'converted') leads = leads.filter(l => l.converted);
-                
-                // Update table
-                const tbody = document.getElementById('leads-table');
-                if (leads.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="9" class="px-6 py-8 text-center text-gray-500">Keine Leads gefunden</td></tr>';
+                // Lead sources
+                const sourcesDiv = document.getElementById('lead-sources');
+                if (leadsData.sources && Object.keys(leadsData.sources).length > 0) {
+                    sourcesDiv.innerHTML = Object.entries(leadsData.sources).map(([source, count]) => `
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">${source}</span>
+                            <span>${count}</span>
+                        </div>
+                    `).join('');
                 } else {
-                    tbody.innerHTML = leads.map(lead => {
-                        const channel = lead.messages?.find(m => m.channel)?.channel || '-';
-                        const source = lead.source || 'landing-page';
-                        const funnelStep = lead.converted ? '✅ Abgeschlossen' : 
-                                          lead.nurturingStep > 0 ? `📨 Nachricht ${lead.nurturingStep}` : '🆕 Neu';
-                        return `
-                            <tr class="hover:bg-gray-700/50">
-                                <td class="px-6 py-4 font-medium">${lead.name}</td>
-                                <td class="px-6 py-4 text-sm">
-                                    ${lead.email ? `<div class="text-gray-400">${lead.email}</div>` : ''}
-                                    ${lead.phone ? `<div class="text-gray-400">${lead.phone}</div>` : ''}
-                                </td>
-                                <td class="px-6 py-4">
-                                    <span class="px-2 py-1 rounded text-xs font-medium ${lead.type === 'probetraining' ? 'bg-blue-500/20 text-blue-400' : 'bg-amber-500/20 text-amber-400'}">
-                                        ${lead.type === 'probetraining' ? 'Probetraining' : 'Mitgliedschaft'}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-400">${source}</td>
-                                <td class="px-6 py-4">
-                                    ${channel === 'whatsapp' ? '📱 WhatsApp' : channel === 'email' ? '📧 E-Mail' : '-'}
-                                </td>
-                                <td class="px-6 py-4 text-sm">${funnelStep}</td>
-                                <td class="px-6 py-4">
-                                    <span class="px-2 py-1 rounded text-xs font-medium ${lead.isConverted || lead.converted ? 'bg-green-500/20 text-green-400' : 'bg-gray-500/20 text-gray-400'}">
-                                        ${lead.isConverted || lead.converted ? 'Konvertiert' : 'Offen'}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 text-sm">
-                                    ${lead.magicline ? `
-                                        <div class="text-green-400">✓ ${lead.magicline.memberNumber || 'Gefunden'}</div>
-                                        ${lead.magicline.hasContract ? `<div class="text-xs text-gray-400">${lead.magicline.contracts?.[0]?.rateName || 'Vertrag'}</div>` : ''}
-                                    ` : '<span class="text-gray-500">-</span>'}
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-400">${new Date(lead.createdAt).toLocaleDateString('de-DE')}</td>
-                            </tr>
-                        `;
-                    }).join('');
+                    sourcesDiv.innerHTML = '<p class="text-gray-500 text-sm">Keine Daten</p>';
                 }
-            } catch (error) {
-                console.error('Error:', error);
+                
+                // Update chart
+                updateChart(leadsData.chartData || []);
+                
+                // Recent leads
+                await loadRecentLeads();
+                
+            } catch (err) {
+                console.error('Stats error:', err);
             }
         }
-        
-        // Initial load
-        refreshData();
-        // Auto-refresh every 30s
-        setInterval(refreshData, 30000);
+
+        async function loadRecentLeads() {
+            try {
+                const res = await fetch(`${API_BASE}/leads?limit=10`);
+                const leads = await res.json();
+                
+                const container = document.getElementById('recent-leads');
+                if (leads && leads.length > 0) {
+                    container.innerHTML = leads.slice(0, 10).map(lead => `
+                        <div class="flex items-center justify-between py-3 border-b border-white/5 last:border-0">
+                            <div>
+                                <p class="font-medium">${lead.name || 'Unbekannt'}</p>
+                                <p class="text-sm text-gray-500">${lead.phone || lead.email || '-'}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm ${lead.converted ? 'text-green-400' : 'text-[#DD9B43]'}">${lead.converted ? 'Konvertiert' : 'Offen'}</p>
+                                <p class="text-xs text-gray-500">${lead.type || 'Unbekannt'}</p>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<p class="text-gray-500 text-sm">Keine Leads vorhanden</p>';
+                }
+            } catch (err) {
+                console.error('Leads error:', err);
+            }
+        }
+
+        function updateChart(data) {
+            const ctx = document.getElementById('stats-chart').getContext('2d');
+            
+            if (statsChart) {
+                statsChart.destroy();
+            }
+            
+            // Generate sample data if none provided
+            const labels = data.length > 0 ? data.map(d => d.label) : ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+            const values = data.length > 0 ? data.map(d => d.value) : [0, 0, 0, 0, 0, 0, 0];
+            
+            statsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Leads',
+                        data: values,
+                        borderColor: '#DD9B43',
+                        backgroundColor: 'rgba(221, 155, 67, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#DD9B43',
+                        pointBorderColor: '#DD9B43',
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: '#6b7280' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: '#6b7280', stepSize: 1 }
+                        }
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>
