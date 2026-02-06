@@ -7,7 +7,7 @@
     <style>
         @page {
             size: A4;
-            margin: 0;
+            margin: 15mm 20mm;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -24,6 +24,7 @@
             margin: 20px auto;
             background: white;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            position: relative;
         }
         .header { 
             display: flex; 
@@ -104,19 +105,13 @@
             letter-spacing: 0.5px;
             color: #555;
         }
-        .items-table th:nth-child(2),
-        .items-table th:nth-child(3),
-        .items-table th:nth-child(4) { text-align: right; }
+        .items-table th.right { text-align: right; }
         .items-table td { 
             padding: 4mm 2mm; 
             border-bottom: 0.5pt solid #eee;
             vertical-align: top;
         }
-        .items-table td:nth-child(2),
-        .items-table td:nth-child(3),
-        .items-table td:nth-child(4) { text-align: right; }
-        .item-desc { font-size: 9pt; }
-        .item-note { font-size: 8pt; color: #666; margin-top: 1mm; }
+        .items-table td.right { text-align: right; }
         .totals-wrapper {
             display: flex;
             justify-content: flex-end;
@@ -147,7 +142,7 @@
             background: #fafafa; 
             padding: 5mm; 
             border-radius: 2mm;
-            margin-bottom: 10mm;
+            margin-bottom: 15mm;
         }
         .payment-section h3 { 
             font-size: 9pt;
@@ -166,11 +161,7 @@
             text-align: center; 
             border-top: 0.5pt solid #ddd; 
             padding-top: 5mm;
-            margin-top: auto;
-            position: absolute;
-            bottom: 20mm;
-            left: 25mm;
-            right: 25mm;
+            margin-top: 20mm;
         }
         .btn-print {
             position: fixed;
@@ -185,11 +176,6 @@
             font-weight: bold;
             font-size: 14px;
             box-shadow: 0 4px 12px rgba(221, 155, 67, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .btn-print:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(221, 155, 67, 0.4);
         }
         @media print {
             body { background: white; }
@@ -199,11 +185,6 @@
                 padding: 15mm 20mm 20mm 20mm;
             }
             .btn-print { display: none; }
-            .footer {
-                bottom: 15mm;
-                left: 20mm;
-                right: 20mm;
-            }
         }
     </style>
 </head>
@@ -257,30 +238,22 @@
             </table>
         </div>
 
-        <!-- Notice -->
-        <div class="notice">
-            <strong>Hinweis:</strong> Die Zahlung erfolgt monatlich in bar à 50,00 € brutto (12 × 50,00 € = 600,00 € Jahresgesamt).
-        </div>
-
         <!-- Items Table -->
         <table class="items-table">
             <thead>
                 <tr>
                     <th style="width: 50%">Beschreibung</th>
-                    <th>Menge</th>
-                    <th>Einzelpreis netto</th>
-                    <th>Gesamt netto</th>
+                    <th class="right">Menge</th>
+                    <th class="right">Einzelpreis netto</th>
+                    <th class="right">Gesamt netto</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>
-                        <div class="item-desc">Kooperation / Dienstleistung 2026</div>
-                        <div class="item-note">Monatliche Zahlung à 50,00 € brutto</div>
-                    </td>
-                    <td>12 Monate</td>
-                    <td>42,02 €</td>
-                    <td>504,20 €</td>
+                    <td>Kooperation / Dienstleistung 2026<br><small style="color:#666;">Monatliche Barzahlung à 50,00 € brutto</small></td>
+                    <td class="right">12 Monate</td>
+                    <td class="right">42,02 €</td>
+                    <td class="right">504,20 €</td>
                 </tr>
             </tbody>
         </table>
