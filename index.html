@@ -2749,13 +2749,17 @@
             medium = utm_medium || 'unknown';
             campaign = utm_campaign || '';
         } else if (referrer) {
-            if (referrer.includes('google.')) source = 'Google (organisch)';
+            if (referrer.includes('fit-inn-trier.de') || referrer.includes('fit-inn.de')) {
+                source = 'Website (fit-inn-trier.de)';
+                medium = 'website';
+            }
+            else if (referrer.includes('google.')) source = 'Google (organisch)';
             else if (referrer.includes('facebook.com') || referrer.includes('fb.com')) source = 'Facebook';
             else if (referrer.includes('instagram.com')) source = 'Instagram';
             else if (referrer.includes('t.co') || referrer.includes('twitter.com')) source = 'Twitter/X';
             else if (referrer.includes('linkedin.com')) source = 'LinkedIn';
             else source = new URL(referrer).hostname;
-            medium = 'referral';
+            if (medium === 'none') medium = 'referral';
         }
         
         return { source, medium, campaign, gclid, fbclid, utm_source, utm_medium, utm_campaign, referrer };
