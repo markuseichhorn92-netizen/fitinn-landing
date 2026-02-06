@@ -3010,9 +3010,27 @@
     });
     
     // ============================================
+    // NOTRACK MODE (for testing without affecting stats)
+    // Usage: ?notrack=1 or ?preview=1
+    // ============================================
+    function isNoTrackMode() {
+        const params = new URLSearchParams(window.location.search);
+        return params.has('notrack') || params.has('preview');
+    }
+    
+    // ============================================
     // INITIALIZATION
     // ============================================
     document.addEventListener('DOMContentLoaded', () => {
+        // Check for notrack mode (preview without affecting stats)
+        if (isNoTrackMode()) {
+            console.log('🚫 Tracking deaktiviert (Preview-Modus)');
+            // Disable Google Analytics
+            window['ga-disable-G-9P2000KJJK'] = true;
+            // Hide cookie modal in preview mode
+            return;
+        }
+        
         // ALWAYS run basic tracking (cookieless, anonymous)
         initBasicTracking();
         
