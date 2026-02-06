@@ -2722,15 +2722,53 @@
         });
     }
     
-    // Session tracking
+    // Session tracking with full UTM & source detection
     const SESSION_KEY = 'fitinn_session';
+    function detectTrafficSource() {
+        const params = new URLSearchParams(window.location.search);
+        const utm_source = params.get('utm_source');
+        const utm_medium = params.get('utm_medium');
+        const utm_campaign = params.get('utm_campaign');
+        const gclid = params.get('gclid'); // Google Ads Click ID
+        const fbclid = params.get('fbclid'); // Facebook/Meta Click ID
+        const referrer = document.referrer;
+        
+        // Determine source
+        let source = 'Direkt';
+        let medium = 'none';
+        let campaign = '';
+        
+        if (gclid) {
+            source = 'Google Ads';
+            medium = 'cpc';
+        } else if (fbclid) {
+            source = 'Meta Ads';
+            medium = 'cpc';
+        } else if (utm_source) {
+            source = utm_source;
+            medium = utm_medium || 'unknown';
+            campaign = utm_campaign || '';
+        } else if (referrer) {
+            if (referrer.includes('google.')) source = 'Google (organisch)';
+            else if (referrer.includes('facebook.com') || referrer.includes('fb.com')) source = 'Facebook';
+            else if (referrer.includes('instagram.com')) source = 'Instagram';
+            else if (referrer.includes('t.co') || referrer.includes('twitter.com')) source = 'Twitter/X';
+            else if (referrer.includes('linkedin.com')) source = 'LinkedIn';
+            else source = new URL(referrer).hostname;
+            medium = 'referral';
+        }
+        
+        return { source, medium, campaign, gclid, fbclid, utm_source, utm_medium, utm_campaign, referrer };
+    }
+    
     function getSession() {
         let session = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null');
         if (!session) {
+            const traffic = detectTrafficSource();
             session = {
                 id: 'S' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5),
                 started: new Date().toISOString(),
-                source: new URLSearchParams(window.location.search).get('utm_source') || document.referrer || 'direct',
+                ...traffic,
                 events: []
             };
             localStorage.setItem(SESSION_KEY, JSON.stringify(session));
