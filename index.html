@@ -2583,6 +2583,10 @@
                 document.getElementById('pt-confirm-date').textContent = result.booking.date;
                 document.getElementById('pt-confirm-time').textContent = result.booking.time + ' Uhr';
                 document.getElementById('pt-confirm-name').textContent = result.booking.name;
+                // Google Ads Conversion Tracking
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'ads_conversion_Termin_vereinbaren_2', {});
+                }
                 ptGoToStep(7);
             } catch (err) {
                 errDiv.textContent = err.message;

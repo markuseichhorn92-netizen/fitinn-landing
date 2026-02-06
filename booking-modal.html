@@ -1037,6 +1037,11 @@ async function bkSubmit() {
         document.getElementById('bk-confirm-rate').textContent = bkSelectedRate.name;
         document.getElementById('bk-confirm-start').textContent = formattedStartDate;
         
+        // Google Ads Conversion Tracking
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'ads_conversion_Termin_vereinbaren_2', {});
+        }
+        
         bkGoToStep(7);
     } catch (err) {
         errDiv.textContent = err.message;
