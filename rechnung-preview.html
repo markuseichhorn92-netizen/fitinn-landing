@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rechnung 2026-001 | FIT-INN Trier</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Helvetica Neue', Arial, sans-serif; 
+            font-size: 11pt; 
+            line-height: 1.5;
+            color: #333;
+            padding: 40px;
+            max-width: 210mm;
+            margin: 0 auto;
+        }
+        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; }
+        .logo img { height: 50px; }
+        .company-info { text-align: right; font-size: 9pt; color: #666; }
+        .address-block { margin-bottom: 30px; }
+        .sender-line { font-size: 8pt; color: #666; border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 10px; }
+        .recipient { font-size: 11pt; }
+        .invoice-header { display: flex; justify-content: space-between; margin-bottom: 30px; }
+        .invoice-title { font-size: 24pt; font-weight: bold; color: #000; }
+        .invoice-meta { text-align: right; }
+        .invoice-meta table { margin-left: auto; }
+        .invoice-meta td { padding: 2px 0; }
+        .invoice-meta td:first-child { padding-right: 20px; color: #666; }
+        .items-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        .items-table th { 
+            background: #f5f5f5; 
+            padding: 12px; 
+            text-align: left; 
+            border-bottom: 2px solid #ddd;
+            font-weight: 600;
+        }
+        .items-table th:last-child, .items-table td:last-child { text-align: right; }
+        .items-table td { padding: 12px; border-bottom: 1px solid #eee; }
+        .totals { width: 300px; margin-left: auto; margin-bottom: 40px; }
+        .totals table { width: 100%; }
+        .totals td { padding: 8px 0; }
+        .totals td:last-child { text-align: right; }
+        .totals tr:last-child { font-weight: bold; font-size: 14pt; border-top: 2px solid #333; }
+        .totals tr:last-child td { padding-top: 12px; }
+        .payment-info { background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        .payment-info h3 { margin-bottom: 10px; font-size: 11pt; }
+        .payment-info p { font-size: 10pt; color: #555; }
+        .footer { font-size: 8pt; color: #666; text-align: center; border-top: 1px solid #ddd; padding-top: 20px; }
+        .note { background: #fffde7; padding: 15px; border-left: 4px solid #ffc107; margin-bottom: 30px; font-size: 10pt; }
+        @media print {
+            body { padding: 20px; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Print Button -->
+    <div class="no-print" style="position: fixed; top: 20px; right: 20px;">
+        <button onclick="window.print()" style="padding: 10px 20px; background: #DD9B43; color: #000; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
+            📄 Als PDF speichern
+        </button>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <img src="https://cdn.sanity.io/images/6qiktmvm/production/e33b949b11d3aa8b60befb3f5f537803a8c48700-2917x486.png" alt="FIT-INN Trier">
+        </div>
+        <div class="company-info">
+            Harald Eichhorn<br>
+            Auf Hirtenberg 8<br>
+            54296 Trier<br><br>
+            Tel: 0651 / 30 85 24<br>
+            info@fit-inn-trier.de<br><br>
+            USt-IdNr.: DE179498447
+        </div>
+    </div>
+
+    <!-- Address Block -->
+    <div class="address-block">
+        <div class="sender-line">FIT-INN · Harald Eichhorn · Auf Hirtenberg 8 · 54296 Trier</div>
+        <div class="recipient">
+            <strong>Smart Fit Coaching</strong><br>
+            David Pushman<br>
+            Scheffelstraße<br>
+            54294 Trier
+        </div>
+    </div>
+
+    <!-- Invoice Header -->
+    <div class="invoice-header">
+        <div class="invoice-title">RECHNUNG</div>
+        <div class="invoice-meta">
+            <table>
+                <tr>
+                    <td>Rechnungsnummer:</td>
+                    <td><strong>2026-001</strong></td>
+                </tr>
+                <tr>
+                    <td>Rechnungsdatum:</td>
+                    <td>06.02.2026</td>
+                </tr>
+                <tr>
+                    <td>Leistungszeitraum:</td>
+                    <td>Januar – Dezember 2026</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Note about monthly payments -->
+    <div class="note">
+        <strong>Hinweis:</strong> Diese Jahresrechnung umfasst 12 monatliche Zahlungen à 50,00 € brutto, 
+        die jeweils zum Monatsbeginn fällig sind.
+    </div>
+
+    <!-- Items Table -->
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th style="width: 50%">Beschreibung</th>
+                <th>Menge</th>
+                <th>Einzelpreis (netto)</th>
+                <th>Gesamt (netto)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Monatliche Kooperation / Dienstleistung 2026<br>
+                    <span style="color: #666; font-size: 9pt;">(Zahlung monatlich à 50,00 € brutto)</span>
+                </td>
+                <td>12 Monate</td>
+                <td>42,02 €</td>
+                <td>504,20 €</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Totals -->
+    <div class="totals">
+        <table>
+            <tr>
+                <td>Zwischensumme (netto):</td>
+                <td>504,20 €</td>
+            </tr>
+            <tr>
+                <td>zzgl. 19% MwSt.:</td>
+                <td>95,80 €</td>
+            </tr>
+            <tr>
+                <td>Gesamtbetrag (brutto):</td>
+                <td>600,00 €</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Payment Info -->
+    <div class="payment-info">
+        <h3>Zahlungsinformationen</h3>
+        <p>
+            <strong>Zahlungsweise:</strong> Monatlich à 50,00 € brutto<br>
+            <strong>Fälligkeit:</strong> Jeweils zum 1. des Monats<br><br>
+            <strong>Bankverbindung:</strong><br>
+            Kontoinhaber: Harald Eichhorn<br>
+            <!-- Bank details hier einfügen -->
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        Harald Eichhorn · Auf Hirtenberg 8 · 54296 Trier<br>
+        Tel: 0651 / 30 85 24 · E-Mail: info@fit-inn-trier.de · USt-IdNr.: DE179498447
+    </div>
+</body>
+</html>
