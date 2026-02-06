@@ -338,7 +338,10 @@
             document.getElementById('user-email').textContent = sessionStorage.getItem('adminEmail') || '';
             loadStats('weekly');
             loadLivePresence();
-            setInterval(loadLivePresence, 5000); // Update every 5 seconds
+            
+            // Auto-refresh: Live presence every 5 sec, stats every 30 sec
+            setInterval(loadLivePresence, 5000);
+            setInterval(() => loadStats(currentPeriod), 30000);
         }
         
         async function loadLivePresence() {
