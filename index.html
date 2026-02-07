@@ -2430,6 +2430,37 @@
             }
         }
         function closeModal(type) {
+            // Track abandoned booking if user entered data but didn't complete
+            if (type === 'booking' && typeof bkCurrentStep !== 'undefined' && typeof bkLeadData !== 'undefined') {
+                // Only track if user progressed past Step 0 and didn't complete (Step 7)
+                if (bkCurrentStep > 0 && bkCurrentStep < 7 && bkLeadData.email) {
+                    // Get additional data if available
+                    const firstname = document.getElementById('bk-firstname')?.value?.trim() || 
+                                     (bkLeadData.name ? bkLeadData.name.split(' ')[0] : '');
+                    const lastname = document.getElementById('bk-lastname')?.value?.trim() ||
+                                    (bkLeadData.name ? bkLeadData.name.split(' ').slice(1).join(' ') : '');
+                    const email = document.getElementById('bk-email')?.value?.trim() || bkLeadData.email;
+                    const phone = document.getElementById('bk-phone')?.value?.trim() || bkLeadData.phone;
+                    const tariff = bkSelectedRate ? bkSelectedRate.name : null;
+                    
+                    // Send abandoned lead data
+                    fetch('https://srv1309486.hstgr.cloud/api/leads/abandoned', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            firstname: firstname || 'Unbekannt',
+                            lastname: lastname || '',
+                            email: email,
+                            phone: phone || null,
+                            step: bkStepNames[bkCurrentStep] || `Step ${bkCurrentStep}`,
+                            tariff: tariff
+                        })
+                    }).catch(err => console.log('Abandoned tracking error:', err));
+                    
+                    console.log('📝 Abandoned booking tracked:', email, 'at step', bkCurrentStep);
+                }
+            }
+            
             document.getElementById(`modal-${type}`).classList.remove('active');
             document.body.style.overflow = '';
         }
