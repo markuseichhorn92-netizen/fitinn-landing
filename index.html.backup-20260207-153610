@@ -1865,58 +1865,48 @@
             
             <!-- Content -->
             <div class="p-6">
-                <!-- Step 0: Welcome & Quick Start - Low Barrier Entry -->
+                <!-- Step 0: Lead Capture - Premium Design -->
                 <div id="pt-step-0" class="form-step active">
                     <!-- Hero Section -->
                     <div class="text-center mb-8">
                         <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#DD9B43] to-[#e6ac5a] rounded-2xl mb-4 shadow-lg shadow-[#DD9B43]/30">
                             <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold mb-2">Kostenloses Probetraining</h3>
-                        <p class="text-white/60 text-sm">In nur <span class="text-green-400 font-medium">2 Minuten</span> zu deinem Wunschtermin</p>
+                        <h3 class="text-2xl font-bold mb-2">Probetraining reservieren</h3>
+                        <p class="text-white/60 text-sm">Sichere dir jetzt <span class="text-green-400 font-medium">kostenlos</span> deinen Termin</p>
                     </div>
                     
-                    <!-- Benefits -->
-                    <div class="space-y-3 mb-8">
-                        <div class="flex items-center gap-3 p-4 bg-white/5 rounded-xl">
-                            <span class="text-2xl">🏋️</span>
-                            <div>
-                                <p class="font-medium">Alle Geräte testen</p>
-                                <p class="text-sm text-white/50">TechnoGym Premium Equipment</p>
-                            </div>
+                    <!-- Form - Clean without icons -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-white/60 mb-2 ml-1">Name</label>
+                            <input type="text" id="pt-lead-name" placeholder="Vor- und Nachname" 
+                                class="w-full h-14 bg-white/5 border border-white/10 rounded-2xl px-5 text-white placeholder-white/30 focus:outline-none focus:border-[#DD9B43] focus:bg-white/10 transition-all text-base">
                         </div>
-                        <div class="flex items-center gap-3 p-4 bg-white/5 rounded-xl">
-                            <span class="text-2xl">👨‍🏫</span>
-                            <div>
-                                <p class="font-medium">Trainer inklusive</p>
-                                <p class="text-sm text-white/50">Persönliche Einweisung auf Wunsch</p>
-                            </div>
+                        
+                        <div>
+                            <label class="block text-sm text-white/60 mb-2 ml-1">E-Mail</label>
+                            <input type="email" id="pt-lead-email" placeholder="deine@email.de" 
+                                class="w-full h-14 bg-white/5 border border-white/10 rounded-2xl px-5 text-white placeholder-white/30 focus:outline-none focus:border-[#DD9B43] focus:bg-white/10 transition-all text-base">
                         </div>
-                        <div class="flex items-center gap-3 p-4 bg-white/5 rounded-xl">
-                            <span class="text-2xl">👥</span>
-                            <div>
-                                <p class="font-medium">Freund mitbringen</p>
-                                <p class="text-sm text-white/50">Zusammen trainieren macht mehr Spaß</p>
-                            </div>
+                        
+                        <div>
+                            <label class="block text-sm text-white/60 mb-2 ml-1">Handynummer</label>
+                            <input type="tel" id="pt-lead-phone" placeholder="0176 12345678" 
+                                class="w-full h-14 bg-white/5 border border-white/10 rounded-2xl px-5 text-white placeholder-white/30 focus:outline-none focus:border-[#DD9B43] focus:bg-white/10 transition-all text-base">
                         </div>
                     </div>
                     
                     <!-- CTA Button -->
-                    <button type="button" id="pt-btn-0" onclick="ptGoToStep(1)" 
-                        class="w-full h-14 bg-gradient-to-r from-[#DD9B43] to-[#e6ac5a] hover:from-[#e6ac5a] hover:to-[#DD9B43] text-black font-bold rounded-2xl transition-all duration-300 shadow-lg shadow-[#DD9B43]/25 hover:shadow-[#DD9B43]/40 hover:scale-[1.02] active:scale-[0.98]">
-                        Los geht's →
+                    <button type="button" id="pt-btn-0" onclick="ptCaptureLeadAndContinue()" 
+                        class="w-full h-14 bg-gradient-to-r from-[#DD9B43] to-[#e6ac5a] hover:from-[#e6ac5a] hover:to-[#DD9B43] text-black font-bold rounded-2xl mt-6 transition-all duration-300 shadow-lg shadow-[#DD9B43]/25 hover:shadow-[#DD9B43]/40 hover:scale-[1.02] active:scale-[0.98]">
+                        Jetzt reservieren →
                     </button>
                     
                     <!-- Trust Badges -->
                     <div class="flex items-center justify-center gap-6 mt-6 text-white/40 text-xs">
-                        <div class="flex items-center gap-1.5">
-                            <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
-                            </svg>
-                            <span>100% Kostenlos</span>
-                        </div>
                         <div class="flex items-center gap-1.5">
                             <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
@@ -1927,15 +1917,21 @@
                             <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
                             </svg>
-                            <span>2 Minuten</span>
+                            <span>Kostenlos</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>2 Min</span>
                         </div>
                     </div>
+                    
+                    <!-- WhatsApp Notice -->
+                    <p class="text-center text-white/30 text-xs mt-4">
+                        📱 Du erhältst sofort eine Bestätigung per WhatsApp
+                    </p>
                 </div>
-                
-                <!-- Hidden fields for lead data (captured optionally later) -->
-                <input type="hidden" id="pt-lead-name" value="">
-                <input type="hidden" id="pt-lead-email" value="">
-                <input type="hidden" id="pt-lead-phone" value="">
                 
                 <!-- Step 1: Fitnessziel -->
                 <div id="pt-step-1" class="form-step">
@@ -2089,8 +2085,8 @@
                                 <input type="email" id="pt-email" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium mb-2">Telefon <span class="text-apple-gray-500 font-normal">(optional)</span></label>
-                                <input type="tel" id="pt-phone" placeholder="Für WhatsApp-Bestätigung" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <label class="block text-sm font-medium mb-2">Telefon</label>
+                                <input type="tel" id="pt-phone" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                         </div>
                         <div>
@@ -2457,7 +2453,7 @@
         let ptSelectedSlot = null;
         let ptSurveyData = { goal: null, bringFriend: null, trainerRequired: null };
         let ptLeadData = { name: null, email: null, phone: null };
-        const ptStepNames = { 0: 'Start', 1: 'Fitnessziel', 2: 'Begleitung', 3: 'Trainer', 4: 'Termin', 5: 'Daten', 6: 'Adresse', 7: 'Fertig' };
+        const ptStepNames = { 0: 'Kontakt', 1: 'Fitnessziel', 2: 'Begleitung', 3: 'Trainer', 4: 'Termin', 5: 'Daten', 6: 'Adresse', 7: 'Fertig' };
         
         // Lead Capture Function
         async function ptCaptureLeadAndContinue() {
