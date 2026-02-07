@@ -348,8 +348,8 @@
                             <input type="email" id="bk-email" required class="bk-input">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-2">Telefon</label>
-                            <input type="tel" id="bk-phone" required class="bk-input" placeholder="+49...">
+                            <label class="block text-sm font-medium mb-2">Telefon <span class="text-white/40 font-normal">(optional)</span></label>
+                            <input type="tel" id="bk-phone" class="bk-input" placeholder="Für schnelle Rückfragen">
                         </div>
                     </div>
                     <div>
@@ -904,10 +904,10 @@ async function bkSubmit() {
         return;
     }
     
-    // Phone validation
+    // Phone validation (optional - only validate if provided)
     const rawPhone = document.getElementById('bk-phone').value.trim();
-    if (rawPhone.length < 6) {
-        errDiv.textContent = 'Bitte eine gültige Telefonnummer eingeben.';
+    if (rawPhone && rawPhone.length > 0 && rawPhone.length < 6) {
+        errDiv.textContent = 'Bitte eine gültige Telefonnummer eingeben oder Feld leer lassen.';
         errDiv.style.display = 'block';
         return;
     }
@@ -941,7 +941,7 @@ async function bkSubmit() {
                 dateOfBirth: document.getElementById('bk-birthdate').value,
                 gender: document.getElementById('bk-gender').value,
                 email: document.getElementById('bk-email').value.trim().toLowerCase(),
-                telephone_mobile: bkFormatPhone(rawPhone),
+                telephone_mobile: rawPhone ? bkFormatPhone(rawPhone) : '',
                 // Address
                 street: document.getElementById('bk-street').value.trim(),
                 houseNumber: document.getElementById('bk-housenumber').value.trim(),
