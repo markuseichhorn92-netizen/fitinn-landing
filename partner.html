@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <title>FIT-INN Trier | Gesundheitspartner-Programm — Exklusives Angebot für Patienten</title>
+    <meta name="description" content="Ihr Physiotherapeut empfiehlt FIT-INN Trier. Kostenloses Probetraining + exklusive Vorteile für Patienten. TechnoGym Geräte, persönliche Betreuung.">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="FIT-INN Trier | Empfohlen von Ihrem Physiotherapeuten">
+    <meta property="og:description" content="Kostenloses Probetraining + exklusive Vorteile für Patienten. Professionelles Aufbautraining nach der Physiotherapie.">
+    <meta property="og:image" content="https://image.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/thumbnail.jpg?time=5&width=1200">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'apple-gray': { 50: '#fafafa', 100: '#f5f5f7', 200: '#e8e8ed', 300: '#d2d2d7', 400: '#86868b', 500: '#6e6e73', 600: '#424245', 700: '#1d1d1f', 800: '#121214', 900: '#000000' },
+                        accent: '#DD9B43',
+                        'accent-light': '#e6ac5a',
+                        teal: '#094957',
+                    },
+                    fontFamily: { sans: ['Inter', '-apple-system', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { -webkit-font-smoothing: antialiased; }
+        body { background: #000; color: #f5f5f7; }
+        .glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); }
+        .btn-primary { background: #DD9B43; color: #000; font-weight: 700; padding: 16px 32px; border-radius: 9999px; transition: all 0.3s; }
+        .btn-primary:hover { background: #e6ac5a; transform: scale(1.05); }
+    </style>
+    
+    <!-- Google Analytics (nach Consent) -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        if (localStorage.getItem('cookie_consent') === 'all') {
+            var s = document.createElement('script'); s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=G-9P2000KJJK';
+            document.head.appendChild(s);
+            gtag('js', new Date()); gtag('config', 'G-9P2000KJJK');
+        }
+    </script>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Header -->
+    <nav class="fixed top-0 left-0 right-0 z-50" style="background: rgba(0,0,0,0.6); backdrop-filter: blur(40px); border-bottom: 1px solid rgba(255,255,255,0.08);">
+        <div class="max-w-[1200px] mx-auto px-6 h-16 flex justify-between items-center">
+            <a href="/">
+                <img src="https://cdn.sanity.io/images/6qiktmvm/production/e33b949b11d3aa8b60befb3f5f537803a8c48700-2917x486.png" 
+                     alt="FIT-INN Trier" class="h-8 md:h-10 w-auto">
+            </a>
+            <span class="text-sm text-white/50">Gesundheitspartner-Programm</span>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="min-h-[80vh] flex items-center justify-center pt-20 pb-16 px-6 relative overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="https://image.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/thumbnail.jpg?time=15&width=1920" 
+                 alt="" class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-[800px] text-center">
+            <!-- Partner Badge -->
+            <div class="inline-flex items-center gap-2 rounded-full px-5 py-2.5 mb-8" style="background: rgba(9,73,87,0.3); border: 1px solid rgba(9,73,87,0.5);">
+                <span class="text-teal text-sm font-medium">🩺 Empfohlen von Ihrem Therapeuten</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-6">
+                Nach der Physio<br>
+                <span style="background: linear-gradient(90deg, #DD9B43, #e6ac5a); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">kommt das Training.</span>
+            </h1>
+            
+            <p class="text-lg text-white/60 max-w-[600px] mx-auto mb-10">
+                Ihr Physiotherapeut vertraut auf FIT-INN Trier. Professionelles Aufbautraining mit persönlicher Betreuung — der perfekte nächste Schritt für Ihre Gesundheit.
+            </p>
+            
+            <a href="/#probetraining" class="btn-primary inline-block text-lg">
+                Kostenloses Probetraining buchen
+            </a>
+            
+            <!-- Trust Pills -->
+            <div class="flex flex-wrap items-center justify-center gap-4 mt-8">
+                <div class="glass rounded-full px-4 py-2">
+                    <span class="text-yellow-400 text-sm">★★★★★</span>
+                    <span class="text-white/60 text-sm ml-1">4,7 Google</span>
+                </div>
+                <div class="glass rounded-full px-4 py-2">
+                    <span class="text-white/60 text-sm">30+ Jahre Erfahrung</span>
+                </div>
+                <div class="glass rounded-full px-4 py-2">
+                    <span class="text-white/60 text-sm">TechnoGym Ausstattung</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vorteile für Patienten -->
+    <section class="py-24 px-6">
+        <div class="max-w-[1000px] mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-center mb-4">
+                Warum Ihr Therapeut<br>FIT-INN empfiehlt
+            </h2>
+            <p class="text-white/50 text-center mb-16 max-w-[600px] mx-auto">
+                Wir arbeiten mit Physiotherapeuten zusammen, weil ganzheitliche Gesundheit unser gemeinsames Ziel ist.
+            </p>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass rounded-3xl p-8">
+                    <div class="text-3xl mb-4">🎯</div>
+                    <h3 class="text-lg font-semibold mb-2">Individueller Trainingsplan</h3>
+                    <p class="text-white/50 text-sm">Abgestimmt auf Ihre Therapie. Unsere Trainer berücksichtigen Ihre Einschränkungen und Ziele.</p>
+                </div>
+                <div class="glass rounded-3xl p-8">
+                    <div class="text-3xl mb-4">🏋️</div>
+                    <h3 class="text-lg font-semibold mb-2">TechnoGym Biostrength</h3>
+                    <p class="text-white/50 text-sm">Intelligente Geräte die sich automatisch auf Sie einstellen — gelenkschonend und sicher.</p>
+                </div>
+                <div class="glass rounded-3xl p-8">
+                    <div class="text-3xl mb-4">👨‍🏫</div>
+                    <h3 class="text-lg font-semibold mb-2">Persönliche Betreuung</h3>
+                    <p class="text-white/50 text-sm">Qualifizierte Trainer die sich Zeit nehmen. Keine Massenabfertigung — bei uns sind Sie Mensch, keine Nummer.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exklusives Angebot -->
+    <section class="py-24 px-6" style="background: linear-gradient(180deg, rgba(221,155,67,0.05) 0%, transparent 100%);">
+        <div class="max-w-[600px] mx-auto text-center">
+            <p class="text-accent text-sm font-semibold uppercase tracking-wider mb-4">Exklusiv für Patienten</p>
+            <h2 class="text-3xl md:text-5xl font-bold mb-6">Ihr Vorteil</h2>
+            
+            <div class="glass rounded-3xl p-8 mb-8" style="border-color: rgba(221,155,67,0.3);">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-accent text-xl">✓</span>
+                        <span class="text-lg">Kostenloses Probetraining</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-accent text-xl">✓</span>
+                        <span class="text-lg">Persönliche Einweisung durch Trainer</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-accent text-xl">✓</span>
+                        <span class="text-lg">Individueller Trainingsplan</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-accent text-xl">✓</span>
+                        <span class="text-lg">InBody Körperanalyse</span>
+                    </div>
+                    <hr class="border-white/10 my-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-accent text-xl">🎁</span>
+                        <span class="text-lg font-bold">Frühlingsstart: 2 Monate GRATIS</span>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="/#probetraining" class="btn-primary inline-block text-lg px-12">
+                Jetzt Probetraining buchen
+            </a>
+            <p class="text-white/30 text-sm mt-4">100% kostenlos · Unverbindlich · 2 Minuten</p>
+        </div>
+    </section>
+
+    <!-- So funktioniert's -->
+    <section class="py-24 px-6">
+        <div class="max-w-[800px] mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-16">So einfach geht's</h2>
+            
+            <div class="space-y-8">
+                <div class="flex items-start gap-6">
+                    <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                        <span class="text-accent font-bold">1</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-1">Probetraining buchen</h3>
+                        <p class="text-white/50">Online in 2 Minuten oder telefonisch unter 0651 30 85 247</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-6">
+                    <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                        <span class="text-accent font-bold">2</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-1">Studio kennenlernen</h3>
+                        <p class="text-white/50">Wir zeigen dir alles, besprechen deine Ziele und erstellen einen ersten Trainingsplan.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-6">
+                    <div class="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                        <span class="text-accent font-bold">3</span>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-1">Loslegen</h3>
+                        <p class="text-white/50">Starte dein Aufbautraining — professionell betreut und auf deine Therapie abgestimmt.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section class="py-24 px-6 border-t border-white/10">
+        <div class="max-w-[600px] mx-auto text-center">
+            <h2 class="text-2xl font-bold mb-4">Fragen?</h2>
+            <p class="text-white/50 mb-8">Ruf uns einfach an oder schreib uns eine WhatsApp.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="tel:+4906513085247" class="glass rounded-full px-8 py-4 text-center hover:bg-white/10 transition-all">
+                    📞 0651 30 85 247
+                </a>
+                <a href="https://wa.me/4906513085247?text=Hallo%2C%20ich%20wurde%20von%20meinem%20Physiotherapeuten%20empfohlen%20und%20interessiere%20mich%20f%C3%BCr%20ein%20Probetraining." 
+                   target="_blank" class="glass rounded-full px-8 py-4 text-center hover:bg-white/10 transition-all">
+                    💬 WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-white/10 text-center">
+        <div class="max-w-[600px] mx-auto px-6">
+            <img src="https://cdn.sanity.io/images/6qiktmvm/production/e33b949b11d3aa8b60befb3f5f537803a8c48700-2917x486.png" 
+                 alt="FIT-INN" class="h-6 w-auto opacity-50 mx-auto mb-3">
+            <p class="text-white/30 text-xs">© 2026 FIT-INN Trier · Auf Hirtenberg 8 · 54296 Trier</p>
+            <div class="flex flex-wrap justify-center gap-4 mt-3 text-xs">
+                <a href="/agb.html" class="text-white/30 hover:text-accent">AGB</a>
+                <a href="/impressum.html" class="text-white/30 hover:text-accent">Impressum</a>
+                <a href="/datenschutz.html" class="text-white/30 hover:text-accent">Datenschutz</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- UTM Tracking -->
+    <script>
+        // Track partner referral source
+        const params = new URLSearchParams(window.location.search);
+        const praxis = params.get('utm_campaign') || params.get('ref') || 'unknown';
+        
+        // Store for lead tracking
+        sessionStorage.setItem('partner_referral', praxis);
+        
+        // Track page view with source
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'partner_page_view', {
+                event_category: 'partner',
+                partner_name: praxis
+            });
+        }
+    </script>
+</body>
+</html>
