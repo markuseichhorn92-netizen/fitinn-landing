@@ -148,6 +148,9 @@
         }
     </script>
     
+    <!-- Hero Image Preload -->
+    <link rel="preload" as="image" href="https://cdn.sanity.io/images/6qiktmvm/production/b7787476401d9cf6e7b46b94847a30ce4a08e2a8-1563x1563.png">
+    
     <!-- Fonts - SF Pro inspired -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -610,14 +613,13 @@
             pointer-events: none;
         }
         
-        /* Hero image - more visible on mobile, blurred on desktop */
+        /* Hero image - more visible on mobile */
         #hero-parallax-img {
             filter: blur(2px);
         }
-        @media (min-width: 768px) {
-            #hero-parallax-img {
-                filter: blur(6px);
-            }
+        /* Hero video - subtle blur on desktop */
+        #hero-video {
+            filter: blur(4px);
         }
         
         /* Mobile input fix */
@@ -816,6 +818,22 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         .pt-survey-opt { transition: all 0.2s; }
         .pt-survey-opt:hover { border-color: rgba(221,155,67,0.5) !important; }
+        
+        /* Price pulse animation */
+        @keyframes pricePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        .price-pulse {
+            display: inline-block;
+            animation: pricePulse 2s ease-in-out infinite;
+        }
+        .price-original {
+            text-decoration: line-through;
+            opacity: 0.5;
+            font-size: 0.7em;
+            margin-right: 4px;
+        }
     </style>
     
     <!-- reCAPTCHA v3 for Magicline API -->
@@ -851,12 +869,21 @@
 
     <!-- Hero - Full Screen with Background Image -->
     <section class="relative min-h-screen flex flex-col justify-center items-center section-dark overflow-hidden">
-        <!-- Background Image - Parallax -->
+        <!-- Background Video (Desktop) + Image Fallback (Mobile) -->
         <div class="absolute inset-0 overflow-hidden">
+            <!-- Video: Desktop/Tablet -->
+            <video id="hero-video" 
+                   autoplay muted loop playsinline 
+                   poster="https://image.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/thumbnail.jpg?time=5&width=1920"
+                   class="hidden md:block w-full h-[120%] object-cover opacity-40"
+                   style="transform: translate3d(0,0,0); will-change: transform;">
+                <source src="https://stream.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/high.mp4" type="video/mp4">
+            </video>
+            <!-- Image: Mobile Fallback (spart Daten) -->
             <img id="hero-parallax-img" 
-                 src="https://cdn.sanity.io/images/6qiktmvm/production/b7787476401d9cf6e7b46b94847a30ce4a08e2a8-1563x1563.png" 
+                 src="https://image.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/thumbnail.jpg?time=5&width=1080"
                  alt="FIT-INN Trier Studio" 
-                 class="w-full h-[120%] object-cover opacity-60 md:opacity-40"
+                 class="md:hidden w-full h-[120%] object-cover opacity-60"
                  style="transform: translate3d(0,0,0); will-change: transform;">
             <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
             <div class="absolute inset-0 bg-gradient-to-r from-teal/30 via-transparent to-teal/20"></div>
@@ -876,7 +903,7 @@
             </h1>
             
             <!-- Subheadline -->
-            <p class="reveal reveal-delay-2 text-body-large text-apple-gray-400 max-w-[600px] mx-auto mb-10">
+            <p id="hero-subheadline" class="reveal reveal-delay-2 text-body-large text-apple-gray-400 max-w-[600px] mx-auto mb-10">
                 Dein Gesundheitspartner in Trier seit über 30 Jahren. Professionelle Betreuung, TechnoGym Geräte und ein Team, das deine Ziele versteht.
             </p>
             
@@ -1113,10 +1140,13 @@
             <div class="reveal reveal-delay-2 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <!-- Image 1 - Kraftbereich -->
                 <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer" onclick="openImageModal(0)">
-                    <img src="images/studio-kraftbereich.jpg" 
-                         alt="FIT-INN Trier Kraftbereich mit Free Weights" 
-                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                         loading="lazy">
+                    <picture>
+                        <source srcset="images/studio-kraftbereich.webp" type="image/webp">
+                        <img src="images/studio-kraftbereich.jpg" 
+                             alt="FIT-INN Trier Kraftbereich mit Free Weights" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                             loading="lazy">
+                    </picture>
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div class="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <p class="font-semibold">Kraftbereich</p>
@@ -1126,10 +1156,13 @@
                 
                 <!-- Image 2 - Circuit -->
                 <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer" onclick="openImageModal(1)">
-                    <img src="images/studio-circuit.jpg" 
-                         alt="FIT-INN Trier TechnoGym Circuit" 
-                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                         loading="lazy">
+                    <picture>
+                        <source srcset="images/studio-circuit.webp" type="image/webp">
+                        <img src="images/studio-circuit.jpg" 
+                             alt="FIT-INN Trier TechnoGym Circuit" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                             loading="lazy">
+                    </picture>
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div class="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <p class="font-semibold">TechnoGym Circuit</p>
@@ -1139,10 +1172,13 @@
                 
                 <!-- Image 3 - TechnoGym -->
                 <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer" onclick="openImageModal(2)">
-                    <img src="images/studio-technogym.jpg" 
-                         alt="FIT-INN Trier TechnoGym Geräte" 
-                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                         loading="lazy">
+                    <picture>
+                        <source srcset="images/studio-technogym.webp" type="image/webp">
+                        <img src="images/studio-technogym.jpg" 
+                             alt="FIT-INN Trier TechnoGym Geräte" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                             loading="lazy">
+                    </picture>
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div class="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <p class="font-semibold">Kraftgeräte</p>
@@ -1152,14 +1188,39 @@
                 
                 <!-- Image 4 - Cardio -->
                 <div class="group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer" onclick="openImageModal(3)">
-                    <img src="images/studio-cardio.jpg" 
-                         alt="FIT-INN Trier Cardio Bereich" 
-                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                         loading="lazy">
+                    <picture>
+                        <source srcset="images/studio-cardio.webp" type="image/webp">
+                        <img src="images/studio-cardio.jpg" 
+                             alt="FIT-INN Trier Cardio Bereich" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                             loading="lazy">
+                    </picture>
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div class="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <p class="font-semibold">Cardio-Bereich</p>
                         <p class="text-sm text-white/70">Crosstrainer, Bikes & mehr</p>
+                    </div>
+                </div>
+                
+                <!-- Video - Studio Tour -->
+                <div class="md:col-span-2 group relative overflow-hidden rounded-2xl aspect-video cursor-pointer" id="gallery-video-container">
+                    <video id="gallery-video" class="w-full h-full object-cover" 
+                           muted loop playsinline
+                           poster="https://image.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/thumbnail.jpg?time=10&width=1280"
+                           loading="lazy">
+                        <source src="https://stream.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/medium.mp4" type="video/mp4">
+                    </video>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div id="gallery-play-btn" class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center group-hover:bg-white/30 transition-all duration-300 group-hover:scale-110">
+                            <svg id="gallery-play-icon" class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <p class="font-semibold">Studio-Rundgang</p>
+                        <p class="text-sm text-white/70">1:12 Min · UHD Qualität</p>
                     </div>
                 </div>
             </div>
@@ -1206,7 +1267,7 @@
                         
                         <!-- Preis JETZT -->
                         <div class="mb-2">
-                            <span class="text-5xl font-bold tracking-tight text-green-400">0€</span>
+                            <span class="text-5xl font-bold tracking-tight text-green-400 price-pulse">0€</span>
                             <span class="text-apple-gray-400 text-lg">/Woche</span>
                         </div>
                         <p class="text-green-400 text-sm font-medium mb-4">Bis 31. März 2026 beitragsfrei!</p>
@@ -1214,7 +1275,7 @@
                         <!-- Preis DANACH -->
                         <div class="bg-white/5 border border-white/10 rounded-xl p-3 mb-6">
                             <p class="text-xs text-white/50 mb-1">Ab 1. April 2026:</p>
-                            <p class="text-lg font-semibold">12€<span class="text-white/50 text-sm font-normal">/Woche</span></p>
+                            <p class="text-lg font-semibold"><span class="price-original">15€</span>12€<span class="text-white/50 text-sm font-normal">/Woche</span></p>
                         </div>
                         
                         <ul class="space-y-3 mb-8 text-sm text-apple-gray-300">
@@ -1253,7 +1314,7 @@
                         
                         <!-- Preis JETZT -->
                         <div class="mb-2">
-                            <span class="text-5xl font-bold tracking-tight text-green-400">0€</span>
+                            <span class="text-5xl font-bold tracking-tight text-green-400 price-pulse">0€</span>
                             <span class="text-apple-gray-400 text-lg">/Woche</span>
                         </div>
                         <p class="text-green-400 text-sm font-medium mb-4">Bis 31. März 2026 beitragsfrei!</p>
@@ -1261,7 +1322,7 @@
                         <!-- Preis DANACH -->
                         <div class="bg-accent/10 border border-accent/30 rounded-xl p-3 mb-6">
                             <p class="text-xs text-white/50 mb-1">Ab 1. April 2026:</p>
-                            <p class="text-lg font-semibold text-accent">9€<span class="text-white/50 text-sm font-normal">/Woche</span> <span class="text-xs text-white/40 ml-1">· Bester Preis</span></p>
+                            <p class="text-lg font-semibold text-accent"><span class="price-original">15€</span>9€<span class="text-white/50 text-sm font-normal">/Woche</span> <span class="text-xs text-white/40 ml-1">· Bester Preis</span></p>
                         </div>
                         
                         <ul class="space-y-3 mb-8 text-sm text-apple-gray-300">
@@ -1299,7 +1360,7 @@
                         
                         <!-- Preis JETZT -->
                         <div class="mb-2">
-                            <span class="text-5xl font-bold tracking-tight text-green-400">0€</span>
+                            <span class="text-5xl font-bold tracking-tight text-green-400 price-pulse">0€</span>
                             <span class="text-apple-gray-400 text-lg">/Woche</span>
                         </div>
                         <p class="text-green-400 text-sm font-medium mb-4">Bis 31. März 2026 beitragsfrei!</p>
@@ -1307,7 +1368,7 @@
                         <!-- Preis DANACH -->
                         <div class="bg-white/5 border border-white/10 rounded-xl p-3 mb-6">
                             <p class="text-xs text-white/50 mb-1">Ab 1. April 2026:</p>
-                            <p class="text-lg font-semibold">9€<span class="text-white/50 text-sm font-normal">/Woche</span></p>
+                            <p class="text-lg font-semibold"><span class="price-original">12€</span>9€<span class="text-white/50 text-sm font-normal">/Woche</span></p>
                         </div>
                         
                         <ul class="space-y-3 mb-8 text-sm text-apple-gray-300">
@@ -2459,6 +2520,43 @@
         setInterval(updatePromoCountdown, 1000); // Live ticking every second
         
         // ============================================
+        // GALLERY VIDEO PLAY/PAUSE
+        // ============================================
+        const galleryVideoContainer = document.getElementById('gallery-video-container');
+        if (galleryVideoContainer) {
+            galleryVideoContainer.addEventListener('click', function() {
+                const video = document.getElementById('gallery-video');
+                const playBtn = document.getElementById('gallery-play-btn');
+                const playIcon = document.getElementById('gallery-play-icon');
+                if (video.paused) {
+                    video.play();
+                    playBtn.style.opacity = '0';
+                    playBtn.style.transition = 'opacity 0.3s';
+                } else {
+                    video.pause();
+                    playBtn.style.opacity = '1';
+                }
+            });
+            // Show play button on hover when playing
+            galleryVideoContainer.addEventListener('mouseenter', function() {
+                const video = document.getElementById('gallery-video');
+                const playBtn = document.getElementById('gallery-play-btn');
+                if (!video.paused) {
+                    playBtn.style.opacity = '0.7';
+                    document.getElementById('gallery-play-icon').innerHTML = '<rect x="6" y="4" width="4" height="16" fill="currentColor"/><rect x="14" y="4" width="4" height="16" fill="currentColor"/>';
+                }
+            });
+            galleryVideoContainer.addEventListener('mouseleave', function() {
+                const video = document.getElementById('gallery-video');
+                const playBtn = document.getElementById('gallery-play-btn');
+                if (!video.paused) {
+                    playBtn.style.opacity = '0';
+                }
+                document.getElementById('gallery-play-icon').innerHTML = '<path d="M8 5v14l11-7z"/>';
+            });
+        }
+        
+        // ============================================
         // EXIT-INTENT POPUP
         // ============================================
         let exitPopupShown = false;
@@ -3483,6 +3581,81 @@
         }
         // If consent === 'essential', only basic tracking runs (already done above)
     });
+    </script>
+
+    <!-- UTM Personalization & Retargeting Events -->
+    <script>
+    (function() {
+        // UTM-based hero subheadline personalization
+        const params = new URLSearchParams(window.location.search);
+        const utmSource = (params.get('utm_source') || '').toLowerCase();
+        const subheadline = document.getElementById('hero-subheadline');
+        if (subheadline) {
+            if (utmSource === 'google') {
+                subheadline.textContent = 'Du suchst ein Fitnessstudio in Trier? Perfekt.';
+            } else if (utmSource === 'facebook' || utmSource === 'instagram') {
+                subheadline.textContent = 'Dein Frühlingsstart beginnt jetzt.';
+            }
+        }
+
+        // Modal abandoned retargeting event
+        let modalOpenedWithoutBooking = false;
+        const origOpen = window.openChoiceModal;
+        if (typeof origOpen === 'function') {
+            window.openChoiceModal = function() {
+                modalOpenedWithoutBooking = true;
+                origOpen.apply(this, arguments);
+            };
+        }
+        // Also track via MutationObserver for modals loaded async
+        const observer = new MutationObserver(function() {
+            document.querySelectorAll('.modal-overlay').forEach(function(modal) {
+                if (!modal._abandonTrackBound) {
+                    modal._abandonTrackBound = true;
+                    modal.addEventListener('click', function(e) {
+                        // Clicked overlay background (not content) = closing
+                        if (e.target === modal) {
+                            fireModalAbandoned();
+                        }
+                    });
+                    // Track close button clicks
+                    modal.querySelectorAll('[onclick*="close"], [onclick*="Close"], .modal-handle').forEach(function(el) {
+                        el.addEventListener('click', function() {
+                            fireModalAbandoned();
+                        });
+                    });
+                }
+            });
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+
+        function fireModalAbandoned() {
+            if (!modalOpenedWithoutBooking) return;
+            modalOpenedWithoutBooking = false;
+            // gtag
+            if (typeof gtag === 'function') {
+                gtag('event', 'modal_abandoned', { event_category: 'engagement' });
+            }
+            // Facebook Pixel
+            if (typeof fbq === 'function') {
+                fbq('trackCustom', 'modal_abandoned');
+            }
+            // Internal tracking
+            if (typeof trackEvent === 'function') {
+                trackEvent('modal_abandoned', {});
+            }
+            console.log('📊 Event: modal_abandoned');
+        }
+
+        // Reset flag on successful booking
+        const origBooking = window.trackBookingComplete;
+        if (typeof origBooking === 'function') {
+            window.trackBookingComplete = function(type) {
+                modalOpenedWithoutBooking = false;
+                origBooking.call(this, type);
+            };
+        }
+    })();
     </script>
 
     <!-- Booking Modal -->
