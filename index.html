@@ -885,20 +885,14 @@
     <section class="relative min-h-screen flex flex-col justify-center items-center section-dark overflow-hidden">
         <!-- Background Video (Desktop) + Image Fallback (Mobile) -->
         <div class="absolute inset-0 overflow-hidden">
-            <!-- Video: Desktop/Tablet via Mux HLS -->
+            <!-- Video: Alle Geräte via Mux HLS -->
             <mux-player id="hero-video"
                          playback-id="22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY"
                          autoplay muted loop
                          default-hidden-captions
-                         class="hidden md:block w-full h-[120%] object-cover opacity-40"
+                         class="w-full h-[120%] object-cover opacity-60 md:opacity-40"
                          style="transform: translate3d(0,0,0); will-change: transform; --controls: none; --media-object-fit: cover; --media-object-position: center; aspect-ratio: auto;">
             </mux-player>
-            <!-- Image: Mobile Fallback (spart Daten) -->
-            <img id="hero-parallax-img" 
-                 src="https://image.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/thumbnail.jpg?time=5&width=1080"
-                 alt="FIT-INN Trier Studio" 
-                 class="md:hidden w-full h-[120%] object-cover opacity-60"
-                 style="transform: translate3d(0,0,0); will-change: transform;">
             <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
             <div class="absolute inset-0 bg-gradient-to-r from-teal/30 via-transparent to-teal/20"></div>
         </div>
