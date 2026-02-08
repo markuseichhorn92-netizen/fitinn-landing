@@ -2060,26 +2060,26 @@
                     <div class="space-y-4">
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-sm font-medium mb-2">Vorname</label>
-                                <input type="text" id="pt-firstname" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <label class="block text-sm font-medium mb-2">Vorname <span class="text-accent">*</span></label>
+                                <input type="text" id="pt-firstname" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium mb-2">Nachname</label>
-                                <input type="text" id="pt-lastname" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <label class="block text-sm font-medium mb-2">Nachname <span class="text-accent">*</span></label>
+                                <input type="text" id="pt-lastname" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-sm font-medium mb-2">E-Mail</label>
-                                <input type="email" id="pt-email" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <label class="block text-sm font-medium mb-2">E-Mail <span class="text-accent">*</span></label>
+                                <input type="email" id="pt-email" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium mb-2">Telefon <span class="text-apple-gray-500 font-normal">(optional)</span></label>
-                                <input type="tel" id="pt-phone" placeholder="Für WhatsApp-Bestätigung" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <label class="block text-sm font-medium mb-2">Telefon <span class="text-accent">*</span></label>
+                                <input type="tel" id="pt-phone" required placeholder="Für Terminbestätigung" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-2">Geburtsdatum</label>
+                            <label class="block text-sm font-medium mb-2">Geburtsdatum <span class="text-accent">*</span></label>
                             <div class="grid grid-cols-3 gap-2">
                                 <select id="pt-birth-day" class="bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center">
                                     <option value="">Tag</option>
@@ -2106,8 +2106,8 @@
                             <input type="hidden" id="pt-birthdate">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-2">Anrede</label>
-                            <select id="pt-gender" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                            <label class="block text-sm font-medium mb-2">Anrede <span class="text-accent">*</span></label>
+                            <select id="pt-gender" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                                 <option value="">Bitte wählen</option>
                                 <option value="MALE">Herr</option>
                                 <option value="FEMALE">Frau</option>
@@ -2129,21 +2129,21 @@
                     <form id="pt-form" class="space-y-4">
                         <div class="grid grid-cols-3 gap-3">
                             <div class="col-span-2">
-                                <label class="block text-sm font-medium mb-2">Straße</label>
+                                <label class="block text-sm font-medium mb-2">Straße <span class="text-accent">*</span></label>
                                 <input type="text" id="pt-street" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium mb-2">Nr.</label>
+                                <label class="block text-sm font-medium mb-2">Nr. <span class="text-accent">*</span></label>
                                 <input type="text" id="pt-housenumber" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-3">
                             <div>
-                                <label class="block text-sm font-medium mb-2">PLZ</label>
+                                <label class="block text-sm font-medium mb-2">PLZ <span class="text-accent">*</span></label>
                                 <input type="text" id="pt-zip" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                             <div class="col-span-2">
-                                <label class="block text-sm font-medium mb-2">Stadt</label>
+                                <label class="block text-sm font-medium mb-2">Stadt <span class="text-accent">*</span></label>
                                 <input type="text" id="pt-city" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                         </div>
@@ -2728,10 +2728,12 @@
                 { id: 'pt-firstname', name: 'Vorname' },
                 { id: 'pt-lastname', name: 'Nachname' },
                 { id: 'pt-email', name: 'E-Mail' },
+                { id: 'pt-phone', name: 'Telefon' },
                 { id: 'pt-birthdate', name: 'Geburtsdatum' },
+                { id: 'pt-street', name: 'Straße' },
+                { id: 'pt-housenumber', name: 'Hausnummer' },
                 { id: 'pt-zip', name: 'PLZ' },
-                { id: 'pt-city', name: 'Stadt' },
-                { id: 'pt-street', name: 'Straße' }
+                { id: 'pt-city', name: 'Stadt' }
             ];
             
             // Update birthdate hidden field first
