@@ -2862,6 +2862,9 @@
         })();
 
         // Modal functions
+        function openPTModal() { openModal('probetraining'); }
+        function openBookingModal() { openModal('booking'); }
+        
         function openModal(type) {
             document.getElementById(`modal-${type}`).classList.add('active');
             document.body.style.overflow = 'hidden';
