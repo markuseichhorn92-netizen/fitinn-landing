@@ -11,9 +11,104 @@
     <link rel="apple-touch-icon" href="/favicon.png">
     <meta name="description" content="🌸 Frühlingsstart bei FIT-INN Trier: Jetzt anmelden und bis 31.03. BEITRAGSFREI trainieren! Danach ab nur 9€/Woche. TechnoGym Geräte, persönliche Betreuung, 25 Jahre Erfahrung.">
     
+    <!-- Canonical -->
+    <link rel="canonical" href="https://angebot.fit-inn-trier.de/">
+    
     <!-- Security -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HealthClub",
+      "name": "FIT-INN Trier",
+      "description": "Dein Gesundheitspartner in Trier seit über 30 Jahren. Professionelle Betreuung, TechnoGym Geräte und individuelle Trainingspläne.",
+      "url": "https://angebot.fit-inn-trier.de",
+      "telephone": "+4906513085247",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Auf Hirtenberg 8",
+        "addressLocality": "Trier",
+        "postalCode": "54296",
+        "addressCountry": "DE"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 49.7708,
+        "longitude": 6.6371
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:30", "closes": "13:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "15:00", "closes": "21:30" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "13:00", "closes": "18:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "09:00", "closes": "15:00" }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.7",
+        "reviewCount": "120",
+        "bestRating": "5"
+      },
+      "priceRange": "€€",
+      "image": "https://cdn.sanity.io/images/6qiktmvm/production/b7787476401d9cf6e7b46b94847a30ce4a08e2a8-1563x1563.png",
+      "sameAs": [
+        "https://www.instagram.com/fitinn_trier/",
+        "https://www.facebook.com/FitInnTrier/"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Kann ich erst mal testen?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Ja, natürlich! Buche einfach ein kostenloses Probetraining und lerne uns kennen. Wir zeigen dir das Studio, die Geräte und erstellen einen ersten Trainingsplan für dich — alles unverbindlich." }
+        },
+        {
+          "@type": "Question",
+          "name": "Wie kann ich kündigen?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Ganz einfach: Per E-Mail, Brief oder persönlich vor Ort. Die Kündigungsfrist beträgt 4 Wochen zum Ende der Vertragslaufzeit." }
+        },
+        {
+          "@type": "Question",
+          "name": "Kann ich meine Mitgliedschaft pausieren?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Ja, bei längerer Krankheit, Schwangerschaft oder beruflicher Abwesenheit kannst du deine Mitgliedschaft pausieren. Wir finden immer eine faire Lösung." }
+        },
+        {
+          "@type": "Question",
+          "name": "Gibt es Parkplätze?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Ja, direkt vor dem Studio stehen kostenlose Parkplätze zur Verfügung. Auch mit dem Bus bist du gut angebunden." }
+        },
+        {
+          "@type": "Question",
+          "name": "Brauche ich Vorkenntnisse?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Nein! Unsere TechnoGym Biostrength-Geräte stellen sich automatisch auf dich ein. Unsere Trainer zeigen dir alles und erstellen einen individuellen Plan für dich." }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Offer",
+      "name": "Frühlingsstart-Aktion — 2 Monate gratis",
+      "description": "Bei Abschluss bis 31.03.2026 trainierst du bis Ende März komplett beitragsfrei. Ab April ab 9€/Woche.",
+      "url": "https://angebot.fit-inn-trier.de",
+      "priceCurrency": "EUR",
+      "price": "0",
+      "validThrough": "2026-03-31",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "HealthClub",
+        "name": "FIT-INN Trier"
+      }
+    }
+    </script>
     
     <!-- Open Graph -->
     <meta property="og:title" content="FIT-INN Trier | Frühlingsstart: 2 Monate GRATIS">
@@ -31,13 +126,26 @@
     <meta name="twitter:description" content="🌸 Jetzt anmelden und bis 31.03. BEITRAGSFREI trainieren!">
     <meta name="twitter:image" content="https://cdn.sanity.io/images/6qiktmvm/production/b7787476401d9cf6e7b46b94847a30ce4a08e2a8-1563x1563.png">
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9P2000KJJK"></script>
+    <!-- Google tag (gtag.js) — nur nach Cookie-Consent laden -->
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-9P2000KJJK');
+        
+        function loadGoogleAnalytics() {
+            if (document.getElementById('ga-script')) return;
+            var s = document.createElement('script');
+            s.id = 'ga-script';
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=G-9P2000KJJK';
+            document.head.appendChild(s);
+            gtag('js', new Date());
+            gtag('config', 'G-9P2000KJJK');
+        }
+        
+        // Nur laden wenn Consent bereits erteilt
+        if (localStorage.getItem('cookie_consent') === 'all') {
+            loadGoogleAnalytics();
+        }
     </script>
     
     <!-- Fonts - SF Pro inspired -->
@@ -778,6 +886,22 @@
                     2 Monate gratis sichern
                 </button>
             </div>
+            
+            <!-- Social Proof Pills -->
+            <div class="reveal reveal-delay-4 flex flex-wrap items-center justify-center gap-4 mt-8">
+                <div class="flex items-center gap-2 rounded-full px-4 py-2" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);">
+                    <span class="text-yellow-400 text-sm">★★★★★</span>
+                    <span class="text-white/70 text-sm font-medium">4,7 auf Google</span>
+                </div>
+                <div class="flex items-center gap-2 rounded-full px-4 py-2" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);">
+                    <span class="text-accent text-sm">♥</span>
+                    <span class="text-white/70 text-sm font-medium">1000+ aktive Mitglieder</span>
+                </div>
+                <div class="flex items-center gap-2 rounded-full px-4 py-2" style="background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);">
+                    <span class="text-teal text-sm">✓</span>
+                    <span class="text-white/70 text-sm font-medium">Seit 1994 in Trier</span>
+                </div>
+            </div>
         </div>
         
         <!-- Scroll indicator -->
@@ -802,9 +926,29 @@
                 Bei Abschluss einer Jahres- oder Zweijahres-Mitgliedschaft trainierst du bis zum <strong class="text-white">31. März 2026</strong> komplett beitragsfrei.
             </p>
             <!-- Dynamic Countdown -->
-            <div class="reveal reveal-delay-2 inline-flex items-center gap-3 glass rounded-full px-6 py-3 mb-12">
-                <span class="text-accent text-2xl font-bold" id="promo-days-count">--</span>
-                <span class="text-apple-gray-300 text-sm">Tage geschenkt bei Anmeldung heute</span>
+            <div class="reveal reveal-delay-2 inline-flex items-center gap-4 glass rounded-2xl px-6 py-4 mb-12">
+                <div class="flex items-center gap-3">
+                    <div class="text-center">
+                        <span class="text-accent text-2xl font-bold block" id="promo-days-count">--</span>
+                        <span class="text-apple-gray-500 text-[10px] uppercase tracking-wider">Tage</span>
+                    </div>
+                    <span class="text-accent/50 text-xl font-light">:</span>
+                    <div class="text-center">
+                        <span class="text-accent text-2xl font-bold block" id="promo-hours-count">--</span>
+                        <span class="text-apple-gray-500 text-[10px] uppercase tracking-wider">Std</span>
+                    </div>
+                    <span class="text-accent/50 text-xl font-light">:</span>
+                    <div class="text-center">
+                        <span class="text-accent text-2xl font-bold block" id="promo-mins-count">--</span>
+                        <span class="text-apple-gray-500 text-[10px] uppercase tracking-wider">Min</span>
+                    </div>
+                    <span class="text-accent/50 text-xl font-light">:</span>
+                    <div class="text-center">
+                        <span class="text-accent text-2xl font-bold block" id="promo-secs-count">--</span>
+                        <span class="text-apple-gray-500 text-[10px] uppercase tracking-wider">Sek</span>
+                    </div>
+                </div>
+                <span class="text-apple-gray-300 text-sm ml-2">geschenkt bei Anmeldung heute</span>
             </div>
             
             <!-- Feature Grid - Same style as USP section below -->
@@ -2267,46 +2411,42 @@
         updateOpenStatus();
         setInterval(updateOpenStatus, 60000); // Update every minute
         
-        // Promo Countdown - Tage bis 31.03.2026
+        // Promo Countdown - Live Ticker bis 31.03.2026
         function updatePromoCountdown() {
-            const promoEnd = new Date('2026-03-31T23:59:59');
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
+            const promoEnd = new Date('2026-03-31T23:59:59+01:00'); // CET
+            const now = new Date();
             
-            const diffTime = promoEnd - today;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const diffTime = promoEnd - now;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffHours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const diffMins = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+            const diffSecs = Math.floor((diffTime % (1000 * 60)) / 1000);
             
-            // Alle Countdown-Elemente aktualisieren
-            const elements = {
-                'promo-days-count': diffDays,
-                'hero-promo-days': diffDays,
-                'cta-promo-days': diffDays,
-                'pricing-premium-days': diffDays,
-                'pricing-basic-days': diffDays
-            };
+            // Animated countdown (Tage:Stunden:Minuten:Sekunden)
+            const pad = (n) => String(n).padStart(2, '0');
+            const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
             
-            for (const [id, value] of Object.entries(elements)) {
-                const el = document.getElementById(id);
-                if (el) el.textContent = value > 0 ? value : '0';
-            }
+            setEl('promo-days-count', diffDays > 0 ? diffDays : '0');
+            setEl('promo-hours-count', pad(diffHours));
+            setEl('promo-mins-count', pad(diffMins));
+            setEl('promo-secs-count', pad(diffSecs));
+            
+            // Simple day counters
+            ['hero-promo-days', 'cta-promo-days', 'pricing-premium-days', 'pricing-basic-days'].forEach(id => {
+                setEl(id, diffDays > 0 ? diffDays : '0');
+            });
             
             // Headline dynamisch anpassen
             const headlineEl = document.getElementById('promo-days-headline');
             if (headlineEl) {
-                if (diffDays > 0) {
-                    if (diffDays >= 60) {
-                        headlineEl.textContent = '2 Monate';
-                    } else if (diffDays >= 30) {
-                        headlineEl.textContent = diffDays + ' Tage';
-                    } else {
-                        headlineEl.textContent = 'Noch ' + diffDays + ' Tage';
-                    }
-                } else {
-                    headlineEl.textContent = 'Angebot beendet';
-                }
+                if (diffDays >= 60) headlineEl.textContent = '2 Monate';
+                else if (diffDays >= 30) headlineEl.textContent = diffDays + ' Tage';
+                else if (diffDays > 0) headlineEl.textContent = 'Noch ' + diffDays + ' Tage';
+                else headlineEl.textContent = 'Angebot beendet';
             }
         }
         updatePromoCountdown();
+        setInterval(updatePromoCountdown, 1000); // Live ticking every second
         
         // Google Maps 2-Klick-Lösung (DSGVO)
         window.loadGoogleMaps = function() {
@@ -2965,6 +3105,7 @@
         localStorage.setItem('cookie_consent_date', new Date().toISOString());
         hideCookieModal();
         if (all) {
+            loadGoogleAnalytics();
             initExtendedTracking();
         }
     }
