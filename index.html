@@ -621,6 +621,17 @@
         #hero-video {
             filter: blur(4px);
         }
+        /* Hide mux-player default controls */
+        mux-player {
+            --controls: none;
+            --loading-indicator: none;
+        }
+        mux-player::part(gesture-layer),
+        mux-player::part(top-bar),
+        mux-player::part(bottom-bar),
+        mux-player::part(center) {
+            display: none !important;
+        }
         
         /* Mobile input fix */
         input, select, textarea { font-size: 16px !important; }
@@ -836,6 +847,9 @@
         }
     </style>
     
+    <!-- Mux Player -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@mux/mux-player@3/dist/mux-player.min.js"></script>
+    
     <!-- reCAPTCHA v3 for Magicline API -->
     <script src="https://www.google.com/recaptcha/api.js?render=6Lf42WEsAAAAAJklBBd1adX2vCMeR6AnfQUE6Ve_"></script>
 </head>
@@ -871,14 +885,14 @@
     <section class="relative min-h-screen flex flex-col justify-center items-center section-dark overflow-hidden">
         <!-- Background Video (Desktop) + Image Fallback (Mobile) -->
         <div class="absolute inset-0 overflow-hidden">
-            <!-- Video: Desktop/Tablet -->
-            <video id="hero-video" 
-                   autoplay muted loop playsinline 
-                   poster="https://image.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/thumbnail.jpg?time=5&width=1920"
-                   class="hidden md:block w-full h-[120%] object-cover opacity-40"
-                   style="transform: translate3d(0,0,0); will-change: transform;">
-                <source src="https://stream.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/high.mp4" type="video/mp4">
-            </video>
+            <!-- Video: Desktop/Tablet via Mux HLS -->
+            <mux-player id="hero-video"
+                         playback-id="22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY"
+                         autoplay muted loop
+                         default-hidden-captions
+                         class="hidden md:block w-full h-[120%] object-cover opacity-40"
+                         style="transform: translate3d(0,0,0); will-change: transform; --controls: none; --media-object-fit: cover; --media-object-position: center; aspect-ratio: auto;">
+            </mux-player>
             <!-- Image: Mobile Fallback (spart Daten) -->
             <img id="hero-parallax-img" 
                  src="https://image.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/thumbnail.jpg?time=5&width=1080"
@@ -1204,21 +1218,22 @@
                 
                 <!-- Video - Studio Tour -->
                 <div class="md:col-span-2 group relative overflow-hidden rounded-2xl aspect-video cursor-pointer" id="gallery-video-container">
-                    <video id="gallery-video" class="w-full h-full object-cover" 
-                           muted loop playsinline
-                           poster="https://image.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/thumbnail.jpg?time=10&width=1280"
-                           loading="lazy">
-                        <source src="https://stream.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/medium.mp4" type="video/mp4">
-                    </video>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                    <div id="gallery-play-btn" class="absolute inset-0 flex items-center justify-center">
+                    <mux-player id="gallery-video"
+                                playback-id="22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY"
+                                muted loop
+                                default-hidden-captions
+                                placeholder="https://image.mux.com/22XGsty0100osCaILbqc7NhuBqwoAvzQIAivb9AgcbweY/thumbnail.jpg?time=10&width=1280"
+                                style="width: 100%; height: 100%; --controls: none; --media-object-fit: cover;">
+                    </mux-player>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+                    <div id="gallery-play-btn" class="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-xl flex items-center justify-center group-hover:bg-white/30 transition-all duration-300 group-hover:scale-110">
                             <svg id="gallery-play-icon" class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
                         </div>
                     </div>
-                    <div class="absolute bottom-4 left-4 text-white">
+                    <div class="absolute bottom-4 left-4 text-white pointer-events-none">
                         <p class="font-semibold">Studio-Rundgang</p>
                         <p class="text-sm text-white/70">1:12 Min · UHD Qualität</p>
                     </div>
@@ -2524,32 +2539,32 @@
         // ============================================
         const galleryVideoContainer = document.getElementById('gallery-video-container');
         if (galleryVideoContainer) {
+            let galleryPlaying = false;
             galleryVideoContainer.addEventListener('click', function() {
-                const video = document.getElementById('gallery-video');
+                const player = document.getElementById('gallery-video');
                 const playBtn = document.getElementById('gallery-play-btn');
-                const playIcon = document.getElementById('gallery-play-icon');
-                if (video.paused) {
-                    video.play();
+                if (!galleryPlaying) {
+                    player.play();
+                    galleryPlaying = true;
                     playBtn.style.opacity = '0';
                     playBtn.style.transition = 'opacity 0.3s';
                 } else {
-                    video.pause();
+                    player.pause();
+                    galleryPlaying = false;
                     playBtn.style.opacity = '1';
+                    document.getElementById('gallery-play-icon').innerHTML = '<path d="M8 5v14l11-7z"/>';
                 }
             });
-            // Show play button on hover when playing
             galleryVideoContainer.addEventListener('mouseenter', function() {
-                const video = document.getElementById('gallery-video');
                 const playBtn = document.getElementById('gallery-play-btn');
-                if (!video.paused) {
+                if (galleryPlaying) {
                     playBtn.style.opacity = '0.7';
                     document.getElementById('gallery-play-icon').innerHTML = '<rect x="6" y="4" width="4" height="16" fill="currentColor"/><rect x="14" y="4" width="4" height="16" fill="currentColor"/>';
                 }
             });
             galleryVideoContainer.addEventListener('mouseleave', function() {
-                const video = document.getElementById('gallery-video');
                 const playBtn = document.getElementById('gallery-play-btn');
-                if (!video.paused) {
+                if (galleryPlaying) {
                     playBtn.style.opacity = '0';
                 }
                 document.getElementById('gallery-play-icon').innerHTML = '<path d="M8 5v14l11-7z"/>';
