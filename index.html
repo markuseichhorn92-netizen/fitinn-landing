@@ -2397,16 +2397,30 @@
         function openChoiceModal() {
             document.getElementById('modal-choice').classList.add('active');
             document.body.style.overflow = 'hidden';
+            // Animate sheet up
+            setTimeout(() => {
+                document.getElementById('choice-sheet').classList.remove('translate-y-full');
+                document.getElementById('choice-sheet').classList.add('translate-y-0');
+            }, 50);
             if (typeof trackModalOpen === 'function') trackModalOpen('choice');
+        }
+        
+        function closeChoiceModal() {
+            document.getElementById('choice-sheet').classList.remove('translate-y-0');
+            document.getElementById('choice-sheet').classList.add('translate-y-full');
+            setTimeout(() => {
+                document.getElementById('modal-choice').classList.remove('active');
+                document.body.style.overflow = '';
+            }, 300);
         }
         
         function selectChoice(type) {
             // Close choice modal first
-            document.getElementById('modal-choice').classList.remove('active');
+            closeChoiceModal();
             // Small delay for smooth transition, then open selected modal
             setTimeout(() => {
                 openModal(type);
-            }, 150);
+            }, 350);
         }
         
         // Check if user is returning from email/WhatsApp link with lead data
@@ -2745,13 +2759,13 @@
     </script>
 
     <!-- Choice Modal - Probetraining oder Mitgliedschaft (Bottom Sheet Style) -->
-    <div id="modal-choice" class="modal-overlay fixed inset-0 z-[200] bg-black/70 backdrop-blur-sm">
-        <div class="modal-content bg-[#1c1c1e] border-t border-white/10 relative z-10">
+    <div id="modal-choice" class="modal-overlay fixed inset-0 z-[200] bg-black/70 backdrop-blur-sm" onclick="if(event.target === this) closeChoiceModal()">
+        <div class="bg-[#1c1c1e] border-t border-white/10 fixed bottom-0 left-0 right-0 z-10 rounded-t-3xl max-h-[90vh] overflow-y-auto transition-transform duration-500 ease-out translate-y-full md:max-w-[560px] md:left-1/2 md:-translate-x-1/2" id="choice-sheet">
             <!-- Swipe Handle -->
-            <div class="modal-handle cursor-pointer" onclick="closeModal('choice')"></div>
+            <div class="modal-handle cursor-pointer" onclick="closeChoiceModal()"></div>
             
             <!-- X Close Button -->
-            <button onclick="closeModal('choice')" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors z-20">
+            <button onclick="closeChoiceModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors z-20">
                 <svg class="w-5 h-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
