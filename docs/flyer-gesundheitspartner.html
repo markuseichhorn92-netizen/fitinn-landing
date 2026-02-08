@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            width: 210mm;
+            height: 297mm;
+            background: #000;
+            color: #f5f5f7;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 20mm 18mm;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Subtle background gradient */
+        .bg-glow {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(221,155,67,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .bg-glow-bottom {
+            position: absolute;
+            bottom: -150px;
+            left: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(9,73,87,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12mm;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo-text {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo-text span {
+            color: #DD9B43;
+        }
+        
+        .badge {
+            background: rgba(9,73,87,0.3);
+            border: 1px solid rgba(9,73,87,0.5);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 11px;
+            color: #4db8cc;
+            font-weight: 500;
+        }
+        
+        /* Main Content */
+        .content {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .main-headline {
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 5mm;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #DD9B43 0%, #e6ac5a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 15px;
+            color: rgba(245,245,247,0.5);
+            line-height: 1.6;
+            margin-bottom: 10mm;
+            max-width: 80%;
+        }
+        
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4mm;
+            margin-bottom: 10mm;
+        }
+        
+        .benefit-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 5mm;
+        }
+        
+        .benefit-icon {
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 3mm;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(221,155,67,0.15);
+            border-radius: 10px;
+            color: #DD9B43;
+        }
+        
+        .benefit-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 2mm;
+        }
+        
+        .benefit-text {
+            font-size: 11px;
+            color: rgba(245,245,247,0.45);
+            line-height: 1.5;
+        }
+        
+        /* Offer Box */
+        .offer-box {
+            background: linear-gradient(135deg, rgba(221,155,67,0.12) 0%, rgba(221,155,67,0.04) 100%);
+            border: 1px solid rgba(221,155,67,0.35);
+            border-radius: 20px;
+            padding: 6mm 7mm;
+            margin-bottom: 10mm;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .offer-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(221,155,67,0.6), transparent);
+        }
+        
+        .offer-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #DD9B43;
+            margin-bottom: 3mm;
+        }
+        
+        .offer-title {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 3mm;
+        }
+        
+        .offer-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2mm 6mm;
+        }
+        
+        .offer-item {
+            font-size: 12px;
+            color: rgba(245,245,247,0.7);
+        }
+        
+        .offer-item span {
+            color: #DD9B43;
+            margin-right: 4px;
+        }
+        
+        /* Footer / CTA */
+        .footer {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        
+        .contact-info {
+            font-size: 12px;
+            color: rgba(245,245,247,0.5);
+            line-height: 1.8;
+        }
+        
+        .contact-info strong {
+            color: #f5f5f7;
+            font-weight: 600;
+        }
+        
+        .qr-section {
+            text-align: center;
+        }
+        
+        .qr-box {
+            width: 30mm;
+            height: 30mm;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2mm;
+            padding: 3mm;
+        }
+        
+        .qr-box img {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .qr-label {
+            font-size: 9px;
+            color: rgba(245,245,247,0.4);
+            line-height: 1.4;
+        }
+        
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(255,255,255,0.08);
+            margin: 5mm 0;
+        }
+        
+        .trust-pills {
+            display: flex;
+            gap: 3mm;
+            margin-bottom: 6mm;
+        }
+        
+        .trust-pill {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 2mm 4mm;
+            font-size: 10px;
+            color: rgba(245,245,247,0.5);
+        }
+        
+        .trust-pill .stars {
+            color: #f5c518;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="bg-glow"></div>
+        <div class="bg-glow-bottom"></div>
+        
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-text">FIT<span>-</span>INN <span>TRIER</span></div>
+            <div class="badge">+ Gesundheitspartner-Programm</div>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            <h1 class="main-headline">
+                Nach der Physio<br>
+                <span class="gradient-text">kommt das Training.</span>
+            </h1>
+            
+            <p class="subtitle">
+                Wir arbeiten mit Physiotherapeuten zusammen, weil ganzheitliche Gesundheit unser gemeinsames Ziel ist. Ihre Patienten profitieren von professionellem Aufbautraining — und Sie von zufriedenen Patienten.
+            </p>
+            
+            <!-- Trust Pills -->
+            <div class="trust-pills">
+                <div class="trust-pill"><span class="stars">*****</span> 4,7 Google</div>
+                <div class="trust-pill">30+ Jahre Erfahrung</div>
+                <div class="trust-pill">1000+ Mitglieder</div>
+                <div class="trust-pill">TechnoGym Ausstattung</div>
+            </div>
+            
+            <!-- Benefits -->
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">01</div>
+                    <div class="benefit-title">Individuelle Trainingspläne</div>
+                    <div class="benefit-text">Abgestimmt auf die Therapie Ihrer Patienten. Unsere Trainer berücksichtigen alle Einschränkungen.</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">02</div>
+                    <div class="benefit-title">TechnoGym Biostrength</div>
+                    <div class="benefit-text">Intelligente Geräte die sich automatisch einstellen — gelenkschonend und sicher für Reha-Patienten.</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">03</div>
+                    <div class="benefit-title">Gegenseitige Empfehlung</div>
+                    <div class="benefit-text">Wir empfehlen Sie aktiv an unsere Mitglieder. Sie empfehlen uns an Ihre Patienten. Win-Win.</div>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">04</div>
+                    <div class="benefit-title">Empfehlungskarten</div>
+                    <div class="benefit-text">Kostenlose, personalisierte Karten für Ihre Praxis — Patienten buchen direkt online.</div>
+                </div>
+            </div>
+            
+            <!-- Offer Box -->
+            <div class="offer-box">
+                <div class="offer-label">Exklusiv für Ihre Patienten</div>
+                <div class="offer-title">Kostenloses Probetraining + <span class="gradient-text">2 Monate GRATIS</span></div>
+                <div class="offer-items">
+                    <div class="offer-item"><span>+</span> Persönliche Einweisung</div>
+                    <div class="offer-item"><span>+</span> Individueller Trainingsplan</div>
+                    <div class="offer-item"><span>+</span> InBody Körperanalyse</div>
+                    <div class="offer-item"><span>+</span> Startpaket geschenkt (Wert: 39€)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="contact-info">
+                <strong>FIT-INN Trier</strong> — Gesundheitspartner seit 1996<br>
+                Auf Hirtenberg 8, 54296 Trier<br>
+                Tel: 0651 30 85 247<br>
+                Mail: info@fit-inn-trier.de<br>
+                Web: fit-inn-trier.de
+            </div>
+            <div class="qr-section">
+                <div class="qr-box">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://angebot.fit-inn-trier.de/partner.html?utm_source=physio%26utm_medium=flyer%26utm_campaign=nahbereich&format=svg&color=000000&bgcolor=ffffff&qzone=1" alt="QR Code">
+                </div>
+                <div class="qr-label">Scannen für<br>Probetraining</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

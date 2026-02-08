@@ -36,7 +36,7 @@ Unsere Ausstattung umfasst modernste TechnoGym-Geräte, die sich automatisch auf
 
 Herzliche Grüße,
 Markus Eichhorn
-FIT-INN Trier — Gesundheitspartner seit 1994
+FIT-INN Trier — Gesundheitspartner seit 1996
 
 📞 0651 30 85 247
 📧 info@fit-inn-trier.de
