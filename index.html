@@ -2620,6 +2620,8 @@
             el.classList.add('selected');
             ptSelectedSlot = slot;
             document.getElementById('pt-btn-4').disabled = false;
+            // Auto-advance nach Zeitauswahl
+            setTimeout(() => ptGoToStep(5), 400);
         }
 
         document.getElementById('pt-prev-month').onclick = () => { ptCurrentDate.setMonth(ptCurrentDate.getMonth() - 1); ptRenderCalendar(); };
@@ -2668,9 +2670,19 @@
                 opt.classList.remove('border-apple-gray-600');
                 opt.classList.add('border-accent', 'bg-accent/10');
                 input.checked = true;
-                if (name === 'pt-goal') { ptSurveyData.goal = input.value; document.getElementById('pt-btn-1').disabled = false; }
-                else if (name === 'pt-friend') { ptSurveyData.bringFriend = input.value; document.getElementById('pt-btn-2').disabled = false; }
-                else if (name === 'pt-trainer') { ptSurveyData.trainerRequired = input.value === 'true'; document.getElementById('pt-btn-3').disabled = false; }
+                // Auto-advance nach Survey-Auswahl
+                if (name === 'pt-goal') { 
+                    ptSurveyData.goal = input.value; 
+                    setTimeout(() => ptGoToStep(2), 400);
+                }
+                else if (name === 'pt-friend') { 
+                    ptSurveyData.bringFriend = input.value; 
+                    setTimeout(() => ptGoToStep(3), 400);
+                }
+                else if (name === 'pt-trainer') { 
+                    ptSurveyData.trainerRequired = input.value === 'true'; 
+                    setTimeout(() => ptGoToStep(4), 400);
+                }
             };
         });
 

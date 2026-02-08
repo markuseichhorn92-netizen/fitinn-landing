@@ -697,6 +697,8 @@ document.querySelectorAll('.bk-rate-card').forEach(card => {
             name: card.dataset.name
         };
         document.getElementById('bk-btn-1').disabled = false;
+        // Auto-advance nach Tarif-Auswahl
+        setTimeout(() => bkGoToStep(2), 400);
     };
 });
 
