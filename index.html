@@ -2395,32 +2395,51 @@
         
         // Choice Modal Functions
         function openChoiceModal() {
-            document.getElementById('modal-choice').classList.add('active');
+            const overlay = document.getElementById('modal-choice');
+            const sheet = document.getElementById('choice-sheet');
+            overlay.classList.add('active');
+            overlay.style.opacity = '1';
             document.body.style.overflow = 'hidden';
             // Animate sheet up
             setTimeout(() => {
-                document.getElementById('choice-sheet').classList.remove('translate-y-full');
-                document.getElementById('choice-sheet').classList.add('translate-y-0');
+                sheet.classList.remove('translate-y-full');
+                sheet.classList.add('translate-y-0');
             }, 50);
             if (typeof trackModalOpen === 'function') trackModalOpen('choice');
         }
         
         function closeChoiceModal() {
-            document.getElementById('choice-sheet').classList.remove('translate-y-0');
-            document.getElementById('choice-sheet').classList.add('translate-y-full');
+            const overlay = document.getElementById('modal-choice');
+            const sheet = document.getElementById('choice-sheet');
+            sheet.classList.remove('translate-y-0');
+            sheet.classList.add('translate-y-full');
             setTimeout(() => {
-                document.getElementById('modal-choice').classList.remove('active');
+                overlay.classList.remove('active');
+                overlay.style.opacity = '';
                 document.body.style.overflow = '';
             }, 300);
         }
         
         function selectChoice(type) {
-            // Close choice modal first
-            closeChoiceModal();
-            // Small delay for smooth transition, then open selected modal
+            const overlay = document.getElementById('modal-choice');
+            const sheet = document.getElementById('choice-sheet');
+            
+            // Fade out backdrop smoothly
+            overlay.style.transition = 'opacity 0.4s ease';
+            overlay.style.opacity = '0';
+            
+            // Slide sheet down
+            sheet.classList.remove('translate-y-0');
+            sheet.classList.add('translate-y-full');
+            
+            // Open new modal while choice is fading
             setTimeout(() => {
+                overlay.classList.remove('active');
+                overlay.style.transition = '';
+                overlay.style.opacity = '';
+                // Keep body overflow hidden for seamless transition
                 openModal(type);
-            }, 350);
+            }, 200);
         }
         
         // Check if user is returning from email/WhatsApp link with lead data
