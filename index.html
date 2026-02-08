@@ -1994,8 +1994,18 @@
                     <span>Schritt <span id="pt-current-step">0</span> von 8</span>
                     <span id="pt-step-name">Kontakt</span>
                 </div>
-                <div class="h-1 bg-apple-gray-700 rounded-full overflow-hidden">
-                    <div id="pt-progress-bar" class="h-full bg-accent rounded-full transition-all" style="width: 12.5%"></div>
+                <div class="h-1.5 bg-apple-gray-700 rounded-full overflow-hidden">
+                    <div id="pt-progress-bar" class="h-full bg-gradient-to-r from-accent to-accent-light rounded-full transition-all duration-500 ease-out" style="width: 12.5%"></div>
+                </div>
+                <div id="pt-step-dots" class="flex justify-between mt-2">
+                    <div class="w-2 h-2 rounded-full bg-accent transition-all duration-300" data-step="0"></div>
+                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="1"></div>
+                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="2"></div>
+                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="3"></div>
+                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="4"></div>
+                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="5"></div>
+                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="6"></div>
+                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="7"></div>
                 </div>
             </div>
             
@@ -2448,6 +2458,110 @@
         updatePromoCountdown();
         setInterval(updatePromoCountdown, 1000); // Live ticking every second
         
+        // ============================================
+        // EXIT-INTENT POPUP
+        // ============================================
+        let exitPopupShown = false;
+        
+        function showExitPopup() {
+            if (exitPopupShown) return;
+            if (sessionStorage.getItem('exit_popup_shown')) return;
+            // Don't show if any modal is open
+            if (document.querySelector('.modal-overlay[style*="flex"]')) return;
+            if (document.getElementById('modal-choice')?.classList.contains('opacity-100')) return;
+            
+            exitPopupShown = true;
+            sessionStorage.setItem('exit_popup_shown', 'true');
+            
+            const popup = document.getElementById('exit-popup');
+            const content = document.getElementById('exit-popup-content');
+            popup.style.display = 'flex';
+            setTimeout(() => {
+                content.style.opacity = '1';
+                content.style.transform = 'scale(1)';
+            }, 50);
+        }
+        
+        function closeExitPopup() {
+            const popup = document.getElementById('exit-popup');
+            const content = document.getElementById('exit-popup-content');
+            content.style.opacity = '0';
+            content.style.transform = 'scale(0.95)';
+            setTimeout(() => popup.style.display = 'none', 300);
+        }
+        
+        // Desktop: Mouse leaves viewport (top)
+        document.addEventListener('mouseout', (e) => {
+            if (e.clientY <= 0 && !exitPopupShown) {
+                showExitPopup();
+            }
+        });
+        
+        // Mobile: Rapid scroll up (back-to-top gesture)
+        let lastScrollY = 0;
+        let scrollVelocity = 0;
+        window.addEventListener('scroll', () => {
+            const currentY = window.scrollY;
+            scrollVelocity = lastScrollY - currentY;
+            lastScrollY = currentY;
+            
+            // Trigger if user scrolls up fast from below fold
+            if (scrollVelocity > 80 && currentY < 200 && currentY > 0 && !exitPopupShown) {
+                showExitPopup();
+            }
+        }, { passive: true });
+        
+        // Also trigger after 45 seconds of inactivity
+        let exitTimer = setTimeout(() => {
+            if (!exitPopupShown && window.scrollY > 500) showExitPopup();
+        }, 45000);
+        
+        // Reset timer on interaction
+        ['click', 'scroll', 'touchstart'].forEach(evt => {
+            document.addEventListener(evt, () => {
+                clearTimeout(exitTimer);
+                exitTimer = setTimeout(() => {
+                    if (!exitPopupShown && window.scrollY > 500) showExitPopup();
+                }, 45000);
+            }, { passive: true });
+        });
+        
+        // ============================================
+        // FACEBOOK PIXEL EVENTS (Conversion Tracking)
+        // ============================================
+        // Track ViewContent when user scrolls to pricing
+        const pricingSection = document.getElementById('preise');
+        if (pricingSection) {
+            const pricingObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (typeof fbq !== 'undefined') fbq('track', 'ViewContent', { content_name: 'Pricing Section' });
+                        if (typeof gtag !== 'undefined') gtag('event', 'view_pricing', { event_category: 'engagement' });
+                        pricingObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+            pricingObserver.observe(pricingSection);
+        }
+        
+        // Track InitiateCheckout when choice modal opens
+        const origOpenChoice = window.openChoiceModal;
+        window.openChoiceModal = function() {
+            if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout');
+            if (typeof gtag !== 'undefined') gtag('event', 'begin_checkout', { event_category: 'conversion' });
+            origOpenChoice();
+        };
+        
+        // Track Lead when PT form step 0 (contact info) is submitted
+        const origPtCapture = window.ptCaptureLeadAndContinue;
+        if (origPtCapture) {
+            window.ptCaptureLeadAndContinue = async function() {
+                if (typeof fbq !== 'undefined') fbq('track', 'Lead', { content_name: 'Probetraining' });
+                if (typeof gtag !== 'undefined') gtag('event', 'generate_lead', { event_category: 'conversion', lead_type: 'probetraining' });
+                return origPtCapture();
+            };
+        }
+        
         // Google Maps 2-Klick-Lösung (DSGVO)
         window.loadGoogleMaps = function() {
             const placeholder = document.getElementById('maps-placeholder');
@@ -2778,6 +2892,12 @@
             document.querySelectorAll('#modal-probetraining .form-step').forEach(s => s.classList.remove('active'));
             document.getElementById(`pt-step-${n}`).classList.add('active');
             document.getElementById('pt-progress-bar').style.width = `${((n+1)/8)*100}%`;
+            // Update step dots
+            document.querySelectorAll('#pt-step-dots > div').forEach((dot, i) => {
+                dot.className = i <= n 
+                    ? 'w-2 h-2 rounded-full bg-accent transition-all duration-300' 
+                    : 'w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300';
+            });
             document.getElementById('pt-current-step').textContent = n;
             document.getElementById('pt-step-name').textContent = ptStepNames[n];
             
@@ -3032,6 +3152,29 @@
     
     <!-- Spacer for sticky CTA on mobile -->
     <div class="h-20 md:hidden"></div>
+
+    <!-- Exit-Intent Popup -->
+    <div id="exit-popup" class="fixed inset-0 z-[250] flex items-center justify-center p-4" style="display: none;">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeExitPopup()"></div>
+        <div id="exit-popup-content" class="relative w-full max-w-md transform scale-95 opacity-0 transition-all duration-300">
+            <div class="liquid-glass-accent p-8 text-center">
+                <div class="relative z-10">
+                    <button onclick="closeExitPopup()" class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-colors">✕</button>
+                    <div class="text-5xl mb-4">🎁</div>
+                    <h3 class="text-2xl font-bold mb-2">Warte kurz!</h3>
+                    <p class="text-white/70 mb-4">Du verpasst gerade ein unschlagbares Angebot:</p>
+                    <div class="bg-black/30 rounded-2xl p-4 mb-6">
+                        <p class="text-accent text-3xl font-bold">2 Monate GRATIS</p>
+                        <p class="text-white/50 text-sm mt-1">Trainiere bis 31. März komplett beitragsfrei</p>
+                    </div>
+                    <button onclick="closeExitPopup(); openChoiceModal();" class="w-full btn-primary text-lg py-4">
+                        Angebot sichern →
+                    </button>
+                    <p onclick="closeExitPopup()" class="text-white/30 text-xs mt-4 cursor-pointer hover:text-white/50 transition-colors">Nein danke, ich möchte kein Gratis-Training</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Cookie Consent Modal (zentriert) -->
     <div id="cookie-modal" class="fixed inset-0 z-[300] flex items-center justify-center p-4" style="display: none;">

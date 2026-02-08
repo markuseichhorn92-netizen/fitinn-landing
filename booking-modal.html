@@ -140,8 +140,18 @@
                 <span>Schritt <span id="bk-current-step">0</span> von 7</span>
                 <span id="bk-step-name">Start</span>
             </div>
-            <div class="h-1 bg-white/10 rounded-full overflow-hidden">
-                <div id="bk-progress-bar" class="h-full bg-[#DD9B43] rounded-full transition-all" style="width: 14.28%"></div>
+            <div class="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div id="bk-progress-bar" class="h-full bg-gradient-to-r from-[#DD9B43] to-[#e6ac5a] rounded-full transition-all duration-500 ease-out" style="width: 14.28%"></div>
+            </div>
+            <div id="bk-step-dots" class="flex justify-between mt-2">
+                <div class="w-2 h-2 rounded-full bg-[#DD9B43] transition-all duration-300" data-step="0"></div>
+                <div class="w-2 h-2 rounded-full bg-white/10 transition-all duration-300" data-step="1"></div>
+                <div class="w-2 h-2 rounded-full bg-white/10 transition-all duration-300" data-step="2"></div>
+                <div class="w-2 h-2 rounded-full bg-white/10 transition-all duration-300" data-step="3"></div>
+                <div class="w-2 h-2 rounded-full bg-white/10 transition-all duration-300" data-step="4"></div>
+                <div class="w-2 h-2 rounded-full bg-white/10 transition-all duration-300" data-step="5"></div>
+                <div class="w-2 h-2 rounded-full bg-white/10 transition-all duration-300" data-step="6"></div>
+                <div class="w-2 h-2 rounded-full bg-white/10 transition-all duration-300" data-step="7"></div>
             </div>
         </div>
         
@@ -710,12 +720,24 @@ function bkGoToStep(n) {
     console.log('Step element:', stepEl);
     if (stepEl) stepEl.classList.add('active');
     
+    // Facebook Pixel Events
+    if (n === 1 && typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout', { content_name: 'Mitgliedschaft' });
+    if (n === 3 && typeof fbq !== 'undefined') fbq('track', 'Lead', { content_name: 'Mitgliedschaft' });
+    if (n === 5 && typeof fbq !== 'undefined') fbq('track', 'AddPaymentInfo');
+    if (n === 7 && typeof fbq !== 'undefined') fbq('track', 'Purchase', { content_name: 'Mitgliedschaft', currency: 'EUR', value: 0 });
+    
     // Scroll modal content to top on step change
     const modalContent = document.querySelector('#modal-booking .modal-content');
     if (modalContent) modalContent.scrollTop = 0;
     document.getElementById('bk-progress-bar').style.width = `${((n+1)/8)*100}%`;
     document.getElementById('bk-current-step').textContent = n;
     document.getElementById('bk-step-name').textContent = bkStepNames[n];
+    // Update step dots
+    document.querySelectorAll('#bk-step-dots > div').forEach((dot, i) => {
+        dot.className = i <= n 
+            ? 'w-2 h-2 rounded-full bg-[#DD9B43] transition-all duration-300' 
+            : 'w-2 h-2 rounded-full bg-white/10 transition-all duration-300';
+    });
     const subtitles = { 0: 'Kurz kennenlernen', 1: 'Wähle deinen Tarif', 2: 'Optionale Extras', 3: 'Über dich', 4: 'Für den Vertrag', 5: 'SEPA-Lastschrift', 6: 'Prüfen & Bestätigen', 7: 'Willkommen!' };
     document.getElementById('bk-header-subtitle').textContent = subtitles[n] || '';
     if (n === 2) bkRenderModules();
