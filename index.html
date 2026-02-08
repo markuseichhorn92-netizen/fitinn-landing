@@ -2753,11 +2753,20 @@
         };
     </script>
 
-    <!-- Choice Modal - Probetraining oder Mitgliedschaft -->
+    <!-- Choice Modal - Probetraining oder Mitgliedschaft (Bottom Sheet Style) -->
     <div id="modal-choice" class="modal-overlay fixed inset-0 z-[200] bg-black/70 backdrop-blur-sm">
         <div class="modal-content bg-[#1c1c1e] border-t border-white/10 relative z-10">
-            <div class="modal-handle"></div>
-            <div class="p-6 pb-8">
+            <!-- Swipe Handle -->
+            <div class="modal-handle cursor-pointer" onclick="closeModal('choice')"></div>
+            
+            <!-- X Close Button -->
+            <button onclick="closeModal('choice')" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors z-20">
+                <svg class="w-5 h-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+            
+            <div class="p-6 pb-8 pb-safe">
                 <!-- Header -->
                 <div class="text-center mb-8">
                     <h2 class="text-2xl font-bold text-white mb-2">Was möchtest du tun?</h2>
@@ -2802,11 +2811,6 @@
                         </div>
                     </button>
                 </div>
-                
-                <!-- Close Button -->
-                <button onclick="closeModal('choice')" class="mt-6 w-full py-3 text-white/50 hover:text-white text-sm transition-colors">
-                    Abbrechen
-                </button>
             </div>
         </div>
     </div>
