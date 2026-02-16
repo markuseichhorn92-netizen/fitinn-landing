@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="120" viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Apple-style warm gradient -->
+    <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF6B35"/>
+      <stop offset="50%" stop-color="#E53935"/>
+      <stop offset="100%" stop-color="#C62828"/>
+    </linearGradient>
+    
+    <!-- Subtle shadow for depth -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+  
+  <!-- Icon: Abstract "F" with fitness/strength motif -->
+  <g filter="url(#shadow)">
+    <!-- Main icon shape - stylized barbell/F hybrid -->
+    <rect x="20" y="25" width="12" height="70" rx="6" fill="url(#brandGradient)"/>
+    <rect x="20" y="25" width="50" height="12" rx="6" fill="url(#brandGradient)"/>
+    <rect x="20" y="52" width="38" height="10" rx="5" fill="url(#brandGradient)"/>
+    
+    <!-- Accent circle - energy/vitality -->
+    <circle cx="78" cy="31" r="8" fill="url(#brandGradient)" opacity="0.8"/>
+  </g>
+  
+  <!-- Typography: FIT-INN -->
+  <text x="105" y="75" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="-1" fill="#1D1D1F">
+    FIT-INN
+  </text>
+  
+  <!-- Tagline -->
+  <text x="107" y="100" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="400" letter-spacing="3" fill="#86868B">
+    TRIER
+  </text>
+</svg>

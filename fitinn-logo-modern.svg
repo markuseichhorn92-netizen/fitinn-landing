@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="320" height="100" viewBox="0 0 320 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Apple-style warm gradient (Orange → Crimson → Deep Red) -->
+    <linearGradient id="fitinnGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8C42"/>
+      <stop offset="50%" stop-color="#E5533D"/>
+      <stop offset="100%" stop-color="#C2185B"/>
+    </linearGradient>
+    
+    <!-- Subtle premium shadow -->
+    <filter id="premiumShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#000" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+  
+  <!-- Icon: Interlocking fitness symbol (inspired by AI concept) -->
+  <g transform="translate(10, 15)" filter="url(#premiumShadow)">
+    <!-- Upper swoosh -->
+    <path d="M35 10 C45 5, 55 8, 58 18 C62 30, 50 42, 38 38 C30 35, 28 25, 35 18 C38 14, 42 12, 35 10 Z" 
+          fill="url(#fitinnGradient)" opacity="0.95"/>
+    <!-- Lower swoosh -->
+    <path d="M25 60 C15 65, 5 62, 2 52 C-2 40, 10 28, 22 32 C30 35, 32 45, 25 52 C22 56, 18 58, 25 60 Z" 
+          fill="url(#fitinnGradient)" opacity="0.85"/>
+    <!-- Connection point -->
+    <circle cx="30" cy="35" r="6" fill="url(#fitinnGradient)"/>
+  </g>
+  
+  <!-- Typography: FIT-INN (Apple SF Pro style) -->
+  <text x="85" y="58" 
+        font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" 
+        font-size="38" 
+        font-weight="600" 
+        letter-spacing="-0.5"
+        fill="#1D1D1F">FIT-INN</text>
+  
+  <!-- Subtle tagline -->
+  <text x="87" y="78" 
+        font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif" 
+        font-size="12" 
+        font-weight="500" 
+        letter-spacing="2.5"
+        fill="#86868B">TRIER · SEIT 1996</text>
+</svg>

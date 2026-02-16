@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Brand gradient -->
+    <linearGradient id="bannerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8C42"/>
+      <stop offset="50%" stop-color="#E5533D"/>
+      <stop offset="100%" stop-color="#C2185B"/>
+    </linearGradient>
+    
+    <!-- Background gradient (subtle, Apple-style) -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FAFAFA"/>
+      <stop offset="100%" stop-color="#F5F5F7"/>
+    </linearGradient>
+    
+    <!-- Glass morphism effect -->
+    <filter id="glass" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur stdDeviation="20" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.3 0"/>
+    </filter>
+  </defs>
+  
+  <!-- Clean background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative gradient blob (Apple-style abstract) -->
+  <ellipse cx="950" cy="400" rx="350" ry="300" fill="url(#bannerGradient)" opacity="0.08"/>
+  <ellipse cx="200" cy="150" rx="200" ry="180" fill="url(#bannerGradient)" opacity="0.05"/>
+  
+  <!-- Logo icon (large, positioned left) -->
+  <g transform="translate(100, 180) scale(2.5)">
+    <path d="M50 12 C62 6, 72 12, 72 26 C72 42, 56 52, 42 46 C32 42, 30 30, 38 22 C44 16, 46 14, 50 12 Z" 
+          fill="url(#bannerGradient)"/>
+    <path d="M20 58 C8 64, -2 58, -2 44 C-2 28, 14 18, 28 24 C38 28, 40 40, 32 48 C26 54, 24 56, 20 58 Z" 
+          fill="url(#bannerGradient)" opacity="0.85"/>
+    <circle cx="35" cy="35" r="8" fill="url(#bannerGradient)" opacity="0.6"/>
+  </g>
+  
+  <!-- Main headline -->
+  <text x="380" y="260" 
+        font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial" 
+        font-size="72" 
+        font-weight="700" 
+        letter-spacing="-2"
+        fill="#1D1D1F">FIT-INN TRIER</text>
+  
+  <!-- Subheadline -->
+  <text x="380" y="320" 
+        font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial" 
+        font-size="28" 
+        font-weight="400"
+        fill="#515154">Dein Fitnessstudio seit 1996</text>
+  
+  <!-- Feature badges (Apple-style pill buttons) -->
+  <g transform="translate(380, 370)">
+    <!-- Badge 1 -->
+    <rect x="0" y="0" width="180" height="44" rx="22" fill="#F5F5F7" stroke="#E8E8ED" stroke-width="1"/>
+    <text x="90" y="28" text-anchor="middle" font-family="-apple-system" font-size="15" font-weight="500" fill="#1D1D1F">Stoffwechselcoaching</text>
+    
+    <!-- Badge 2 -->
+    <rect x="195" y="0" width="160" height="44" rx="22" fill="#F5F5F7" stroke="#E8E8ED" stroke-width="1"/>
+    <text x="275" y="28" text-anchor="middle" font-family="-apple-system" font-size="15" font-weight="500" fill="#1D1D1F">Modernste Geräte</text>
+    
+    <!-- Badge 3 -->
+    <rect x="370" y="0" width="190" height="44" rx="22" fill="#F5F5F7" stroke="#E8E8ED" stroke-width="1"/>
+    <text x="465" y="28" text-anchor="middle" font-family="-apple-system" font-size="15" font-weight="500" fill="#1D1D1F">Individuelle Betreuung</text>
+  </g>
+  
+  <!-- CTA Button (Apple-style) -->
+  <g transform="translate(380, 470)">
+    <rect x="0" y="0" width="240" height="56" rx="28" fill="url(#bannerGradient)"/>
+    <text x="120" y="36" text-anchor="middle" font-family="-apple-system" font-size="17" font-weight="600" fill="#FFFFFF">Probetraining buchen</text>
+  </g>
+  
+  <!-- Rating badge -->
+  <g transform="translate(380, 550)">
+    <text font-family="-apple-system" font-size="14" fill="#86868B">
+      <tspan>⭐ 4.7</tspan>
+      <tspan dx="8" fill="#AEAEB2">•</tspan>
+      <tspan dx="8">250+ Bewertungen</tspan>
+      <tspan dx="8" fill="#AEAEB2">•</tspan>
+      <tspan dx="8">Testsieger</tspan>
+    </text>
+  </g>
+</svg>
