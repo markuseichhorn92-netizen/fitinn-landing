@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIT-INN CMS | Content Management</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .tab-active { background: #DD9B43; color: #000; }
+        .tab-inactive { background: rgba(255,255,255,0.1); color: #fff; }
+        .input-field { 
+            background: rgba(255,255,255,0.05); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            color: #fff; 
+            padding: 12px 16px; 
+            border-radius: 12px; 
+            width: 100%; 
+        }
+        .input-field:focus { 
+            outline: none; 
+            border-color: #DD9B43; 
+            background: rgba(255,255,255,0.08);
+        }
+        .input-label { 
+            display: block; 
+            margin-bottom: 6px; 
+            font-weight: 500; 
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #DD9B43 0%, #e6ac5a 100%);
+            color: #000;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(221,155,67,0.3); }
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-weight: 500;
+            padding: 12px 24px;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.15); }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+        }
+        .toast-success { background: #22c55e; color: #fff; }
+        .toast-error { background: #ef4444; color: #fff; }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        textarea.input-field { min-height: 100px; resize: vertical; }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen">
+    
+    <!-- Login Screen -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center p-6">
+        <div class="card max-w-md w-full text-center">
+            <img src="https://cdn.sanity.io/images/6qiktmvm/production/e33b949b11d3aa8b60befb3f5f537803a8c48700-2917x486.png" 
+                 alt="FIT-INN" class="h-12 mx-auto mb-8">
+            <h1 class="text-2xl font-bold mb-2">Content Management</h1>
+            <p class="text-gray-400 mb-8">Melde dich an, um Inhalte zu bearbeiten</p>
+            
+            <form onsubmit="login(event)">
+                <input type="password" id="login-password" placeholder="Passwort eingeben" 
+                       class="input-field mb-4" autocomplete="current-password">
+                <button type="submit" class="btn-primary w-full">Anmelden</button>
+            </form>
+            
+            <p class="text-gray-500 text-sm mt-6">
+                Probleme beim Login? Kontaktiere den Administrator.
+            </p>
+        </div>
+    </div>
+    
+    <!-- CMS Dashboard -->
+    <div id="cms-dashboard" class="hidden">
+        <!-- Header -->
+        <header class="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
+            <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <img src="https://cdn.sanity.io/images/6qiktmvm/production/e33b949b11d3aa8b60befb3f5f537803a8c48700-2917x486.png" 
+                         alt="FIT-INN" class="h-8">
+                    <span class="text-gray-400">|</span>
+                    <span class="font-semibold">CMS</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-gray-400 text-sm" id="last-saved"></span>
+                    <button onclick="saveAllContent()" class="btn-primary flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Speichern
+                    </button>
+                    <button onclick="logout()" class="btn-secondary">Abmelden</button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Navigation Tabs -->
+        <nav class="border-b border-white/10 bg-black/50">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex gap-2 py-4 overflow-x-auto">
+                    <button onclick="showTab('hero')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-active" data-tab="hero">Hero</button>
+                    <button onclick="showTab('promo')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="promo">Angebot</button>
+                    <button onclick="showTab('features')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="features">Features</button>
+                    <button onclick="showTab('pricing')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="pricing">Preise</button>
+                    <button onclick="showTab('testimonials')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="testimonials">Bewertungen</button>
+                    <button onclick="showTab('faq')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="faq">FAQ</button>
+                    <button onclick="showTab('contact')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="contact">Kontakt</button>
+                    <button onclick="showTab('images')" class="tab px-4 py-2 rounded-lg text-sm font-medium tab-inactive" data-tab="images">Bilder</button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Content Area -->
+        <main class="max-w-7xl mx-auto px-6 py-8">
+            
+            <!-- Hero Section -->
+            <section id="tab-hero" class="tab-content">
+                <h2 class="text-xl font-bold mb-6">Hero-Bereich</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card">
+                        <label class="input-label">Überschrift (Zeile 1)</label>
+                        <input type="text" class="input-field mb-4" data-bind="hero.headline">
+                        
+                        <label class="input-label">Überschrift (Zeile 2 - farbig)</label>
+                        <input type="text" class="input-field mb-4" data-bind="hero.headlineAccent">
+                        
+                        <label class="input-label">Unterüberschrift</label>
+                        <input type="text" class="input-field mb-4" data-bind="hero.subheadline">
+                        
+                        <label class="input-label">CTA Button Text</label>
+                        <input type="text" class="input-field mb-4" data-bind="hero.ctaText">
+                        
+                        <label class="input-label">Sekundärer CTA Text</label>
+                        <input type="text" class="input-field" data-bind="hero.ctaSecondary">
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="font-semibold mb-4">Vorschau</h3>
+                        <div class="bg-gradient-to-b from-gray-900 to-black rounded-xl p-8 text-center">
+                            <h1 class="text-3xl font-bold mb-2" id="preview-hero-headline"></h1>
+                            <p class="text-gray-400 mb-4" id="preview-hero-subheadline"></p>
+                            <button class="btn-primary text-sm" id="preview-hero-cta"></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Promo Section -->
+            <section id="tab-promo" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">Angebot / Promo</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card">
+                        <label class="input-label">Badge Text</label>
+                        <input type="text" class="input-field mb-4" data-bind="promo.badge">
+                        
+                        <label class="input-label">Überschrift (Hauptteil)</label>
+                        <input type="text" class="input-field mb-4" data-bind="promo.headline">
+                        
+                        <label class="input-label">Überschrift (Suffix)</label>
+                        <input type="text" class="input-field mb-4" data-bind="promo.headlineSuffix">
+                        
+                        <label class="input-label">Beschreibung (HTML erlaubt)</label>
+                        <textarea class="input-field mb-4" data-bind="promo.description"></textarea>
+                        
+                        <label class="input-label">Aktion endet am</label>
+                        <input type="datetime-local" class="input-field" data-bind="promo.endDate">
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="font-semibold mb-4">Feature-Boxen</h3>
+                        <div id="promo-features-list" class="space-y-4">
+                            <!-- Dynamically filled -->
+                        </div>
+                        <button onclick="addPromoFeature()" class="btn-secondary mt-4 text-sm">+ Feature hinzufügen</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Features Section -->
+            <section id="tab-features" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">Features / Vorteile</h2>
+                <div class="card mb-6">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="input-label">Badge</label>
+                            <input type="text" class="input-field" data-bind="features.badge">
+                        </div>
+                        <div>
+                            <label class="input-label">Überschrift</label>
+                            <input type="text" class="input-field" data-bind="features.headline">
+                        </div>
+                        <div>
+                            <label class="input-label">Unterüberschrift</label>
+                            <input type="text" class="input-field" data-bind="features.subheadline">
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="font-semibold mb-4">Feature-Karten</h3>
+                <div id="features-list" class="grid md:grid-cols-2 gap-4">
+                    <!-- Dynamically filled -->
+                </div>
+                <button onclick="addFeature()" class="btn-secondary mt-4 text-sm">+ Feature hinzufügen</button>
+            </section>
+            
+            <!-- Pricing Section -->
+            <section id="tab-pricing" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">Preise / Tarife</h2>
+                <div class="card mb-6">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="input-label">Badge</label>
+                            <input type="text" class="input-field" data-bind="pricing.badge">
+                        </div>
+                        <div>
+                            <label class="input-label">Überschrift</label>
+                            <input type="text" class="input-field" data-bind="pricing.headline">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label class="input-label">Hinweistext</label>
+                        <input type="text" class="input-field" data-bind="pricing.subheadline">
+                    </div>
+                    <div class="mt-4">
+                        <label class="input-label">Promo-Hinweis</label>
+                        <input type="text" class="input-field" data-bind="pricing.promoNote">
+                    </div>
+                </div>
+                
+                <h3 class="font-semibold mb-4">Tarife</h3>
+                <div id="pricing-plans-list" class="grid md:grid-cols-3 gap-4">
+                    <!-- Dynamically filled -->
+                </div>
+                <button onclick="addPricingPlan()" class="btn-secondary mt-4 text-sm">+ Tarif hinzufügen</button>
+            </section>
+            
+            <!-- Testimonials Section -->
+            <section id="tab-testimonials" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">Kundenbewertungen</h2>
+                <div class="card mb-6">
+                    <label class="input-label">Überschrift</label>
+                    <input type="text" class="input-field" data-bind="testimonials.headline">
+                </div>
+                
+                <div id="testimonials-list" class="grid md:grid-cols-3 gap-4">
+                    <!-- Dynamically filled -->
+                </div>
+                <button onclick="addTestimonial()" class="btn-secondary mt-4 text-sm">+ Bewertung hinzufügen</button>
+            </section>
+            
+            <!-- FAQ Section -->
+            <section id="tab-faq" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">FAQ</h2>
+                <div class="card mb-6">
+                    <label class="input-label">Überschrift</label>
+                    <input type="text" class="input-field" data-bind="faq.headline">
+                </div>
+                
+                <div id="faq-list" class="space-y-4">
+                    <!-- Dynamically filled -->
+                </div>
+                <button onclick="addFaqItem()" class="btn-secondary mt-4 text-sm">+ FAQ hinzufügen</button>
+            </section>
+            
+            <!-- Contact Section -->
+            <section id="tab-contact" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">Kontaktinformationen</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card">
+                        <label class="input-label">Überschrift</label>
+                        <input type="text" class="input-field mb-4" data-bind="contact.headline">
+                        
+                        <label class="input-label">Unterüberschrift</label>
+                        <input type="text" class="input-field mb-4" data-bind="contact.subheadline">
+                        
+                        <label class="input-label">Straße</label>
+                        <input type="text" class="input-field mb-4" data-bind="contact.address.street">
+                        
+                        <label class="input-label">Stadt</label>
+                        <input type="text" class="input-field mb-4" data-bind="contact.address.city">
+                        
+                        <label class="input-label">Telefon</label>
+                        <input type="text" class="input-field mb-4" data-bind="contact.phone">
+                        
+                        <label class="input-label">E-Mail</label>
+                        <input type="email" class="input-field" data-bind="contact.email">
+                    </div>
+                    
+                    <div class="card">
+                        <h3 class="font-semibold mb-4">Öffnungszeiten</h3>
+                        <div id="hours-list" class="space-y-3">
+                            <!-- Dynamically filled -->
+                        </div>
+                        <button onclick="addHours()" class="btn-secondary mt-4 text-sm">+ Zeile hinzufügen</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Images Section -->
+            <section id="tab-images" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-6">Bilder & Medien</h2>
+                <div class="card mb-6">
+                    <h3 class="font-semibold mb-4">Bild hochladen</h3>
+                    <div class="border-2 border-dashed border-white/20 rounded-xl p-8 text-center">
+                        <input type="file" id="image-upload" accept="image/*" class="hidden" onchange="uploadImage(event)">
+                        <label for="image-upload" class="cursor-pointer">
+                            <svg class="w-12 h-12 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <p class="text-gray-400">Klicken zum Hochladen</p>
+                            <p class="text-gray-500 text-sm mt-1">JPG, PNG, WebP bis 10MB</p>
+                        </label>
+                    </div>
+                    <div id="upload-result" class="mt-4 hidden">
+                        <p class="text-green-400 mb-2">✓ Hochgeladen:</p>
+                        <code class="bg-white/10 px-3 py-2 rounded block text-sm break-all" id="upload-url"></code>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="font-semibold mb-4">Aktuelle Bilder</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="input-label">Logo URL</label>
+                            <input type="text" class="input-field text-sm" data-bind="images.logo">
+                        </div>
+                        <div>
+                            <label class="input-label">Hero Bild URL</label>
+                            <input type="text" class="input-field text-sm" data-bind="images.heroImage">
+                        </div>
+                        <div>
+                            <label class="input-label">Hero Video (Mux ID)</label>
+                            <input type="text" class="input-field text-sm" data-bind="images.heroVideo">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </main>
+        
+        <!-- Footer -->
+        <footer class="border-t border-white/10 py-6 mt-12">
+            <div class="max-w-7xl mx-auto px-6 text-center text-gray-500 text-sm">
+                <p>FIT-INN CMS • Für größere Design-Änderungen bitte J.A.R.V.I.S. kontaktieren</p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        const API_BASE = 'https://srv1309486.hstgr.cloud/api/cms';
+        let content = {};
+        let token = localStorage.getItem('cms_token');
+        
+        // Check if already logged in
+        if (token) {
+            loadContent();
+        }
+        
+        async function login(e) {
+            e.preventDefault();
+            const password = document.getElementById('login-password').value;
+            
+            try {
+                const res = await fetch(`${API_BASE}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    token = data.token;
+                    localStorage.setItem('cms_token', token);
+                    loadContent();
+                } else {
+                    showToast('Falsches Passwort', 'error');
+                }
+            } catch (err) {
+                showToast('Verbindungsfehler', 'error');
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('cms_token');
+            token = null;
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('cms-dashboard').classList.add('hidden');
+        }
+        
+        async function loadContent() {
+            try {
+                const res = await fetch(`${API_BASE}/content`);
+                content = await res.json();
+                
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('cms-dashboard').classList.remove('hidden');
+                
+                bindContent();
+                renderDynamicLists();
+                updateLastSaved();
+            } catch (err) {
+                showToast('Fehler beim Laden der Inhalte', 'error');
+            }
+        }
+        
+        function bindContent() {
+            document.querySelectorAll('[data-bind]').forEach(el => {
+                const path = el.dataset.bind.split('.');
+                let value = content;
+                for (const key of path) {
+                    value = value?.[key];
+                }
+                
+                if (el.type === 'datetime-local' && value) {
+                    value = value.slice(0, 16);
+                }
+                
+                el.value = value || '';
+                
+                el.addEventListener('input', () => {
+                    setNestedValue(content, path, el.value);
+                    updatePreviews();
+                });
+            });
+            
+            updatePreviews();
+        }
+        
+        function setNestedValue(obj, path, value) {
+            let current = obj;
+            for (let i = 0; i < path.length - 1; i++) {
+                if (!current[path[i]]) current[path[i]] = {};
+                current = current[path[i]];
+            }
+            current[path[path.length - 1]] = value;
+        }
+        
+        function updatePreviews() {
+            // Hero preview
+            const heroH = document.getElementById('preview-hero-headline');
+            const heroSub = document.getElementById('preview-hero-subheadline');
+            const heroCta = document.getElementById('preview-hero-cta');
+            
+            if (heroH) heroH.innerHTML = `${content.hero?.headline || ''}<br><span style="color:#DD9B43">${content.hero?.headlineAccent || ''}</span>`;
+            if (heroSub) heroSub.textContent = content.hero?.subheadline || '';
+            if (heroCta) heroCta.textContent = content.hero?.ctaText || '';
+        }
+        
+        function renderDynamicLists() {
+            // Promo features
+            const promoList = document.getElementById('promo-features-list');
+            promoList.innerHTML = (content.promo?.features || []).map((f, i) => `
+                <div class="bg-white/5 rounded-xl p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-sm text-gray-400">Feature ${i+1}</span>
+                        <button onclick="removePromoFeature(${i})" class="text-red-400 text-sm">✕</button>
+                    </div>
+                    <input type="text" class="input-field mb-2 text-sm" value="${f.title}" placeholder="Titel" onchange="content.promo.features[${i}].title = this.value">
+                    <input type="text" class="input-field text-sm" value="${f.description}" placeholder="Beschreibung" onchange="content.promo.features[${i}].description = this.value">
+                </div>
+            `).join('');
+            
+            // Features
+            const featuresList = document.getElementById('features-list');
+            featuresList.innerHTML = (content.features?.items || []).map((f, i) => `
+                <div class="card">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-sm text-gray-400">Feature ${i+1}</span>
+                        <button onclick="removeFeature(${i})" class="text-red-400 text-sm">✕</button>
+                    </div>
+                    <input type="text" class="input-field mb-2 text-sm" value="${f.title}" placeholder="Titel" onchange="content.features.items[${i}].title = this.value">
+                    <textarea class="input-field text-sm" placeholder="Beschreibung" onchange="content.features.items[${i}].description = this.value">${f.description}</textarea>
+                </div>
+            `).join('');
+            
+            // Pricing plans
+            const pricingList = document.getElementById('pricing-plans-list');
+            pricingList.innerHTML = (content.pricing?.plans || []).map((p, i) => `
+                <div class="card ${p.featured ? 'border-yellow-500/50' : ''}">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-sm ${p.featured ? 'text-yellow-400' : 'text-gray-400'}">${p.featured ? '⭐ ' : ''}Tarif ${i+1}</span>
+                        <button onclick="removePricingPlan(${i})" class="text-red-400 text-sm">✕</button>
+                    </div>
+                    <input type="text" class="input-field mb-2 text-sm" value="${p.name}" placeholder="Name" onchange="content.pricing.plans[${i}].name = this.value">
+                    <div class="grid grid-cols-2 gap-2 mb-2">
+                        <input type="text" class="input-field text-sm" value="${p.price}" placeholder="Preis" onchange="content.pricing.plans[${i}].price = this.value">
+                        <input type="text" class="input-field text-sm" value="${p.duration}" placeholder="Laufzeit" onchange="content.pricing.plans[${i}].duration = this.value">
+                    </div>
+                    <input type="text" class="input-field mb-2 text-sm" value="${p.promoPrice || ''}" placeholder="Promo-Preis" onchange="content.pricing.plans[${i}].promoPrice = this.value">
+                    <label class="flex items-center gap-2 text-sm text-gray-400">
+                        <input type="checkbox" ${p.featured ? 'checked' : ''} onchange="content.pricing.plans[${i}].featured = this.checked; renderDynamicLists();">
+                        Hervorgehoben
+                    </label>
+                </div>
+            `).join('');
+            
+            // Testimonials
+            const testimonialsList = document.getElementById('testimonials-list');
+            testimonialsList.innerHTML = (content.testimonials?.items || []).map((t, i) => `
+                <div class="card">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-sm text-gray-400">Bewertung ${i+1}</span>
+                        <button onclick="removeTestimonial(${i})" class="text-red-400 text-sm">✕</button>
+                    </div>
+                    <input type="text" class="input-field mb-2 text-sm" value="${t.name}" placeholder="Name" onchange="content.testimonials.items[${i}].name = this.value">
+                    <textarea class="input-field mb-2 text-sm" placeholder="Text" onchange="content.testimonials.items[${i}].text = this.value">${t.text}</textarea>
+                    <select class="input-field text-sm" onchange="content.testimonials.items[${i}].rating = parseInt(this.value)">
+                        ${[5,4,3,2,1].map(r => `<option value="${r}" ${t.rating === r ? 'selected' : ''}>${'★'.repeat(r)}${'☆'.repeat(5-r)}</option>`).join('')}
+                    </select>
+                </div>
+            `).join('');
+            
+            // FAQ
+            const faqList = document.getElementById('faq-list');
+            faqList.innerHTML = (content.faq?.items || []).map((f, i) => `
+                <div class="card">
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-sm text-gray-400">FAQ ${i+1}</span>
+                        <button onclick="removeFaqItem(${i})" class="text-red-400 text-sm">✕</button>
+                    </div>
+                    <input type="text" class="input-field mb-2 text-sm" value="${f.question}" placeholder="Frage" onchange="content.faq.items[${i}].question = this.value">
+                    <textarea class="input-field text-sm" placeholder="Antwort" onchange="content.faq.items[${i}].answer = this.value">${f.answer}</textarea>
+                </div>
+            `).join('');
+            
+            // Hours
+            const hoursList = document.getElementById('hours-list');
+            hoursList.innerHTML = (content.contact?.hours || []).map((h, i) => `
+                <div class="flex gap-2 items-center">
+                    <input type="text" class="input-field text-sm flex-1" value="${h.days}" placeholder="Tage" onchange="content.contact.hours[${i}].days = this.value">
+                    <input type="text" class="input-field text-sm flex-1" value="${h.time}" placeholder="Zeiten" onchange="content.contact.hours[${i}].time = this.value">
+                    <button onclick="removeHours(${i})" class="text-red-400">✕</button>
+                </div>
+            `).join('');
+        }
+        
+        // Add/Remove functions
+        function addPromoFeature() {
+            if (!content.promo.features) content.promo.features = [];
+            content.promo.features.push({ icon: 'star', title: '', description: '' });
+            renderDynamicLists();
+        }
+        function removePromoFeature(i) {
+            content.promo.features.splice(i, 1);
+            renderDynamicLists();
+        }
+        
+        function addFeature() {
+            if (!content.features.items) content.features.items = [];
+            content.features.items.push({ icon: 'star', title: '', description: '' });
+            renderDynamicLists();
+        }
+        function removeFeature(i) {
+            content.features.items.splice(i, 1);
+            renderDynamicLists();
+        }
+        
+        function addPricingPlan() {
+            if (!content.pricing.plans) content.pricing.plans = [];
+            content.pricing.plans.push({ name: '', price: '', duration: '', features: [], featured: false });
+            renderDynamicLists();
+        }
+        function removePricingPlan(i) {
+            content.pricing.plans.splice(i, 1);
+            renderDynamicLists();
+        }
+        
+        function addTestimonial() {
+            if (!content.testimonials.items) content.testimonials.items = [];
+            content.testimonials.items.push({ name: '', text: '', rating: 5 });
+            renderDynamicLists();
+        }
+        function removeTestimonial(i) {
+            content.testimonials.items.splice(i, 1);
+            renderDynamicLists();
+        }
+        
+        function addFaqItem() {
+            if (!content.faq.items) content.faq.items = [];
+            content.faq.items.push({ question: '', answer: '' });
+            renderDynamicLists();
+        }
+        function removeFaqItem(i) {
+            content.faq.items.splice(i, 1);
+            renderDynamicLists();
+        }
+        
+        function addHours() {
+            if (!content.contact.hours) content.contact.hours = [];
+            content.contact.hours.push({ days: '', time: '' });
+            renderDynamicLists();
+        }
+        function removeHours(i) {
+            content.contact.hours.splice(i, 1);
+            renderDynamicLists();
+        }
+        
+        // Save
+        async function saveAllContent() {
+            try {
+                const res = await fetch(`${API_BASE}/content`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(content)
+                });
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    showToast('Gespeichert! ✓', 'success');
+                    updateLastSaved();
+                } else {
+                    if (res.status === 401) {
+                        showToast('Session abgelaufen - bitte neu anmelden', 'error');
+                        logout();
+                    } else {
+                        showToast(data.error || 'Fehler beim Speichern', 'error');
+                    }
+                }
+            } catch (err) {
+                showToast('Verbindungsfehler', 'error');
+            }
+        }
+        
+        // Image upload
+        async function uploadImage(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            try {
+                const res = await fetch(`${API_BASE}/upload`, {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` },
+                    body: formData
+                });
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    document.getElementById('upload-result').classList.remove('hidden');
+                    document.getElementById('upload-url').textContent = data.url;
+                    showToast('Bild hochgeladen! ✓', 'success');
+                } else {
+                    showToast(data.error || 'Fehler beim Hochladen', 'error');
+                }
+            } catch (err) {
+                showToast('Verbindungsfehler', 'error');
+            }
+        }
+        
+        // Tab switching
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab').forEach(el => {
+                el.classList.remove('tab-active');
+                el.classList.add('tab-inactive');
+            });
+            
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.remove('tab-inactive');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('tab-active');
+        }
+        
+        // Helpers
+        function updateLastSaved() {
+            const date = content.lastUpdated ? new Date(content.lastUpdated) : new Date();
+            document.getElementById('last-saved').textContent = `Zuletzt gespeichert: ${date.toLocaleString('de-DE')}`;
+        }
+        
+        function showToast(message, type) {
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
