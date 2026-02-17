@@ -534,20 +534,20 @@
                 inset 0 1px 0 rgba(255, 255, 255, 1);
         }
         
-        /* Apple-style button */
+        /* LARQ-style button */
         .btn-primary {
-            background: #DD9B43;
-            color: #000;
+            background: #fff;
+            color: #153a5b;
             padding: 18px 36px;
-            border-radius: 980px;
+            border-radius: 12px;
             font-weight: 600;
             font-size: 17px;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .btn-primary:hover {
-            background: #e6ac5a;
-            transform: scale(1.03);
-            box-shadow: 0 10px 30px rgba(221, 155, 67, 0.3);
+            background: rgba(255,255,255,0.9);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
         }
         .btn-primary:active {
             transform: scale(0.98);
@@ -555,17 +555,17 @@
         
         .btn-secondary {
             background: transparent;
-            color: #DD9B43;
+            color: #fff;
             padding: 18px 36px;
-            border-radius: 980px;
+            border-radius: 12px;
             font-weight: 600;
             font-size: 17px;
-            border: 2px solid rgba(221, 155, 67, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .btn-secondary:hover {
-            border-color: #DD9B43;
-            background: rgba(221, 155, 67, 0.1);
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.1);
             transform: scale(1.02);
         }
         .btn-secondary:active {
@@ -1398,7 +1398,7 @@
                         Kostenloses Probetraining
                     </button>
                 </div>
-                <p class="text-apple-gray-400 text-sm mt-4">
+                <p class="text-white/50 text-sm mt-4">
                     <a href="#" onclick="openBookingModal(); return false;" class="hover:text-teal underline">Oder direkt Mitglied werden</a>
                 </p>
             </div>
@@ -1737,7 +1737,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -1747,7 +1747,7 @@
                                     <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent font-bold text-sm">SM</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Stefan M.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 1 Woche</p>
+                                        <p class="text-xs text-white/50">vor 1 Woche</p>
                                     </div>
                                 </div>
                             </div>
@@ -1760,7 +1760,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -1770,7 +1770,7 @@
                                     <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-sm">PK</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Petra K.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 3 Tagen</p>
+                                        <p class="text-xs text-white/50">vor 3 Tagen</p>
                                     </div>
                                 </div>
                             </div>
@@ -1783,7 +1783,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -1793,7 +1793,7 @@
                                     <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">TL</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Thomas L.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 2 Wochen</p>
+                                        <p class="text-xs text-white/50">vor 2 Wochen</p>
                                     </div>
                                 </div>
                             </div>
@@ -1806,7 +1806,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -1816,7 +1816,7 @@
                                     <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-sm">AS</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Anna S.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 4 Tagen</p>
+                                        <p class="text-xs text-white/50">vor 4 Tagen</p>
                                     </div>
                                 </div>
                             </div>
@@ -1829,7 +1829,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -1839,7 +1839,7 @@
                                     <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold text-sm">HM</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Helga M.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 2 Monaten</p>
+                                        <p class="text-xs text-white/50">vor 2 Monaten</p>
                                     </div>
                                 </div>
                             </div>
@@ -1852,7 +1852,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -1862,7 +1862,7 @@
                                     <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">WK</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Werner K.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 3 Monaten</p>
+                                        <p class="text-xs text-white/50">vor 3 Monaten</p>
                                     </div>
                                 </div>
                             </div>
@@ -1875,7 +1875,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -1885,7 +1885,7 @@
                                     <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-sm">SK</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Sandra K.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 1 Monat</p>
+                                        <p class="text-xs text-white/50">vor 1 Monat</p>
                                     </div>
                                 </div>
                             </div>
@@ -1898,7 +1898,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -1908,7 +1908,7 @@
                                     <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-sm">MR</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Michael R.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 2 Wochen</p>
+                                        <p class="text-xs text-white/50">vor 2 Wochen</p>
                                     </div>
                                 </div>
                             </div>
@@ -1921,7 +1921,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -1931,7 +1931,7 @@
                                     <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm">PH</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Peter H.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 3 Wochen</p>
+                                        <p class="text-xs text-white/50">vor 3 Wochen</p>
                                     </div>
                                 </div>
                             </div>
@@ -1944,7 +1944,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★<span class="text-apple-gray-300">★</span></div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -1954,7 +1954,7 @@
                                     <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-sm">AS</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Anna S.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 1 Monat</p>
+                                        <p class="text-xs text-white/50">vor 1 Monat</p>
                                     </div>
                                 </div>
                             </div>
@@ -1967,7 +1967,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -1977,7 +1977,7 @@
                                     <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold text-sm">TM</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Thomas M.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 5 Tagen</p>
+                                        <p class="text-xs text-white/50">vor 5 Tagen</p>
                                     </div>
                                 </div>
                             </div>
@@ -1992,7 +1992,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -2002,7 +2002,7 @@
                                     <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold text-sm">HM</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Helga M.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 2 Monaten</p>
+                                        <p class="text-xs text-white/50">vor 2 Monaten</p>
                                     </div>
                                 </div>
                             </div>
@@ -2015,7 +2015,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -2025,7 +2025,7 @@
                                     <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">WK</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Werner K.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 3 Monaten</p>
+                                        <p class="text-xs text-white/50">vor 3 Monaten</p>
                                     </div>
                                 </div>
                             </div>
@@ -2038,7 +2038,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -2048,7 +2048,7 @@
                                     <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-sm">SK</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Sandra K.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 1 Monat</p>
+                                        <p class="text-xs text-white/50">vor 1 Monat</p>
                                     </div>
                                 </div>
                             </div>
@@ -2061,7 +2061,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -2071,7 +2071,7 @@
                                     <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-sm">MR</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Michael R.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 2 Wochen</p>
+                                        <p class="text-xs text-white/50">vor 2 Wochen</p>
                                     </div>
                                 </div>
                             </div>
@@ -2084,7 +2084,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -2094,7 +2094,7 @@
                                     <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm">PH</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Peter H.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 3 Wochen</p>
+                                        <p class="text-xs text-white/50">vor 3 Wochen</p>
                                     </div>
                                 </div>
                             </div>
@@ -2107,7 +2107,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★<span class="text-apple-gray-300">★</span></div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -2117,7 +2117,7 @@
                                     <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-bold text-sm">AS</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Anna S.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 1 Monat</p>
+                                        <p class="text-xs text-white/50">vor 1 Monat</p>
                                     </div>
                                 </div>
                             </div>
@@ -2130,7 +2130,7 @@
                             <div class="relative z-10 h-full flex flex-col">
                                 <div class="flex items-center justify-between mb-4">
                                     <div class="flex items-center gap-1 text-amber-400">★★★★★</div>
-                                    <div class="flex items-center gap-1 text-xs text-apple-gray-400">
+                                    <div class="flex items-center gap-1 text-xs text-white/50">
                                         <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                                         <span>Google</span>
                                     </div>
@@ -2140,7 +2140,7 @@
                                     <div class="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center text-teal font-bold text-sm">TM</div>
                                     <div>
                                         <p class="font-semibold text-apple-gray-700 text-sm">Thomas M.</p>
-                                        <p class="text-xs text-apple-gray-400">vor 5 Tagen</p>
+                                        <p class="text-xs text-white/50">vor 5 Tagen</p>
                                     </div>
                                 </div>
                             </div>
@@ -2419,64 +2419,64 @@
                     <span>Schritt <span id="pt-current-step">0</span> von 8</span>
                     <span id="pt-step-name">Kontakt</span>
                 </div>
-                <div class="h-1.5 bg-apple-gray-700 rounded-full overflow-hidden">
-                    <div id="pt-progress-bar" class="h-full bg-gradient-to-r from-accent to-accent-light rounded-full transition-all duration-500 ease-out" style="width: 12.5%"></div>
+                <div class="h-1.5 bg-white/10 rounded-full overflow-hidden">
+                    <div id="pt-progress-bar" class="h-full bg-white rounded-full transition-all duration-500 ease-out" style="width: 12.5%"></div>
                 </div>
                 <div id="pt-step-dots" class="flex justify-between mt-2">
-                    <div class="w-2 h-2 rounded-full bg-accent transition-all duration-300" data-step="0"></div>
-                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="1"></div>
-                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="2"></div>
-                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="3"></div>
-                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="4"></div>
-                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="5"></div>
-                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="6"></div>
-                    <div class="w-2 h-2 rounded-full bg-apple-gray-700 transition-all duration-300" data-step="7"></div>
+                    <div class="w-2 h-2 rounded-full bg-white transition-all duration-300" data-step="0"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/20 transition-all duration-300" data-step="1"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/20 transition-all duration-300" data-step="2"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/20 transition-all duration-300" data-step="3"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/20 transition-all duration-300" data-step="4"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/20 transition-all duration-300" data-step="5"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/20 transition-all duration-300" data-step="6"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/20 transition-all duration-300" data-step="7"></div>
                 </div>
             </div>
             
             <!-- Content -->
             <div class="p-6">
-                <!-- Step 0: Welcome & Quick Start - Low Barrier Entry -->
+                <!-- Step 0: Welcome & Quick Start - LARQ Style -->
                 <div id="pt-step-0" class="form-step active">
                     <!-- Hero Section -->
                     <div class="text-center mb-8">
-                        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#DD9B43] to-[#e6ac5a] rounded-2xl mb-4 shadow-lg shadow-[#DD9B43]/30">
-                            <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-2xl mb-4 shadow-lg">
+                            <svg class="w-8 h-8 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <h3 class="text-2xl font-bold mb-2">Kostenloses Probetraining</h3>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Kostenloses Probetraining</h3>
                         <p class="text-white/60 text-sm">In nur <span class="text-green-400 font-medium">2 Minuten</span> zu deinem Wunschtermin</p>
                     </div>
                     
                     <!-- Benefits -->
                     <div class="space-y-3 mb-8">
-                        <div class="flex items-center gap-3 p-4 bg-white/5 rounded-xl">
+                        <div class="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl">
                             <span class="text-2xl">🏋️</span>
                             <div>
-                                <p class="font-medium">Alle Geräte testen</p>
+                                <p class="font-medium text-white">Alle Geräte testen</p>
                                 <p class="text-sm text-white/50">TechnoGym Premium Equipment</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-3 p-4 bg-white/5 rounded-xl">
+                        <div class="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl">
                             <span class="text-2xl">👨‍🏫</span>
                             <div>
-                                <p class="font-medium">Trainer inklusive</p>
+                                <p class="font-medium text-white">Trainer inklusive</p>
                                 <p class="text-sm text-white/50">Persönliche Einweisung auf Wunsch</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-3 p-4 bg-white/5 rounded-xl">
+                        <div class="flex items-center gap-3 p-4 bg-white/5 border border-white/10 rounded-xl">
                             <span class="text-2xl">👥</span>
                             <div>
-                                <p class="font-medium">Freund mitbringen</p>
+                                <p class="font-medium text-white">Freund mitbringen</p>
                                 <p class="text-sm text-white/50">Zusammen trainieren macht mehr Spaß</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- CTA Button -->
+                    <!-- CTA Button - LARQ White -->
                     <button type="button" id="pt-btn-0" onclick="ptGoToStep(1)" 
-                        class="w-full h-14 bg-gradient-to-r from-[#DD9B43] to-[#e6ac5a] hover:from-[#e6ac5a] hover:to-[#DD9B43] text-black font-bold rounded-2xl transition-all duration-300 shadow-lg shadow-[#DD9B43]/25 hover:shadow-[#DD9B43]/40 hover:scale-[1.02] active:scale-[0.98]">
+                        class="w-full h-14 bg-white hover:bg-white/90 text-navy font-bold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]">
                         Los geht's →
                     </button>
                     
@@ -2511,25 +2511,25 @@
                 <!-- Step 1: Fitnessziel -->
                 <div id="pt-step-1" class="form-step">
                     <h3 class="text-lg font-semibold mb-2">Was ist dein wichtigstes Ziel?</h3>
-                    <p class="text-sm text-apple-gray-400 mb-6">Wähle eine Option:</p>
+                    <p class="text-sm text-white/50 mb-6">Wähle eine Option:</p>
                     
                     <div class="space-y-3">
-                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
+                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-white/5 border border-white/10 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-goal" value="Abnehmen" class="hidden">
                             <span class="text-3xl">🏋️</span>
                             <span class="font-medium text-lg">Abnehmen</span>
                         </label>
-                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
+                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-white/5 border border-white/10 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-goal" value="Allgemeine Fitness" class="hidden">
                             <span class="text-3xl">❤️</span>
                             <span class="font-medium text-lg">Fitness verbessern</span>
                         </label>
-                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
+                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-white/5 border border-white/10 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-goal" value="Gesundheit" class="hidden">
                             <span class="text-3xl">🩺</span>
                             <span class="font-medium text-lg">Gesundheit</span>
                         </label>
-                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
+                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-white/5 border border-white/10 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-goal" value="Muskelaufbau" class="hidden">
                             <span class="text-3xl">💪</span>
                             <span class="font-medium text-lg">Muskelaufbau</span>
@@ -2544,15 +2544,15 @@
                 <!-- Step 2: Freund -->
                 <div id="pt-step-2" class="form-step">
                     <h3 class="text-lg font-semibold mb-2">Freund mitbringen?</h3>
-                    <p class="text-sm text-apple-gray-400 mb-6">Kostenlos zu deinem Termin:</p>
+                    <p class="text-sm text-white/50 mb-6">Kostenlos zu deinem Termin:</p>
                     
                     <div class="grid grid-cols-2 gap-4">
-                        <label class="pt-survey-opt flex flex-col items-center justify-center p-8 md:p-8 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
+                        <label class="pt-survey-opt flex flex-col items-center justify-center p-8 md:p-8 bg-white/5 border border-white/10 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-friend" value="Ja" class="hidden">
                             <span class="text-5xl mb-3">👥</span>
                             <span class="font-medium text-lg">Ja</span>
                         </label>
-                        <label class="pt-survey-opt flex flex-col items-center justify-center p-8 md:p-8 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
+                        <label class="pt-survey-opt flex flex-col items-center justify-center p-8 md:p-8 bg-white/5 border border-white/10 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-friend" value="Nein" class="hidden">
                             <span class="text-5xl mb-3">👤</span>
                             <span class="font-medium text-lg">Nein</span>
@@ -2560,7 +2560,7 @@
                     </div>
                     
                     <div class="flex gap-3 mt-6">
-                        <button onclick="ptGoToStep(1)" class="flex-1 py-4 rounded-full border border-apple-gray-600 font-semibold hover:border-apple-gray-400 transition-all">Zurück</button>
+                        <button onclick="ptGoToStep(1)" class="flex-1 py-4 rounded-full border border-white/10 font-semibold hover:border-white/30 transition-all">Zurück</button>
                         <button id="pt-btn-2" disabled onclick="ptGoToStep(3)" class="flex-1 btn-primary disabled:opacity-50">Weiter</button>
                     </div>
                 </div>
@@ -2568,29 +2568,29 @@
                 <!-- Step 3: Trainer -->
                 <div id="pt-step-3" class="form-step">
                     <h3 class="text-lg font-semibold mb-2">Mit oder ohne Trainer?</h3>
-                    <p class="text-sm text-apple-gray-400 mb-6">Professionelle Begleitung?</p>
+                    <p class="text-sm text-white/50 mb-6">Professionelle Begleitung?</p>
                     
                     <div class="space-y-3">
-                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
+                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-white/5 border border-white/10 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-trainer" value="true" class="hidden">
                             <div class="w-14 h-14 bg-accent/20 rounded-xl flex items-center justify-center text-3xl flex-shrink-0">👨‍🏫</div>
                             <div>
                                 <span class="font-medium text-lg block">Mit Trainer</span>
-                                <span class="text-sm text-apple-gray-400">Empfohlen für Einsteiger</span>
+                                <span class="text-sm text-white/50">Empfohlen für Einsteiger</span>
                             </div>
                         </label>
-                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-apple-gray-700/50 border border-apple-gray-600 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
+                        <label class="pt-survey-opt flex items-center gap-4 p-5 bg-white/5 border border-white/10 rounded-2xl cursor-pointer active:scale-[0.98] transition-transform">
                             <input type="radio" name="pt-trainer" value="false" class="hidden">
-                            <div class="w-14 h-14 bg-apple-gray-600 rounded-xl flex items-center justify-center text-3xl flex-shrink-0">🏃</div>
+                            <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center text-3xl flex-shrink-0">🏃</div>
                             <div>
                                 <span class="font-medium text-lg block">Ohne Trainer</span>
-                                <span class="text-sm text-apple-gray-400">Für Erfahrene</span>
+                                <span class="text-sm text-white/50">Für Erfahrene</span>
                             </div>
                         </label>
                     </div>
                     
                     <div class="flex gap-3 mt-6">
-                        <button onclick="ptGoToStep(2)" class="flex-1 py-4 rounded-full border border-apple-gray-600 font-semibold hover:border-apple-gray-400 transition-all">Zurück</button>
+                        <button onclick="ptGoToStep(2)" class="flex-1 py-4 rounded-full border border-white/10 font-semibold hover:border-white/30 transition-all">Zurück</button>
                         <button id="pt-btn-3" disabled onclick="ptGoToStep(4)" class="flex-1 btn-primary disabled:opacity-50">Weiter</button>
                     </div>
                 </div>
@@ -2629,7 +2629,7 @@
                     </div>
                     
                     <div class="flex gap-3 mt-6">
-                        <button onclick="ptGoToStep(3)" class="flex-1 py-4 rounded-full border border-apple-gray-600 font-semibold hover:border-apple-gray-400 transition-all">Zurück</button>
+                        <button onclick="ptGoToStep(3)" class="flex-1 py-4 rounded-full border border-white/10 font-semibold hover:border-white/30 transition-all">Zurück</button>
                         <button id="pt-btn-4" disabled onclick="ptGoToStep(5)" class="flex-1 btn-primary disabled:opacity-50">Weiter</button>
                     </div>
                 </div>
@@ -2639,38 +2639,38 @@
                     <h3 class="text-lg font-semibold mb-4">Persönliche Angaben</h3>
                     
                     <div class="bg-accent/10 border border-accent/30 rounded-2xl p-4 mb-6">
-                        <div class="flex justify-between text-sm"><span class="text-apple-gray-400">Termin</span><span id="pt-summary-date" class="text-accent font-medium">-</span></div>
-                        <div class="flex justify-between text-sm mt-1"><span class="text-apple-gray-400">Uhrzeit</span><span id="pt-summary-time" class="text-accent font-medium">-</span></div>
+                        <div class="flex justify-between text-sm"><span class="text-white/50">Termin</span><span id="pt-summary-date" class="text-accent font-medium">-</span></div>
+                        <div class="flex justify-between text-sm mt-1"><span class="text-white/50">Uhrzeit</span><span id="pt-summary-time" class="text-accent font-medium">-</span></div>
                     </div>
                     
                     <div class="space-y-4">
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-sm font-medium mb-2">Vorname <span class="text-accent">*</span></label>
-                                <input type="text" id="pt-firstname" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <input type="text" id="pt-firstname" required class="w-full bg-apple-gray-700 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium mb-2">Nachname <span class="text-accent">*</span></label>
-                                <input type="text" id="pt-lastname" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <input type="text" id="pt-lastname" required class="w-full bg-apple-gray-700 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                         </div>
                         <div class="grid grid-cols-2 gap-3">
                             <div>
                                 <label class="block text-sm font-medium mb-2">E-Mail <span class="text-accent">*</span></label>
-                                <input type="email" id="pt-email" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <input type="email" id="pt-email" required class="w-full bg-apple-gray-700 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium mb-2">Telefon <span class="text-accent">*</span></label>
-                                <input type="tel" id="pt-phone" required placeholder="Für Terminbestätigung" class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <input type="tel" id="pt-phone" required placeholder="Für Terminbestätigung" class="w-full bg-apple-gray-700 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-2">Geburtsdatum <span class="text-accent">*</span></label>
                             <div class="grid grid-cols-3 gap-2">
-                                <select id="pt-birth-day" class="bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center">
+                                <select id="pt-birth-day" class="bg-apple-gray-700 border border-white/10 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center">
                                     <option value="">Tag</option>
                                 </select>
-                                <select id="pt-birth-month" class="bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center">
+                                <select id="pt-birth-month" class="bg-apple-gray-700 border border-white/10 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center">
                                     <option value="">Monat</option>
                                     <option value="01">Jan</option>
                                     <option value="02">Feb</option>
@@ -2685,7 +2685,7 @@
                                     <option value="11">Nov</option>
                                     <option value="12">Dez</option>
                                 </select>
-                                <select id="pt-birth-year" class="bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center">
+                                <select id="pt-birth-year" class="bg-apple-gray-700 border border-white/10 rounded-xl px-3 py-3 focus:outline-none focus:border-accent transition-colors text-center">
                                     <option value="">Jahr</option>
                                 </select>
                             </div>
@@ -2693,7 +2693,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-2">Anrede <span class="text-accent">*</span></label>
-                            <select id="pt-gender" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                            <select id="pt-gender" required class="w-full bg-apple-gray-700 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                                 <option value="">Bitte wählen</option>
                                 <option value="MALE">Herr</option>
                                 <option value="FEMALE">Frau</option>
@@ -2703,7 +2703,7 @@
                     </div>
                     
                     <div class="flex gap-3 mt-6">
-                        <button onclick="ptGoToStep(4)" class="flex-1 py-4 rounded-full border border-apple-gray-600 font-semibold">Zurück</button>
+                        <button onclick="ptGoToStep(4)" class="flex-1 py-4 rounded-full border border-white/10 font-semibold">Zurück</button>
                         <button id="pt-btn-5" onclick="ptGoToStep(6)" class="flex-1 btn-primary">Weiter</button>
                     </div>
                 </div>
@@ -2716,34 +2716,34 @@
                         <div class="grid grid-cols-3 gap-3">
                             <div class="col-span-2">
                                 <label class="block text-sm font-medium mb-2">Straße <span class="text-accent">*</span></label>
-                                <input type="text" id="pt-street" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <input type="text" id="pt-street" required class="w-full bg-apple-gray-700 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium mb-2">Nr. <span class="text-accent">*</span></label>
-                                <input type="text" id="pt-housenumber" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <input type="text" id="pt-housenumber" required class="w-full bg-apple-gray-700 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-3">
                             <div>
                                 <label class="block text-sm font-medium mb-2">PLZ <span class="text-accent">*</span></label>
-                                <input type="text" id="pt-zip" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <input type="text" id="pt-zip" required class="w-full bg-apple-gray-700 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                             <div class="col-span-2">
                                 <label class="block text-sm font-medium mb-2">Stadt <span class="text-accent">*</span></label>
-                                <input type="text" id="pt-city" required class="w-full bg-apple-gray-700 border border-apple-gray-600 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
+                                <input type="text" id="pt-city" required class="w-full bg-apple-gray-700 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-accent transition-colors">
                             </div>
                         </div>
                         <label class="flex items-start gap-3 pt-2 cursor-pointer">
                             <input type="checkbox" id="pt-privacy" required class="mt-1 accent-accent">
-                            <span class="text-xs text-apple-gray-400">Ich akzeptiere die <a href="/datenschutz.html" target="_blank" rel="noopener" class="text-accent hover:underline">Datenschutzerklärung</a>.</span>
+                            <span class="text-xs text-white/50">Ich akzeptiere die <a href="/datenschutz.html" target="_blank" rel="noopener" class="text-accent hover:underline">Datenschutzerklärung</a>.</span>
                         </label>
                         <label class="flex items-start gap-3 pt-2 cursor-pointer">
                             <input type="checkbox" id="pt-contact-consent" required class="mt-1 accent-accent">
-                            <span class="text-xs text-apple-gray-400">Ich bin einverstanden, dass FIT-INN Trier mich per E-Mail, SMS oder Telefon zu meiner Anfrage kontaktiert.*</span>
+                            <span class="text-xs text-white/50">Ich bin einverstanden, dass FIT-INN Trier mich per E-Mail, SMS oder Telefon zu meiner Anfrage kontaktiert.*</span>
                         </label>
                         <div id="pt-form-error" class="bg-red-500/20 border border-red-500/30 text-red-400 text-sm rounded-xl p-4" style="display: none;"></div>
                         <div class="flex gap-3 pt-2">
-                            <button type="button" onclick="ptGoToStep(5)" class="flex-1 py-4 rounded-full border border-apple-gray-600 font-semibold">Zurück</button>
+                            <button type="button" onclick="ptGoToStep(5)" class="flex-1 py-4 rounded-full border border-white/10 font-semibold">Zurück</button>
                             <button type="submit" id="pt-submit-btn" class="flex-1 btn-primary">Buchen</button>
                         </div>
                     </form>
@@ -2754,12 +2754,12 @@
                     <div class="text-center py-8">
                         <div class="text-6xl mb-4">✓</div>
                         <h3 class="text-2xl font-bold mb-2">Gebucht!</h3>
-                        <p class="text-apple-gray-400 mb-8">Wir freuen uns auf dich.</p>
+                        <p class="text-white/50 mb-8">Wir freuen uns auf dich.</p>
                         
-                        <div class="bg-apple-gray-700/50 rounded-2xl p-6 text-left text-sm mb-6">
-                            <div class="flex justify-between py-2 border-b border-apple-gray-600"><span class="text-apple-gray-400">Datum</span><span id="pt-confirm-date">-</span></div>
-                            <div class="flex justify-between py-2 border-b border-apple-gray-600"><span class="text-apple-gray-400">Uhrzeit</span><span id="pt-confirm-time">-</span></div>
-                            <div class="flex justify-between py-2"><span class="text-apple-gray-400">Name</span><span id="pt-confirm-name">-</span></div>
+                        <div class="bg-white/5 rounded-2xl p-6 text-left text-sm mb-6">
+                            <div class="flex justify-between py-2 border-b border-white/10"><span class="text-white/50">Datum</span><span id="pt-confirm-date">-</span></div>
+                            <div class="flex justify-between py-2 border-b border-white/10"><span class="text-white/50">Uhrzeit</span><span id="pt-confirm-time">-</span></div>
+                            <div class="flex justify-between py-2"><span class="text-white/50">Name</span><span id="pt-confirm-name">-</span></div>
                         </div>
                         
                         <button onclick="closeModal('probetraining')" class="w-full btn-primary">Fertig</button>
@@ -3421,9 +3421,9 @@
                 const name = input.name;
                 document.querySelectorAll(`input[name="${name}"]`).forEach(i => {
                     i.closest('.pt-survey-opt').classList.remove('border-accent', 'bg-accent/10');
-                    i.closest('.pt-survey-opt').classList.add('border-apple-gray-600');
+                    i.closest('.pt-survey-opt').classList.add('border-white/10');
                 });
-                opt.classList.remove('border-apple-gray-600');
+                opt.classList.remove('border-white/10');
                 opt.classList.add('border-accent', 'bg-accent/10');
                 input.checked = true;
                 // Auto-advance nach Survey-Auswahl
@@ -3547,9 +3547,9 @@
         };
     </script>
 
-    <!-- Choice Modal - Probetraining oder Mitgliedschaft (Bottom Sheet Style) -->
-    <div id="modal-choice" class="modal-overlay fixed inset-0 z-[200] bg-black/70 backdrop-blur-sm" onclick="if(event.target === this) closeChoiceModal()">
-        <div class="bg-[#1c1c1e] border-t border-white/10 fixed bottom-0 left-0 right-0 z-10 rounded-t-3xl max-h-[90vh] overflow-y-auto transition-transform duration-500 ease-out translate-y-full md:max-w-[560px] md:left-1/2 md:-translate-x-1/2" id="choice-sheet">
+    <!-- Choice Modal - LARQ Navy Style (Bottom Sheet) -->
+    <div id="modal-choice" class="modal-overlay fixed inset-0 z-[200] bg-navy/80 backdrop-blur-sm" onclick="if(event.target === this) closeChoiceModal()">
+        <div class="bg-navy border-t border-white/10 fixed bottom-0 left-0 right-0 z-10 rounded-t-3xl max-h-[90vh] overflow-y-auto transition-transform duration-500 ease-out translate-y-full md:max-w-[560px] md:left-1/2 md:-translate-x-1/2" id="choice-sheet">
             <!-- Swipe Handle -->
             <div class="modal-handle cursor-pointer" onclick="closeChoiceModal()"></div>
             
@@ -3570,9 +3570,9 @@
                 <!-- Options -->
                 <div class="space-y-4 max-w-md mx-auto">
                     <!-- Probetraining Option -->
-                    <button onclick="selectChoice('probetraining')" class="w-full liquid-glass liquid-glass-hover p-6 text-left transition-all hover:border-accent/50 group">
-                        <div class="relative z-10 flex items-center gap-4">
-                            <div class="w-14 h-14 bg-gradient-to-br from-white/20 to-white/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                    <button onclick="selectChoice('probetraining')" class="w-full bg-white/5 border border-white/10 hover:border-white/30 rounded-2xl p-6 text-left transition-all group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center flex-shrink-0">
                                 <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                 </svg>
@@ -3588,18 +3588,18 @@
                     </button>
                     
                     <!-- Mitgliedschaft Option -->
-                    <button onclick="selectChoice('booking')" class="w-full liquid-glass-accent liquid-glass-hover p-6 text-left transition-all group">
-                        <div class="relative z-10 flex items-center gap-4">
-                            <div class="w-14 h-14 bg-gradient-to-br from-accent/30 to-accent/10 rounded-2xl flex items-center justify-center flex-shrink-0">
-                                <svg class="w-7 h-7 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button onclick="selectChoice('booking')" class="w-full bg-white text-navy rounded-2xl p-6 text-left transition-all group hover:shadow-xl">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 bg-navy/10 rounded-2xl flex items-center justify-center flex-shrink-0">
+                                <svg class="w-7 h-7 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                                 </svg>
                             </div>
                             <div class="flex-1">
-                                <h3 class="text-lg font-semibold text-white group-hover:text-accent transition-colors">Direkt Mitglied werden</h3>
-                                <p class="text-white/50 text-sm mt-1">Sichere dir jetzt das Frühlingsstart-Angebot — 0€ bis 31.03.</p>
+                                <h3 class="text-lg font-semibold text-navy">Direkt Mitglied werden</h3>
+                                <p class="text-navy/60 text-sm mt-1">Sichere dir jetzt das Frühlingsstart-Angebot — 0€ bis 31.03.</p>
                             </div>
-                            <svg class="w-5 h-5 text-white/30 group-hover:text-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-navy/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                             </svg>
                         </div>
@@ -3621,19 +3621,19 @@
         </svg>
     </a>
     
-    <!-- Sticky Mobile CTA -->
-    <div class="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-black/95 backdrop-blur-xl border-t border-white/10 px-4 py-2.5 pb-safe">
-        <div class="flex gap-2 items-center">
+    <!-- Sticky Mobile CTA - LARQ Navy Style -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-navy/98 backdrop-blur-xl border-t border-white/10 px-4 py-3 pb-safe">
+        <div class="flex gap-3 items-center">
             <a href="https://wa.me/4906513085247?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20FIT-INN%20Trier!" 
                target="_blank" 
                rel="noopener"
                onclick="if(typeof gtag!=='undefined')gtag('event','ads_conversion_Kontakt_1',{});"
-               class="w-11 h-11 bg-[#25D366] rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+               class="w-12 h-12 bg-[#25D366] rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                 </svg>
             </a>
-            <button onclick="openPTModal()" class="flex-1 bg-accent text-black font-semibold py-3 rounded-full text-sm">
+            <button onclick="openPTModal()" class="flex-1 bg-white text-navy font-semibold py-3.5 rounded-xl text-sm shadow-lg">
                 Kostenloses Probetraining
             </button>
         </div>
@@ -3642,39 +3642,37 @@
     <!-- Spacer for sticky CTA on mobile -->
     <div class="h-16 md:hidden"></div>
 
-    <!-- Exit-Intent Popup -->
+    <!-- Exit-Intent Popup - LARQ Navy Style -->
     <div id="exit-popup" class="fixed inset-0 z-[250] flex items-center justify-center p-4" style="display: none;">
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeExitPopup()"></div>
+        <div class="absolute inset-0 bg-navy/90 backdrop-blur-sm" onclick="closeExitPopup()"></div>
         <div id="exit-popup-content" class="relative w-full max-w-md transform scale-95 opacity-0 transition-all duration-300">
-            <div class="liquid-glass-accent p-8 text-center">
-                <div class="relative z-10">
-                    <button onclick="closeExitPopup()" class="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-colors">✕</button>
-                    <div class="text-5xl mb-4">🎁</div>
-                    <h3 class="text-2xl font-bold mb-2">Warte kurz!</h3>
-                    <p class="text-white/70 mb-4">Du verpasst gerade ein unschlagbares Angebot:</p>
-                    <div class="bg-black/30 rounded-2xl p-4 mb-6">
-                        <p class="text-accent text-3xl font-bold">2 Monate GRATIS</p>
-                        <p class="text-white/50 text-sm mt-1">Trainiere bis 31. März komplett beitragsfrei</p>
-                    </div>
-                    <button onclick="closeExitPopup(); openChoiceModal();" class="w-full btn-primary text-lg py-4">
-                        Angebot sichern →
-                    </button>
-                    <p onclick="closeExitPopup()" class="text-white/30 text-xs mt-4 cursor-pointer hover:text-white/50 transition-colors">Nein danke, ich möchte kein Gratis-Training</p>
+            <div class="bg-navy border border-white/10 rounded-3xl p-8 text-center">
+                <button onclick="closeExitPopup()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-colors">✕</button>
+                <div class="text-5xl mb-4">🎁</div>
+                <h3 class="text-2xl font-bold mb-2 text-white">Warte kurz!</h3>
+                <p class="text-white/70 mb-4">Du verpasst gerade ein unschlagbares Angebot:</p>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 mb-6">
+                    <p class="text-white text-3xl font-bold">2 Monate GRATIS</p>
+                    <p class="text-white/50 text-sm mt-1">Trainiere bis 31. März komplett beitragsfrei</p>
                 </div>
+                <button onclick="closeExitPopup(); openChoiceModal();" class="w-full btn-primary text-lg py-4">
+                    Angebot sichern →
+                </button>
+                <p onclick="closeExitPopup()" class="text-white/30 text-xs mt-4 cursor-pointer hover:text-white/50 transition-colors">Nein danke, ich möchte kein Gratis-Training</p>
             </div>
         </div>
     </div>
 
-    <!-- Cookie Consent Modal (zentriert) -->
+    <!-- Cookie Consent Modal - LARQ Navy Style -->
     <div id="cookie-modal" class="fixed inset-0 z-[300] flex items-center justify-center p-4" style="display: none;">
         <!-- Backdrop -->
-        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+        <div class="absolute inset-0 bg-navy/90 backdrop-blur-sm"></div>
         
         <!-- Modal Content -->
-        <div id="cookie-modal-content" class="relative w-full max-w-lg bg-[#1c1c1e] border border-white/10 rounded-3xl p-6 md:p-8 transform scale-95 opacity-0 transition-all duration-300">
+        <div id="cookie-modal-content" class="relative w-full max-w-lg bg-navy border border-white/10 rounded-3xl p-6 md:p-8 transform scale-95 opacity-0 transition-all duration-300">
             <!-- Icon -->
             <div class="text-center mb-6">
-                <div class="inline-flex items-center justify-center w-16 h-16 bg-accent/20 rounded-full mb-4">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-white/10 rounded-full mb-4">
                     <span class="text-3xl">🍪</span>
                 </div>
                 <h2 class="text-xl md:text-2xl font-bold text-white mb-2">Deine Privatsphäre</h2>
@@ -3706,19 +3704,19 @@
                 </div>
             </div>
             
-            <!-- Buttons (gleichwertig) -->
+            <!-- Buttons (gleichwertig) - LARQ Style -->
             <div class="flex flex-col sm:flex-row gap-3">
-                <button onclick="acceptCookies(false)" class="flex-1 px-6 py-4 text-base font-semibold border border-white/20 text-white rounded-full hover:bg-white/10 transition-all">
+                <button onclick="acceptCookies(false)" class="flex-1 px-6 py-4 text-base font-semibold border border-white/20 text-white rounded-xl hover:bg-white/10 transition-all">
                     Nur Essentielle
                 </button>
-                <button onclick="acceptCookies(true)" class="flex-1 px-6 py-4 text-base font-semibold bg-accent text-black rounded-full hover:bg-accent-light transition-all">
+                <button onclick="acceptCookies(true)" class="flex-1 px-6 py-4 text-base font-semibold bg-white text-navy rounded-xl hover:bg-white/90 transition-all">
                     Alle akzeptieren
                 </button>
             </div>
             
             <!-- Privacy Link -->
             <p class="text-center text-xs text-white/40 mt-4">
-                <a href="/datenschutz.html" class="hover:text-accent underline">Datenschutzerklärung</a>
+                <a href="/datenschutz.html" class="hover:text-white underline">Datenschutzerklärung</a>
             </p>
         </div>
     </div>

@@ -2,17 +2,17 @@
 <style>
     .bk-rate-card { border: 2px solid rgba(255,255,255,0.1); cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
     .bk-rate-card:hover { border-color: rgba(221,155,67,0.4); background: rgba(221,155,67,0.05); }
-    .bk-rate-card.selected { border-color: #DD9B43; background: rgba(221,155,67,0.1); }
+    .bk-rate-card.selected { border-color: #fff; background: rgba(221,155,67,0.1); }
     .bk-rate-card.recommended { border-color: rgba(221,155,67,0.5); }
     .bk-module-opt { border: 2px solid rgba(255,255,255,0.1); cursor: pointer; transition: all 0.2s; }
     .bk-module-opt:hover { border-color: rgba(221,155,67,0.3); }
-    .bk-module-opt.selected { border-color: #DD9B43; background: rgba(221,155,67,0.1); }
+    .bk-module-opt.selected { border-color: #fff; background: rgba(221,155,67,0.1); }
     .bk-summary-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .bk-summary-row:last-child { border-bottom: none; }
     .bk-spinner { width: 20px; height: 20px; border: 2px solid rgba(0,0,0,0.2); border-top-color: #000; border-radius: 50%; animation: bk-spin 0.6s linear infinite; display: inline-block; vertical-align: middle; margin-right: 8px; }
     @keyframes bk-spin { to { transform: rotate(360deg); } }
     .bk-input { width: 100%; height: 52px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 0 16px; font-size: 16px; color: white; transition: border-color 0.2s; }
-    .bk-input:focus { outline: none; border-color: #DD9B43; }
+    .bk-input:focus { outline: none; border-color: #fff; }
     .bk-input::placeholder { color: rgba(255,255,255,0.35); }
     .bk-form-step { display: none; }
     .bk-form-step.active { display: block; animation: bkFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -50,7 +50,7 @@
     }
     #modal-booking select:focus {
         outline: none;
-        border-color: #DD9B43;
+        border-color: #fff;
     }
     #modal-booking select option {
         background: #153a5b;
@@ -74,8 +74,8 @@
         flex-shrink: 0;
     }
     #modal-booking input[type="checkbox"]:checked {
-        background: #DD9B43;
-        border-color: #DD9B43;
+        background: #fff;
+        border-color: #fff;
     }
     #modal-booking input[type="checkbox"]:checked::after {
         content: '✓';
@@ -89,7 +89,7 @@
     }
     #modal-booking input[type="checkbox"]:focus {
         outline: none;
-        border-color: #DD9B43;
+        border-color: #fff;
     }
     
     /* Date input fix - prevent oversized native picker */
@@ -141,10 +141,10 @@
                 <span id="bk-step-name">Start</span>
             </div>
             <div class="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                <div id="bk-progress-bar" class="h-full bg-gradient-to-r from-[#DD9B43] to-[#e6ac5a] rounded-full transition-all duration-500 ease-out" style="width: 14.28%"></div>
+                <div id="bk-progress-bar" class="h-full bg-gradient-to-r from-white to-white rounded-full transition-all duration-500 ease-out" style="width: 14.28%"></div>
             </div>
             <div id="bk-step-dots" class="flex justify-between mt-2">
-                <div class="w-2 h-2 rounded-full bg-[#DD9B43] transition-all duration-300" data-step="0"></div>
+                <div class="w-2 h-2 rounded-full bg-[#fff] transition-all duration-300" data-step="0"></div>
                 <div class="w-2 h-2 rounded-full bg-white/10 transition-all duration-300" data-step="1"></div>
                 <div class="w-2 h-2 rounded-full bg-white/10 transition-all duration-300" data-step="2"></div>
                 <div class="w-2 h-2 rounded-full bg-white/10 transition-all duration-300" data-step="3"></div>
@@ -206,7 +206,7 @@
                 
                 <!-- CTA Button -->
                 <button type="button" id="bk-btn-0" onclick="bkGoToStep(1)" 
-                    class="w-full h-14 bg-gradient-to-r from-[#DD9B43] to-[#e6ac5a] hover:from-[#e6ac5a] hover:to-[#DD9B43] text-black font-bold rounded-2xl transition-all duration-300 shadow-lg shadow-[#DD9B43]/25 hover:shadow-[#DD9B43]/40 hover:scale-[1.02] active:scale-[0.98]">
+                    class="w-full h-14 bg-gradient-to-r from-white to-white hover:from-[#e6ac5a] hover:to-[#fff] text-[#153a5b] font-bold rounded-2xl transition-all duration-300 shadow-lg shadow-[#fff]/25 hover:shadow-[#fff]/40 hover:scale-[1.02] active:scale-[0.98]">
                     Tarif wählen →
                 </button>
                 
@@ -270,10 +270,10 @@
                     
                     <!-- Frühlingsstart 104 Wochen - Empfohlen -->
                     <div class="bk-rate-card recommended rounded-2xl p-5 relative" data-rate-id="1215992930" data-term-id="1215992960" data-price="0" data-price-after="9" data-term="104 Wochen" data-name="Frühlingsstart 104W">
-                        <div class="absolute -top-3 left-5 bg-[#DD9B43] text-black text-xs font-bold px-3 py-1 rounded-full">Empfohlen · Bester Preis</div>
+                        <div class="absolute -top-3 left-5 bg-[#fff] text-[#153a5b] text-xs font-bold px-3 py-1 rounded-full">Empfohlen · Bester Preis</div>
                         <div class="flex justify-between items-start pt-1 mb-3">
                             <div>
-                                <h4 class="font-semibold text-lg text-[#DD9B43]">104 Wochen</h4>
+                                <h4 class="font-semibold text-lg text-[#fff]">104 Wochen</h4>
                                 <p class="text-sm text-white/50">Erstlaufzeit 2 Jahre</p>
                             </div>
                             <div class="text-right">
@@ -282,11 +282,11 @@
                             </div>
                         </div>
                         <!-- Preisänderung deutlich anzeigen -->
-                        <div class="bg-[#DD9B43]/10 border border-[#DD9B43]/30 rounded-lg p-3 mt-2">
+                        <div class="bg-[#fff]/10 border border-[#fff]/30 rounded-lg p-3 mt-2">
                             <div class="flex items-center gap-2 text-sm">
                                 <span class="text-green-400 font-medium">Jetzt bis 31.03.: 0€</span>
                                 <span class="text-white/30">→</span>
-                                <span class="text-[#DD9B43]">Ab 01.04.: <strong>9€/Woche</strong></span>
+                                <span class="text-[#fff]">Ab 01.04.: <strong>9€/Woche</strong></span>
                             </div>
                             <p class="text-xs text-white/40 mt-1">25% günstiger als 52 Wochen!</p>
                         </div>
@@ -315,7 +315,7 @@
                     </div>
                 </div>
                 
-                <button id="bk-btn-1" disabled onclick="bkGoToStep(2)" class="w-full bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full mt-6 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+                <button id="bk-btn-1" disabled onclick="bkGoToStep(2)" class="w-full bg-[#fff] hover:bg-[#e6ac5a] text-[#153a5b] font-semibold py-4 rounded-full mt-6 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
                     Weiter
                 </button>
             </div>
@@ -333,7 +333,7 @@
                 
                 <div class="flex gap-3 mt-6">
                     <button onclick="bkGoToStep(1)" class="flex-1 py-4 rounded-full border border-white/20 font-semibold hover:border-white/40 transition-all">Zurück</button>
-                    <button id="bk-btn-2" onclick="bkGoToStep(3)" class="flex-1 bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">Weiter</button>
+                    <button id="bk-btn-2" onclick="bkGoToStep(3)" class="flex-1 bg-[#fff] hover:bg-[#e6ac5a] text-[#153a5b] font-semibold py-4 rounded-full transition-all">Weiter</button>
                 </div>
             </div>
             
@@ -344,26 +344,26 @@
                 <div class="space-y-4">
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-sm font-medium mb-2">Vorname <span class="text-[#DD9B43]">*</span></label>
+                            <label class="block text-sm font-medium mb-2">Vorname <span class="text-[#fff]">*</span></label>
                             <input type="text" id="bk-firstname" required class="bk-input">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-2">Nachname <span class="text-[#DD9B43]">*</span></label>
+                            <label class="block text-sm font-medium mb-2">Nachname <span class="text-[#fff]">*</span></label>
                             <input type="text" id="bk-lastname" required class="bk-input">
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-sm font-medium mb-2">E-Mail <span class="text-[#DD9B43]">*</span></label>
+                            <label class="block text-sm font-medium mb-2">E-Mail <span class="text-[#fff]">*</span></label>
                             <input type="email" id="bk-email" required class="bk-input">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-2">Telefon <span class="text-[#DD9B43]">*</span></label>
+                            <label class="block text-sm font-medium mb-2">Telefon <span class="text-[#fff]">*</span></label>
                             <input type="tel" id="bk-phone" required class="bk-input" placeholder="Für Vertragsbestätigung">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium mb-2">Geburtsdatum <span class="text-[#DD9B43]">*</span></label>
+                        <label class="block text-sm font-medium mb-2">Geburtsdatum <span class="text-[#fff]">*</span></label>
                         <div class="grid grid-cols-3 gap-2">
                             <select id="bk-birth-day" required class="bk-input text-center">
                                 <option value="">Tag</option>
@@ -390,7 +390,7 @@
                         <input type="hidden" id="bk-birthdate">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium mb-2">Anrede <span class="text-[#DD9B43]">*</span></label>
+                        <label class="block text-sm font-medium mb-2">Anrede <span class="text-[#fff]">*</span></label>
                         <select id="bk-gender" required class="bk-input">
                             <option value="">Wählen</option>
                             <option value="MALE">Herr</option>
@@ -406,7 +406,7 @@
                 
                 <div class="flex gap-3 mt-6">
                     <button onclick="bkGoToStep(2)" class="flex-1 py-4 rounded-full border border-white/20 font-semibold hover:border-white/40 transition-all">Zurück</button>
-                    <button id="bk-btn-3" onclick="bkValidateAgeAndContinue()" class="flex-1 bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">Weiter</button>
+                    <button id="bk-btn-3" onclick="bkValidateAgeAndContinue()" class="flex-1 bg-[#fff] hover:bg-[#e6ac5a] text-[#153a5b] font-semibold py-4 rounded-full transition-all">Weiter</button>
                 </div>
             </div>
             
@@ -417,21 +417,21 @@
                 <div class="space-y-4">
                     <div class="grid grid-cols-3 gap-3">
                         <div class="col-span-2">
-                            <label class="block text-sm font-medium mb-2">Straße <span class="text-[#DD9B43]">*</span></label>
+                            <label class="block text-sm font-medium mb-2">Straße <span class="text-[#fff]">*</span></label>
                             <input type="text" id="bk-street" required class="bk-input">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-2">Nr. <span class="text-[#DD9B43]">*</span></label>
+                            <label class="block text-sm font-medium mb-2">Nr. <span class="text-[#fff]">*</span></label>
                             <input type="text" id="bk-housenumber" required class="bk-input">
                         </div>
                     </div>
                     <div class="grid grid-cols-3 gap-3">
                         <div>
-                            <label class="block text-sm font-medium mb-2">PLZ <span class="text-[#DD9B43]">*</span></label>
+                            <label class="block text-sm font-medium mb-2">PLZ <span class="text-[#fff]">*</span></label>
                             <input type="text" id="bk-zip" required class="bk-input" maxlength="5">
                         </div>
                         <div class="col-span-2">
-                            <label class="block text-sm font-medium mb-2">Stadt <span class="text-[#DD9B43]">*</span></label>
+                            <label class="block text-sm font-medium mb-2">Stadt <span class="text-[#fff]">*</span></label>
                             <input type="text" id="bk-city" required class="bk-input">
                         </div>
                     </div>
@@ -439,7 +439,7 @@
                 
                 <div class="flex gap-3 mt-6">
                     <button onclick="bkGoToStep(3)" class="flex-1 py-4 rounded-full border border-white/20 font-semibold hover:border-white/40 transition-all">Zurück</button>
-                    <button id="bk-btn-4" onclick="bkGoToStep(5)" class="flex-1 bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">Weiter</button>
+                    <button id="bk-btn-4" onclick="bkGoToStep(5)" class="flex-1 bg-[#fff] hover:bg-[#e6ac5a] text-[#153a5b] font-semibold py-4 rounded-full transition-all">Weiter</button>
                 </div>
             </div>
             
@@ -450,11 +450,11 @@
                 
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium mb-2">Kontoinhaber <span class="text-[#DD9B43]">*</span></label>
+                        <label class="block text-sm font-medium mb-2">Kontoinhaber <span class="text-[#fff]">*</span></label>
                         <input type="text" id="bk-accountholder" required class="bk-input">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium mb-2">IBAN <span class="text-[#DD9B43]">*</span></label>
+                        <label class="block text-sm font-medium mb-2">IBAN <span class="text-[#fff]">*</span></label>
                         <input type="text" id="bk-iban" required class="bk-input" placeholder="DE89 3704 0044 0532 0130 00">
                     </div>
                 </div>
@@ -465,7 +465,7 @@
                 
                 <div class="flex gap-3 mt-6">
                     <button onclick="bkGoToStep(4)" class="flex-1 py-4 rounded-full border border-white/20 font-semibold hover:border-white/40 transition-all">Zurück</button>
-                    <button id="bk-btn-5" onclick="bkGoToStep(6)" class="flex-1 bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">Weiter</button>
+                    <button id="bk-btn-5" onclick="bkGoToStep(6)" class="flex-1 bg-[#fff] hover:bg-[#e6ac5a] text-[#153a5b] font-semibold py-4 rounded-full transition-all">Weiter</button>
                 </div>
             </div>
             
@@ -477,29 +477,29 @@
                     <div id="bk-summary-content"></div>
                 </div>
                 
-                <div class="bg-[#DD9B43]/10 border border-[#DD9B43]/30 rounded-2xl p-5 mb-6">
+                <div class="bg-[#fff]/10 border border-[#fff]/30 rounded-2xl p-5 mb-6">
                     <div class="flex justify-between items-center">
                         <span class="font-medium">Erste Zahlung</span>
-                        <span id="bk-first-payment" class="text-xl font-bold text-[#DD9B43]">39€</span>
+                        <span id="bk-first-payment" class="text-xl font-bold text-[#fff]">39€</span>
                     </div>
                     <p class="text-xs text-white/50 mt-1">Startpaket einmalig</p>
                 </div>
                 
                 <div class="space-y-3 mb-6">
                     <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="bk-agb" required class="mt-1 accent-[#DD9B43] w-5 h-5">
-                        <span class="text-sm text-white/70">Ich akzeptiere die <a href="/agb.html" target="_blank" rel="noopener" class="text-[#DD9B43] hover:underline">AGB</a> und <a href="/datenschutz.html" target="_blank" rel="noopener" class="text-[#DD9B43] hover:underline">Datenschutzerklärung</a>.</span>
+                        <input type="checkbox" id="bk-agb" required class="mt-1 accent-[#fff] w-5 h-5">
+                        <span class="text-sm text-white/70">Ich akzeptiere die <a href="/agb.html" target="_blank" rel="noopener" class="text-[#fff] hover:underline">AGB</a> und <a href="/datenschutz.html" target="_blank" rel="noopener" class="text-[#fff] hover:underline">Datenschutzerklärung</a>.</span>
                     </label>
                     <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="bk-sepa" required class="mt-1 accent-[#DD9B43] w-5 h-5">
+                        <input type="checkbox" id="bk-sepa" required class="mt-1 accent-[#fff] w-5 h-5">
                         <span class="text-sm text-white/70">Ich ermächtige FIT-INN, Zahlungen per SEPA-Lastschrift einzuziehen.</span>
                     </label>
                     <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="bk-widerruf" required class="mt-1 accent-[#DD9B43] w-5 h-5">
-                        <span class="text-sm text-white/70">Ich habe die <a href="/widerruf.html" target="_blank" rel="noopener" class="text-[#DD9B43] hover:underline">Widerrufsbelehrung</a> gelesen.</span>
+                        <input type="checkbox" id="bk-widerruf" required class="mt-1 accent-[#fff] w-5 h-5">
+                        <span class="text-sm text-white/70">Ich habe die <a href="/widerruf.html" target="_blank" rel="noopener" class="text-[#fff] hover:underline">Widerrufsbelehrung</a> gelesen.</span>
                     </label>
                     <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="bk-contact-consent" required class="mt-1 accent-[#DD9B43] w-5 h-5">
+                        <input type="checkbox" id="bk-contact-consent" required class="mt-1 accent-[#fff] w-5 h-5">
                         <span class="text-sm text-white/70">Ich bin einverstanden, dass FIT-INN Trier mich per E-Mail, SMS oder Telefon kontaktiert.*</span>
                     </label>
                 </div>
@@ -508,7 +508,7 @@
                 
                 <div class="flex gap-3">
                     <button onclick="bkGoToStep(5)" class="flex-1 py-4 rounded-full border border-white/20 font-semibold hover:border-white/40 transition-all">Zurück</button>
-                    <button id="bk-submit-btn" onclick="bkSubmit()" class="flex-1 bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">
+                    <button id="bk-submit-btn" onclick="bkSubmit()" class="flex-1 bg-[#fff] hover:bg-[#e6ac5a] text-[#153a5b] font-semibold py-4 rounded-full transition-all">
                         Zahlungspflichtig bestellen
                     </button>
                 </div>
@@ -531,10 +531,10 @@
                     <p class="text-white/60 mb-6">Deine Mitgliedschaft wurde erfolgreich erstellt.</p>
                     
                     <!-- Contract Details Card -->
-                    <div class="bg-gradient-to-br from-[#DD9B43]/20 to-[#DD9B43]/5 border border-[#DD9B43]/30 rounded-2xl p-5 text-left mb-4">
+                    <div class="bg-gradient-to-br from-white/20 to-[#fff]/5 border border-[#fff]/30 rounded-2xl p-5 text-left mb-4">
                         <div class="flex items-center gap-3 mb-4">
-                            <div class="w-10 h-10 bg-[#DD9B43] rounded-full flex items-center justify-center">
-                                <span class="text-black font-bold" id="bk-confirm-initials">ME</span>
+                            <div class="w-10 h-10 bg-[#fff] rounded-full flex items-center justify-center">
+                                <span class="text-[#153a5b] font-bold" id="bk-confirm-initials">ME</span>
                             </div>
                             <div>
                                 <p class="font-semibold" id="bk-confirm-name">-</p>
@@ -544,7 +544,7 @@
                         <div class="space-y-2 text-sm">
                             <div class="flex justify-between py-2 border-b border-white/10">
                                 <span class="text-white/50">Mitgliedsnummer</span>
-                                <span class="font-mono font-bold text-[#DD9B43]" id="bk-confirm-member-nr">-</span>
+                                <span class="font-mono font-bold text-[#fff]" id="bk-confirm-member-nr">-</span>
                             </div>
                             <div class="flex justify-between py-2 border-b border-white/10">
                                 <span class="text-white/50">Vertragsnummer</span>
@@ -572,20 +572,20 @@
                         </h4>
                         <div class="space-y-3 text-sm">
                             <div class="flex gap-3">
-                                <div class="w-6 h-6 bg-[#DD9B43]/20 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <span class="text-[#DD9B43] text-xs font-bold">1</span>
+                                <div class="w-6 h-6 bg-[#fff]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-[#fff] text-xs font-bold">1</span>
                                 </div>
                                 <p class="text-white/70">Komm vorbei und hol dir deinen <strong class="text-white">Mitgliedsausweis</strong> an der Theke ab.</p>
                             </div>
                             <div class="flex gap-3">
-                                <div class="w-6 h-6 bg-[#DD9B43]/20 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <span class="text-[#DD9B43] text-xs font-bold">2</span>
+                                <div class="w-6 h-6 bg-[#fff]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-[#fff] text-xs font-bold">2</span>
                                 </div>
                                 <p class="text-white/70">Lade die <strong class="text-white">MySports App</strong> herunter für Kursbuchungen & Check-in.</p>
                             </div>
                             <div class="flex gap-3">
-                                <div class="w-6 h-6 bg-[#DD9B43]/20 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <span class="text-[#DD9B43] text-xs font-bold">3</span>
+                                <div class="w-6 h-6 bg-[#fff]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-[#fff] text-xs font-bold">3</span>
                                 </div>
                                 <p class="text-white/70">Buche dein kostenloses <strong class="text-white">Einweisungstraining</strong> mit einem Trainer.</p>
                             </div>
@@ -597,7 +597,7 @@
                         📧 Eine Bestätigungsmail mit allen Details wurde an <span id="bk-confirm-email-2">deine E-Mail</span> gesendet.
                     </p>
                     
-                    <button onclick="closeModal('booking')" class="w-full bg-[#DD9B43] hover:bg-[#e6ac5a] text-black font-semibold py-4 rounded-full transition-all">
+                    <button onclick="closeModal('booking')" class="w-full bg-[#fff] hover:bg-[#e6ac5a] text-[#153a5b] font-semibold py-4 rounded-full transition-all">
                         Los geht's! 💪
                     </button>
                 </div>
@@ -735,7 +735,7 @@ function bkGoToStep(n) {
     // Update step dots
     document.querySelectorAll('#bk-step-dots > div').forEach((dot, i) => {
         dot.className = i <= n 
-            ? 'w-2 h-2 rounded-full bg-[#DD9B43] transition-all duration-300' 
+            ? 'w-2 h-2 rounded-full bg-[#fff] transition-all duration-300' 
             : 'w-2 h-2 rounded-full bg-white/10 transition-all duration-300';
     });
     const subtitles = { 0: 'Kurz kennenlernen', 1: 'Wähle deinen Tarif', 2: 'Optionale Extras', 3: 'Über dich', 4: 'Für den Vertrag', 5: 'SEPA-Lastschrift', 6: 'Prüfen & Bestätigen', 7: 'Willkommen!' };
@@ -816,7 +816,7 @@ function bkRenderModules() {
         modules.forEach(mod => {
             const div = document.createElement('div');
             div.className = 'bk-module-opt rounded-xl p-4 flex justify-between items-center';
-            div.innerHTML = `<div><h4 class="font-medium">${mod.name}</h4><p class="text-xs text-white/50">${mod.desc}</p></div><div class="text-right"><span class="font-bold text-[#DD9B43]">+${mod.price}€</span></div>`;
+            div.innerHTML = `<div><h4 class="font-medium">${mod.name}</h4><p class="text-xs text-white/50">${mod.desc}</p></div><div class="text-right"><span class="font-bold text-[#fff]">+${mod.price}€</span></div>`;
             div.onclick = () => {
                 div.classList.toggle('selected');
                 if (div.classList.contains('selected')) bkSelectedModules.push(mod);
@@ -880,7 +880,7 @@ function bkRenderSummary() {
             <p>• <strong class="text-white/60">Laufzeit:</strong> ${bkSelectedRate.term}, verlängert sich automatisch</p>
             <p>• <strong class="text-white/60">Kündigung:</strong> 4 Wochen vor Ende in Textform</p>
             <p>• <strong class="text-white/60">Zahlung:</strong> SEPA-Lastschrift, 14-tägig</p>
-            <p>• <strong class="text-white/60">Widerruf:</strong> 14 Tage ab Vertragsschluss (<a href="/widerruf.html" target="_blank" class="text-[#DD9B43] hover:underline">Details</a>)</p>
+            <p>• <strong class="text-white/60">Widerruf:</strong> 14 Tage ab Vertragsschluss (<a href="/widerruf.html" target="_blank" class="text-[#fff] hover:underline">Details</a>)</p>
         </div>
     `;
     
