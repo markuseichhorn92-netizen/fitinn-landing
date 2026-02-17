@@ -3295,9 +3295,8 @@
 
         async function ptFetchSlots() {
             try {
-                console.log('Fetching slots from:', `${PT_API}/slots`);
+                console.log('Fetching slots...');
                 const res = await fetch(`${PT_API}/slots`);
-                console.log('Response status:', res.status);
                 if (!res.ok) throw new Error('HTTP ' + res.status);
                 ptSlotsData = await res.json();
                 console.log('Slots loaded:', ptSlotsData?.slots?.length || 0);
@@ -3306,7 +3305,19 @@
                 ptRenderCalendar();
             } catch (e) {
                 console.error('Slot fetch error:', e);
-                document.getElementById('pt-loading').innerHTML = '<p class="text-red-400">Fehler beim Laden: ' + e.message + '</p>';
+                // Show manual booking fallback
+                document.getElementById('pt-loading').innerHTML = `
+                    <div class="text-center">
+                        <p class="text-white/70 mb-4">Kalender lädt nicht?</p>
+                        <a href="tel:0651308524" class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-full transition-all mb-3">
+                            <span>📞</span> 0651 / 30 85 24
+                        </a>
+                        <p class="text-white/50 text-sm">Oder schreib uns auf WhatsApp!</p>
+                        <a href="https://wa.me/4917680147964?text=Hallo!%20Ich%20möchte%20gerne%20ein%20Probetraining%20vereinbaren." target="_blank" class="inline-flex items-center gap-2 text-green-400 hover:text-green-300 mt-2 transition-colors">
+                            <span>💬</span> WhatsApp öffnen
+                        </a>
+                    </div>
+                `;
             }
         }
 
