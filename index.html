@@ -2599,15 +2599,15 @@
                 <div id="pt-step-4" class="form-step">
                     <div id="pt-loading" class="text-center py-12">
                         <div class="pt-spinner mx-auto mb-4"></div>
-                        <p class="text-apple-gray-400 text-sm">Lade Termine...</p>
+                        <p class="text-white/60 text-sm">Lade Termine...</p>
                     </div>
                     
                     <div id="pt-calendar-section" style="display: none;">
                         <div class="flex justify-between items-center mb-4">
                             <span id="pt-month-label" class="font-semibold"></span>
                             <div class="flex gap-2">
-                                <button id="pt-prev-month" class="w-10 h-10 rounded-full bg-apple-gray-700 hover:bg-apple-gray-600 flex items-center justify-center transition-colors">‹</button>
-                                <button id="pt-next-month" class="w-10 h-10 rounded-full bg-apple-gray-700 hover:bg-apple-gray-600 flex items-center justify-center transition-colors">›</button>
+                                <button id="pt-prev-month" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">‹</button>
+                                <button id="pt-next-month" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">›</button>
                             </div>
                         </div>
                         
@@ -3295,14 +3295,18 @@
 
         async function ptFetchSlots() {
             try {
+                console.log('Fetching slots from:', `${PT_API}/slots`);
                 const res = await fetch(`${PT_API}/slots`);
-                if (!res.ok) throw new Error();
+                console.log('Response status:', res.status);
+                if (!res.ok) throw new Error('HTTP ' + res.status);
                 ptSlotsData = await res.json();
+                console.log('Slots loaded:', ptSlotsData?.slots?.length || 0);
                 document.getElementById('pt-loading').style.display = 'none';
                 document.getElementById('pt-calendar-section').style.display = 'block';
                 ptRenderCalendar();
             } catch (e) {
-                document.getElementById('pt-loading').innerHTML = '<p class="text-red-400">Fehler beim Laden</p>';
+                console.error('Slot fetch error:', e);
+                document.getElementById('pt-loading').innerHTML = '<p class="text-red-400">Fehler beim Laden: ' + e.message + '</p>';
             }
         }
 
