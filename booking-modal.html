@@ -53,7 +53,7 @@
         border-color: #DD9B43;
     }
     #modal-booking select option {
-        background: #2c2c2e;
+        background: #153a5b;
         color: white;
         padding: 12px;
     }
@@ -119,15 +119,15 @@
     }
     .pb-safe-bk { padding-bottom: env(safe-area-inset-bottom, 20px); }
 </style>
-<div id="modal-booking" class="modal-overlay fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4">
-    <div class="modal-content bg-[#1c1c1e] w-full max-h-[95vh] max-h-[95dvh] overflow-y-auto border border-white/10 pb-safe-bk rounded-3xl shadow-2xl" style="max-width: 560px;">
-        <!-- Header -->
-        <div class="sticky top-0 bg-[#1c1c1e]/95 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex justify-between items-center z-10">
+<div id="modal-booking" class="modal-overlay fixed inset-0 z-[100] bg-[#153a5b]/95 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-content bg-[#153a5b] w-full max-h-[95vh] max-h-[95dvh] overflow-y-auto border border-white/10 pb-safe-bk rounded-3xl shadow-2xl text-white" style="max-width: 560px;">
+        <!-- Header - LARQ Navy -->
+        <div class="sticky top-0 bg-[#153a5b]/95 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex justify-between items-center z-10">
             <div>
-                <h2 class="text-xl font-bold">Mitgliedschaft</h2>
-                <p class="text-sm text-white/50" id="bk-header-subtitle">Wähle deinen Tarif</p>
+                <h2 class="text-xl font-bold text-white">Mitgliedschaft</h2>
+                <p class="text-sm text-white/60" id="bk-header-subtitle">Wähle deinen Tarif</p>
             </div>
-            <button onclick="closeModal('booking')" class="text-white/40 hover:text-white p-2 transition-colors">
+            <button onclick="closeModal('booking')" class="text-white/60 hover:text-white p-2 transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
