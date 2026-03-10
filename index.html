@@ -3,36 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#22c55e">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>happyfigur + 8 Wochen Training | FIT-INN Trier</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
-    <meta name="description" content="🔥 Dein 8-Wochen Transformation-Paket: happyfigur Stoffwechselanalyse + Gerätetraining mit Betreuung. Erfahre jetzt, wie du deinen Körper nachhaltig veränderst.">
+    <meta name="description" content="🥗 Stoffwechselanalyse + 8 Wochen betreutes Training. Finde heraus, was dein Körper wirklich braucht und erreiche dein Wunschgewicht nachhaltig.">
     
     <link rel="canonical" href="https://angebot.fit-inn-trier.de/">
     
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-    
     <!-- Open Graph -->
     <meta property="og:title" content="happyfigur + 8 Wochen Training | FIT-INN Trier">
-    <meta property="og:description" content="Dein 8-Wochen Transformation-Paket: Stoffwechselanalyse + Gerätetraining mit Betreuung">
+    <meta property="og:description" content="Stoffwechselanalyse + betreutes Training für nachhaltige Ergebnisse">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://angebot.fit-inn-trier.de/">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #FF6B35;
-            --primary-dark: #E55A2B;
-            --accent: #00C853;
-            --dark: #0a0a0a;
-            --darker: #000000;
-            --light: #ffffff;
-            --gray: #888;
-            --gradient: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
-            --glow: 0 0 60px rgba(255, 107, 53, 0.4);
+            --primary: #22c55e;
+            --primary-light: #4ade80;
+            --primary-dark: #16a34a;
+            --accent: #f97316;
+            --accent-light: #fb923c;
+            --bg: #fafdf7;
+            --bg-card: #ffffff;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --gradient: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
+            --gradient-warm: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
         }
         
         * {
@@ -46,10 +48,10 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-            background: var(--darker);
-            color: var(--light);
-            line-height: 1.6;
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
             overflow-x: hidden;
         }
         
@@ -61,62 +63,85 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 80px 20px 40px;
+            padding: 60px 20px;
             position: relative;
-            background: radial-gradient(ellipse at center top, rgba(255,107,53,0.15) 0%, transparent 60%);
+            background: linear-gradient(180deg, #ecfdf5 0%, var(--bg) 100%);
         }
         
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(34,197,94,0.15) 0%, transparent 70%);
+            border-radius: 50%;
             pointer-events: none;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(249,115,22,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+        
+        .hero-emoji {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
         .badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255,107,53,0.15);
-            border: 1px solid rgba(255,107,53,0.3);
-            padding: 8px 20px;
+            background: white;
+            border: 2px solid var(--primary);
+            padding: 10px 24px;
             border-radius: 100px;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 700;
             color: var(--primary);
             margin-bottom: 30px;
-            animation: pulse-badge 2s ease-in-out infinite;
-        }
-        
-        @keyframes pulse-badge {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
+            box-shadow: 0 4px 15px rgba(34,197,94,0.15);
         }
         
         .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
+            font-size: clamp(2.2rem, 7vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: var(--text);
         }
         
         .hero h1 span {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--primary);
         }
         
         .hero-subtitle {
-            font-size: clamp(1.1rem, 3vw, 1.4rem);
-            color: var(--gray);
+            font-size: clamp(1.1rem, 3vw, 1.35rem);
+            color: var(--text-light);
             max-width: 600px;
-            margin-bottom: 40px;
+            margin: 0 auto 40px;
+            font-weight: 500;
         }
         
         .cta-primary {
@@ -128,17 +153,17 @@
             padding: 18px 40px;
             border-radius: 100px;
             font-size: 18px;
-            font-weight: 600;
+            font-weight: 700;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: var(--glow);
+            box-shadow: 0 8px 30px rgba(34,197,94,0.35);
             border: none;
             cursor: pointer;
         }
         
         .cta-primary:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 0 80px rgba(255, 107, 53, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(34,197,94,0.45);
         }
         
         .cta-primary svg {
@@ -146,124 +171,156 @@
             height: 24px;
         }
         
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
+        .hero-trust {
+            margin-top: 50px;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .trust-item {
+            display: flex;
             align-items: center;
             gap: 8px;
-            color: var(--gray);
-            font-size: 12px;
-            animation: bounce 2s infinite;
         }
         
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
+        .trust-item svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary);
         }
         
-        /* Problem Section */
+        /* Sections */
         .section {
             padding: 100px 20px;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-tag {
+            display: inline-block;
+            background: rgba(34,197,94,0.1);
+            color: var(--primary-dark);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .section-title {
             font-size: clamp(1.8rem, 5vw, 2.8rem);
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 20px;
+            font-weight: 800;
+            margin-bottom: 16px;
             line-height: 1.2;
         }
         
         .section-subtitle {
             font-size: 1.1rem;
-            color: var(--gray);
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 60px;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
         }
         
-        /* Problem Cards */
+        /* Problem Section */
         .problems {
-            background: linear-gradient(180deg, var(--darker) 0%, #0d0d0d 100%);
+            background: white;
         }
         
         .problem-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 24px;
         }
         
         .problem-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 20px;
+            background: var(--bg);
+            border-radius: 24px;
             padding: 32px;
             transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
         
         .problem-card:hover {
-            border-color: rgba(255,107,53,0.3);
+            border-color: var(--accent);
             transform: translateY(-5px);
         }
         
         .problem-icon {
-            font-size: 2.5rem;
-            margin-bottom: 16px;
+            width: 60px;
+            height: 60px;
+            background: rgba(249,115,22,0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
         }
         
         .problem-card h3 {
             font-size: 1.2rem;
+            font-weight: 700;
             margin-bottom: 10px;
         }
         
         .problem-card p {
-            color: var(--gray);
+            color: var(--text-light);
             font-size: 0.95rem;
         }
         
         /* Solution Section */
         .solution {
-            background: radial-gradient(ellipse at center, rgba(255,107,53,0.08) 0%, transparent 70%);
+            background: linear-gradient(180deg, var(--bg) 0%, #ecfdf5 100%);
         }
         
         .solution-box {
-            background: linear-gradient(145deg, rgba(255,107,53,0.1) 0%, rgba(255,107,53,0.02) 100%);
-            border: 1px solid rgba(255,107,53,0.2);
-            border-radius: 30px;
+            background: white;
+            border-radius: 32px;
             padding: 60px 40px;
             text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            border: 2px solid rgba(34,197,94,0.2);
+        }
+        
+        .solution-emoji {
+            font-size: 4rem;
+            margin-bottom: 24px;
         }
         
         .solution-box h2 {
-            font-size: clamp(2rem, 5vw, 3rem);
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 800;
             margin-bottom: 20px;
         }
         
         .solution-box h2 span {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
         }
         
-        .solution-box p {
-            font-size: 1.2rem;
-            color: var(--gray);
+        .solution-box > p {
+            font-size: 1.15rem;
+            color: var(--text-light);
             max-width: 600px;
-            margin: 0 auto 40px;
+            margin: 0 auto 50px;
         }
         
-        /* Features */
+        /* Features Grid */
         .features {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 30px;
-            margin-top: 60px;
             text-align: left;
         }
         
@@ -277,6 +334,9 @@
             display: flex;
             gap: 16px;
             align-items: flex-start;
+            background: var(--bg);
+            padding: 24px;
+            border-radius: 20px;
         }
         
         .feature-icon {
@@ -292,18 +352,19 @@
         }
         
         .feature h4 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
+            font-weight: 700;
             margin-bottom: 6px;
         }
         
         .feature p {
-            color: var(--gray);
+            color: var(--text-light);
             font-size: 0.9rem;
         }
         
-        /* What You Get */
+        /* Package Section */
         .package {
-            background: #0d0d0d;
+            background: white;
         }
         
         .package-content {
@@ -321,31 +382,21 @@
         
         .package-visual {
             position: relative;
-            padding: 40px;
-        }
-        
-        .package-visual::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(255,107,53,0.2) 0%, transparent 60%);
-            border-radius: 50%;
-            filter: blur(40px);
         }
         
         .package-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
+            background: linear-gradient(145deg, #ecfdf5 0%, #dcfce7 100%);
+            border: 2px solid var(--primary-light);
+            border-radius: 28px;
             padding: 40px;
-            position: relative;
-            z-index: 1;
         }
         
         .package-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 24px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 28px;
             text-align: center;
+            color: var(--primary-dark);
         }
         
         .package-items {
@@ -356,9 +407,10 @@
             display: flex;
             align-items: center;
             gap: 14px;
-            padding: 14px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(34,197,94,0.2);
             font-size: 1rem;
+            font-weight: 600;
         }
         
         .package-items li:last-child {
@@ -366,9 +418,9 @@
         }
         
         .check {
-            width: 24px;
-            height: 24px;
-            background: var(--accent);
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -377,26 +429,27 @@
         }
         
         .check svg {
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             stroke: white;
             stroke-width: 3;
         }
         
         .package-details h3 {
             font-size: 1.8rem;
+            font-weight: 800;
             margin-bottom: 20px;
         }
         
         .package-details p {
-            color: var(--gray);
-            margin-bottom: 30px;
+            color: var(--text-light);
+            margin-bottom: 24px;
             font-size: 1.05rem;
         }
         
         /* Testimonials */
         .testimonials {
-            background: var(--darker);
+            background: linear-gradient(180deg, #ecfdf5 0%, var(--bg) 100%);
         }
         
         .testimonial-grid {
@@ -406,16 +459,24 @@
         }
         
         .testimonial {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 20px;
+            background: white;
+            border-radius: 24px;
             padding: 32px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+        }
+        
+        .testimonial-stars {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
         }
         
         .testimonial-text {
             font-size: 1.05rem;
-            margin-bottom: 20px;
-            line-height: 1.7;
+            margin-bottom: 24px;
+            line-height: 1.8;
+            font-style: italic;
+            color: var(--text);
         }
         
         .testimonial-author {
@@ -425,49 +486,50 @@
         }
         
         .author-avatar {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             background: var(--gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1.1rem;
+            color: white;
         }
         
         .author-info h4 {
             font-size: 1rem;
+            font-weight: 700;
             margin-bottom: 2px;
         }
         
         .author-info p {
-            color: var(--gray);
-            font-size: 0.85rem;
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 600;
         }
         
         /* Final CTA */
         .final-cta {
             padding: 120px 20px;
             text-align: center;
-            background: radial-gradient(ellipse at center bottom, rgba(255,107,53,0.2) 0%, transparent 60%);
+            background: linear-gradient(180deg, var(--bg) 0%, #fef3c7 50%, #fed7aa 100%);
         }
         
         .final-cta h2 {
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            font-weight: 700;
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: 800;
             margin-bottom: 20px;
         }
         
         .final-cta h2 span {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--accent);
         }
         
-        .final-cta p {
+        .final-cta > p {
             font-size: 1.2rem;
-            color: var(--gray);
+            color: var(--text-light);
             max-width: 500px;
             margin: 0 auto 40px;
         }
@@ -475,36 +537,36 @@
         .urgency {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(255,59,48,0.15);
-            border: 1px solid rgba(255,59,48,0.3);
-            color: #FF3B30;
-            padding: 10px 20px;
+            gap: 10px;
+            background: white;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 12px 24px;
             border-radius: 100px;
-            font-size: 14px;
-            font-weight: 500;
+            font-size: 15px;
+            font-weight: 700;
             margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(249,115,22,0.2);
         }
         
-        /* WhatsApp Button */
         .whatsapp-btn {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             background: #25D366;
             color: white;
-            padding: 20px 50px;
+            padding: 22px 50px;
             border-radius: 100px;
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 700;
             text-decoration: none;
             transition: all 0.3s ease;
-            box-shadow: 0 0 60px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 10px 40px rgba(37, 211, 102, 0.4);
         }
         
         .whatsapp-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 0 80px rgba(37, 211, 102, 0.5);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 50px rgba(37, 211, 102, 0.5);
         }
         
         .whatsapp-btn svg {
@@ -514,20 +576,21 @@
         
         /* Footer */
         footer {
-            padding: 40px 20px;
+            padding: 50px 20px;
             text-align: center;
-            color: var(--gray);
-            font-size: 0.85rem;
-            background: #050505;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            background: white;
         }
         
         footer a {
-            color: var(--gray);
+            color: var(--text-light);
             text-decoration: none;
+            transition: color 0.2s;
         }
         
         footer a:hover {
-            color: var(--light);
+            color: var(--primary);
         }
         
         .footer-links {
@@ -538,10 +601,10 @@
             flex-wrap: wrap;
         }
         
-        /* Mobile optimizations */
+        /* Mobile */
         @media (max-width: 768px) {
             .hero {
-                padding: 100px 20px 60px;
+                padding: 80px 20px 60px;
             }
             
             .section {
@@ -560,11 +623,9 @@
                 padding: 80px 20px;
             }
             
-            .floating-whatsapp {
-                bottom: 20px;
-                right: 20px;
-                width: 60px;
-                height: 60px;
+            .hero-trust {
+                flex-direction: column;
+                gap: 15px;
             }
         }
     </style>
@@ -572,57 +633,74 @@
 <body>
     <!-- Hero Section -->
     <section class="hero">
-        <div class="badge">
-            <span>⚡</span>
-            <span>Limitierte Plätze verfügbar</span>
-        </div>
-        
-        <h1>
-            Deine <span>8-Wochen</span><br>
-            Transformation
-        </h1>
-        
-        <p class="hero-subtitle">
-            happyfigur Stoffwechselanalyse + Gerätetraining mit Betreuung.
-            Entdecke, was dein Körper wirklich braucht.
-        </p>
-        
-        <a href="https://wa.me/4915679610457?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20das%20happyfigur%20%2B%208%20Wochen%20Training%20Paket." class="cta-primary">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Jetzt Beratung starten
-        </a>
-        
-        <div class="scroll-indicator">
-            <span>Mehr erfahren</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+        <div class="hero-content">
+            <div class="hero-emoji">🥗</div>
+            
+            <div class="badge">
+                <span>✨</span>
+                <span>Limitierte Plätze</span>
+            </div>
+            
+            <h1>
+                Endlich <span>abnehmen</span>,<br>
+                das funktioniert.
+            </h1>
+            
+            <p class="hero-subtitle">
+                Dein Stoffwechsel ist einzigartig. Mit happyfigur findest du heraus, 
+                was dein Körper wirklich braucht — plus 8 Wochen betreutes Training.
+            </p>
+            
+            <a href="https://wa.me/4915679610457?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20das%20happyfigur%20Paket%20und%20m%C3%B6chte%20mehr%20erfahren." class="cta-primary">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Kostenlos beraten lassen
+            </a>
+            
+            <div class="hero-trust">
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    <span>Über 30 Jahre Erfahrung</span>
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    <span>Wissenschaftlich fundiert</span>
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    <span>Persönliche Betreuung</span>
+                </div>
+            </div>
         </div>
     </section>
     
     <!-- Problem Section -->
     <section class="section problems">
-        <h2 class="section-title">Kennst du das?</h2>
-        <p class="section-subtitle">Viele Menschen kämpfen mit den gleichen Herausforderungen — du bist nicht allein.</p>
+        <div class="section-header">
+            <span class="section-tag">Das Problem</span>
+            <h2 class="section-title">Warum Diäten scheitern</h2>
+            <p class="section-subtitle">Du bist nicht schuld — die meisten Abnehm-Methoden ignorieren das Wichtigste.</p>
+        </div>
         
         <div class="problem-grid">
             <div class="problem-card">
-                <div class="problem-icon">😤</div>
-                <h3>Diäten funktionieren nicht</h3>
-                <p>Du hast schon alles probiert, aber nichts hält langfristig. Der Jo-Jo-Effekt ist dein ständiger Begleiter.</p>
-            </div>
-            <div class="problem-card">
-                <div class="problem-icon">🤷</div>
-                <h3>Keine Zeit für Sport</h3>
-                <p>Zwischen Job, Familie und Alltag bleibt kaum Zeit. Und wenn, fehlt die Energie.</p>
-            </div>
-            <div class="problem-card">
-                <div class="problem-icon">😕</div>
-                <h3>Unsicher im Fitnessstudio</h3>
-                <p>Du weißt nicht genau, welche Übungen für dich richtig sind und traust dich kaum, Fragen zu stellen.</p>
+                <div class="problem-icon">🍽️</div>
+                <h3>Kalorienzählen nervt</h3>
+                <p>Du hast keine Lust, jede Mahlzeit zu tracken. Das Gute: Mit dem richtigen Wissen musst du das nicht.</p>
             </div>
             <div class="problem-card">
                 <div class="problem-icon">🔄</div>
-                <h3>Immer wieder der Anfang</h3>
-                <p>Du startest motiviert, aber nach ein paar Wochen bist du wieder am Anfang. Der Kreislauf nervt.</p>
+                <h3>Jo-Jo-Effekt</h3>
+                <p>Nach jeder Diät kommen die Kilos zurück — oft sogar mehr. Dein Stoffwechsel arbeitet gegen dich.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">😴</div>
+                <h3>Keine Energie</h3>
+                <p>Du fühlst dich müde und antriebslos. Sport klingt gut, aber abends bist du platt.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">🤔</div>
+                <h3>Zu viele Infos</h3>
+                <p>Low Carb, Keto, Intervallfasten... Was stimmt wirklich? Du brauchst Klarheit, keine 100 Meinungen.</p>
             </div>
         </div>
     </section>
@@ -630,36 +708,37 @@
     <!-- Solution Section -->
     <section class="section solution">
         <div class="solution-box">
-            <h2>Die Lösung: <span>happyfigur</span> + 8 Wochen Training</h2>
-            <p>Statt blindem Probieren: wissenschaftlich fundierte Stoffwechselanalyse kombiniert mit persönlicher Betreuung. Wir finden heraus, was DEIN Körper braucht.</p>
+            <div class="solution-emoji">💡</div>
+            <h2>Die Lösung: <span>happyfigur</span></h2>
+            <p>Wir analysieren deinen Stoffwechsel und erstellen einen Plan, der zu DEINEM Körper passt. Kein Raten mehr — Fakten.</p>
             
             <div class="features">
                 <div class="feature">
                     <div class="feature-icon">🔬</div>
                     <div>
                         <h4>Stoffwechselanalyse</h4>
-                        <p>Dein individueller Stoffwechseltyp wird ermittelt — die Basis für echte Ergebnisse.</p>
+                        <p>Wir finden heraus, wie dein Körper Nahrung verarbeitet und was er braucht.</p>
                     </div>
                 </div>
                 <div class="feature">
-                    <div class="feature-icon">🍽️</div>
+                    <div class="feature-icon">🥗</div>
                     <div>
-                        <h4>Ernährungsplan</h4>
-                        <p>Maßgeschneidert auf deinen Stoffwechsel. Keine Verbote, sondern clevere Entscheidungen.</p>
+                        <h4>Individueller Ernährungsplan</h4>
+                        <p>Maßgeschneidert auf deinen Stoffwechseltyp. Essen, das schmeckt UND wirkt.</p>
                     </div>
                 </div>
                 <div class="feature">
-                    <div class="feature-icon">💪</div>
+                    <div class="feature-icon">🏋️</div>
                     <div>
-                        <h4>TechnoGym Biostrength & Biocircuit</h4>
-                        <p>8 Wochen Training an modernsten Geräten — professionell betreut durch unsere Trainer.</p>
+                        <h4>8 Wochen Biostrength Training</h4>
+                        <p>Modernste TechnoGym Geräte, die sich automatisch auf dich einstellen.</p>
                     </div>
                 </div>
                 <div class="feature">
-                    <div class="feature-icon">📱</div>
+                    <div class="feature-icon">👋</div>
                     <div>
-                        <h4>Persönliche Betreuung</h4>
-                        <p>WhatsApp-Support bei Fragen. Du bist nie allein auf deinem Weg.</p>
+                        <h4>Persönliche Trainer</h4>
+                        <p>Unsere Experten betreuen dich bei jedem Besuch. Du bist nie allein.</p>
                     </div>
                 </div>
             </div>
@@ -671,7 +750,7 @@
         <div class="package-content">
             <div class="package-visual">
                 <div class="package-card">
-                    <h3>Dein Paket beinhaltet:</h3>
+                    <h3>🎁 Dein Paket</h3>
                     <ul class="package-items">
                         <li>
                             <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -679,11 +758,15 @@
                         </li>
                         <li>
                             <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            <span>Individueller Ernährungsplan</span>
+                            <span>Persönlicher Ernährungsplan</span>
                         </li>
                         <li>
                             <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            <span>8 Wochen Training an Biostrength & Biocircuit</span>
+                            <span>8 Wochen Biostrength & Biocircuit</span>
+                        </li>
+                        <li>
+                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
+                            <span>Professionelle Trainer-Betreuung</span>
                         </li>
                         <li>
                             <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -693,21 +776,17 @@
                             <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
                             <span>WhatsApp-Support</span>
                         </li>
-                        <li>
-                            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg></span>
-                            <span>Professionelle Betreuung durch unsere Trainer</span>
-                        </li>
                     </ul>
                 </div>
             </div>
             
             <div class="package-details">
-                <h3>8 Wochen, die alles verändern</h3>
-                <p>In 8 Wochen bauen wir gemeinsam Gewohnheiten auf, die bleiben. Keine Crash-Diät, sondern ein System, das zu deinem Leben passt.</p>
-                <p>Unsere Trainer mit über 30 Jahren Erfahrung begleiten dich persönlich — von der ersten Analyse bis zum finalen Check-up.</p>
+                <h3>8 Wochen, die alles ändern 🚀</h3>
+                <p>In 8 Wochen lernst du, was für DEINEN Körper funktioniert. Keine Crash-Diät, sondern nachhaltige Gewohnheiten.</p>
+                <p>Unsere Trainer begleiten dich von der ersten Analyse bis zum Erfolg. Mit über 30 Jahren Erfahrung wissen wir, was funktioniert.</p>
                 <a href="https://wa.me/4915679610457?text=Hallo%2C%20ich%20m%C3%B6chte%20mehr%20%C3%BCber%20das%20happyfigur%20Paket%20erfahren." class="cta-primary">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    Infos anfordern
+                    Jetzt Infos holen
                 </a>
             </div>
         </div>
@@ -715,37 +794,43 @@
     
     <!-- Testimonials -->
     <section class="section testimonials">
-        <h2 class="section-title">Das sagen unsere Mitglieder</h2>
-        <p class="section-subtitle">Echte Menschen, echte Ergebnisse.</p>
+        <div class="section-header">
+            <span class="section-tag">Erfolgsgeschichten</span>
+            <h2 class="section-title">Das sagen unsere Teilnehmer</h2>
+            <p class="section-subtitle">Echte Menschen, echte Ergebnisse.</p>
+        </div>
         
         <div class="testimonial-grid">
             <div class="testimonial">
-                <p class="testimonial-text">"Nach Jahren des Scheiterns endlich etwas, das funktioniert. Die Stoffwechselanalyse war ein Gamechanger — plötzlich ergab alles Sinn."</p>
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Endlich verstehe ich meinen Körper! Die Stoffwechselanalyse hat mir die Augen geöffnet. Ich esse jetzt bewusster und habe 8 kg verloren — ohne zu hungern."</p>
                 <div class="testimonial-author">
                     <div class="author-avatar">SK</div>
                     <div class="author-info">
                         <h4>Sandra K.</h4>
-                        <p>-12 kg in 8 Wochen</p>
+                        <p>-8 kg in 8 Wochen</p>
                     </div>
                 </div>
             </div>
             <div class="testimonial">
-                <p class="testimonial-text">"Das persönliche Training macht den Unterschied. Man wird nicht allein gelassen und die Trainer wissen genau, wie sie einen motivieren."</p>
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Die Trainer sind super motivierend. Ich hätte nie gedacht, dass ich Spaß am Training haben könnte. Jetzt freue ich mich auf jeden Besuch!"</p>
                 <div class="testimonial-author">
-                    <div class="author-avatar">MH</div>
+                    <div class="author-avatar">TM</div>
                     <div class="author-info">
-                        <h4>Michael H.</h4>
-                        <p>Seit 6 Monaten dabei</p>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial">
-                <p class="testimonial-text">"Ich hätte nie gedacht, dass ich Sport mögen könnte. Jetzt freue ich mich auf jede Einheit. Das Team ist einfach super!"</p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">LM</div>
-                    <div class="author-info">
-                        <h4>Lisa M.</h4>
+                        <h4>Thomas M.</h4>
                         <p>Mehr Energie als je zuvor</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                <p class="testimonial-text">"Nach Jahren des Diät-Chaos endlich ein Konzept, das funktioniert. Der Ernährungsplan ist alltagstauglich und die Betreuung top!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">LH</div>
+                    <div class="author-info">
+                        <h4>Lisa H.</h4>
+                        <p>-6 kg, 2 Kleidergrößen weniger</p>
                     </div>
                 </div>
             </div>
@@ -756,13 +841,13 @@
     <section class="final-cta">
         <div class="urgency">
             <span>⏰</span>
-            <span>Nur noch wenige Plätze verfügbar</span>
+            <span>Nur noch wenige Plätze frei!</span>
         </div>
         
-        <h2>Bereit für deine <span>Transformation</span>?</h2>
-        <p>Schreib uns auf WhatsApp und wir besprechen alles Weitere — unverbindlich und persönlich.</p>
+        <h2>Bereit für <span>deine Veränderung</span>?</h2>
+        <p>Schreib uns auf WhatsApp — wir beraten dich kostenlos und unverbindlich.</p>
         
-        <a href="https://wa.me/4915679610457?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20das%20happyfigur%20%2B%208%20Wochen%20Training%20Paket.%20K%C3%B6nnt%20ihr%20mir%20mehr%20Infos%20geben%3F" class="whatsapp-btn">
+        <a href="https://wa.me/4915679610457?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20das%20happyfigur%20%2B%208%20Wochen%20Paket.%20K%C3%B6nnt%20ihr%20mir%20mehr%20erfahren%3F" class="whatsapp-btn">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             Jetzt auf WhatsApp schreiben
         </a>
