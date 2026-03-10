@@ -11,12 +11,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     
-    <!-- Open Graph -->
-    <meta property="og:title" content="happyfigur | Endlich abnehmen, das funktioniert">
-    <meta property="og:description" content="Stoffwechselanalyse + 8 Wochen Training = Dein Weg zum Wunschgewicht">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://angebot.fit-inn-trier.de">
-    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,6 +33,10 @@
             --white: #ffffff;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--dark);
@@ -47,6 +45,53 @@
             overflow-x: hidden;
         }
         
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        
+        /* Section Numbers */
+        .section-number {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            font-size: 6rem;
+            font-weight: 800;
+            color: rgba(0,0,0,0.03);
+            line-height: 1;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Scroll Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .fade-up-delay-1 { transition-delay: 0.1s; }
+        .fade-up-delay-2 { transition-delay: 0.2s; }
+        .fade-up-delay-3 { transition-delay: 0.3s; }
+        
         /* Typography */
         h1, h2, h3 {
             line-height: 1.2;
@@ -54,15 +99,14 @@
         }
         
         h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
         }
         
         h2 {
-            font-size: clamp(1.75rem, 4vw, 2.75rem);
-        }
-        
-        h3 {
-            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-size: clamp(2rem, 4vw, 3rem);
+            letter-spacing: -0.02em;
         }
         
         p {
@@ -72,26 +116,76 @@
         
         /* Layout */
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 24px;
         }
         
         section {
-            padding: 80px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 100px 0;
+        }
+        
+        /* Scroll Indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+        
+        .scroll-hint:hover {
+            opacity: 1;
+        }
+        
+        .scroll-hint span {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray);
+        }
+        
+        .scroll-hint .arrow {
+            width: 24px;
+            height: 24px;
+            border-right: 2px solid var(--gray);
+            border-bottom: 2px solid var(--gray);
+            transform: rotate(45deg);
+            animation: bounce-arrow 2s infinite;
+        }
+        
+        @keyframes bounce-arrow {
+            0%, 20%, 50%, 80%, 100% { transform: rotate(45deg) translateY(0); }
+            40% { transform: rotate(45deg) translateY(8px); }
+            60% { transform: rotate(45deg) translateY(4px); }
         }
         
         /* Header */
         header {
             position: fixed;
-            top: 0;
+            top: 4px;
             left: 0;
             right: 0;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
             z-index: 100;
             padding: 16px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        
+        header.scrolled {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
         }
         
         header .container {
@@ -101,7 +195,7 @@
         }
         
         .logo {
-            height: 40px;
+            height: 36px;
         }
         
         .header-cta {
@@ -111,7 +205,7 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             transition: all 0.3s;
             display: flex;
             align-items: center;
@@ -123,29 +217,21 @@
             transform: translateY(-2px);
         }
         
-        /* Hero - Clean & Minimal */
+        .header-cta svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Section 1: Hero */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             background: var(--white);
-            padding-top: 80px;
-            position: relative;
             text-align: center;
+            justify-content: center;
         }
         
         .hero-content {
-            max-width: 900px;
-            padding: 0 24px;
-        }
-        
-        .hero h1 {
-            margin-bottom: 24px;
-            color: var(--dark);
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 800;
-            letter-spacing: -0.02em;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .hero h1 span {
@@ -156,66 +242,25 @@
         }
         
         .hero-subtitle {
-            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
             color: var(--gray);
-            margin-bottom: 48px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
+            margin: 24px auto 0;
+            max-width: 550px;
         }
         
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--primary);
-            color: white;
-            padding: 18px 40px;
-            border-radius: 60px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            box-shadow: 0 4px 20px rgba(34,197,94,0.3);
-        }
-        
-        .hero-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(34,197,94,0.4);
-        }
-        
-        .hero-cta svg {
-            width: 24px;
-            height: 24px;
-        }
-        
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-            cursor: pointer;
-        }
-        
-        .scroll-indicator svg {
-            width: 32px;
-            height: 32px;
-            color: var(--dark);
-            opacity: 0.3;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
-        }
-        
-        /* Problem Section */
+        /* Section 2: Problem */
         .problem {
             background: var(--light);
-            padding: 100px 0;
+        }
+        
+        .problem .section-number {
+            color: rgba(220,38,38,0.05);
+        }
+        
+        .problem-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
         }
         
         .problem-header {
@@ -223,16 +268,20 @@
             margin-bottom: 60px;
         }
         
-        .problem-badge {
-            display: inline-block;
-            background: rgba(239,68,68,0.1);
-            color: #dc2626;
-            padding: 8px 20px;
-            border-radius: 50px;
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             font-size: 0.875rem;
             font-weight: 600;
-            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
         }
+        
+        .section-label.red { color: #dc2626; }
+        .section-label.green { color: var(--primary); }
+        .section-label.orange { color: var(--secondary); }
         
         .problem h2 span {
             color: #dc2626;
@@ -240,52 +289,62 @@
         
         .problem-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
-            max-width: 1000px;
-            margin: 0 auto;
         }
         
         .problem-card {
             background: white;
-            padding: 32px;
-            border-radius: 20px;
-            border-left: 4px solid #dc2626;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            padding: 40px 32px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
         
-        .problem-card h4 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            color: var(--dark);
+        .problem-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .problem-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
         }
         
         .problem-card p {
-            font-size: 0.95rem;
-            margin: 0;
+            font-size: 1rem;
         }
         
-        /* Solution Section */
+        .transition-text {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 1.25rem;
+            color: var(--dark);
+            font-weight: 500;
+        }
+        
+        .transition-text span {
+            color: var(--primary);
+        }
+        
+        /* Section 3: Solution */
         .solution {
             background: var(--white);
+        }
+        
+        .solution .section-number {
+            color: rgba(34,197,94,0.05);
+        }
+        
+        .solution-content {
             position: relative;
+            z-index: 1;
+            width: 100%;
         }
         
         .solution-header {
             text-align: center;
-            max-width: 800px;
-            margin: 0 auto 60px;
-        }
-        
-        .solution-badge {
-            display: inline-block;
-            background: rgba(34,197,94,0.1);
-            color: var(--primary);
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 24px;
+            margin-bottom: 60px;
         }
         
         .solution h2 span {
@@ -294,65 +353,62 @@
         
         .solution-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 32px;
-            margin-top: 48px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
         }
         
         .solution-card {
             background: var(--light);
-            border-radius: 24px;
             padding: 40px 32px;
+            border-radius: 24px;
             text-align: center;
             transition: all 0.3s;
         }
         
         .solution-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
         }
         
         .solution-icon {
             width: 80px;
             height: 80px;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 20px;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 24px;
-            font-size: 2.5rem;
+            font-size: 2.25rem;
         }
         
         .solution-card h3 {
-            margin-bottom: 16px;
-            color: var(--dark);
+            font-size: 1.25rem;
+            margin-bottom: 12px;
         }
         
         .solution-card p {
             font-size: 1rem;
         }
         
-        /* How Section - happyfigur */
+        /* Section 4: How */
         .how {
             background: linear-gradient(180deg, var(--light) 0%, #e0f2fe 100%);
         }
         
-        .how-header {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 60px;
+        .how .section-number {
+            color: rgba(249,115,22,0.05);
         }
         
-        .how-badge {
-            display: inline-block;
-            background: rgba(249,115,22,0.1);
-            color: var(--secondary);
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 24px;
+        .how-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+        
+        .how-header {
+            text-align: center;
+            margin-bottom: 60px;
         }
         
         .how h2 span {
@@ -362,8 +418,8 @@
         .steps {
             display: flex;
             flex-direction: column;
-            gap: 24px;
-            max-width: 900px;
+            gap: 20px;
+            max-width: 800px;
             margin: 0 auto;
         }
         
@@ -374,163 +430,53 @@
             background: var(--white);
             padding: 32px;
             border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
         }
         
         .step-number {
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             background: linear-gradient(135deg, var(--secondary), #ea580c);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
             flex-shrink: 0;
         }
         
         .step-content h3 {
-            margin-bottom: 8px;
-            color: var(--dark);
+            font-size: 1.2rem;
+            margin-bottom: 6px;
         }
         
         .step-content p {
-            font-size: 1rem;
+            font-size: 0.95rem;
             margin: 0;
         }
         
-        /* Results */
-        .results {
-            background: var(--dark);
-            color: white;
-        }
-        
-        .results-header {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 60px;
-        }
-        
-        .results h2 {
-            color: white;
-        }
-        
-        .results h2 span {
-            color: var(--primary);
-        }
-        
-        .results p {
-            color: rgba(255,255,255,0.7);
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 32px;
-            margin-bottom: 60px;
-        }
-        
-        .stat {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1;
-            margin-bottom: 8px;
-        }
-        
-        .stat-label {
-            font-size: 1rem;
-            color: rgba(255,255,255,0.7);
-        }
-        
-        .testimonials {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-        }
-        
-        .testimonial {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 32px;
-        }
-        
-        .testimonial-text {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 24px;
-            font-style: italic;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        
-        .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: white;
-        }
-        
-        .testimonial-name {
-            font-weight: 600;
-            color: white;
-        }
-        
-        .testimonial-meta {
-            font-size: 0.875rem;
-            color: rgba(255,255,255,0.5);
-        }
-        
-        /* CTA Section */
+        /* Section 5: CTA */
         .cta-section {
             background: linear-gradient(135deg, var(--primary) 0%, #059669 100%);
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -30%;
-            width: 80%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
-            pointer-events: none;
+            justify-content: center;
         }
         
         .cta-content {
-            position: relative;
-            z-index: 1;
-            max-width: 700px;
+            max-width: 650px;
             margin: 0 auto;
         }
         
         .cta-section h2 {
             color: white;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
         .cta-section p {
             color: rgba(255,255,255,0.9);
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             margin-bottom: 40px;
         }
         
@@ -542,7 +488,7 @@
             color: var(--primary-dark);
             padding: 20px 48px;
             border-radius: 60px;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 700;
             text-decoration: none;
             transition: all 0.3s;
@@ -551,7 +497,7 @@
         
         .cta-button:hover {
             transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
         }
         
         .cta-button svg {
@@ -559,75 +505,26 @@
             height: 28px;
         }
         
-        .cta-note {
-            margin-top: 24px;
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.7);
-        }
-        
-        /* FAQ */
-        .faq {
-            background: var(--light);
-        }
-        
-        .faq-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-        
-        .faq-list {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .faq-item {
-            background: white;
-            border-radius: 16px;
-            margin-bottom: 16px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        
-        .faq-question {
-            padding: 24px 32px;
-            cursor: pointer;
+        .cta-trust {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .cta-trust-item {
+            display: flex;
             align-items: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--dark);
-            transition: all 0.3s;
+            gap: 8px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
         }
         
-        .faq-question:hover {
-            color: var(--primary);
-        }
-        
-        .faq-question::after {
-            content: '+';
-            font-size: 1.5rem;
-            font-weight: 300;
-            transition: transform 0.3s;
-        }
-        
-        .faq-item.active .faq-question::after {
-            transform: rotate(45deg);
-        }
-        
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-        
-        .faq-answer-content {
-            padding: 0 32px 24px;
-            color: var(--gray);
-        }
-        
-        .faq-item.active .faq-answer {
-            max-height: 300px;
+        .cta-trust-item svg {
+            width: 20px;
+            height: 20px;
+            color: white;
         }
         
         /* Footer */
@@ -639,34 +536,34 @@
         
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 48px;
-            margin-bottom: 48px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
         }
         
         .footer-brand img {
-            height: 50px;
+            height: 40px;
             margin-bottom: 16px;
             filter: brightness(0) invert(1);
         }
         
         .footer-brand p {
-            color: rgba(255,255,255,0.6);
-            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.875rem;
         }
         
         .footer-links h4 {
-            font-size: 1rem;
+            font-size: 0.875rem;
             margin-bottom: 16px;
             color: white;
         }
         
         .footer-links a {
             display: block;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,255,255,0.5);
             text-decoration: none;
             margin-bottom: 8px;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
             transition: color 0.3s;
         }
         
@@ -678,11 +575,11 @@
             border-top: 1px solid rgba(255,255,255,0.1);
             padding-top: 30px;
             text-align: center;
-            color: rgba(255,255,255,0.5);
-            font-size: 0.875rem;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
         }
         
-        /* WhatsApp Floating Button */
+        /* WhatsApp Floating */
         .whatsapp-float {
             position: fixed;
             bottom: 24px;
@@ -694,8 +591,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 64px;
-            height: 64px;
+            width: 60px;
+            height: 60px;
             background: #25D366;
             border-radius: 50%;
             box-shadow: 0 4px 20px rgba(37,211,102,0.4);
@@ -704,27 +601,30 @@
         
         .whatsapp-float a:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(37,211,102,0.5);
         }
         
         .whatsapp-float svg {
-            width: 36px;
-            height: 36px;
+            width: 32px;
+            height: 32px;
             fill: white;
         }
         
-        /* Mobile Responsive */
+        /* Mobile */
         @media (max-width: 768px) {
             section {
-                padding: 60px 0;
+                padding: 80px 0;
+                min-height: auto;
             }
             
-            .hero {
-                padding-top: 80px;
+            .section-number {
+                font-size: 4rem;
+                top: 20px;
+                left: 20px;
             }
             
-            .header-cta span {
-                display: none;
+            .problem-grid,
+            .solution-grid {
+                grid-template-columns: 1fr;
             }
             
             .step {
@@ -741,269 +641,205 @@
                 font-size: 1.1rem;
             }
             
-            .stat-number {
-                font-size: 2.5rem;
+            .cta-trust {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .header-cta span {
+                display: none;
+            }
+            
+            .scroll-hint {
+                bottom: 24px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
     <!-- Header -->
-    <header>
+    <header id="header">
         <div class="container">
             <img src="fitinn-logo-black.png" alt="FIT-INN Trier" class="logo">
             <a href="https://wa.me/4915679610457" class="header-cta" target="_blank">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                 </svg>
-                <span>Jetzt beraten lassen</span>
+                <span>Jetzt beraten</span>
             </a>
         </div>
     </header>
 
-    <!-- Hero - Clean & Minimal -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Abnehmen, das <span>wirklich funktioniert</span></h1>
+    <!-- Section 1: Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-content fade-up">
+            <h1>Abnehmen, das<br><span>wirklich funktioniert</span></h1>
             <p class="hero-subtitle">Entdecke deinen individuellen Stoffwechseltyp und erreiche dein Wunschgewicht – ohne Jo-Jo-Effekt.</p>
-            <a href="https://wa.me/4915679610457" class="hero-cta" target="_blank">
+        </div>
+        <div class="scroll-hint" onclick="document.querySelector('#problem').scrollIntoView({behavior:'smooth'})">
+            <span>Mehr erfahren</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- Section 2: Problem -->
+    <section class="problem" id="problem">
+        <span class="section-number">01</span>
+        <div class="container">
+            <div class="problem-content">
+                <div class="problem-header fade-up">
+                    <div class="section-label red">
+                        <span>Das Problem</span>
+                    </div>
+                    <h2>Warum <span>95% aller Diäten</span> scheitern</h2>
+                </div>
+                
+                <div class="problem-grid">
+                    <div class="problem-card fade-up fade-up-delay-1">
+                        <div class="problem-icon">🔄</div>
+                        <h3>Jo-Jo-Effekt</h3>
+                        <p>Nach jeder Diät wiegst du mehr als vorher. Dein Stoffwechsel fährt runter.</p>
+                    </div>
+                    <div class="problem-card fade-up fade-up-delay-2">
+                        <div class="problem-icon">📋</div>
+                        <h3>Einheitsdiäten</h3>
+                        <p>Du folgst Plänen, die für andere funktionieren – aber nicht für DICH.</p>
+                    </div>
+                    <div class="problem-card fade-up fade-up-delay-3">
+                        <div class="problem-icon">❓</div>
+                        <h3>Keine Orientierung</h3>
+                        <p>Im Fitnessstudio weißt du nicht, was du machen sollst. Training ohne Plan.</p>
+                    </div>
+                </div>
+                
+                <p class="transition-text fade-up">Aber was wäre, wenn es einen <span>besseren Weg</span> gäbe?</p>
+            </div>
+        </div>
+        <div class="scroll-hint" onclick="document.querySelector('#solution').scrollIntoView({behavior:'smooth'})">
+            <span>Die Lösung</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- Section 3: Solution -->
+    <section class="solution" id="solution">
+        <span class="section-number">02</span>
+        <div class="container">
+            <div class="solution-content">
+                <div class="solution-header fade-up">
+                    <div class="section-label green">
+                        <span>Die Lösung</span>
+                    </div>
+                    <h2>Dein Stoffwechsel ist <span>einzigartig</span></h2>
+                </div>
+                
+                <div class="solution-grid">
+                    <div class="solution-card fade-up fade-up-delay-1">
+                        <div class="solution-icon">🔬</div>
+                        <h3>Wissenschaftliche Analyse</h3>
+                        <p>Wir messen exakt, wie dein Körper Fett verbrennt und Nahrung verwertet.</p>
+                    </div>
+                    <div class="solution-card fade-up fade-up-delay-2">
+                        <div class="solution-icon">🎯</div>
+                        <h3>Dein persönlicher Plan</h3>
+                        <p>Ernährung und Training, das zu DEINEM Stoffwechsel passt. Nicht irgendeiner.</p>
+                    </div>
+                    <div class="solution-card fade-up fade-up-delay-3">
+                        <div class="solution-icon">📈</div>
+                        <h3>Nachhaltige Ergebnisse</h3>
+                        <p>Kein Crash, kein Jo-Jo. Wir optimieren langfristig – Ergebnisse, die bleiben.</p>
+                    </div>
+                </div>
+                
+                <p class="transition-text fade-up">Klingt gut? <span>So setzen wir es um:</span></p>
+            </div>
+        </div>
+        <div class="scroll-hint" onclick="document.querySelector('#how').scrollIntoView({behavior:'smooth'})">
+            <span>So funktioniert's</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- Section 4: How -->
+    <section class="how" id="how">
+        <span class="section-number">03</span>
+        <div class="container">
+            <div class="how-content">
+                <div class="how-header fade-up">
+                    <div class="section-label orange">
+                        <span>So funktioniert's</span>
+                    </div>
+                    <h2>happyfigur + <span>8 Wochen Training</span></h2>
+                </div>
+                
+                <div class="steps">
+                    <div class="step fade-up">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Stoffwechselanalyse</h3>
+                            <p>10 Minuten Atemgasanalyse – wir ermitteln deinen Stoffwechseltyp und deine Fettverbrennungszonen.</p>
+                        </div>
+                    </div>
+                    <div class="step fade-up fade-up-delay-1">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Dein persönlicher Plan</h3>
+                            <p>Wir erstellen deinen individuellen Ernährungs- und Trainingsplan – abgestimmt auf deine Ergebnisse.</p>
+                        </div>
+                    </div>
+                    <div class="step fade-up fade-up-delay-2">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>8 Wochen Begleitung</h3>
+                            <p>2x pro Woche BioCircuit-Training, regelmäßige Check-ins, Anpassungen wenn nötig.</p>
+                        </div>
+                    </div>
+                    <div class="step fade-up fade-up-delay-3">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Kontrollmessung & Erfolg</h3>
+                            <p>Nach 8 Wochen: Neue Analyse. Du siehst schwarz auf weiß, was sich verändert hat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-hint" onclick="document.querySelector('#cta').scrollIntoView({behavior:'smooth'})">
+            <span>Jetzt starten</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- Section 5: CTA -->
+    <section class="cta-section" id="cta">
+        <div class="cta-content fade-up">
+            <h2>Bereit für deinen Neustart?</h2>
+            <p>Schreib uns auf WhatsApp – wir besprechen, wie happyfigur dir helfen kann.</p>
+            
+            <a href="https://wa.me/4915679610457" class="cta-button" target="_blank">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                 </svg>
-                Kostenlos beraten lassen
+                Jetzt WhatsApp schreiben
             </a>
-        </div>
-        <div class="scroll-indicator" onclick="document.querySelector('.problem').scrollIntoView({behavior:'smooth'})">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-        </div>
-    </section>
-
-    <!-- Problem Section -->
-    <section class="problem">
-        <div class="container">
-            <div class="problem-header">
-                <span class="problem-badge">Das Problem</span>
-                <h2>Warum <span>Diäten scheitern</span></h2>
-            </div>
             
-            <div class="problem-grid">
-                <div class="problem-card">
-                    <h4>Einheitsdiäten</h4>
-                    <p>Du folgst Plänen, die für andere funktionieren – aber nicht für deinen Stoffwechsel.</p>
+            <div class="cta-trust">
+                <div class="cta-trust-item">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span>Unverbindlich</span>
                 </div>
-                <div class="problem-card">
-                    <h4>Jo-Jo-Effekt</h4>
-                    <p>Nach jeder Diät wiegst du mehr als vorher. Dein Körper kämpft gegen dich.</p>
+                <div class="cta-trust-item">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span>Persönliche Beratung</span>
                 </div>
-                <div class="problem-card">
-                    <h4>Keine Orientierung</h4>
-                    <p>Im Fitnessstudio weißt du nicht, was du machen sollst. Training ohne Plan.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Solution Section -->
-    <section class="solution">
-        <div class="container">
-            <div class="solution-header">
-                <span class="solution-badge">💡 Die Lösung</span>
-                <h2>Dein Stoffwechsel ist <span>einzigartig</span></h2>
-                <p>Die Wahrheit ist: Jeder Körper ist anders. Was bei deiner Freundin funktioniert, muss bei dir nicht klappen. Der Schlüssel liegt in deinem individuellen Stoffwechseltyp.</p>
-            </div>
-            
-            <div class="solution-grid">
-                <div class="solution-card">
-                    <div class="solution-icon">🔬</div>
-                    <h3>Wissenschaftliche Analyse</h3>
-                    <p>Keine Vermutungen mehr. Mit der happyfigur Stoffwechselanalyse messen wir exakt, wie dein Körper Fett verbrennt und Nahrung verwertet.</p>
-                </div>
-                <div class="solution-card">
-                    <div class="solution-icon">🎯</div>
-                    <h3>Personalisierter Plan</h3>
-                    <p>Basierend auf deinen Ergebnissen erstellen wir einen Ernährungs- und Trainingsplan, der zu DEINEM Stoffwechsel passt.</p>
-                </div>
-                <div class="solution-card">
-                    <div class="solution-icon">📈</div>
-                    <h3>Nachhaltige Ergebnisse</h3>
-                    <p>Kein Jo-Jo-Effekt, keine Crash-Diäten. Wir optimieren deinen Stoffwechsel langfristig – für Ergebnisse, die bleiben.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How Section - happyfigur -->
-    <section class="how">
-        <div class="container">
-            <div class="how-header">
-                <span class="how-badge">🚀 So funktioniert's</span>
-                <h2>happyfigur + <span>8 Wochen Training</span></h2>
-                <p>Unser bewährtes Programm kombiniert modernste Stoffwechseldiagnostik mit begleitetem Training auf TechnoGym-Geräten – alles unter einem Dach.</p>
-            </div>
-            
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Stoffwechselanalyse</h3>
-                        <p>In nur 10 Minuten Atemgasanalyse ermitteln wir deinen persönlichen Stoffwechseltyp, deine optimalen Fettstoffwechsel-Zonen und wie viele Kalorien du wirklich verbrauchst.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Persönliche Auswertung</h3>
-                        <p>Wir besprechen deine Ergebnisse im Detail und erstellen gemeinsam deinen individuellen Ernährungs- und Trainingsplan – abgestimmt auf dein Ziel.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>8 Wochen Begleitung</h3>
-                        <p>Zweimal pro Woche trainierst du mit unserem BioCircuit – smartes Krafttraining, das sich automatisch an dich anpasst. Dazu regelmäßige Check-ins und Anpassungen deines Plans.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Kontrollmessung & Erfolg</h3>
-                        <p>Nach 8 Wochen wiederholen wir die Analyse. Du siehst schwarz auf weiß, wie sich dein Stoffwechsel verbessert hat – und feierst deine Ergebnisse.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Results Section -->
-    <section class="results">
-        <div class="container">
-            <div class="results-header">
-                <h2>Echte Menschen. <span>Echte Ergebnisse.</span></h2>
-                <p>Seit über 30 Jahren helfen wir Menschen in Trier, ihre Fitnessziele zu erreichen.</p>
-            </div>
-            
-            <div class="stats-grid">
-                <div class="stat">
-                    <div class="stat-number">30+</div>
-                    <div class="stat-label">Jahre Erfahrung</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">1.500+</div>
-                    <div class="stat-label">Zufriedene Mitglieder</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">95%</div>
-                    <div class="stat-label">Weiterempfehlungsrate</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">Ø 6kg</div>
-                    <div class="stat-label">Gewichtsverlust in 8 Wochen</div>
-                </div>
-            </div>
-            
-            <div class="testimonials">
-                <div class="testimonial">
-                    <p class="testimonial-text">"Nach Jahren des Scheiterns mit Diäten hat mir die Stoffwechselanalyse endlich gezeigt, warum. Jetzt esse ich mehr als vorher – und nehme trotzdem ab!"</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">SK</div>
-                        <div>
-                            <div class="testimonial-name">Sandra K.</div>
-                            <div class="testimonial-meta">-8 kg in 8 Wochen</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial">
-                    <p class="testimonial-text">"Das BioCircuit-Training ist genial. In 30 Minuten ein komplettes Workout, und die Geräte stellen sich automatisch auf mich ein. Perfekt für meinen vollen Terminkalender."</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">TM</div>
-                        <div>
-                            <div class="testimonial-name">Thomas M.</div>
-                            <div class="testimonial-meta">Unternehmer, 48</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial">
-                    <p class="testimonial-text">"Ich hätte nie gedacht, dass ich mit 55 noch mal so fit sein kann. Die persönliche Betreuung macht den Unterschied – man ist hier keine Nummer."</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">MH</div>
-                        <div>
-                            <div class="testimonial-name">Marion H.</div>
-                            <div class="testimonial-meta">Mitglied seit 2023</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Bereit, deinen Stoffwechsel zu entdecken?</h2>
-                <p>Schreib uns auf WhatsApp und wir besprechen, wie happyfigur dir helfen kann, dein Ziel zu erreichen.</p>
-                
-                <a href="https://wa.me/4915679610457" class="cta-button" target="_blank">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                    </svg>
-                    Jetzt auf WhatsApp schreiben
-                </a>
-                
-                <p class="cta-note">✓ Unverbindlich &nbsp; ✓ Keine Wartezeit &nbsp; ✓ Persönliche Beratung</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq">
-        <div class="container">
-            <div class="faq-header">
-                <h2>Häufige Fragen</h2>
-            </div>
-            
-            <div class="faq-list">
-                <div class="faq-item">
-                    <div class="faq-question">Was genau wird bei der Stoffwechselanalyse gemessen?</div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            Bei der Atemgasanalyse messen wir deinen Sauerstoffverbrauch und CO2-Ausstoß in Ruhe. Daraus berechnen wir exakt, wie viele Kalorien du verbrauchst und in welchem Verhältnis du Fett und Kohlenhydrate verbrennst. Das Ergebnis: Dein persönlicher Stoffwechseltyp und die optimalen Herzfrequenz-Zonen für effektive Fettverbrennung.
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Wie lange dauert eine Analyse?</div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            Die eigentliche Messung dauert nur etwa 10 Minuten. Mit der anschließenden Auswertung und Besprechung solltest du ca. 45-60 Minuten einplanen.
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Was ist BioCircuit?</div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            BioCircuit ist ein smartes Zirkeltraining von TechnoGym. Die Geräte erkennen dich automatisch und stellen sich auf deine persönlichen Einstellungen ein. So bekommst du in nur 30 Minuten ein effektives Ganzkörpertraining – perfekt angeleitet durch Lichtimpulse.
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Muss ich schon fit sein, um teilzunehmen?</div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            Nein! Das Programm ist für jeden geeignet – egal ob Anfänger oder Fortgeschrittener. Die Geräte passen sich automatisch an dein Level an, und unsere Trainer begleiten dich bei jedem Schritt.
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">Wie viel kostet das Programm?</div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            Schreib uns einfach auf WhatsApp – wir besprechen dann gemeinsam, welches Paket am besten zu dir und deinen Zielen passt. Die Beratung ist unverbindlich und kostenlos.
-                        </div>
-                    </div>
+                <div class="cta-trust-item">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span>30 Jahre Erfahrung</span>
                 </div>
             </div>
         </div>
@@ -1015,7 +851,7 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <img src="fitinn-logo-black.png" alt="FIT-INN Trier">
-                    <p>Dein Fitnessstudio in Trier-Hürtenberg. Seit 1996 begleiten wir Menschen auf ihrem Weg zu mehr Fitness und Wohlbefinden.</p>
+                    <p>Dein Fitnessstudio in Trier. Seit 1996.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Kontakt</h4>
@@ -1025,7 +861,7 @@
                 </div>
                 <div class="footer-links">
                     <h4>Adresse</h4>
-                    <p style="color: rgba(255,255,255,0.6); font-size: 0.9rem;">
+                    <p style="color: rgba(255,255,255,0.5); font-size: 0.875rem;">
                         FIT-INN Trier<br>
                         Im Hürtenberg 3<br>
                         54296 Trier
@@ -1036,7 +872,6 @@
                     <a href="impressum.html">Impressum</a>
                     <a href="datenschutz.html">Datenschutz</a>
                     <a href="agb.html">AGB</a>
-                    <a href="widerruf.html">Widerruf</a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -1045,34 +880,48 @@
         </div>
     </footer>
 
-    <!-- WhatsApp Floating Button -->
+    <!-- WhatsApp Floating -->
     <div class="whatsapp-float">
-        <a href="https://wa.me/4915679610457" target="_blank" aria-label="WhatsApp Chat">
+        <a href="https://wa.me/4915679610457" target="_blank">
             <svg viewBox="0 0 24 24">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
             </svg>
         </a>
     </div>
 
-    <!-- FAQ Toggle Script -->
     <script>
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const item = question.parentElement;
-                const isActive = item.classList.contains('active');
-                
-                // Close all
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-                
-                // Open clicked if it wasn't active
-                if (!isActive) {
-                    item.classList.add('active');
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+            
+            // Header background
+            const header = document.getElementById('header');
+            if (winScroll > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Scroll Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
             });
-        });
+        }, observerOptions);
+        
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
     </script>
-
-    <!-- respond.io Widget -->
-    <script id="respondio__growth_tool" src="https://cdn.respond.io/webchat/widget/widget.js?cId=c870a85b-64c0-463d-a46c-faeefd1b0c3e"></script>
 </body>
 </html>
