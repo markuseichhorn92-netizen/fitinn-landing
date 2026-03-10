@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>happyfigur | Endlich abnehmen, das funktioniert – FIT-INN Trier</title>
-    <meta name="description" content="Finde heraus, wie du mit deinem individuellen Stoffwechseltyp endlich dein Wunschgewicht erreichst.">
+    <title>happyfigur | Dein Weg zum Wunschgewicht – FIT-INN Trier</title>
+    <meta name="description" content="Finde in 2 Minuten heraus, wie du mit deinem individuellen Stoffwechseltyp endlich dein Wunschgewicht erreichst.">
     
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,12 +18,16 @@
             --primary: #22c55e;
             --primary-dark: #16a34a;
             --accent: #f97316;
-            --dark: #0a0a0f;
-            --dark-2: #12121a;
-            --dark-3: #1a1a24;
+            --accent-dark: #ea580c;
+            --dark: #09090b;
+            --dark-2: #18181b;
+            --dark-3: #27272a;
             --gray: #71717a;
             --gray-light: #a1a1aa;
             --white: #fafafa;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --purple: #8b5cf6;
         }
         
         body {
@@ -34,87 +38,114 @@
             overflow-x: hidden;
         }
         
-        /* Progress Steps */
+        /* Progress */
         .progress {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            padding: 16px 24px;
-            background: rgba(10,10,15,0.95);
+            background: rgba(9,9,11,0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 16px 24px;
         }
         
         .progress-inner {
-            max-width: 400px;
+            max-width: 500px;
             margin: 0 auto;
-            display: flex;
-            gap: 8px;
         }
         
-        .progress-step {
-            flex: 1;
-            height: 4px;
+        .progress-bar-bg {
+            height: 6px;
             background: var(--dark-3);
-            border-radius: 2px;
+            border-radius: 3px;
             overflow: hidden;
         }
         
-        .progress-step.active {
-            background: var(--primary);
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 3px;
+            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 0%;
         }
         
-        .progress-step.completed {
-            background: var(--primary);
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.75rem;
+            color: var(--gray);
         }
         
-        /* Funnel Container */
+        /* Funnel */
         .funnel {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 80px 24px 40px;
+            padding: 100px 24px 60px;
         }
         
         /* Screens */
         .screen {
             display: none;
             width: 100%;
-            max-width: 700px;
-            animation: fadeIn 0.5s ease;
+            max-width: 640px;
+            opacity: 0;
+            transform: translateY(30px);
         }
         
         .screen.active {
             display: block;
+            animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+        .screen.exit {
+            animation: slideOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Screen Content */
+        @keyframes slideOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
+        }
+        
+        /* Content */
         .screen-content {
             text-align: center;
         }
         
-        .screen-badge {
+        .screen-icon {
+            font-size: 3.5rem;
+            margin-bottom: 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(34,197,94,0.1);
+            border: 1px solid rgba(34,197,94,0.2);
             padding: 8px 16px;
             border-radius: 50px;
             font-size: 0.8rem;
-            color: var(--gray-light);
+            color: var(--primary);
             margin-bottom: 24px;
         }
         
-        .screen-badge .dot {
+        .badge .dot {
             width: 8px;
             height: 8px;
             background: var(--primary);
@@ -123,41 +154,45 @@
         }
         
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
         }
         
-        .screen h1 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: 800;
             line-height: 1.15;
             letter-spacing: -0.03em;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         
-        .screen h1 .gradient {
+        h1 .gradient {
             background: linear-gradient(135deg, var(--primary), #4ade80, var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        .screen h2 {
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
+        h2 {
+            font-size: clamp(1.4rem, 4vw, 2rem);
             font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 16px;
+            line-height: 1.25;
+            margin-bottom: 12px;
         }
         
-        .screen h2 span {
+        h2 .highlight {
             color: var(--accent);
         }
         
-        .screen-subtitle {
-            font-size: 1.1rem;
+        h2 .highlight-green {
+            color: var(--primary);
+        }
+        
+        .subtitle {
+            font-size: 1.05rem;
             color: var(--gray-light);
             line-height: 1.7;
-            margin-bottom: 40px;
+            margin-bottom: 32px;
         }
         
         /* Buttons */
@@ -173,47 +208,50 @@
             text-decoration: none;
             cursor: pointer;
             border: none;
-            transition: all 0.3s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
         
         .btn-primary {
             background: var(--primary);
             color: var(--dark);
-            box-shadow: 0 0 40px rgba(34,197,94,0.3);
+            box-shadow: 0 0 40px rgba(34,197,94,0.25);
         }
         
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 60px rgba(34,197,94,0.4);
+            box-shadow: 0 10px 50px rgba(34,197,94,0.35);
         }
         
-        .btn-primary svg {
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn svg {
             width: 20px;
             height: 20px;
+            transition: transform 0.3s;
         }
         
-        .btn-secondary {
-            background: var(--dark-3);
-            color: var(--white);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--dark-2);
-            border-color: rgba(255,255,255,0.2);
+        .btn:hover svg {
+            transform: translateX(4px);
         }
         
         .btn-wa {
             background: #25D366;
             color: white;
             font-size: 1.1rem;
-            padding: 18px 40px;
-            box-shadow: 0 0 40px rgba(37,211,102,0.3);
-        }
-        
-        .btn-wa:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 60px rgba(37,211,102,0.4);
+            padding: 18px 36px;
+            box-shadow: 0 0 50px rgba(37,211,102,0.25);
         }
         
         .btn-wa svg {
@@ -221,39 +259,45 @@
             height: 24px;
         }
         
+        .btn-wa:hover svg {
+            transform: translateX(0) scale(1.1);
+        }
+        
         /* Selection Cards */
-        .selection-grid {
-            display: grid;
-            gap: 16px;
-            margin-bottom: 40px;
-        }
-        
-        .selection-card {
-            background: var(--dark-3);
-            border: 2px solid rgba(255,255,255,0.05);
-            border-radius: 16px;
-            padding: 24px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: left;
+        .options {
             display: flex;
-            align-items: flex-start;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        
+        .option {
+            background: var(--dark-2);
+            border: 2px solid var(--dark-3);
+            border-radius: 16px;
+            padding: 20px 24px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
             gap: 16px;
+            text-align: left;
         }
         
-        .selection-card:hover {
+        .option:hover {
             border-color: rgba(255,255,255,0.15);
-            transform: translateY(-2px);
+            transform: translateX(4px);
+            background: var(--dark-3);
         }
         
-        .selection-card.selected {
+        .option.selected {
             border-color: var(--primary);
-            background: rgba(34,197,94,0.1);
+            background: rgba(34,197,94,0.08);
         }
         
-        .selection-card .check {
-            width: 24px;
-            height: 24px;
+        .option .radio {
+            width: 22px;
+            height: 22px;
             border: 2px solid var(--gray);
             border-radius: 50%;
             flex-shrink: 0;
@@ -263,120 +307,344 @@
             transition: all 0.3s;
         }
         
-        .selection-card.selected .check {
-            background: var(--primary);
+        .option.selected .radio {
             border-color: var(--primary);
+            background: var(--primary);
         }
         
-        .selection-card.selected .check svg {
-            display: block;
+        .option .radio::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--dark);
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s;
         }
         
-        .selection-card .check svg {
+        .option.selected .radio::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .option .check {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--gray);
+            border-radius: 6px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .option.selected .check {
+            border-color: var(--primary);
+            background: var(--primary);
+        }
+        
+        .option .check svg {
             width: 14px;
             height: 14px;
             color: var(--dark);
-            display: none;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s;
         }
         
-        .selection-card .icon {
-            font-size: 2rem;
+        .option.selected .check svg {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .option .icon {
+            font-size: 1.75rem;
             flex-shrink: 0;
         }
         
-        .selection-card .text h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
+        .option .text {
+            flex: 1;
         }
         
-        .selection-card .text p {
-            font-size: 0.9rem;
-            color: var(--gray-light);
-            margin: 0;
-        }
-        
-        /* Info Cards */
-        .info-grid {
-            display: grid;
-            gap: 16px;
-            margin-bottom: 40px;
-        }
-        
-        .info-card {
-            background: var(--dark-3);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 16px;
-            padding: 24px;
-            text-align: left;
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-        }
-        
-        .info-card .icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-        
-        .info-card .text h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        
-        .info-card .text p {
-            font-size: 0.9rem;
-            color: var(--gray-light);
-            margin: 0;
-        }
-        
-        /* Steps */
-        .steps-list {
-            text-align: left;
-            margin-bottom: 40px;
-        }
-        
-        .step-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 20px;
-            background: var(--dark-3);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 16px;
-            margin-bottom: 12px;
-        }
-        
-        .step-num {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--accent), #ea580c);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-        
-        .step-item .text h3 {
+        .option .text h3 {
             font-size: 1rem;
             font-weight: 600;
             margin-bottom: 2px;
         }
         
-        .step-item .text p {
+        .option .text p {
             font-size: 0.85rem;
             color: var(--gray-light);
             margin: 0;
+        }
+        
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1));
+            border: 1px solid rgba(59,130,246,0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+        
+        .info-box.warning {
+            background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(249,115,22,0.1));
+            border-color: rgba(239,68,68,0.2);
+        }
+        
+        .info-box.success {
+            background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(16,185,129,0.1));
+            border-color: rgba(34,197,94,0.2);
+        }
+        
+        .info-box h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-box p {
+            font-size: 0.9rem;
+            color: var(--gray-light);
+            line-height: 1.6;
+            margin: 0;
+        }
+        
+        /* Stats */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .stat {
+            background: var(--dark-2);
+            border: 1px solid var(--dark-3);
+            border-radius: 16px;
+            padding: 20px 16px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Timeline */
+        .timeline {
+            text-align: left;
+            margin-bottom: 32px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            padding-bottom: 24px;
+            position: relative;
+        }
+        
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 44px;
+            bottom: 0;
+            width: 2px;
+            background: var(--dark-3);
+        }
+        
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        
+        .timeline-dot {
+            width: 40px;
+            height: 40px;
+            background: var(--dark-3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+        
+        .timeline-item.active .timeline-dot {
+            background: var(--primary);
+        }
+        
+        .timeline-content {
+            flex: 1;
+            padding-top: 8px;
+        }
+        
+        .timeline-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .timeline-content p {
+            font-size: 0.85rem;
+            color: var(--gray-light);
+            margin: 0;
+        }
+        
+        .timeline-content .time {
+            display: inline-block;
+            background: var(--dark-3);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-top: 8px;
+        }
+        
+        /* Result Card */
+        .result-card {
+            background: linear-gradient(135deg, var(--dark-2), var(--dark-3));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+        
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .result-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .result-title h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .result-title p {
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin: 0;
+        }
+        
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .result-stat {
+            background: var(--dark);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        
+        .result-stat-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+        
+        .result-stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        
+        .result-list {
+            list-style: none;
+        }
+        
+        .result-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+        
+        .result-list li:last-child {
+            border: none;
+        }
+        
+        .result-list li svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        /* Navigation */
+        .nav-row {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .back-btn {
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+            border-radius: 8px;
+        }
+        
+        .back-btn:hover {
+            color: var(--white);
+            background: var(--dark-3);
+        }
+        
+        .back-btn svg {
+            width: 16px;
+            height: 16px;
         }
         
         /* Trust */
@@ -392,7 +660,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--gray);
         }
         
@@ -402,110 +670,70 @@
             color: var(--primary);
         }
         
-        /* Summary */
-        .summary-box {
-            background: var(--dark-3);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 32px;
+        /* Loading */
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--dark-3);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 1rem;
+            color: var(--gray-light);
+        }
+        
+        .loading-steps {
             text-align: left;
+            margin-top: 16px;
         }
         
-        .summary-box h4 {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--gray);
-            margin-bottom: 12px;
-        }
-        
-        .summary-item {
+        .loading-step {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        .summary-item:last-child {
-            border: none;
-        }
-        
-        .summary-item .icon {
-            font-size: 1.25rem;
-        }
-        
-        .summary-item span {
-            font-size: 0.95rem;
-        }
-        
-        /* Navigation */
-        .nav-row {
-            display: flex;
             gap: 12px;
-            justify-content: center;
-            margin-top: 24px;
-        }
-        
-        .back-btn {
-            background: transparent;
-            border: none;
-            color: var(--gray);
+            padding: 8px 0;
             font-size: 0.9rem;
-            cursor: pointer;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.3s;
+            color: var(--gray);
+            opacity: 0;
+            animation: fadeInStep 0.5s ease forwards;
         }
         
-        .back-btn:hover {
-            color: var(--white);
+        .loading-step svg {
+            width: 18px;
+            height: 18px;
+            color: var(--primary);
         }
         
-        .back-btn svg {
-            width: 16px;
-            height: 16px;
-        }
+        .loading-step:nth-child(1) { animation-delay: 0.5s; }
+        .loading-step:nth-child(2) { animation-delay: 1.5s; }
+        .loading-step:nth-child(3) { animation-delay: 2.5s; }
         
-        /* Logo */
-        .logo {
-            position: fixed;
-            top: 50px;
-            left: 24px;
-            z-index: 50;
-        }
-        
-        .logo img {
-            height: 28px;
-            filter: brightness(0) invert(1);
-            opacity: 0.5;
+        @keyframes fadeInStep {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
         /* Mobile */
         @media (max-width: 640px) {
-            .funnel {
-                padding: 100px 20px 40px;
-            }
-            
-            .progress {
-                padding: 12px 20px;
-            }
-            
-            .selection-card {
-                padding: 20px;
-            }
-            
-            .trust-row {
-                flex-direction: column;
-                gap: 12px;
-            }
-            
-            .logo {
-                display: none;
-            }
+            .funnel { padding: 90px 20px 40px; }
+            .stats-row { grid-template-columns: 1fr; }
+            .result-stats { grid-template-columns: 1fr; }
+            .trust-row { flex-direction: column; gap: 12px; }
+            .option { padding: 16px 20px; }
         }
     </style>
 </head>
@@ -513,66 +741,119 @@
     <!-- Progress -->
     <div class="progress">
         <div class="progress-inner">
-            <div class="progress-step active" data-step="1"></div>
-            <div class="progress-step" data-step="2"></div>
-            <div class="progress-step" data-step="3"></div>
-            <div class="progress-step" data-step="4"></div>
-            <div class="progress-step" data-step="5"></div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressStep">Schritt 1 von 9</span>
+                <span id="progressPercent">0%</span>
+            </div>
         </div>
     </div>
-    
-    <!-- Logo -->
-    <div class="logo">
-        <img src="fitinn-logo-black.png" alt="FIT-INN">
-    </div>
 
-    <!-- Funnel -->
     <div class="funnel">
         
         <!-- Screen 1: Intro -->
         <div class="screen active" data-screen="1">
             <div class="screen-content">
-                <div class="screen-badge">
+                <div class="screen-icon">🎯</div>
+                
+                <div class="badge">
                     <div class="dot"></div>
-                    <span>happyfigur Stoffwechselanalyse</span>
+                    <span>2 Minuten Analyse</span>
                 </div>
                 
-                <h1>Abnehmen, das<br><span class="gradient">wirklich funktioniert</span></h1>
+                <h1>Finde deinen Weg zum <span class="gradient">Wunschgewicht</span></h1>
                 
-                <p class="screen-subtitle">
-                    Finde in 60 Sekunden heraus, wie du mit deinem individuellen Stoffwechseltyp endlich dein Wunschgewicht erreichst – ohne Jo-Jo-Effekt.
+                <p class="subtitle">
+                    Beantworte 8 kurze Fragen und erhalte eine personalisierte Empfehlung, wie du mit deinem individuellen Stoffwechseltyp nachhaltig abnehmen kannst.
                 </p>
                 
-                <button class="btn btn-primary" onclick="nextScreen()">
-                    Jetzt starten
+                <button class="btn btn-primary" onclick="next()">
+                    Analyse starten
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                 </button>
                 
                 <div class="trust-row">
                     <div class="trust-item">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                        <span>100% vertraulich</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span>Nur 2 Minuten</span>
+                    </div>
+                    <div class="trust-item">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         <span>Kostenlos</span>
-                    </div>
-                    <div class="trust-item">
-                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        <span>60 Sekunden</span>
-                    </div>
-                    <div class="trust-item">
-                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        <span>Unverbindlich</span>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Screen 2: Problem Selection -->
+
+        <!-- Screen 2: Ziel -->
         <div class="screen" data-screen="2">
             <div class="screen-content">
-                <h2>Was ist dein <span>größtes Problem</span> beim Abnehmen?</h2>
-                <p class="screen-subtitle">Wähle alle aus, die auf dich zutreffen:</p>
+                <h2>Was ist dein <span class="highlight">Hauptziel</span>?</h2>
+                <p class="subtitle">Wähle das Ziel, das dir am wichtigsten ist:</p>
                 
-                <div class="selection-grid">
-                    <div class="selection-card" onclick="toggleSelection(this)" data-value="jojo">
+                <div class="options" id="goalOptions">
+                    <div class="option" onclick="selectSingle(this, 'goal')" data-value="abnehmen">
+                        <div class="radio"></div>
+                        <div class="icon">⚖️</div>
+                        <div class="text">
+                            <h3>Gewicht verlieren</h3>
+                            <p>Ich möchte überflüssige Kilos loswerden</p>
+                        </div>
+                    </div>
+                    <div class="option" onclick="selectSingle(this, 'goal')" data-value="straffen">
+                        <div class="radio"></div>
+                        <div class="icon">💪</div>
+                        <div class="text">
+                            <h3>Körper straffen</h3>
+                            <p>Weniger Fett, mehr Definition</p>
+                        </div>
+                    </div>
+                    <div class="option" onclick="selectSingle(this, 'goal')" data-value="energie">
+                        <div class="radio"></div>
+                        <div class="icon">⚡</div>
+                        <div class="text">
+                            <h3>Mehr Energie</h3>
+                            <p>Ich fühle mich oft müde und schlapp</p>
+                        </div>
+                    </div>
+                    <div class="option" onclick="selectSingle(this, 'goal')" data-value="gesundheit">
+                        <div class="radio"></div>
+                        <div class="icon">❤️</div>
+                        <div class="text">
+                            <h3>Gesünder leben</h3>
+                            <p>Langfristig fit und gesund bleiben</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="next()" id="btn2" disabled>
+                    Weiter
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </button>
+                
+                <div class="nav-row">
+                    <button class="back-btn" onclick="prev()">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        Zurück
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 3: Probleme -->
+        <div class="screen" data-screen="3">
+            <div class="screen-content">
+                <h2>Was <span class="highlight">hält dich zurück</span>?</h2>
+                <p class="subtitle">Wähle alle Herausforderungen, die auf dich zutreffen:</p>
+                
+                <div class="options" id="problemOptions">
+                    <div class="option" onclick="toggleMulti(this, 'problems')" data-value="jojo">
                         <div class="check">
                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
@@ -582,175 +863,413 @@
                             <p>Nach jeder Diät wiege ich mehr als vorher</p>
                         </div>
                     </div>
-                    
-                    <div class="selection-card" onclick="toggleSelection(this)" data-value="diaeten">
+                    <div class="option" onclick="toggleMulti(this, 'problems')" data-value="hunger">
                         <div class="check">
                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <div class="icon">📋</div>
+                        <div class="icon">🍕</div>
                         <div class="text">
-                            <h3>Diäten funktionieren nicht</h3>
-                            <p>Ich habe schon alles versucht, aber nichts klappt</p>
+                            <h3>Heißhunger-Attacken</h3>
+                            <p>Ich kann Süßigkeiten nicht widerstehen</p>
                         </div>
                     </div>
-                    
-                    <div class="selection-card" onclick="toggleSelection(this)" data-value="training">
+                    <div class="option" onclick="toggleMulti(this, 'problems')" data-value="zeit">
                         <div class="check">
                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
-                        <div class="icon">🏋️</div>
+                        <div class="icon">⏰</div>
                         <div class="text">
-                            <h3>Keine Orientierung im Gym</h3>
-                            <p>Ich weiß nicht, was ich trainieren soll</p>
+                            <h3>Zeitmangel</h3>
+                            <p>Ich habe kaum Zeit für Sport und Kochen</p>
                         </div>
                     </div>
-                    
-                    <div class="selection-card" onclick="toggleSelection(this)" data-value="motivation">
+                    <div class="option" onclick="toggleMulti(this, 'problems')" data-value="motivation">
                         <div class="check">
                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         </div>
                         <div class="icon">😩</div>
                         <div class="text">
-                            <h3>Fehlende Motivation</h3>
-                            <p>Ich fange an, aber gebe schnell wieder auf</p>
+                            <h3>Motivation fehlt</h3>
+                            <p>Ich fange an, gebe aber schnell auf</p>
+                        </div>
+                    </div>
+                    <div class="option" onclick="toggleMulti(this, 'problems')" data-value="wissen">
+                        <div class="check">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <div class="icon">❓</div>
+                        <div class="text">
+                            <h3>Keine Ahnung was funktioniert</h3>
+                            <p>Es gibt so viele widersprüchliche Infos</p>
                         </div>
                     </div>
                 </div>
                 
-                <button class="btn btn-primary" onclick="nextScreen()">
+                <button class="btn btn-primary" onclick="next()">
                     Weiter
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                 </button>
                 
                 <div class="nav-row">
-                    <button class="back-btn" onclick="prevScreen()">
+                    <button class="back-btn" onclick="prev()">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                         Zurück
                     </button>
                 </div>
             </div>
         </div>
-        
-        <!-- Screen 3: Solution -->
-        <div class="screen" data-screen="3">
-            <div class="screen-content">
-                <h2>Das Problem ist nicht <span>dein Wille</span></h2>
-                <p class="screen-subtitle">
-                    95% aller Diäten scheitern – nicht weil du zu schwach bist, sondern weil sie nicht zu DEINEM Stoffwechsel passen. Jeder Körper ist einzigartig.
-                </p>
-                
-                <div class="info-grid">
-                    <div class="info-card">
-                        <div class="icon">🔬</div>
-                        <div class="text">
-                            <h3>Wissenschaftliche Analyse</h3>
-                            <p>Wir messen exakt, wie dein Körper Fett verbrennt und Nahrung verwertet</p>
-                        </div>
-                    </div>
-                    
-                    <div class="info-card">
-                        <div class="icon">🎯</div>
-                        <div class="text">
-                            <h3>Dein persönlicher Plan</h3>
-                            <p>Ernährung und Training, das zu DEINEM Stoffwechsel passt</p>
-                        </div>
-                    </div>
-                    
-                    <div class="info-card">
-                        <div class="icon">📈</div>
-                        <div class="text">
-                            <h3>Nachhaltige Ergebnisse</h3>
-                            <p>Kein Crash, kein Jo-Jo – Ergebnisse, die bleiben</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="btn btn-primary" onclick="nextScreen()">
-                    So funktioniert's
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-                </button>
-                
-                <div class="nav-row">
-                    <button class="back-btn" onclick="prevScreen()">
-                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                        Zurück
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Screen 4: How it works -->
+
+        <!-- Screen 4: Versuche -->
         <div class="screen" data-screen="4">
             <div class="screen-content">
-                <h2>happyfigur + <span>8 Wochen Training</span></h2>
-                <p class="screen-subtitle">
-                    Unser bewährtes Programm kombiniert Stoffwechseldiagnostik mit begleitetem Training.
-                </p>
+                <h2>Was hast du schon <span class="highlight">versucht</span>?</h2>
+                <p class="subtitle">Wähle alle Methoden, die du bereits ausprobiert hast:</p>
                 
-                <div class="steps-list">
-                    <div class="step-item">
-                        <div class="step-num">1</div>
+                <div class="options" id="triedOptions">
+                    <div class="option" onclick="toggleMulti(this, 'tried')" data-value="lowcarb">
+                        <div class="check">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <div class="icon">🥗</div>
                         <div class="text">
-                            <h3>Stoffwechselanalyse</h3>
-                            <p>10 Min Atemgasanalyse – wir ermitteln deinen Stoffwechseltyp</p>
+                            <h3>Low Carb / Keto</h3>
+                            <p>Kohlenhydrate reduziert oder gestrichen</p>
                         </div>
                     </div>
-                    
-                    <div class="step-item">
-                        <div class="step-num">2</div>
+                    <div class="option" onclick="toggleMulti(this, 'tried')" data-value="fasten">
+                        <div class="check">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <div class="icon">⏱️</div>
                         <div class="text">
-                            <h3>Dein persönlicher Plan</h3>
-                            <p>Individueller Ernährungs- und Trainingsplan</p>
+                            <h3>Intervallfasten</h3>
+                            <p>16:8, 5:2 oder andere Fastenmethoden</p>
                         </div>
                     </div>
-                    
-                    <div class="step-item">
-                        <div class="step-num">3</div>
+                    <div class="option" onclick="toggleMulti(this, 'tried')" data-value="kalorien">
+                        <div class="check">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <div class="icon">📊</div>
                         <div class="text">
-                            <h3>8 Wochen Begleitung</h3>
-                            <p>2x pro Woche Training, regelmäßige Check-ins</p>
+                            <h3>Kalorienzählen</h3>
+                            <p>Apps, Tagebuch, Makros tracken</p>
                         </div>
                     </div>
-                    
-                    <div class="step-item">
-                        <div class="step-num">4</div>
+                    <div class="option" onclick="toggleMulti(this, 'tried')" data-value="fitness">
+                        <div class="check">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <div class="icon">🏃</div>
                         <div class="text">
-                            <h3>Kontrollmessung</h3>
-                            <p>Neue Analyse – sieh deine Fortschritte schwarz auf weiß</p>
+                            <h3>Fitnessstudio</h3>
+                            <p>Mitgliedschaft, aber kein Plan</p>
+                        </div>
+                    </div>
+                    <div class="option" onclick="toggleMulti(this, 'tried')" data-value="nichts">
+                        <div class="check">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <div class="icon">🆕</div>
+                        <div class="text">
+                            <h3>Noch nichts richtig</h3>
+                            <p>Ich weiß nicht wo ich anfangen soll</p>
                         </div>
                     </div>
                 </div>
                 
-                <button class="btn btn-primary" onclick="nextScreen()">
-                    Mein Ergebnis ansehen
+                <button class="btn btn-primary" onclick="next()">
+                    Weiter
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
                 </button>
                 
                 <div class="nav-row">
-                    <button class="back-btn" onclick="prevScreen()">
+                    <button class="back-btn" onclick="prev()">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                         Zurück
                     </button>
                 </div>
             </div>
         </div>
-        
-        <!-- Screen 5: CTA -->
+
+        <!-- Screen 5: Info - Warum Diäten scheitern -->
         <div class="screen" data-screen="5">
             <div class="screen-content">
-                <h2>Dein Weg zum <span>Wunschgewicht</span></h2>
-                <p class="screen-subtitle">
-                    Basierend auf deinen Antworten kann dir happyfigur helfen. Schreib uns auf WhatsApp für eine persönliche Beratung.
-                </p>
+                <div class="screen-icon">📊</div>
                 
-                <div class="summary-box" id="summaryBox">
-                    <h4>Deine Auswahl</h4>
-                    <!-- Filled by JS -->
+                <h2>Warum <span class="highlight">95% aller Diäten</span> scheitern</h2>
+                
+                <div class="stats-row">
+                    <div class="stat">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">scheitern</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">66%</div>
+                        <div class="stat-label">nehmen zu</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">2-5</div>
+                        <div class="stat-label">Jahre Jo-Jo</div>
+                    </div>
                 </div>
                 
-                <a href="https://wa.me/4915679610457" class="btn btn-wa">
+                <div class="info-box warning">
+                    <h4>⚠️ Das Problem mit Standard-Diäten</h4>
+                    <p>Jeder Stoffwechsel ist anders. Was bei deiner Freundin funktioniert, kann bei dir das Gegenteil bewirken. Ohne zu wissen, wie DEIN Körper Fett verbrennt, ist jede Diät ein Blindflug.</p>
+                </div>
+                
+                <button class="btn btn-primary" onclick="next()">
+                    Was ist die Lösung?
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </button>
+                
+                <div class="nav-row">
+                    <button class="back-btn" onclick="prev()">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        Zurück
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 6: Zeitrahmen -->
+        <div class="screen" data-screen="6">
+            <div class="screen-content">
+                <h2>Wie viel <span class="highlight-green">Zeit</span> kannst du investieren?</h2>
+                <p class="subtitle">Sei ehrlich – wir finden einen Plan, der zu deinem Leben passt.</p>
+                
+                <div class="options" id="timeOptions">
+                    <div class="option" onclick="selectSingle(this, 'time')" data-value="wenig">
+                        <div class="radio"></div>
+                        <div class="icon">⏱️</div>
+                        <div class="text">
+                            <h3>1-2 Stunden pro Woche</h3>
+                            <p>Ich habe kaum Zeit, aber will trotzdem Ergebnisse</p>
+                        </div>
+                    </div>
+                    <div class="option" onclick="selectSingle(this, 'time')" data-value="mittel">
+                        <div class="radio"></div>
+                        <div class="icon">📅</div>
+                        <div class="text">
+                            <h3>2-3 Stunden pro Woche</h3>
+                            <p>Ich kann mir regelmäßig Zeit nehmen</p>
+                        </div>
+                    </div>
+                    <div class="option" onclick="selectSingle(this, 'time')" data-value="viel">
+                        <div class="radio"></div>
+                        <div class="icon">💯</div>
+                        <div class="text">
+                            <h3>4+ Stunden pro Woche</h3>
+                            <p>Ich bin bereit, voll durchzustarten</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-box success">
+                    <h4>💡 Gut zu wissen</h4>
+                    <p>Mit unserem BioCircuit-Training erreichst du in nur 30 Minuten ein komplettes Ganzkörpertraining. Effizienter geht's nicht.</p>
+                </div>
+                
+                <button class="btn btn-primary" onclick="next()" id="btn6" disabled>
+                    Weiter
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </button>
+                
+                <div class="nav-row">
+                    <button class="back-btn" onclick="prev()">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        Zurück
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 7: Wunsch-Timeline -->
+        <div class="screen" data-screen="7">
+            <div class="screen-content">
+                <h2>Wann willst du <span class="highlight-green">erste Ergebnisse</span> sehen?</h2>
+                <p class="subtitle">Realistische Erwartungen sind der Schlüssel zum Erfolg.</p>
+                
+                <div class="options" id="whenOptions">
+                    <div class="option" onclick="selectSingle(this, 'when')" data-value="schnell">
+                        <div class="radio"></div>
+                        <div class="icon">🚀</div>
+                        <div class="text">
+                            <h3>So schnell wie möglich</h3>
+                            <p>Ich brauche schnelle Ergebnisse</p>
+                        </div>
+                    </div>
+                    <div class="option" onclick="selectSingle(this, 'when')" data-value="wochen">
+                        <div class="radio"></div>
+                        <div class="icon">📆</div>
+                        <div class="text">
+                            <h3>In 4-8 Wochen</h3>
+                            <p>Ich bin geduldig, will aber Fortschritte sehen</p>
+                        </div>
+                    </div>
+                    <div class="option" onclick="selectSingle(this, 'when')" data-value="nachhaltig">
+                        <div class="radio"></div>
+                        <div class="icon">🎯</div>
+                        <div class="text">
+                            <h3>Langfristig und nachhaltig</h3>
+                            <p>Mir ist wichtiger, dass es dauerhaft funktioniert</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="next()" id="btn7" disabled>
+                    Weiter
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </button>
+                
+                <div class="nav-row">
+                    <button class="back-btn" onclick="prev()">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        Zurück
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 8: Timeline Info -->
+        <div class="screen" data-screen="8">
+            <div class="screen-content">
+                <h2>Dein Weg mit <span class="highlight-green">happyfigur</span></h2>
+                <p class="subtitle">So sieht dein typischer Fortschritt aus:</p>
+                
+                <div class="timeline">
+                    <div class="timeline-item active">
+                        <div class="timeline-dot">1</div>
+                        <div class="timeline-content">
+                            <h4>Stoffwechselanalyse</h4>
+                            <p>Wir messen deinen individuellen Stoffwechseltyp</p>
+                            <span class="time">Tag 1 – 45 Minuten</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">🔥</div>
+                        <div class="timeline-content">
+                            <h4>Erste Verbesserungen</h4>
+                            <p>Mehr Energie, besserer Schlaf, weniger Heißhunger</p>
+                            <span class="time">Woche 1-2</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">📉</div>
+                        <div class="timeline-content">
+                            <h4>Sichtbare Ergebnisse</h4>
+                            <p>Gewichtsverlust, Kleidung sitzt lockerer</p>
+                            <span class="time">Woche 3-4</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">🎯</div>
+                        <div class="timeline-content">
+                            <h4>Kontrollmessung</h4>
+                            <p>Dein optimierter Stoffwechsel schwarz auf weiß</p>
+                            <span class="time">Woche 8</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-box success">
+                    <h4>📊 Durchschnittliche Ergebnisse nach 8 Wochen</h4>
+                    <p><strong>4-8 kg</strong> Gewichtsverlust • <strong>+25%</strong> Fettverbrennung • <strong>90%</strong> unserer Teilnehmer erreichen ihr Ziel</p>
+                </div>
+                
+                <button class="btn btn-primary" onclick="showLoading()">
+                    Meine Empfehlung erstellen
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                </button>
+                
+                <div class="nav-row">
+                    <button class="back-btn" onclick="prev()">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        Zurück
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 9: Loading -->
+        <div class="screen" data-screen="9">
+            <div class="screen-content">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Wir analysieren deine Antworten...</div>
+                    
+                    <div class="loading-steps">
+                        <div class="loading-step">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>Ziele analysiert</span>
+                        </div>
+                        <div class="loading-step">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>Herausforderungen bewertet</span>
+                        </div>
+                        <div class="loading-step">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>Empfehlung erstellt</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 10: Result -->
+        <div class="screen" data-screen="10">
+            <div class="screen-content">
+                <div class="badge">
+                    <div class="dot"></div>
+                    <span>Deine persönliche Empfehlung</span>
+                </div>
+                
+                <h2><span class="highlight-green">happyfigur</span> ist perfekt für dich</h2>
+                
+                <div class="result-card">
+                    <div class="result-header">
+                        <div class="result-icon">🎯</div>
+                        <div class="result-title">
+                            <h3>8-Wochen Programm</h3>
+                            <p id="resultMatch">95% Übereinstimmung</p>
+                        </div>
+                    </div>
+                    
+                    <div class="result-stats">
+                        <div class="result-stat">
+                            <div class="result-stat-label">Erste Ergebnisse</div>
+                            <div class="result-stat-value" id="resultTime">2-3 Wochen</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-label">Zeitaufwand</div>
+                            <div class="result-stat-value" id="resultEffort">2x 30 Min/Woche</div>
+                        </div>
+                    </div>
+                    
+                    <ul class="result-list" id="resultList">
+                        <li>
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>Stoffwechselanalyse inkl. Auswertung</span>
+                        </li>
+                        <li>
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>Individueller Ernährungsplan</span>
+                        </li>
+                        <li>
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>8 Wochen begleitetes Training</span>
+                        </li>
+                        <li>
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            <span>Kontrollmessung nach 8 Wochen</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <a href="https://wa.me/4915679610457?text=Hallo!%20Ich%20habe%20gerade%20die%20Analyse%20auf%20eurer%20Website%20gemacht%20und%20interessiere%20mich%20für%20happyfigur." class="btn btn-wa">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    Jetzt WhatsApp schreiben
+                    Jetzt Beratung anfragen
                 </a>
                 
                 <div class="trust-row">
@@ -764,92 +1283,135 @@
                     </div>
                     <div class="trust-item">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        <span>30 Jahre Erfahrung</span>
+                        <span>Seit 1996 in Trier</span>
                     </div>
-                </div>
-                
-                <div class="nav-row">
-                    <button class="back-btn" onclick="prevScreen()">
-                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                        Zurück
-                    </button>
                 </div>
             </div>
         </div>
-        
+
     </div>
 
     <script>
-        let currentScreen = 1;
-        const totalScreens = 5;
-        const selections = new Set();
+        let current = 1;
+        const total = 10;
         
-        const selectionLabels = {
-            'jojo': { icon: '🔄', text: 'Jo-Jo-Effekt' },
-            'diaeten': { icon: '📋', text: 'Diäten funktionieren nicht' },
-            'training': { icon: '🏋️', text: 'Keine Orientierung im Gym' },
-            'motivation': { icon: '😩', text: 'Fehlende Motivation' }
+        const answers = {
+            goal: null,
+            problems: [],
+            tried: [],
+            time: null,
+            when: null
         };
         
         function updateProgress() {
-            document.querySelectorAll('.progress-step').forEach((step, i) => {
-                const stepNum = i + 1;
-                step.classList.remove('active', 'completed');
-                if (stepNum < currentScreen) step.classList.add('completed');
-                if (stepNum === currentScreen) step.classList.add('active');
-            });
+            const pct = Math.round(((current - 1) / (total - 1)) * 100);
+            document.getElementById('progressFill').style.width = pct + '%';
+            document.getElementById('progressStep').textContent = `Schritt ${current} von ${total - 1}`;
+            document.getElementById('progressPercent').textContent = pct + '%';
         }
         
         function showScreen(num) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.querySelector(`[data-screen="${num}"]`).classList.add('active');
-            currentScreen = num;
-            updateProgress();
-            
-            // Update summary on last screen
-            if (num === 5) {
-                updateSummary();
-            }
-        }
-        
-        function nextScreen() {
-            if (currentScreen < totalScreens) {
-                showScreen(currentScreen + 1);
-            }
-        }
-        
-        function prevScreen() {
-            if (currentScreen > 1) {
-                showScreen(currentScreen - 1);
-            }
-        }
-        
-        function toggleSelection(card) {
-            const value = card.dataset.value;
-            card.classList.toggle('selected');
-            
-            if (card.classList.contains('selected')) {
-                selections.add(value);
+            const currentScreen = document.querySelector('.screen.active');
+            if (currentScreen) {
+                currentScreen.classList.add('exit');
+                setTimeout(() => {
+                    currentScreen.classList.remove('active', 'exit');
+                    document.querySelector(`[data-screen="${num}"]`).classList.add('active');
+                    current = num;
+                    updateProgress();
+                }, 300);
             } else {
-                selections.delete(value);
+                document.querySelector(`[data-screen="${num}"]`).classList.add('active');
+                current = num;
+                updateProgress();
             }
         }
         
-        function updateSummary() {
-            const box = document.getElementById('summaryBox');
-            let html = '<h4>Deine Herausforderungen</h4>';
+        function next() {
+            if (current < total) showScreen(current + 1);
+        }
+        
+        function prev() {
+            if (current > 1) showScreen(current - 1);
+        }
+        
+        function selectSingle(el, key) {
+            const parent = el.parentElement;
+            parent.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            answers[key] = el.dataset.value;
             
-            if (selections.size === 0) {
-                html += '<div class="summary-item"><span class="icon">✨</span><span>Keine spezifischen Probleme ausgewählt</span></div>';
+            // Enable button
+            const btnId = 'btn' + current;
+            const btn = document.getElementById(btnId);
+            if (btn) btn.disabled = false;
+        }
+        
+        function toggleMulti(el, key) {
+            el.classList.toggle('selected');
+            const value = el.dataset.value;
+            
+            if (el.classList.contains('selected')) {
+                if (!answers[key].includes(value)) answers[key].push(value);
             } else {
-                selections.forEach(val => {
-                    const label = selectionLabels[val];
-                    html += `<div class="summary-item"><span class="icon">${label.icon}</span><span>${label.text}</span></div>`;
-                });
+                answers[key] = answers[key].filter(v => v !== value);
+            }
+        }
+        
+        function showLoading() {
+            showScreen(9);
+            setTimeout(() => {
+                generateResult();
+                showScreen(10);
+            }, 3500);
+        }
+        
+        function generateResult() {
+            // Calculate match score
+            let score = 85;
+            if (answers.problems.length > 2) score += 5;
+            if (answers.tried.length > 2) score += 5;
+            if (answers.when === 'nachhaltig') score += 3;
+            if (answers.time === 'viel') score += 2;
+            
+            document.getElementById('resultMatch').textContent = score + '% Übereinstimmung';
+            
+            // Time to results based on answers
+            let timeText = '2-3 Wochen';
+            if (answers.when === 'schnell') timeText = '1-2 Wochen';
+            if (answers.when === 'nachhaltig') timeText = '3-4 Wochen';
+            document.getElementById('resultTime').textContent = timeText;
+            
+            // Effort based on time selection
+            let effortText = '2x 30 Min/Woche';
+            if (answers.time === 'wenig') effortText = '1x 30 Min/Woche';
+            if (answers.time === 'viel') effortText = '3x 30 Min/Woche';
+            document.getElementById('resultEffort').textContent = effortText;
+            
+            // Add personalized items to result list
+            const list = document.getElementById('resultList');
+            
+            if (answers.problems.includes('hunger')) {
+                list.innerHTML += `
+                    <li>
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Anti-Heißhunger Strategien für deinen Stoffwechseltyp</span>
+                    </li>
+                `;
             }
             
-            box.innerHTML = html;
+            if (answers.problems.includes('motivation')) {
+                list.innerHTML += `
+                    <li>
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Wöchentliche Check-ins für maximale Motivation</span>
+                    </li>
+                `;
+            }
         }
+        
+        // Init
+        updateProgress();
     </script>
 </body>
 </html>
