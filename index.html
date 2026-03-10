@@ -123,80 +123,71 @@
             transform: translateY(-2px);
         }
         
-        /* Hero - Problem */
+        /* Hero - Clean & Minimal */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fcd34d 100%);
-            padding-top: 100px;
+            justify-content: center;
+            background: var(--white);
+            padding-top: 80px;
             position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -30%;
-            width: 80%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(249,115,22,0.15) 0%, transparent 70%);
-            pointer-events: none;
+            text-align: center;
         }
         
         .hero-content {
-            max-width: 700px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .hero-badge {
-            display: inline-block;
-            background: rgba(239,68,68,0.1);
-            color: #dc2626;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 24px;
+            max-width: 900px;
+            padding: 0 24px;
         }
         
         .hero h1 {
             margin-bottom: 24px;
             color: var(--dark);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
         }
         
         .hero h1 span {
-            color: #dc2626;
+            background: linear-gradient(135deg, var(--secondary) 0%, #ea580c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 16px;
-            color: #475569;
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--gray);
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
         }
         
-        .problem-list {
-            list-style: none;
-            margin: 32px 0;
-        }
-        
-        .problem-list li {
-            display: flex;
-            align-items: flex-start;
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
             gap: 12px;
-            margin-bottom: 16px;
+            background: var(--primary);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 60px;
             font-size: 1.1rem;
-            color: #475569;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(34,197,94,0.3);
         }
         
-        .problem-list li::before {
-            content: '✗';
-            color: #dc2626;
-            font-weight: bold;
-            font-size: 1.25rem;
-            flex-shrink: 0;
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(34,197,94,0.4);
+        }
+        
+        .hero-cta svg {
+            width: 24px;
+            height: 24px;
         }
         
         .scroll-indicator {
@@ -212,13 +203,66 @@
             width: 32px;
             height: 32px;
             color: var(--dark);
-            opacity: 0.5;
+            opacity: 0.3;
         }
         
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
             40% { transform: translateX(-50%) translateY(-10px); }
             60% { transform: translateX(-50%) translateY(-5px); }
+        }
+        
+        /* Problem Section */
+        .problem {
+            background: var(--light);
+            padding: 100px 0;
+        }
+        
+        .problem-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .problem-badge {
+            display: inline-block;
+            background: rgba(239,68,68,0.1);
+            color: #dc2626;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .problem h2 span {
+            color: #dc2626;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .problem-card {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            border-left: 4px solid #dc2626;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+        
+        .problem-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .problem-card p {
+            font-size: 0.95rem;
+            margin: 0;
         }
         
         /* Solution Section */
@@ -717,29 +761,47 @@
         </div>
     </header>
 
-    <!-- Hero - Problem Section -->
+    <!-- Hero - Clean & Minimal -->
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <span class="hero-badge">🚫 Das Problem</span>
-                <h1>Warum <span>95% aller Diäten</span> scheitern</h1>
-                <p>Du hast schon alles versucht: Low Carb, Intervallfasten, Kalorienzählen. Vielleicht hast du sogar abgenommen – nur um ein paar Wochen später mehr zu wiegen als vorher.</p>
-                
-                <ul class="problem-list">
-                    <li>Du isst weniger, aber nimmst trotzdem nicht ab</li>
-                    <li>Nach jeder Diät kommt der Jo-Jo-Effekt</li>
-                    <li>Du weißt nicht, was DEIN Körper wirklich braucht</li>
-                    <li>Im Fitnessstudio weißt du nicht, was du machen sollst</li>
-                    <li>Du bist frustriert und kurz davor, aufzugeben</li>
-                </ul>
-                
-                <p><strong>Das Problem?</strong> Du folgst Plänen, die für andere funktionieren – aber nicht für deinen individuellen Stoffwechsel.</p>
-            </div>
+        <div class="hero-content">
+            <h1>Abnehmen, das <span>wirklich funktioniert</span></h1>
+            <p class="hero-subtitle">Entdecke deinen individuellen Stoffwechseltyp und erreiche dein Wunschgewicht – ohne Jo-Jo-Effekt.</p>
+            <a href="https://wa.me/4915679610457" class="hero-cta" target="_blank">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Kostenlos beraten lassen
+            </a>
         </div>
-        <div class="scroll-indicator" onclick="document.querySelector('.solution').scrollIntoView({behavior:'smooth'})">
+        <div class="scroll-indicator" onclick="document.querySelector('.problem').scrollIntoView({behavior:'smooth'})">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <div class="problem-header">
+                <span class="problem-badge">Das Problem</span>
+                <h2>Warum <span>Diäten scheitern</span></h2>
+            </div>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h4>Einheitsdiäten</h4>
+                    <p>Du folgst Plänen, die für andere funktionieren – aber nicht für deinen Stoffwechsel.</p>
+                </div>
+                <div class="problem-card">
+                    <h4>Jo-Jo-Effekt</h4>
+                    <p>Nach jeder Diät wiegst du mehr als vorher. Dein Körper kämpft gegen dich.</p>
+                </div>
+                <div class="problem-card">
+                    <h4>Keine Orientierung</h4>
+                    <p>Im Fitnessstudio weißt du nicht, was du machen sollst. Training ohne Plan.</p>
+                </div>
+            </div>
         </div>
     </section>
 
