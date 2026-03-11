@@ -723,16 +723,77 @@
         </div>
     </section>
     
-    <!-- Krankenkassen-Info Box -->
-    <section style="background: var(--dark-2); padding: 48px 0; border-top: 1px solid rgba(255,255,255,0.05);">
-        <div class="container" style="text-align: center; max-width: 700px;">
-            <div style="background: linear-gradient(135deg, rgba(34,197,94,0.1) 0%, rgba(22,163,74,0.05) 100%); border: 2px solid var(--primary); border-radius: 20px; padding: 32px;">
-                <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 12px;">💰 Krankenkassen-Erstattung</h3>
-                <p style="color: var(--gray-light); font-size: 1rem; line-height: 1.6; margin-bottom: 16px;">
-                    happyfigur ist nach <strong style="color: white;">§ 20 SGB V zertifiziert</strong>. Das bedeutet: <strong style="color: white;">Deine Krankenkasse übernimmt bis zu 100% der Kosten!</strong>
+    <!-- PROGRAMM-ÜBERSICHT -->
+    <section style="background: var(--dark-2); padding: 64px 0; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container" style="max-width: 800px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div class="section-label">Alles auf einen Blick</div>
+                <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 12px;">Was ist im <span style="color: var(--primary);">Programm</span> enthalten?</h2>
+                <p style="color: var(--gray-light);">8 Wochen, die dein Leben verändern – ohne Risiko und ohne Vertrag.</p>
+            </div>
+            
+            <!-- Leistungen Grid -->
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px;">
+                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="background: rgba(34,197,94,0.15); color: var(--primary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📊</div>
+                    <div>
+                        <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 4px;">3x Körperanalyse</h4>
+                        <p style="color: var(--gray-light); font-size: 0.85rem; margin: 0;">Start, Mitte, Ende – dein Fortschritt schwarz auf weiß</p>
+                    </div>
+                </div>
+                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="background: rgba(34,197,94,0.15); color: var(--primary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">💪</div>
+                    <div>
+                        <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 4px;">Training inklusive</h4>
+                        <p style="color: var(--gray-light); font-size: 0.85rem; margin: 0;">Begleitetes Training im Studio – 8 Wochen lang</p>
+                    </div>
+                </div>
+                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="background: rgba(34,197,94,0.15); color: var(--primary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">🍽️</div>
+                    <div>
+                        <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 4px;">Ernährungsplan</h4>
+                        <p style="color: var(--gray-light); font-size: 0.85rem; margin: 0;">Individuell auf deinen Stoffwechsel abgestimmt</p>
+                    </div>
+                </div>
+                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="background: rgba(34,197,94,0.15); color: var(--primary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📖</div>
+                    <div>
+                        <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 4px;">Kochbuch</h4>
+                        <p style="color: var(--gray-light); font-size: 0.85rem; margin: 0;">Über 100 leckere Rezepte für deinen Alltag</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Krankenkasse Highlight -->
+            <div style="background: linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.08) 100%); border: 2px solid var(--primary); border-radius: 20px; padding: 28px; text-align: center; margin-bottom: 32px;">
+                <div style="font-size: 2rem; margin-bottom: 8px;">💰</div>
+                <h3 style="color: var(--primary); font-size: 1.3rem; margin-bottom: 8px;">Bis zu 100% Krankenkassen-Erstattung</h3>
+                <p style="color: var(--gray-light); font-size: 0.95rem; margin: 0;">Nach § 20 SGB V zertifiziert – frag einfach bei deiner Kasse nach!</p>
+            </div>
+            
+            <!-- Keine Bindung -->
+            <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px;">
+                <div style="display: flex; align-items: center; gap: 8px; color: var(--gray-light);">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--primary);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span>Keine Vertragsbindung</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; color: var(--gray-light);">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--primary);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span>Keine versteckten Kosten</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; color: var(--gray-light);">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--primary);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span>8 Wochen – fertig</span>
+                </div>
+            </div>
+            
+            <!-- Optional weitermachen -->
+            <div style="background: var(--dark); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; text-align: center;">
+                <p style="color: var(--gray-light); font-size: 0.95rem; margin-bottom: 8px;">
+                    <strong style="color: white;">Und danach?</strong> Nach den 8 Wochen entscheidest DU, ob du weitermachen möchtest.
                 </p>
-                <p style="color: var(--gray); font-size: 0.9rem;">
-                    Einfach bei deiner Kasse nachfragen oder wir helfen dir dabei.
+                <p style="color: var(--gray); font-size: 0.85rem; margin: 0;">
+                    Optional kannst du dann eine Mitgliedschaft abschließen – aber nur, wenn du willst. Kein Druck, kein Muss.
                 </p>
             </div>
         </div>
@@ -960,6 +1021,7 @@
                 
                 <h2><span class="highlight-green">Gute Nachricht:</span> happyfigur passt perfekt zu dir!</h2>
                 
+                <!-- Hauptkarte -->
                 <div class="result-card">
                     <div class="result-header">
                         <div class="result-icon">🎯</div>
@@ -969,19 +1031,49 @@
                         <div class="result-stat"><div class="result-stat-label">Erste Ergebnisse</div><div class="result-stat-value" id="resultTime">2-3 Wochen</div></div>
                         <div class="result-stat"><div class="result-stat-label">Zeitaufwand</div><div class="result-stat-value" id="resultEffort">2x 30 Min/Woche</div></div>
                     </div>
-                    <ul class="result-list" id="resultList">
-                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>3x Körperanalyse (Start, Mitte, Ende)</span></li>
-                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Individueller Ernährungsplan</span></li>
-                        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>8 Wochen begleitetes Training</span></li>
+                </div>
+                
+                <!-- Programmübersicht -->
+                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin: 20px 0; text-align: left;">
+                    <h4 style="font-size: 1rem; margin-bottom: 16px; color: var(--primary);">✅ Das ist alles enthalten:</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
+                            <span style="font-size: 1.2rem;">📊</span>
+                            <span><strong>3x Körperanalyse</strong> – Start, Mitte, Ende</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
+                            <span style="font-size: 1.2rem;">💪</span>
+                            <span><strong>Training inklusive</strong> – 8 Wochen im Studio</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
+                            <span style="font-size: 1.2rem;">🍽️</span>
+                            <span><strong>Ernährungsplan</strong> – auf dich abgestimmt</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; font-size: 0.9rem;">
+                            <span style="font-size: 1.2rem;">📖</span>
+                            <span><strong>Kochbuch</strong> – über 100 Rezepte</span>
+                        </li>
                     </ul>
                 </div>
                 
-                <div class="mini-testimonial">
-                    <img src="https://www.figurscout.de/assets/images/9/Ann-Sophie_Testimonial-d3805dfe.webp" alt="Andreas K." style="width:44px;height:44px;border-radius:50%;object-fit:cover;">
-                    <div class="mini-testimonial-content">
-                        <p class="mini-testimonial-text">"Ich war auch skeptisch. Aber nach der ersten Analyse wusste ich: Das ist anders. Das funktioniert."</p>
-                        <div class="mini-testimonial-author">Andreas K. <span class="mini-testimonial-result">• -10 kg in 8 Wochen</span></div>
-                    </div>
+                <!-- Krankenkasse Highlight -->
+                <div style="background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.1) 100%); border: 2px solid var(--primary); border-radius: 12px; padding: 16px; margin-bottom: 16px; text-align: center;">
+                    <span style="font-size: 1.3rem;">💰</span>
+                    <p style="margin: 8px 0 0; font-size: 0.95rem;"><strong style="color: var(--primary);">Bis zu 100% Krankenkassen-Erstattung!</strong></p>
+                    <p style="margin: 4px 0 0; font-size: 0.8rem; color: var(--gray-light);">Nach § 20 SGB V zertifiziert</p>
+                </div>
+                
+                <!-- Keine Bindung -->
+                <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; font-size: 0.85rem; color: var(--gray-light);">
+                    <span>✓ Keine Vertragsbindung</span>
+                    <span>✓ Keine versteckten Kosten</span>
+                </div>
+                
+                <!-- Danach weitermachen -->
+                <div style="background: linear-gradient(135deg, rgba(249,115,22,0.15) 0%, rgba(249,115,22,0.05) 100%); border: 1px solid rgba(249,115,22,0.3); border-radius: 12px; padding: 16px; margin-bottom: 20px;">
+                    <p style="font-size: 0.9rem; margin: 0; color: var(--gray-light);">
+                        <strong style="color: var(--accent);">🚀 Und danach?</strong> Wenn du nach 8 Wochen weitermachen möchtest, kannst du <strong style="color: white;">optional eine Mitgliedschaft</strong> abschließen und deine Erfolge ausbauen. Viele unserer Teilnehmer bleiben dabei – weil sie endlich Ergebnisse sehen!
+                    </p>
                 </div>
                 
                 <a href="https://wa.me/4915679610457?text=Hallo!%20Ich%20habe%20die%20Analyse%20auf%20eurer%20Website%20gemacht%20und%20interessiere%20mich%20für%20happyfigur." class="btn btn-wa">
