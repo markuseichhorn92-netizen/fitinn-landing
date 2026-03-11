@@ -1557,45 +1557,55 @@
                         <form id="terminForm" onsubmit="submitBooking(event)">
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                                 <div class="form-group">
-                                    <input type="text" id="bookFirstname" placeholder="Vorname *" required>
+                                    <label for="bookFirstname" style="display: block; font-size: 0.8rem; color: var(--gray-light); margin-bottom: 6px;">Vorname *</label>
+                                    <input type="text" id="bookFirstname" placeholder="Max" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" id="bookLastname" placeholder="Nachname *" required>
+                                    <label for="bookLastname" style="display: block; font-size: 0.8rem; color: var(--gray-light); margin-bottom: 6px;">Nachname *</label>
+                                    <input type="text" id="bookLastname" placeholder="Mustermann" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="email" id="bookEmail" placeholder="E-Mail Adresse *" required>
+                                <label for="bookEmail" style="display: block; font-size: 0.8rem; color: var(--gray-light); margin-bottom: 6px;">E-Mail Adresse *</label>
+                                <input type="email" id="bookEmail" placeholder="max@beispiel.de" required>
                             </div>
                             <div class="form-group">
-                                <input type="tel" id="bookPhone" placeholder="Handynummer">
+                                <label for="bookPhone" style="display: block; font-size: 0.8rem; color: var(--gray-light); margin-bottom: 6px;">Handynummer</label>
+                                <input type="tel" id="bookPhone" placeholder="0151 12345678">
                             </div>
                             <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 12px;">
                                 <div class="form-group">
-                                    <input type="text" id="bookStreet" placeholder="Straße *" required>
+                                    <label for="bookStreet" style="display: block; font-size: 0.8rem; color: var(--gray-light); margin-bottom: 6px;">Straße *</label>
+                                    <input type="text" id="bookStreet" placeholder="Musterstraße" required>
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" id="bookHouseNr" placeholder="Nr. *" required>
+                                    <label for="bookHouseNr" style="display: block; font-size: 0.8rem; color: var(--gray-light); margin-bottom: 6px;">Nr. *</label>
+                                    <input type="text" id="bookHouseNr" placeholder="1" required>
                                 </div>
                             </div>
                             <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 12px;">
                                 <div class="form-group">
-                                    <input type="text" id="bookZip" placeholder="PLZ *" required pattern="[0-9]{5}" maxlength="5">
+                                    <label for="bookZip" style="display: block; font-size: 0.8rem; color: var(--gray-light); margin-bottom: 6px;">PLZ *</label>
+                                    <input type="text" id="bookZip" placeholder="54290" required pattern="[0-9]{5}" maxlength="5">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" id="bookCity" placeholder="Stadt *" required>
+                                    <label for="bookCity" style="display: block; font-size: 0.8rem; color: var(--gray-light); margin-bottom: 6px;">Stadt *</label>
+                                    <input type="text" id="bookCity" placeholder="Trier" required>
                                 </div>
                             </div>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                                 <div class="form-group">
+                                    <label for="bookGender" style="display: block; font-size: 0.8rem; color: var(--gray-light); margin-bottom: 6px;">Geschlecht *</label>
                                     <select id="bookGender" required>
-                                        <option value="">Geschlecht *</option>
+                                        <option value="">Bitte wählen</option>
                                         <option value="MALE">Männlich</option>
                                         <option value="FEMALE">Weiblich</option>
                                         <option value="OTHER">Divers</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="date" id="bookBirthdate" placeholder="Geburtsdatum *" required>
+                                    <label for="bookBirthdate" style="display: block; font-size: 0.8rem; color: var(--gray-light); margin-bottom: 6px;">Geburtsdatum *</label>
+                                    <input type="date" id="bookBirthdate" required>
                                 </div>
                             </div>
                             <div class="form-group" style="display: flex; align-items: flex-start; gap: 8px;">
