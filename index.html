@@ -910,7 +910,10 @@
 
 <!-- Mobile Sticky CTA -->
 <div class="mobile-sticky-cta" id="mobileCta">
-    <button onclick="startFunnel()">🎯 Kostenlose Analyse starten</button>
+    <button onclick="startFunnel()" style="display: inline-flex; align-items: center; gap: 8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        Kostenlose Analyse starten
+    </button>
 </div>
 
 <style>
@@ -977,7 +980,9 @@
                 <div style="background: linear-gradient(135deg, rgba(34,197,94,0.08) 0%, rgba(34,197,94,0.02) 100%); border: 2px solid var(--primary); border-radius: 20px; padding: 28px; margin: 32px 0; text-align: left; max-width: 700px; margin-left: auto; margin-right: auto;">
                     
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-                        <div style="width: 48px; height: 48px; background: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">🎯</div>
+                        <div style="width: 48px; height: 48px; background: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--dark)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        </div>
                         <h3 style="color: white; margin: 0; font-size: 1.3rem; font-weight: 700;">Was ist happyfigur?</h3>
                     </div>
                     
@@ -998,27 +1003,37 @@
                     
                     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
                         <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 16px; text-align: center;">
-                            <div style="font-size: 1.8rem; margin-bottom: 8px;">📊</div>
+                            <div style="margin-bottom: 8px; display: flex; justify-content: center;">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                            </div>
                             <div style="color: white; font-size: 0.85rem; font-weight: 600;">3x Körper-<br>analyse</div>
                         </div>
                         <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 16px; text-align: center;">
-                            <div style="font-size: 1.8rem; margin-bottom: 8px;">🍽️</div>
+                            <div style="margin-bottom: 8px; display: flex; justify-content: center;">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M2 12c0 4.418 4.477 8 10 8s10-3.582 10-8M2 12c0-4.418 4.477-8 10-8s10 3.582 10 8"/><ellipse cx="12" cy="12" rx="3" ry="2"/></svg>
+                            </div>
                             <div style="color: white; font-size: 0.85rem; font-weight: 600;">Ernährungs-<br>plan</div>
                         </div>
                         <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 16px; text-align: center;">
-                            <div style="font-size: 1.8rem; margin-bottom: 8px;">💪</div>
+                            <div style="margin-bottom: 8px; display: flex; justify-content: center;">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg>
+                            </div>
                             <div style="color: white; font-size: 0.85rem; font-weight: 600;">8 Wochen<br>Training</div>
                         </div>
                     </div>
                     
                     <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
-                        <span style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">✨ Keine Radikaldiät – nachhaltige Ergebnisse</span>
+                        <span style="color: var(--primary); font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            Keine Radikaldiät – nachhaltige Ergebnisse
+                        </span>
                     </div>
                 </div>
                 
                 <!-- CTA -->
                 <button class="cta-btn" onclick="startFunnel()" style="font-size: 1.1rem; padding: 18px 36px;">
-                    🎯 Kostenlose Analyse starten
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                    Kostenlose Analyse starten
                 </button>
                 <p style="color: var(--gray); font-size: 0.8rem; margin-top: 12px;">Unverbindlich • 2 Minuten • Keine Kosten</p>
                 
@@ -1030,7 +1045,8 @@
     <section style="background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%); padding: 20px 0;">
         <div class="container" style="text-align: center;">
             <p style="color: white; font-size: 1rem; margin: 0;">
-                <strong>💰 § 20 SGB V:</strong> Deine Krankenkasse übernimmt bis zu <strong>100% der Kosten</strong> – frag einfach nach!
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 6px;"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+                <strong>§ 20 SGB V:</strong> Deine Krankenkasse übernimmt bis zu <strong>100% der Kosten</strong> – frag einfach nach!
             </p>
         </div>
     </section>
@@ -1062,7 +1078,10 @@
     <!-- Appetizing Food Gallery -->
     <section style="padding: 48px 0; background: var(--dark);">
         <div class="container">
-            <p style="text-align: center; color: var(--gray-light); font-size: 0.9rem; margin-bottom: 20px;">🍽️ Lecker essen & trotzdem abnehmen – so sieht dein neuer Speiseplan aus:</p>
+            <p style="text-align: center; color: var(--gray-light); font-size: 0.9rem; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2"><path d="M2 12h20M2 12c0 4.418 4.477 8 10 8s10-3.582 10-8M2 12c0-4.418 4.477-8 10-8s10 3.582 10 8"/><ellipse cx="12" cy="12" rx="3" ry="2"/></svg>
+                Lecker essen & trotzdem abnehmen – so sieht dein neuer Speiseplan aus:
+            </p>
             <div class="food-gallery">
                 <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop" alt="Buddha Bowl">
                 <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400&h=300&fit=crop" alt="Smoothie Bowl">
@@ -1076,7 +1095,8 @@
     <!-- CTA nach Food Gallery -->
     <div style="text-align:center;padding:32px 0;background:linear-gradient(180deg, var(--dark) 0%, var(--dark-2) 100%);">
         <button class="cta-btn" onclick="startFunnel()" style="font-size:1.1rem;padding:18px 36px;">
-            🎯 Jetzt kostenlos starten
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            Jetzt kostenlos starten
         </button>
         <p style="color:var(--gray);font-size:0.85rem;margin-top:12px;">Unverbindlich • 2 Minuten • 100% kostenlos</p>
     </div>
