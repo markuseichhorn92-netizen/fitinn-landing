@@ -1209,6 +1209,12 @@
                 
                 // Show CTA button
                 document.getElementById('calcCtaBtn').style.display = 'block';
+                
+                // Sync to answers object for funnel
+                answers.insurance = select.value;
+                answers.insuranceAmount = amount;
+                answers.insuranceName = kasseName;
+                answers.insuranceIndex = select.selectedIndex;
             }
             </script>
             
@@ -1692,7 +1698,7 @@
 <script>
 let current = 1;
 const total = 9;
-const answers = { goal: null, problems: [], time: null, commit: null, insurance: null, insuranceAmount: 0, insuranceName: '' };
+const answers = { goal: null, problems: [], time: null, commit: null, insurance: null, insuranceAmount: 0, insuranceName: '', insuranceIndex: 0 };
 let bookedSlotInfo = null; // Store booking info for result screen
 
 // Funnel Insurance Selection
@@ -1777,7 +1783,37 @@ function showScreen(num) {
             document.querySelector(`[data-screen="${num}"]`).classList.add('active');
             current = num;
             updateProgress();
+            
+            // Sync insurance selection when reaching screen 6
+            if (num === 6 && answers.insurance) {
+                syncFunnelInsurance();
+            }
         }, 300);
+    }
+}
+
+// Sync landing page insurance selection to funnel
+function syncFunnelInsurance() {
+    const funnelSelect = document.getElementById('funnelInsuranceSelect');
+    if (!funnelSelect || !answers.insurance) return;
+    
+    // Find matching option by value
+    for (let i = 0; i < funnelSelect.options.length; i++) {
+        if (funnelSelect.options[i].value === answers.insurance) {
+            funnelSelect.selectedIndex = i;
+            updateFunnelInsurance(); // Trigger display update
+            return;
+        }
+    }
+    
+    // If exact match not found, try to match by amount
+    const amount = answers.insuranceAmount;
+    for (let i = 0; i < funnelSelect.options.length; i++) {
+        if (parseFloat(funnelSelect.options[i].value) === amount) {
+            funnelSelect.selectedIndex = i;
+            updateFunnelInsurance();
+            return;
+        }
     }
 }
 
