@@ -6,161 +6,74 @@
     <title>Datenschutzerklärung | FIT-INN Trier</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background: #000; color: #f5f5f7; }
-        a { color: #DD9B43; }
-        a:hover { text-decoration: underline; }
-        h2 { margin-top: 2rem; }
-        h3 { margin-top: 1.5rem; }
-        h4 { margin-top: 1rem; }
-        ul { list-style: disc; margin-left: 1.5rem; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #09090b; color: #fafafa; line-height: 1.7; }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
+        h1 { font-size: 2rem; margin-bottom: 32px; color: #22c55e; }
+        h2 { font-size: 1.3rem; margin: 32px 0 16px; color: #fafafa; }
+        h3 { font-size: 1.1rem; margin: 24px 0 12px; color: #a1a1aa; }
+        p, li { color: #a1a1aa; margin-bottom: 12px; }
+        ul { padding-left: 24px; }
+        a { color: #22c55e; }
+        .back { display: inline-block; margin-bottom: 24px; color: #22c55e; text-decoration: none; }
+        .back:hover { text-decoration: underline; }
     </style>
 </head>
-<body class="min-h-screen">
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
-        <div class="max-w-4xl mx-auto px-6 h-16 flex justify-between items-center">
-            <a href="/" class="flex items-center">
-                <img src="https://cdn.sanity.io/images/6qiktmvm/production/e33b949b11d3aa8b60befb3f5f537803a8c48700-2917x486.png" alt="FIT-INN Trier" class="h-8">
-            </a>
-            <a href="/" class="text-sm text-gray-400 hover:text-white">← Zurück zur Startseite</a>
-        </div>
-    </nav>
-
-    <!-- Content -->
-    <main class="pt-32 pb-20 px-6">
-        <div class="max-w-3xl mx-auto prose prose-invert">
-            <h1 class="text-4xl font-bold mb-12">Datenschutzerklärung</h1>
-            
-            <div class="space-y-6 text-gray-300">
-                
-                <h2 class="text-2xl font-semibold text-white">1. Datenschutz auf einen Blick</h2>
-                
-                <h3 class="text-xl font-semibold text-white">Allgemeine Hinweise</h3>
-                <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
-                
-                <h3 class="text-xl font-semibold text-white">Datenerfassung auf dieser Website</h3>
-                
-                <h4 class="text-lg font-semibold text-white">Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h4>
-                <p>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Hinweis zur Verantwortlichen Stelle" in dieser Datenschutzerklärung entnehmen.</p>
-                
-                <h4 class="text-lg font-semibold text-white">Wie erfassen wir Ihre Daten?</h4>
-                <p>Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein Kontaktformular eingeben. Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst.</p>
-                
-                <h4 class="text-lg font-semibold text-white">Wofür nutzen wir Ihre Daten?</h4>
-                <p>Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden.</p>
-                
-                <h4 class="text-lg font-semibold text-white">Welche Rechte haben Sie bezüglich Ihrer Daten?</h4>
-                <p>Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen.</p>
-                
-                <h2 class="text-2xl font-semibold text-white">2. Hosting</h2>
-                <p>Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters gespeichert. Hierbei kann es sich v. a. um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Vertragsdaten, Kontaktdaten, Namen, Websitezugriffe und sonstige Daten, die über eine Website generiert werden, handeln.</p>
-                
-                <h2 class="text-2xl font-semibold text-white">3. Allgemeine Hinweise und Pflichtinformationen</h2>
-                
-                <h3 class="text-xl font-semibold text-white">Hinweis zur verantwortlichen Stelle</h3>
-                <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
-                <p>
-                    Fit-Inn Trier<br>
-                    Fitnessstudio<br>
-                    Auf Hirtenberg 8<br>
-                    54296 Trier<br><br>
-                    Telefon: <a href="tel:0651308524">0651 / 30 85 24</a><br>
-                    E-Mail: <a href="mailto:info@fit-inn-trier.de">info@fit-inn-trier.de</a>
-                </p>
-                
-                <h3 class="text-xl font-semibold text-white">Speicherdauer</h3>
-                <p>Soweit innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer genannt wurde, verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck für die Datenverarbeitung entfällt.</p>
-                
-                <h3 class="text-xl font-semibold text-white">Widerruf Ihrer Einwilligung zur Datenverarbeitung</h3>
-                <p>Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.</p>
-                
-                <h3 class="text-xl font-semibold text-white">Beschwerderecht bei der zuständigen Aufsichtsbehörde</h3>
-                <p>Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde zu, insbesondere in dem Mitgliedstaat ihres gewöhnlichen Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes.</p>
-                
-                <h3 class="text-xl font-semibold text-white">Recht auf Datenübertragbarkeit</h3>
-                <p>Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erfüllung eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem gängigen, maschinenlesbaren Format aushändigen zu lassen.</p>
-                
-                <h3 class="text-xl font-semibold text-white">Auskunft, Berichtigung und Löschung</h3>
-                <p>Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der Datenverarbeitung und ggf. ein Recht auf Berichtigung oder Löschung dieser Daten.</p>
-                
-                <h3 class="text-xl font-semibold text-white">SSL- bzw. TLS-Verschlüsselung</h3>
-                <p>Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://" auf „https://" wechselt und an dem Schloss-Symbol in Ihrer Browserzeile.</p>
-                
-                <h2 class="text-2xl font-semibold text-white">4. Datenerfassung auf dieser Website</h2>
-                
-                <h3 class="text-xl font-semibold text-white">Cookies</h3>
-                <p>Unsere Internetseiten verwenden so genannte „Cookies". Cookies sind kleine Datenpakete und richten auf Ihrem Endgerät keinen Schaden an. Sie werden entweder vorübergehend für die Dauer einer Sitzung (Session-Cookies) oder dauerhaft (permanente Cookies) auf Ihrem Endgerät gespeichert.</p>
-                <p>Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und Cookies nur im Einzelfall erlauben, die Annahme von Cookies für bestimmte Fälle oder generell ausschließen sowie das automatische Löschen der Cookies beim Schließen des Browsers aktivieren.</p>
-                
-                <h3 class="text-xl font-semibold text-white">Kontaktformular</h3>
-                <p>Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
-                
-                <h3 class="text-xl font-semibold text-white">Anfrage per E-Mail, Telefon oder Telefax</h3>
-                <p>Wenn Sie uns per E-Mail, Telefon oder Telefax kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
-                
-                <h2 class="text-2xl font-semibold text-white">5. Analyse-Tools und Werbung</h2>
-                
-                <h3 class="text-xl font-semibold text-white">Google Analytics</h3>
-                <p>Diese Website nutzt Funktionen des Webanalysedienstes Google Analytics. Anbieter ist die Google Ireland Limited („Google"), Gordon House, Barrow Street, Dublin 4, Irland.</p>
-                <p>Google Analytics ermöglicht es dem Websitebetreiber, das Verhalten der Websitebesucher zu analysieren. Hierbei erhält der Websitebetreiber verschiedene Nutzungsdaten, wie z. B. Seitenaufrufe, Verweildauer, verwendete Betriebssysteme und Herkunft des Nutzers. Diese Daten werden in einem Nutzerprofil zusammengefasst und dem jeweiligen Endgerät des Websitebesuchers zugeordnet.</p>
-                <p>Google Analytics verwendet Technologien, die die Wiedererkennung des Nutzers zum Zwecke der Analyse des Nutzerverhaltens ermöglichen (z. B. Cookies oder Device-Fingerprinting). Die von Google erfassten Informationen über die Benutzung dieser Website werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert.</p>
-                <p>Die Nutzung dieses Dienstes erfolgt auf Grundlage Ihrer Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG. Die Einwilligung ist jederzeit widerrufbar.</p>
-                <p>Die Datenübertragung in die USA wird auf die Standardvertragsklauseln der EU-Kommission gestützt. Details finden Sie hier: <a href="https://privacy.google.com/businesses/controllerterms/mccs/" target="_blank" rel="noopener">https://privacy.google.com/businesses/controllerterms/mccs/</a></p>
-                
-                <h3 class="text-xl font-semibold text-white">Google Ads Conversion-Tracking</h3>
-                <p>Diese Website nutzt Google Ads Conversion-Tracking. Anbieter ist die Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>
-                <p>Mit Hilfe von Google Ads Conversion-Tracking können wir erkennen, ob der Nutzer bestimmte Aktionen durchgeführt hat (z. B. Buchung eines Probetrainings). Die Nutzung erfolgt auf Grundlage Ihrer Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO.</p>
-                
-                <h3 class="text-xl font-semibold text-white">Microsoft Clarity</h3>
-                <p>Diese Website nutzt Microsoft Clarity, einen Webanalysedienst der Microsoft Corporation, One Microsoft Way, Redmond, WA 98052-6399, USA.</p>
-                <p>Microsoft Clarity erfasst Daten über das Nutzerverhalten auf unserer Website durch Heatmaps und Session-Aufzeichnungen. Dies hilft uns zu verstehen, wie Besucher mit unserer Website interagieren (z. B. Klicks, Scrollverhalten, Mausbewegungen). Die erfassten Daten werden anonymisiert und enthalten keine personenbezogenen Daten wie Namen oder E-Mail-Adressen.</p>
-                <p>Die Nutzung erfolgt auf Grundlage Ihrer Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TDDDG. Die Einwilligung ist jederzeit widerrufbar.</p>
-                <p>Weitere Informationen zum Datenschutz bei Microsoft finden Sie unter: <a href="https://privacy.microsoft.com/de-de/privacystatement" target="_blank" rel="noopener" class="text-accent hover:underline">https://privacy.microsoft.com/de-de/privacystatement</a></p>
-                
-                <h3 class="text-xl font-semibold text-white">Google reCAPTCHA</h3>
-                <p>Wir nutzen „Google reCAPTCHA" (im Folgenden „reCAPTCHA") auf dieser Website. Anbieter ist die Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>
-                <p>Mit reCAPTCHA soll überprüft werden, ob die Dateneingabe auf dieser Website (z. B. in einem Kontaktformular) durch einen Menschen oder durch ein automatisiertes Programm erfolgt. Hierzu analysiert reCAPTCHA das Verhalten des Websitebesuchers anhand verschiedener Merkmale.</p>
-                <p>Die Nutzung von reCAPTCHA erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der Websitebetreiber hat ein berechtigtes Interesse daran, seine Webangebote vor missbräuchlicher automatisierter Ausspähung und vor SPAM zu schützen.</p>
-                
-                <h2 class="text-2xl font-semibold text-white">6. Plugins und Tools</h2>
-                
-                <h3 class="text-xl font-semibold text-white">Google Maps</h3>
-                <p>Diese Seite nutzt den Kartendienst Google Maps. Anbieter ist die Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.</p>
-                <p>Zur Nutzung der Funktionen von Google Maps ist es notwendig, Ihre IP-Adresse zu speichern. Diese Informationen werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Der Anbieter dieser Seite hat keinen Einfluss auf diese Datenübertragung.</p>
-                <p>Die Nutzung von Google Maps erfolgt im Interesse einer ansprechenden Darstellung unserer Online-Angebote und an einer leichten Auffindbarkeit der von uns auf der Website angegebenen Orte. Dies stellt ein berechtigtes Interesse im Sinne von Art. 6 Abs. 1 lit. f DSGVO dar. Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO.</p>
-                
-                <h3 class="text-xl font-semibold text-white">Google Fonts</h3>
-                <p>Diese Seite nutzt zur einheitlichen Darstellung von Schriftarten so genannte Google Fonts, die von Google bereitgestellt werden. Beim Aufruf einer Seite lädt Ihr Browser die benötigten Fonts in ihren Browsercache, um Texte und Schriftarten korrekt anzuzeigen.</p>
-                <p>Zu diesem Zweck muss der von Ihnen verwendete Browser Verbindung zu den Servern von Google aufnehmen. Hierdurch erlangt Google Kenntnis darüber, dass über Ihre IP-Adresse diese Website aufgerufen wurde.</p>
-                <p>Die Nutzung von Google Fonts erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der Websitebetreiber hat ein berechtigtes Interesse an der einheitlichen Darstellung des Schriftbildes auf seiner Website.</p>
-                
-                <h2 class="text-2xl font-semibold text-white">7. Ihre Rechte</h2>
-                <p>Sie haben folgende Rechte:</p>
-                <ul class="list-disc ml-6 space-y-2">
-                    <li>Recht auf Auskunft (Art. 15 DSGVO)</li>
-                    <li>Recht auf Berichtigung (Art. 16 DSGVO)</li>
-                    <li>Recht auf Löschung (Art. 17 DSGVO)</li>
-                    <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
-                    <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO)</li>
-                    <li>Widerspruchsrecht (Art. 21 DSGVO)</li>
-                </ul>
-                
-                <p class="mt-8 text-gray-500 text-sm">Letzte Aktualisierung: Februar 2026</p>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="py-8 border-t border-white/10">
-        <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <span class="text-gray-500 text-sm">© 2026 Fit-Inn Trier</span>
-            <div class="flex gap-6 text-sm">
-                <a href="/impressum.html" class="text-gray-400 hover:text-white">Impressum</a>
-                <a href="/datenschutz.html" class="text-gray-400 hover:text-white">Datenschutz</a>
-            </div>
-        </div>
-    </footer>
+<body>
+    <div class="container">
+        <a href="/" class="back">← Zurück zur Startseite</a>
+        
+        <h1>Datenschutzerklärung</h1>
+        
+        <h2>1. Datenschutz auf einen Blick</h2>
+        <h3>Allgemeine Hinweise</h3>
+        <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
+        
+        <h3>Datenerfassung auf dieser Website</h3>
+        <p><strong>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</strong></p>
+        <p>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Impressum dieser Website entnehmen.</p>
+        
+        <p><strong>Wie erfassen wir Ihre Daten?</strong></p>
+        <p>Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z.B. um Daten handeln, die Sie in ein Kontaktformular eingeben. Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z.B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs).</p>
+        
+        <h2>2. Hosting</h2>
+        <p>Diese Website wird bei einem externen Dienstleister gehostet (Hoster). Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters gespeichert. Hierbei kann es sich v.a. um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Vertragsdaten, Kontaktdaten, Namen, Websitezugriffe und sonstige Daten, die über eine Website generiert werden, handeln.</p>
+        
+        <h2>3. Allgemeine Hinweise und Pflichtinformationen</h2>
+        <h3>Datenschutz</h3>
+        <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.</p>
+        
+        <h3>Verantwortliche Stelle</h3>
+        <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
+        <p>FIT-INN Trier<br>
+        Harald Eichhorn<br>
+        Im Hürtenberg<br>
+        54296 Trier<br>
+        Telefon: 0651 9949780<br>
+        E-Mail: info@fit-inn-trier.de</p>
+        
+        <h3>Widerruf Ihrer Einwilligung zur Datenverarbeitung</h3>
+        <p>Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.</p>
+        
+        <h3>Beschwerderecht bei der zuständigen Aufsichtsbehörde</h3>
+        <p>Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde zu. Zuständige Aufsichtsbehörde in datenschutzrechtlichen Fragen ist der Landesdatenschutzbeauftragte des Bundeslandes, in dem unser Unternehmen seinen Sitz hat.</p>
+        
+        <h2>4. Datenerfassung auf dieser Website</h2>
+        <h3>Kontaktformular / WhatsApp</h3>
+        <p>Wenn Sie uns per Kontaktformular oder WhatsApp Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+        
+        <h3>Chat-Widget (respond.io)</h3>
+        <p>Diese Website nutzt respond.io für die Chat-Kommunikation. Dabei werden Ihre Nachrichten und Kontaktdaten verarbeitet, um Ihre Anfragen zu beantworten. Weitere Informationen finden Sie in der Datenschutzerklärung von respond.io.</p>
+        
+        <h2>5. Analyse-Tools und Werbung</h2>
+        <h3>Meta Pixel (Facebook)</h3>
+        <p>Diese Website nutzt zur Konversionsmessung das Besucheraktions-Pixel von Meta. So kann das Verhalten der Seitenbesucher nachverfolgt werden, nachdem diese durch Klick auf eine Facebook-Werbeanzeige auf die Website des Anbieters weitergeleitet wurden.</p>
+        
+        <h2>6. Newsletter / E-Mail-Marketing</h2>
+        <p>Wenn Sie den auf der Website angebotenen Newsletter beziehen möchten, benötigen wir von Ihnen eine E-Mail-Adresse sowie Informationen, welche uns die Überprüfung gestatten, dass Sie der Inhaber der angegebenen E-Mail-Adresse sind.</p>
+        
+        <p><em>Stand: März 2026</em></p>
+    </div>
 </body>
 </html>
