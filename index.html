@@ -90,31 +90,136 @@
             50% { opacity: 0.8; transform: translateX(-50%) translateY(5px); }
         }
         
-        /* ===== MOBILE FIRST IMPROVEMENTS ===== */
-        @media (max-width: 768px) {
-            .container { padding: 0 16px; max-width: 100%; }
-            .hero { min-height: auto; padding: 100px 0 60px; }
-            .hero h1 { font-size: 1.8rem; }
-            .hero-subtitle { font-size: 1rem; }
-            .hero-content img { max-width: 100% !important; height: auto !important; }
-            .social-proof-inner { gap: 24px; }
-            .proof-item { flex: 1 1 40%; }
-            .proof-number { font-size: 1.5rem; }
-            .stats-grid { grid-template-columns: 1fr; gap: 16px; }
-            .problem-cards { grid-template-columns: 1fr; }
-            .testimonials-grid { grid-template-columns: 1fr; }
-            .solution-grid { grid-template-columns: 1fr; }
-            .section-header h2 { font-size: 1.6rem; }
-            .problem-section, .testimonials-section, .solution-section { padding: 60px 0; }
-            .cta-btn { width: 100%; justify-content: center; }
-            /* Fix food images overflow */
-            .solution-section img { max-width: 100%; width: auto !important; }
-            [style*="display:flex"][style*="gap"] { flex-wrap: wrap; justify-content: center; }
-        }
+        /* ===== MOBILE FIRST - COMPREHENSIVE ===== */
         
-        /* Prevent ALL horizontal overflow */
+        /* Base mobile styles (default) */
+        .container { padding: 0 16px; max-width: 100%; }
         img { max-width: 100%; height: auto; }
         * { box-sizing: border-box; }
+        
+        /* Touch targets minimum 44px */
+        button, .btn, a.btn, .cta-btn, .option, .header-cta {
+            min-height: 44px;
+        }
+        
+        @media (max-width: 768px) {
+            /* === HEADER === */
+            .header { padding: 12px 0; }
+            .logo { height: 28px; }
+            .header-cta { padding: 8px 14px; font-size: 0.8rem; }
+            
+            /* === HERO === */
+            .hero { min-height: auto; padding: 80px 0 40px; }
+            .hero h1 { font-size: 1.6rem !important; line-height: 1.3; }
+            .hero-subtitle { font-size: 0.95rem !important; }
+            .hero-eyebrow { font-size: 0.75rem; padding: 6px 12px; }
+            .hero-content img { max-width: 100% !important; height: auto !important; }
+            
+            /* === KRANKENKASSE BADGE === */
+            .hero-content > div:first-child { 
+                padding: 12px 16px !important; 
+                margin-bottom: 16px !important;
+            }
+            .hero-content > div:first-child > div:last-child {
+                font-size: 1rem !important;
+            }
+            
+            /* === SOCIAL PROOF === */
+            .social-proof-inner { gap: 16px; }
+            .proof-item { flex: 1 1 45%; text-align: center; }
+            .proof-number { font-size: 1.3rem; }
+            .proof-label { font-size: 0.7rem; }
+            
+            /* === SECTIONS === */
+            .problem-section, .testimonials-section, .solution-section { padding: 48px 0; }
+            .section-header { margin-bottom: 32px; }
+            .section-header h2 { font-size: 1.4rem !important; }
+            .section-header p { font-size: 0.9rem; }
+            .section-label { font-size: 0.7rem; }
+            
+            /* === GRIDS === */
+            .stats-grid, .problem-cards, .testimonials-grid, .solution-grid { 
+                grid-template-columns: 1fr !important; 
+                gap: 12px !important; 
+            }
+            
+            /* === STAT CARDS === */
+            .stat-card { padding: 20px; }
+            .stat-number { font-size: 2.5rem; }
+            
+            /* === PROBLEM CARDS === */
+            .problem-card { padding: 16px; gap: 12px; }
+            .problem-icon { font-size: 1.5rem; }
+            .problem-card h3 { font-size: 1rem; }
+            .problem-card p { font-size: 0.85rem; }
+            
+            /* === TESTIMONIALS === */
+            .testimonial-card { padding: 20px; }
+            .testimonial-text { font-size: 0.9rem; }
+            
+            /* === SOLUTION === */
+            .solution-card { padding: 20px; }
+            .solution-card h3 { font-size: 1rem; }
+            
+            /* === PROGRAMM ÜBERSICHT (inline styles override) === */
+            [style*="grid-template-columns: repeat(2"] {
+                grid-template-columns: 1fr !important;
+            }
+            
+            /* === CTA === */
+            .cta-btn { 
+                width: 100%; 
+                justify-content: center; 
+                padding: 16px 24px !important;
+                font-size: 1rem !important;
+            }
+            .cta-features { flex-direction: column; gap: 8px; }
+            .cta-feature { font-size: 0.8rem; }
+            
+            /* === FOOD GALLERY === */
+            .food-gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .food-gallery img { height: 80px; border-radius: 12px; }
+            
+            /* === MISC === */
+            .mini-testimonial { flex-direction: column; text-align: center; }
+            .transformation { flex-direction: column; }
+            .trust-row { flex-direction: column; gap: 8px; }
+            
+            /* === INLINE STYLE OVERRIDES === */
+            [style*="display: grid"][style*="repeat(2"] {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 12px !important;
+            }
+            [style*="max-width: 800px"], [style*="max-width: 900px"], [style*="max-width: 700px"] {
+                max-width: 100% !important;
+            }
+            [style*="padding: 32px"] { padding: 20px !important; }
+            [style*="padding: 28px"] { padding: 18px !important; }
+            [style*="padding: 24px"] { padding: 16px !important; }
+            [style*="gap: 24px"] { gap: 12px !important; }
+            [style*="font-size: 2.5rem"] { font-size: 1.8rem !important; }
+            [style*="font-size: 2rem"] { font-size: 1.5rem !important; }
+            [style*="font-size: 1.5rem"] { font-size: 1.2rem !important; }
+            [style*="font-size: 1.4rem"] { font-size: 1.1rem !important; }
+            [style*="font-size: 1.3rem"] { font-size: 1.1rem !important; }
+            [style*="font-size: 1.2rem"] { font-size: 1rem !important; }
+            [style*="font-size: 1.1rem"] { font-size: 0.95rem !important; }
+        }
+        
+        /* Extra small screens */
+        @media (max-width: 380px) {
+            .hero h1 { font-size: 1.4rem !important; }
+            .proof-item { flex: 1 1 100%; }
+            .header-cta { padding: 6px 10px; font-size: 0.75rem; }
+        }
+        
+        /* Leistungen Grid mobile */
+        @media (max-width: 768px) {
+            .leistungen-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
         
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
         
@@ -740,7 +845,7 @@
             </div>
             
             <!-- Leistungen Grid -->
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px;">
+            <div class="leistungen-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px;">
                 <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
                     <div style="background: rgba(34,197,94,0.15); color: var(--primary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📊</div>
                     <div>
