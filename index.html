@@ -1504,15 +1504,9 @@
                 <h2>Sichere dir jetzt deinen <span class="highlight-green">Termin</span></h2>
                 <p class="subtitle" style="margin-bottom: 24px;">Buche deine erste Körperanalyse und erhalte dein persönliches Ergebnis.</p>
                 
-                <!-- Preis + Krankenkasse -->
-                <div style="background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.1) 100%); border: 2px solid var(--primary); border-radius: 12px; padding: 16px; margin-bottom: 20px; text-align: center;">
-                    <p style="margin: 0 0 8px 0; font-size: 0.85rem; color: var(--gray-light);">8-Wochen-Programm inkl. 3x Körperanalyse</p>
-                    <div style="margin-bottom: 8px;">
-                        <span style="font-size: 1.6rem; font-weight: 800; color: white;">179€</span>
-                        <span style="font-size: 0.9rem; color: var(--gray-light); margin-left: 4px;">einmalig</span>
-                    </div>
-                    <p style="margin: 0 0 4px 0; font-size: 0.9rem;"><strong style="color: var(--primary);">💰 Bis zu 100% Krankenkassen-Erstattung!</strong></p>
-                    <p style="margin: 0; font-size: 0.8rem; color: var(--gray);">Du zahlst bei Trainingsstart, Krankenkasse erstattet dir das Geld zurück.*</p>
+                <!-- Preis + Krankenkasse (dynamisch) -->
+                <div id="bookingPriceBox" style="background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.1) 100%); border: 2px solid var(--primary); border-radius: 12px; padding: 16px; margin-bottom: 20px; text-align: center;">
+                    <!-- Wird von updateBookingPriceBox() gefüllt -->
                 </div>
                 
                 <!-- Info: Was wird gebucht -->
@@ -1772,6 +1766,57 @@ function updateProgress() {
 function goToBooking() {
     showScreen(7);
     initCalendar();
+    updateBookingPriceBox();
+}
+
+// Update price box on booking screen with insurance info
+function updateBookingPriceBox() {
+    const box = document.getElementById('bookingPriceBox');
+    if (!box) return;
+    
+    const total = 179;
+    const amount = answers.insuranceAmount || 0;
+    const kasseName = answers.insuranceName || '';
+    const selfPay = total - amount;
+    
+    let html = `<p style="margin: 0 0 8px 0; font-size: 0.85rem; color: var(--gray-light);">8-Wochen-Programm inkl. 3x Körperanalyse</p>`;
+    
+    if (amount > 0 && selfPay <= 0) {
+        // 100% Erstattung
+        html += `
+            <div style="margin-bottom: 8px;">
+                <span style="font-size: 1rem; color: var(--gray); text-decoration: line-through; margin-right: 8px;">179€</span>
+                <span style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">0€</span>
+                <span style="font-size: 0.9rem; color: var(--primary); margin-left: 4px;">für dich!</span>
+            </div>
+            <p style="margin: 0 0 4px 0; font-size: 0.95rem;"><strong style="color: var(--primary);">🎉 ${kasseName} erstattet dir alles!</strong></p>
+            <p style="margin: 0; font-size: 0.8rem; color: var(--gray);">Du zahlst bei Trainingsstart, bekommst 179€ komplett zurück.</p>
+        `;
+    } else if (amount > 0) {
+        // Teilerstattung
+        const perWeek = (selfPay / 8).toFixed(2).replace('.', ',');
+        html += `
+            <div style="margin-bottom: 8px;">
+                <span style="font-size: 1rem; color: var(--gray); text-decoration: line-through; margin-right: 8px;">179€</span>
+                <span style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">${selfPay.toFixed(0)}€</span>
+                <span style="font-size: 0.9rem; color: var(--gray-light); margin-left: 4px;">für dich</span>
+            </div>
+            <p style="margin: 0 0 4px 0; font-size: 0.95rem;"><strong style="color: var(--primary);">💰 ${kasseName} erstattet ${amount.toFixed(0)}€!</strong></p>
+            <p style="margin: 0; font-size: 0.8rem; color: var(--gray);">Nur ${perWeek}€ pro Woche · Du zahlst bei Trainingsstart.</p>
+        `;
+    } else {
+        // Keine Kasse ausgewählt
+        html += `
+            <div style="margin-bottom: 8px;">
+                <span style="font-size: 1.6rem; font-weight: 800; color: white;">179€</span>
+                <span style="font-size: 0.9rem; color: var(--gray-light); margin-left: 4px;">einmalig</span>
+            </div>
+            <p style="margin: 0 0 4px 0; font-size: 0.9rem;"><strong style="color: var(--primary);">💰 Bis zu 100% Krankenkassen-Erstattung!</strong></p>
+            <p style="margin: 0; font-size: 0.8rem; color: var(--gray);">Du zahlst bei Trainingsstart, Krankenkasse erstattet dir das Geld zurück.*</p>
+        `;
+    }
+    
+    box.innerHTML = html;
 }
 
 function showScreen(num) {
