@@ -1049,8 +1049,8 @@
                         <div class="result-title"><h3>8-Wochen Programm</h3><p id="resultMatch">95% Übereinstimmung</p></div>
                     </div>
                     <div class="result-stats">
-                        <div class="result-stat"><div class="result-stat-label">Erste Ergebnisse</div><div class="result-stat-value" id="resultTime">2-3 Wochen</div></div>
-                        <div class="result-stat"><div class="result-stat-label">Zeitaufwand</div><div class="result-stat-value" id="resultEffort">2x 30 Min/Woche</div></div>
+                        <div class="result-stat"><div class="result-stat-label">Erste Ergebnisse</div><div class="result-stat-value">2-3 Wochen</div></div>
+                        <div class="result-stat"><div class="result-stat-label">Zeitaufwand</div><div class="result-stat-value">2x 30 Min/Woche</div></div>
                     </div>
                 </div>
                 
@@ -1194,22 +1194,18 @@ function generateResult() {
     if (answers.problems.length > 2) score += 4;
     if (answers.commit === 'entschlossen') score += 5;
     if (answers.commit === 'bereit') score += 3;
-    document.getElementById('resultMatch').textContent = score + '% Übereinstimmung';
     
-    let time = '2-3 Wochen';
-    document.getElementById('resultTime').textContent = time;
+    const matchEl = document.getElementById('resultMatch');
+    if (matchEl) matchEl.textContent = score + '% Übereinstimmung';
     
-    let effort = '2x 30 Min/Woche';
-    if (answers.time === 'wenig') effort = '2x 30 Min/Woche';
-    if (answers.time === 'viel') effort = '3x 30 Min/Woche';
-    document.getElementById('resultEffort').textContent = effort;
+    const timeEl = document.getElementById('resultTime');
+    if (timeEl) timeEl.textContent = '2-3 Wochen';
     
-    const list = document.getElementById('resultList');
-    if (answers.problems.includes('hunger')) {
-        list.innerHTML += '<li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Anti-Heißhunger Strategien</span></li>';
-    }
-    if (answers.problems.includes('motivation')) {
-        list.innerHTML += '<li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Motivations-Check-ins</span></li>';
+    const effortEl = document.getElementById('resultEffort');
+    if (effortEl) {
+        let effort = '2x 30 Min/Woche';
+        if (answers.time === 'viel') effort = '3x 30 Min/Woche';
+        effortEl.textContent = effort;
     }
 }
 </script>
