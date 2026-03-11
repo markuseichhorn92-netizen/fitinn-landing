@@ -36,6 +36,79 @@
             overflow-x: hidden;
         }
         
+        /* ===== FLOATING FOOD ANIMATIONS ===== */
+        .floating-foods {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .food-emoji {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.15;
+            animation: floatFood 20s ease-in-out infinite;
+        }
+        .food-emoji:nth-child(1) { left: 5%; animation-delay: 0s; }
+        .food-emoji:nth-child(2) { left: 15%; animation-delay: -3s; font-size: 1.5rem; }
+        .food-emoji:nth-child(3) { left: 25%; animation-delay: -6s; }
+        .food-emoji:nth-child(4) { left: 35%; animation-delay: -9s; font-size: 2.5rem; }
+        .food-emoji:nth-child(5) { left: 45%; animation-delay: -12s; }
+        .food-emoji:nth-child(6) { left: 55%; animation-delay: -15s; font-size: 1.8rem; }
+        .food-emoji:nth-child(7) { left: 65%; animation-delay: -2s; }
+        .food-emoji:nth-child(8) { left: 75%; animation-delay: -5s; font-size: 2.2rem; }
+        .food-emoji:nth-child(9) { left: 85%; animation-delay: -8s; }
+        .food-emoji:nth-child(10) { left: 92%; animation-delay: -11s; font-size: 1.6rem; }
+        
+        @keyframes floatFood {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.15; }
+            90% { opacity: 0.15; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        /* ===== SCROLL INDICATOR ANIMATION ===== */
+        .scroll-hint {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
+            font-size: 0.75rem;
+            opacity: 0.6;
+            animation: pulseHint 2s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 50;
+        }
+        .scroll-hint.hidden { display: none; }
+        @keyframes pulseHint {
+            0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 0.8; transform: translateX(-50%) translateY(5px); }
+        }
+        
+        /* ===== MOBILE FIRST IMPROVEMENTS ===== */
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            .hero { min-height: auto; padding: 100px 0 60px; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero-subtitle { font-size: 1rem; }
+            .social-proof-inner { gap: 24px; }
+            .proof-item { flex: 1 1 40%; }
+            .proof-number { font-size: 1.5rem; }
+            .stats-grid { grid-template-columns: 1fr; gap: 16px; }
+            .problem-cards { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .solution-grid { grid-template-columns: 1fr; }
+            .section-header h2 { font-size: 1.6rem; }
+            .problem-section, .testimonials-section, .solution-section { padding: 60px 0; }
+            .cta-btn { width: 100%; justify-content: center; }
+        }
+        
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
         
         /* ===== PRE-FUNNEL ===== */
@@ -381,6 +454,62 @@
 <body>
 
 <!-- ===== PRE-FUNNEL ===== -->
+<!-- Floating Food Background -->
+<div class="floating-foods">
+    <span class="food-emoji">🥗</span>
+    <span class="food-emoji">🍎</span>
+    <span class="food-emoji">🥑</span>
+    <span class="food-emoji">🍓</span>
+    <span class="food-emoji">🥕</span>
+    <span class="food-emoji">🍊</span>
+    <span class="food-emoji">🥦</span>
+    <span class="food-emoji">🍇</span>
+    <span class="food-emoji">🥒</span>
+    <span class="food-emoji">🍋</span>
+</div>
+
+<!-- Scroll Hint -->
+<div class="scroll-hint" id="scrollHint">
+    <span>Scroll für mehr</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+</div>
+
+<!-- Mobile Sticky CTA -->
+<div class="mobile-sticky-cta" id="mobileCta">
+    <button onclick="startFunnel()">🎯 Kostenlose Analyse starten</button>
+</div>
+
+<style>
+.mobile-sticky-cta {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    background: rgba(9,9,11,0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    z-index: 999;
+}
+.mobile-sticky-cta button {
+    width: 100%;
+    padding: 16px;
+    background: var(--primary);
+    color: var(--dark);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+@media (max-width: 768px) {
+    .mobile-sticky-cta { display: block; }
+    body { padding-bottom: 80px; }
+    .scroll-hint { bottom: 120px; }
+}
+</style>
+
 <div id="landing">
     
     <header class="header">
@@ -414,10 +543,6 @@
         <div class="container">
             <div class="social-proof-inner">
                 <div class="proof-item">
-                    <div class="proof-number">1.500+</div>
-                    <div class="proof-label">Mitglieder</div>
-                </div>
-                <div class="proof-item">
                     <div class="proof-number">30</div>
                     <div class="proof-label">Jahre Erfahrung</div>
                 </div>
@@ -429,9 +554,21 @@
                     <div class="proof-number">4.9★</div>
                     <div class="proof-label">Google Bewertung</div>
                 </div>
+                <div class="proof-item">
+                    <div class="proof-number">100%</div>
+                    <div class="proof-label">Krankenkassen-fähig</div>
+                </div>
             </div>
         </div>
     </section>
+    
+    <!-- Floating CTA nach Social Proof -->
+    <div style="text-align:center;padding:32px 0;background:linear-gradient(180deg, var(--dark-2) 0%, var(--dark) 100%);">
+        <button class="cta-btn" onclick="startFunnel()" style="font-size:1.1rem;padding:18px 36px;">
+            🎯 Jetzt kostenlos starten
+        </button>
+        <p style="color:var(--gray);font-size:0.85rem;margin-top:12px;">Unverbindlich • 2 Minuten • 100% kostenlos</p>
+    </div>
     
     <section class="problem-section" id="problem">
         <div class="container">
@@ -452,6 +589,14 @@
                 <div class="problem-card"><div class="problem-icon">📋</div><div><h3>Einheitsdiäten</h3><p>Was bei anderen funktioniert, kann bei dir das Gegenteil bewirken.</p></div></div>
                 <div class="problem-card"><div class="problem-icon">🍕</div><div><h3>Heißhunger</h3><p>Falsche Ernährung führt zu Blutzucker-Chaos und unkontrollierbarem Verlangen.</p></div></div>
                 <div class="problem-card"><div class="problem-icon">😩</div><div><h3>Keine Erfolge sichtbar</h3><p>Ohne messbare Fortschritte verlierst du die Motivation.</p></div></div>
+            </div>
+            
+            <!-- CTA nach Problem Section -->
+            <div style="text-align:center;margin-top:48px;">
+                <p style="color:var(--gray-light);margin-bottom:16px;font-size:1.1rem;">Erkennst du dich wieder?</p>
+                <button class="cta-btn" onclick="startFunnel()" style="background:var(--red);">
+                    🔥 Schluss damit – Jetzt starten
+                </button>
             </div>
         </div>
     </section>
@@ -495,6 +640,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- CTA nach Testimonials -->
+            <div style="text-align:center;margin-top:48px;">
+                <button class="cta-btn" onclick="startFunnel()">
+                    ✨ Deine Erfolgsgeschichte beginnt hier
+                </button>
             </div>
         </div>
     </section>
@@ -789,9 +941,20 @@ let current = 1;
 const total = 8;
 const answers = { goal: null, problems: [], time: null, commit: null };
 
+// Hide scroll hint after scrolling
+window.addEventListener('scroll', function() {
+    const hint = document.getElementById('scrollHint');
+    if (hint && window.scrollY > 200) {
+        hint.classList.add('hidden');
+    }
+});
+
 function startFunnel() {
     document.getElementById('landing').classList.add('hidden');
     document.getElementById('funnel').classList.add('active');
+    document.querySelector('.floating-foods').style.display = 'none';
+    document.getElementById('scrollHint').classList.add('hidden');
+    document.getElementById('mobileCta').style.display = 'none';
     window.scrollTo(0, 0);
     updateProgress();
 }
