@@ -3,990 +3,1830 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIT-INN Trier | Februar & März beitragsfrei trainieren</title>
-    <meta name="description" content="Exklusives Angebot: 2 Monate beitragsfrei bei FIT-INN Trier! Ihr Gesundheitspartner für Best Ager 50+ mit professioneller Betreuung und TechnoGym Geräten.">
+    <title>happyfigur | Dein Weg zum Wunschgewicht – FIT-INN Trier</title>
+    <meta name="description" content="Finde heraus, wie du mit Körperanalyse und begleitetem Training endlich dein Wunschgewicht erreichst.">
     
-    <!-- Open Graph -->
-    <meta property="og:title" content="FIT-INN Trier | 2 Monate geschenkt">
-    <meta property="og:description" content="Februar & März beitragsfrei trainieren. Professionelle Betreuung für deine Gesundheit.">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="de_DE">
-    
-    <!-- Fonts -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#094957',
-                        'primary-dark': '#063540',
-                        'primary-light': '#0a5a6b',
-                        accent: '#DD9B43',
-                        'accent-dark': '#D3872F',
-                        'accent-light': '#e6ac5a',
-                        dark: '#0a0a0a',
-                        muted: '#a1a1a1',
-                        success: '#10b981',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                }
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #22c55e;
+            --primary-dark: #16a34a;
+            --accent: #f97316;
+            --dark: #09090b;
+            --dark-2: #18181b;
+            --dark-3: #27272a;
+            --gray: #71717a;
+            --gray-light: #a1a1aa;
+            --white: #fafafa;
+            --red: #ef4444;
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+        
+        html, body, #landing, #funnel, section, .container {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+        
+        /* ===== FOOD GALLERY STYLES ===== */
+        .food-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 32px 0;
+        }
+        .food-gallery img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 16px;
+            transition: transform 0.3s;
+        }
+        .food-gallery img:hover {
+            transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+            .food-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .food-gallery img {
+                height: 100px;
             }
         }
-    </script>
-    <style>
-        html { scroll-behavior: smooth; }
-        body { background-color: #094957; }
         
-        .glow-accent {
-            box-shadow: 0 0 40px rgba(221, 155, 67, 0.4);
+        /* ===== SCROLL INDICATOR ANIMATION ===== */
+        .scroll-hint {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray);
+            font-size: 0.75rem;
+            opacity: 0.6;
+            animation: pulseHint 2s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 50;
         }
-        .glow-accent:hover {
-            box-shadow: 0 0 60px rgba(221, 155, 67, 0.6);
-        }
-        
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .card-hover {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
+        .scroll-hint.hidden { display: none; }
+        @keyframes pulseHint {
+            0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 0.8; transform: translateX(-50%) translateY(5px); }
         }
         
-        /* Promo Banner Animation */
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(221, 155, 67, 0.4); }
-            50% { box-shadow: 0 0 40px rgba(221, 155, 67, 0.7); }
-        }
-        .promo-glow {
-            animation: pulse-glow 2s ease-in-out infinite;
+        /* ===== MOBILE FIRST - COMPREHENSIVE ===== */
+        
+        /* Base mobile styles (default) */
+        .container { padding: 0 16px; max-width: 100%; }
+        img { max-width: 100%; height: auto; }
+        * { box-sizing: border-box; }
+        
+        /* Touch targets minimum 44px */
+        button, .btn, a.btn, .cta-btn, .option, .header-cta {
+            min-height: 44px;
         }
         
-        /* Modal Styles */
-        .modal-overlay {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            transform: scale(0.95) translateY(20px);
-            transition: transform 0.3s ease;
-        }
-        .modal-overlay.active .modal-content {
-            transform: scale(1) translateY(0);
+        @media (max-width: 768px) {
+            /* === HEADER === */
+            .header { padding: 12px 0; }
+            .logo { height: 28px; }
+            .header-cta { padding: 8px 14px; font-size: 0.8rem; }
+            
+            /* === HERO === */
+            .hero { min-height: auto; padding: 80px 0 40px; }
+            .hero h1 { font-size: 1.6rem !important; line-height: 1.3; }
+            .hero-subtitle { font-size: 0.95rem !important; }
+            .hero-eyebrow { font-size: 0.75rem; padding: 6px 12px; }
+            .hero-content img { max-width: 100% !important; height: auto !important; }
+            
+            /* === KRANKENKASSE BADGE === */
+            .hero-content > div:first-child { 
+                padding: 12px 16px !important; 
+                margin-bottom: 16px !important;
+            }
+            .hero-content > div:first-child > div:last-child {
+                font-size: 1rem !important;
+            }
+            
+            /* === SOCIAL PROOF === */
+            .social-proof-inner { gap: 16px; }
+            .proof-item { flex: 1 1 45%; text-align: center; }
+            .proof-number { font-size: 1.3rem; }
+            .proof-label { font-size: 0.7rem; }
+            
+            /* === SECTIONS === */
+            .problem-section, .testimonials-section, .solution-section { padding: 48px 0; }
+            .section-header { margin-bottom: 32px; }
+            .section-header h2 { font-size: 1.4rem !important; }
+            .section-header p { font-size: 0.9rem; }
+            .section-label { font-size: 0.7rem; }
+            
+            /* === GRIDS === */
+            .stats-grid, .problem-cards, .testimonials-grid, .solution-grid { 
+                grid-template-columns: 1fr !important; 
+                gap: 12px !important; 
+            }
+            
+            /* === STAT CARDS === */
+            .stat-card { padding: 20px; }
+            .stat-number { font-size: 2.5rem; }
+            
+            /* === PROBLEM CARDS === */
+            .problem-card { padding: 16px; gap: 12px; }
+            .problem-icon { font-size: 1.5rem; }
+            .problem-card h3 { font-size: 1rem; }
+            .problem-card p { font-size: 0.85rem; }
+            
+            /* === TESTIMONIALS === */
+            .testimonial-card { padding: 20px; }
+            .testimonial-text { font-size: 0.9rem; }
+            
+            /* === SOLUTION === */
+            .solution-card { padding: 20px; }
+            .solution-card h3 { font-size: 1rem; }
+            
+            /* === PROGRAMM ÜBERSICHT (inline styles override) === */
+            [style*="grid-template-columns: repeat(2"] {
+                grid-template-columns: 1fr !important;
+            }
+            
+            /* === CTA === */
+            .cta-btn { 
+                width: 100%; 
+                justify-content: center; 
+                padding: 16px 24px !important;
+                font-size: 1rem !important;
+            }
+            .cta-features { flex-direction: column; gap: 8px; }
+            .cta-feature { font-size: 0.8rem; }
+            
+            /* === FOOD GALLERY === */
+            .food-gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .food-gallery img { height: 80px; border-radius: 12px; }
+            
+            /* === MISC === */
+            .mini-testimonial { flex-direction: column; text-align: center; }
+            .transformation { flex-direction: column; }
+            .trust-row { flex-direction: column; gap: 8px; }
+            
+            /* === INLINE STYLE OVERRIDES === */
+            [style*="display: grid"][style*="repeat(2"] {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 12px !important;
+            }
+            [style*="max-width: 800px"], [style*="max-width: 900px"], [style*="max-width: 700px"] {
+                max-width: 100% !important;
+            }
+            [style*="padding: 32px"] { padding: 20px !important; }
+            [style*="padding: 28px"] { padding: 18px !important; }
+            [style*="padding: 24px"] { padding: 16px !important; }
+            [style*="gap: 24px"] { gap: 12px !important; }
+            [style*="font-size: 2.5rem"] { font-size: 1.8rem !important; }
+            [style*="font-size: 2rem"] { font-size: 1.5rem !important; }
+            [style*="font-size: 1.5rem"] { font-size: 1.2rem !important; }
+            [style*="font-size: 1.4rem"] { font-size: 1.1rem !important; }
+            [style*="font-size: 1.3rem"] { font-size: 1.1rem !important; }
+            [style*="font-size: 1.2rem"] { font-size: 1rem !important; }
+            [style*="font-size: 1.1rem"] { font-size: 0.95rem !important; }
         }
         
-        /* Form Steps */
-        .form-step {
-            display: none;
-        }
-        .form-step.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(20px); }
-            to { opacity: 1; transform: translateX(0); }
+        /* Extra small screens */
+        @media (max-width: 380px) {
+            .hero h1 { font-size: 1.4rem !important; }
+            .proof-item { flex: 1 1 100%; }
+            .header-cta { padding: 6px 10px; font-size: 0.75rem; }
         }
         
-        /* Step Indicator */
-        .step-indicator.active {
-            background-color: #DD9B43;
-            color: #094957;
+        /* Leistungen Grid mobile */
+        @media (max-width: 768px) {
+            .leistungen-grid {
+                grid-template-columns: 1fr !important;
+            }
         }
-        .step-indicator.completed {
-            background-color: #10b981;
+        
+        /* Buchungsformular */
+        .booking-form {
+            background: var(--dark-2);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--dark-3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: var(--white);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .form-group input::placeholder {
+            color: var(--gray);
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 16px 24px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(34,197,94,0.3);
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Calendar Styles */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+        .cal-day {
+            text-align: center;
+            padding: 8px 4px;
+        }
+        .cal-day-header {
+            font-size: 0.7rem;
+            color: var(--gray);
+            font-weight: 600;
+        }
+        .cal-date {
+            font-size: 0.85rem;
+            color: var(--gray-light);
+            padding: 6px;
+            border-radius: 8px;
+            cursor: default;
+        }
+        .cal-date.has-slots {
+            background: var(--dark-3);
             color: white;
+            cursor: pointer;
+        }
+        .cal-date.has-slots:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        .cal-date.selected {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        .cal-nav {
+            background: var(--dark-3);
+            border: none;
+            color: var(--gray-light);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .cal-nav:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+        .time-slot {
+            background: var(--dark-3);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .time-slot:hover {
+            border-color: var(--primary);
+        }
+        .time-slot.selected {
+            background: var(--primary);
+            color: var(--dark);
+            border-color: var(--primary);
+        }
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--dark-3);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--dark-3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: var(--white);
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        @media (max-width: 768px) {
+            .calendar-grid {
+                gap: 2px;
+            }
+            .cal-day {
+                padding: 6px 2px;
+            }
+            .cal-date {
+                font-size: 0.75rem;
+                padding: 4px;
+            }
+            #bookingStep2 [style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        
+        /* ===== PRE-FUNNEL ===== */
+        #landing { display: block; }
+        #landing.hidden { display: none; }
+        
+        .header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 16px 0; background: rgba(9,9,11,0.8);
+            backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { height: 36px; }
+        .header-cta { background: var(--primary); color: var(--dark); padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.875rem; transition: all 0.3s; }
+        .header-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(34,197,94,0.3); }
+        
+        /* Hero */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; padding-top: 80px;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at top center, rgba(239,68,68,0.08) 0%, transparent 50%);
+        }
+        .hero-content { position: relative; z-index: 1; text-align: center; max-width: 800px; margin: 0 auto; }
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2);
+            padding: 8px 16px; border-radius: 50px; font-size: 0.8rem; color: var(--red); margin-bottom: 24px;
+        }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 20px; }
+        .hero h1 .red { color: var(--red); }
+        .hero-subtitle { font-size: 1.2rem; color: var(--gray-light); line-height: 1.7; margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .scroll-cta { display: inline-flex; flex-direction: column; align-items: center; gap: 12px; color: var(--gray); text-decoration: none; font-size: 0.9rem; cursor: pointer; }
+        .scroll-cta:hover { color: var(--white); }
+        .scroll-arrow { width: 24px; height: 24px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: rotate(45deg) translateY(0); } 40% { transform: rotate(45deg) translateY(8px); } }
+        
+        /* Social Proof Bar */
+        .social-proof-bar {
+            background: var(--dark-2); border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05); padding: 24px 0;
+        }
+        .social-proof-inner {
+            display: flex; justify-content: center; align-items: center; gap: 48px; flex-wrap: wrap;
+        }
+        .proof-item { text-align: center; }
+        .proof-number { font-size: 2rem; font-weight: 800; color: var(--primary); }
+        .proof-label { font-size: 0.8rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        /* Problem Section */
+        .problem-section { padding: 120px 0; background: var(--dark-2); }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-label { display: inline-block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 16px; }
+        .section-header h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .section-header h2 span { color: var(--red); }
+        .section-header p { font-size: 1.1rem; color: var(--gray-light); max-width: 600px; margin: 0 auto; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 60px; }
+        .stat-card { background: var(--dark-3); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 32px; text-align: center; transition: all 0.3s; }
+        .stat-card:hover { transform: translateY(-4px); border-color: rgba(239,68,68,0.3); }
+        .stat-number { font-size: 3.5rem; font-weight: 800; color: var(--red); line-height: 1; margin-bottom: 8px; }
+        .stat-label { font-size: 1rem; color: var(--gray-light); }
+        
+        .problem-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .problem-card { background: var(--dark); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 28px; display: flex; gap: 16px; align-items: flex-start; }
+        .problem-icon { font-size: 2rem; flex-shrink: 0; }
+        .problem-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
+        .problem-card p { font-size: 0.9rem; color: var(--gray-light); margin: 0; line-height: 1.5; }
+        
+        /* Testimonials Section */
+        .testimonials-section { padding: 100px 0; }
+        .testimonials-section h2 span { color: var(--primary); }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+        .testimonial-card {
+            background: var(--dark-2); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px; padding: 32px; position: relative;
+        }
+        .testimonial-card::before {
+            content: '"'; position: absolute; top: 20px; left: 24px;
+            font-size: 4rem; color: var(--primary); opacity: 0.2; line-height: 1;
+        }
+        .testimonial-text { font-size: 1rem; color: var(--gray-light); line-height: 1.7; margin-bottom: 24px; position: relative; z-index: 1; }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
+        .testimonial-avatar {
+            width: 48px; height: 48px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1.1rem;
+        }
+        .testimonial-info h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; }
+        .testimonial-info p { font-size: 0.8rem; color: var(--primary); margin: 0; }
+        .testimonial-result {
+            display: inline-block; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2);
+            padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; color: var(--primary);
+            margin-top: 8px;
+        }
+        
+        /* Solution Section */
+        .solution-section { padding: 120px 0; position: relative; }
+        .solution-section::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 200%; height: 100%;
+            background: radial-gradient(ellipse at center, rgba(34,197,94,0.06) 0%, transparent 50%);
+        }
+        .solution-section h2 span { color: var(--primary); }
+        .solution-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 60px; }
+        .solution-card { background: var(--dark-2); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 32px; text-align: center; transition: all 0.3s; }
+        .solution-card:hover { transform: translateY(-4px); border-color: rgba(34,197,94,0.3); }
+        .solution-icon { width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 1.75rem; }
+        .solution-card h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 10px; }
+        .solution-card p { font-size: 0.9rem; color: var(--gray-light); margin: 0; line-height: 1.5; }
+        
+        /* CTA Section */
+        .cta-section { padding: 100px 0; background: var(--dark-2); text-align: center; position: relative; overflow: hidden; }
+        .cta-section::before {
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 200%; height: 400px;
+            background: radial-gradient(ellipse at bottom center, rgba(34,197,94,0.1) 0%, transparent 60%);
+        }
+        .cta-content { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
+        .cta-section h2 { font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 700; margin-bottom: 16px; }
+        .cta-section h2 span { color: var(--primary); }
+        .cta-section > .container > .cta-content > p { font-size: 1.1rem; color: var(--gray-light); margin-bottom: 32px; }
+        .cta-btn {
+            display: inline-flex; align-items: center; gap: 12px;
+            background: var(--primary); color: var(--dark); padding: 18px 40px;
+            border-radius: 14px; font-size: 1.1rem; font-weight: 700;
+            text-decoration: none; border: none; cursor: pointer;
+            transition: all 0.3s; box-shadow: 0 0 50px rgba(34,197,94,0.25);
+        }
+        .cta-btn:hover { transform: translateY(-4px); box-shadow: 0 10px 60px rgba(34,197,94,0.35); }
+        .cta-btn svg { width: 22px; height: 22px; transition: transform 0.3s; }
+        .cta-btn:hover svg { transform: translateX(4px); }
+        .cta-features { display: flex; justify-content: center; gap: 32px; margin-top: 32px; flex-wrap: wrap; }
+        .cta-feature { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--gray); }
+        .cta-feature svg { width: 18px; height: 18px; color: var(--primary); }
+        
+        /* ===== FUNNEL ===== */
+        #funnel { display: none; }
+        #funnel.active { display: block; }
+        
+        .progress {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(9,9,11,0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05); padding: 16px 24px;
+        }
+        .progress-inner { max-width: 500px; margin: 0 auto; }
+        .progress-bar-bg { height: 6px; background: var(--dark-3); border-radius: 3px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 3px; transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); width: 0%; }
+        .progress-text { display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.75rem; color: var(--gray); }
+        
+        .funnel-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 100px 24px 60px; }
+        
+        .screen { display: none; width: 100%; max-width: 640px; opacity: 0; transform: translateY(30px); }
+        .screen.active { display: block; animation: slideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .screen.exit { animation: slideOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideOut { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-20px); } }
+        
+        .screen-content { text-align: center; }
+        .screen-icon { font-size: 3.5rem; margin-bottom: 24px; animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        
+        .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2); padding: 8px 16px; border-radius: 50px; font-size: 0.8rem; color: var(--primary); margin-bottom: 24px; }
+        .badge .dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+        
+        .screen h2 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700; line-height: 1.25; margin-bottom: 12px; }
+        .screen h2 .highlight { color: var(--accent); }
+        .screen h2 .highlight-green { color: var(--primary); }
+        .subtitle { font-size: 1.05rem; color: var(--gray-light); line-height: 1.7; margin-bottom: 32px; }
+        
+        /* Weight Loss Graph Animation */
+        .weight-graph {
+            background: var(--dark-2); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px; padding: 32px; margin-bottom: 32px;
+        }
+        .weight-graph h4 { font-size: 0.8rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 24px; text-align: left; }
+        .graph-container { height: 160px; position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; padding-bottom: 24px; border-bottom: 1px solid var(--dark-3); }
+        .graph-bar {
+            flex: 1; background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+            border-radius: 8px 8px 0 0; position: relative; animation: growBar 1.5s ease-out forwards;
+            transform-origin: bottom;
+        }
+        @keyframes growBar { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+        .graph-bar:nth-child(1) { height: 100%; animation-delay: 0.1s; }
+        .graph-bar:nth-child(2) { height: 92%; animation-delay: 0.2s; }
+        .graph-bar:nth-child(3) { height: 83%; animation-delay: 0.3s; }
+        .graph-bar:nth-child(4) { height: 75%; animation-delay: 0.4s; }
+        .graph-bar:nth-child(5) { height: 68%; animation-delay: 0.5s; }
+        .graph-bar:nth-child(6) { height: 62%; animation-delay: 0.6s; }
+        .graph-bar:nth-child(7) { height: 57%; animation-delay: 0.7s; }
+        .graph-bar:nth-child(8) { height: 53%; background: linear-gradient(180deg, var(--accent), var(--accent-dark)); animation-delay: 0.8s; }
+        .graph-labels { display: flex; justify-content: space-between; margin-top: 12px; }
+        .graph-labels span { font-size: 0.7rem; color: var(--gray); }
+        .graph-result { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--dark-3); }
+        .graph-stat { text-align: center; }
+        .graph-stat-value { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .graph-stat-value.negative { color: var(--accent); }
+        .graph-stat-label { font-size: 0.75rem; color: var(--gray); }
+        
+        /* Mini Testimonial */
+        .mini-testimonial {
+            background: var(--dark-2); border: 1px solid rgba(34,197,94,0.2);
+            border-radius: 16px; padding: 20px; margin-bottom: 32px; text-align: left;
+            display: flex; gap: 16px; align-items: flex-start;
+        }
+        .mini-testimonial-avatar {
+            width: 44px; height: 44px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; flex-shrink: 0;
+        }
+        .mini-testimonial-content { flex: 1; }
+        .mini-testimonial-text { font-size: 0.9rem; color: var(--gray-light); margin-bottom: 8px; font-style: italic; }
+        .mini-testimonial-author { font-size: 0.8rem; color: var(--white); font-weight: 600; }
+        .mini-testimonial-result { font-size: 0.75rem; color: var(--primary); }
+        
+        /* Transformation Visual */
+        .transformation {
+            display: flex; gap: 16px; margin-bottom: 32px;
+        }
+        .transformation-side {
+            flex: 1; background: var(--dark-2); border-radius: 16px; padding: 24px; text-align: center;
+        }
+        .transformation-side.before { border: 1px solid rgba(239,68,68,0.2); }
+        .transformation-side.after { border: 1px solid rgba(34,197,94,0.2); }
+        .transformation-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+        .transformation-side.before .transformation-label { color: var(--red); }
+        .transformation-side.after .transformation-label { color: var(--primary); }
+        .transformation-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .transformation-list { text-align: left; }
+        .transformation-list li {
+            font-size: 0.85rem; color: var(--gray-light); padding: 6px 0;
+            display: flex; align-items: center; gap: 8px; list-style: none;
+        }
+        .transformation-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+        .transformation-side.before .transformation-list li::before { background: var(--red); }
+        .transformation-side.after .transformation-list li::before { background: var(--primary); }
+        
+        /* Buttons */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 32px; border-radius: 12px; font-size: 1rem; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: var(--dark); box-shadow: 0 0 40px rgba(34,197,94,0.25); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 50px rgba(34,197,94,0.35); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn svg { width: 20px; height: 20px; transition: transform 0.3s; }
+        .btn:hover svg { transform: translateX(4px); }
+        .btn-wa { background: #25D366; color: white; font-size: 1.1rem; padding: 18px 36px; box-shadow: 0 0 50px rgba(37,211,102,0.25); }
+        .btn-wa svg { width: 24px; height: 24px; }
+        .btn-wa:hover svg { transform: scale(1.1); }
+        
+        /* Options */
+        .options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+        .option { background: var(--dark-2); border: 2px solid var(--dark-3); border-radius: 16px; padding: 20px 24px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 16px; text-align: left; }
+        .option:hover { border-color: rgba(255,255,255,0.15); transform: translateX(4px); background: var(--dark-3); }
+        .option.selected { border-color: var(--primary); background: rgba(34,197,94,0.08); }
+        .option .radio { width: 22px; height: 22px; border: 2px solid var(--gray); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .option.selected .radio { border-color: var(--primary); background: var(--primary); }
+        .option .radio::after { content: ''; width: 8px; height: 8px; background: var(--dark); border-radius: 50%; opacity: 0; transform: scale(0); transition: all 0.3s; }
+        .option.selected .radio::after { opacity: 1; transform: scale(1); }
+        .option .check { width: 22px; height: 22px; border: 2px solid var(--gray); border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .option.selected .check { border-color: var(--primary); background: var(--primary); }
+        .option .check svg { width: 14px; height: 14px; color: var(--dark); opacity: 0; transform: scale(0); transition: all 0.3s; }
+        .option.selected .check svg { opacity: 1; transform: scale(1); }
+        .option .icon { font-size: 1.75rem; flex-shrink: 0; }
+        .option .text { flex: 1; }
+        .option .text h3 { font-size: 1rem; font-weight: 600; margin-bottom: 2px; }
+        .option .text p { font-size: 0.85rem; color: var(--gray-light); margin: 0; }
+        
+        /* Info Box */
+        .info-box { background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1)); border: 1px solid rgba(59,130,246,0.2); border-radius: 16px; padding: 24px; margin-bottom: 32px; text-align: left; }
+        .info-box.warning { background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(249,115,22,0.1)); border-color: rgba(239,68,68,0.2); }
+        .info-box.success { background: linear-gradient(135deg, rgba(34,197,94,0.1), rgba(16,185,129,0.1)); border-color: rgba(34,197,94,0.2); }
+        .info-box h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
+        .info-box p { font-size: 0.9rem; color: var(--gray-light); line-height: 1.6; margin: 0; }
+        
+        /* Timeline */
+        .timeline { text-align: left; margin-bottom: 32px; }
+        .timeline-item { display: flex; gap: 16px; padding-bottom: 24px; position: relative; }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-item::before { content: ''; position: absolute; left: 19px; top: 44px; bottom: 0; width: 2px; background: var(--dark-3); }
+        .timeline-item:last-child::before { display: none; }
+        .timeline-dot { width: 40px; height: 40px; background: var(--dark-3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; z-index: 1; }
+        .timeline-item.active .timeline-dot { background: var(--primary); }
+        .timeline-content { flex: 1; padding-top: 8px; }
+        .timeline-content h4 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+        .timeline-content p { font-size: 0.85rem; color: var(--gray-light); margin: 0; }
+        .timeline-content .time { display: inline-block; background: var(--dark-3); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; color: var(--accent); margin-top: 8px; }
+        
+        /* Result Card */
+        .result-card { background: linear-gradient(135deg, var(--dark-2), var(--dark-3)); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 32px; margin-bottom: 32px; text-align: left; }
+        .result-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .result-icon { width: 64px; height: 64px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        .result-title h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 4px; }
+        .result-title p { font-size: 0.9rem; color: var(--primary); margin: 0; }
+        .result-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 24px; }
+        .result-stat { background: var(--dark); border-radius: 12px; padding: 16px; }
+        .result-stat-label { font-size: 0.75rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+        .result-stat-value { font-size: 1.25rem; font-weight: 700; }
+        .result-list { list-style: none; }
+        .result-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; }
+        .result-list li:last-child { border: none; }
+        .result-list li svg { width: 20px; height: 20px; color: var(--primary); flex-shrink: 0; margin-top: 2px; }
+        
+        /* Navigation */
+        .nav-row { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
+        .back-btn { background: transparent; border: none; color: var(--gray); font-size: 0.9rem; cursor: pointer; padding: 12px 20px; display: flex; align-items: center; gap: 6px; transition: all 0.3s; border-radius: 8px; }
+        .back-btn:hover { color: var(--white); background: var(--dark-3); }
+        .back-btn svg { width: 16px; height: 16px; }
+        
+        /* Trust */
+        .trust-row { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 32px; }
+        .trust-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--gray); }
+        .trust-item svg { width: 16px; height: 16px; color: var(--primary); }
+        
+        /* Loading */
+        .loading { display: flex; flex-direction: column; align-items: center; gap: 24px; }
+        .loading-spinner { width: 60px; height: 60px; border: 4px solid var(--dark-3); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text { font-size: 1rem; color: var(--gray-light); }
+        .loading-steps { text-align: left; margin-top: 16px; }
+        .loading-step { display: flex; align-items: center; gap: 12px; padding: 8px 0; font-size: 0.9rem; color: var(--gray); opacity: 0; animation: fadeInStep 0.5s ease forwards; }
+        .loading-step svg { width: 18px; height: 18px; color: var(--primary); }
+        .loading-step:nth-child(1) { animation-delay: 0.5s; }
+        .loading-step:nth-child(2) { animation-delay: 1.5s; }
+        .loading-step:nth-child(3) { animation-delay: 2.5s; }
+        @keyframes fadeInStep { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .stats-grid, .solution-grid, .testimonials-grid { grid-template-columns: 1fr; }
+            .problem-cards { grid-template-columns: 1fr; }
+            .result-stats { grid-template-columns: 1fr; }
+            .cta-features, .trust-row { flex-direction: column; gap: 12px; }
+            .social-proof-inner { gap: 24px; }
+            .transformation { flex-direction: column; }
         }
     </style>
 </head>
-<body class="font-sans text-white antialiased">
+<body>
+
+<!-- ===== PRE-FUNNEL ===== -->
+<!-- Food backgrounds removed - using prominent food images instead -->
+
+<!-- Scroll Hint -->
+<div class="scroll-hint" id="scrollHint">
+    <span>Scroll für mehr</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+</div>
+
+<!-- Mobile Sticky CTA -->
+<div class="mobile-sticky-cta" id="mobileCta">
+    <button onclick="startFunnel()">🎯 Kostenlose Analyse starten</button>
+</div>
+
+<style>
+.mobile-sticky-cta {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    background: rgba(9,9,11,0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    z-index: 999;
+}
+.mobile-sticky-cta button {
+    width: 100%;
+    padding: 16px;
+    background: var(--primary);
+    color: var(--dark);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+@media (max-width: 768px) {
+    .mobile-sticky-cta { display: block; }
+    body { padding-bottom: 80px; }
+    .scroll-hint { bottom: 120px; }
+}
+</style>
+
+<div id="landing">
     
-    <!-- Sticky Promo Banner -->
-    <div class="bg-accent text-primary text-center py-3 px-4 font-semibold text-sm md:text-base">
-        🎁 <strong>Exklusiv:</strong> Februar & März komplett beitragsfrei! 
-        <a href="#angebot" class="underline ml-2 hover:no-underline">Jetzt sichern →</a>
+    <header class="header">
+        <div class="container header-inner">
+            <img src="fitinn-logo.png" alt="FIT-INN Trier" class="logo">
+            <a href="#cta" class="header-cta">Kostenlose Analyse</a>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                
+                <!-- KRANKENKASSE MEGA-BADGE -->
+                <div style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; padding: 16px 28px; border-radius: 16px; margin-bottom: 24px; display: inline-block; box-shadow: 0 10px 40px rgba(34,197,94,0.3);">
+                    <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.9; margin-bottom: 4px;">💰 Das Beste daran:</div>
+                    <div style="font-size: 1.4rem; font-weight: 800;">Bis zu 100% von deiner Krankenkasse erstattet!</div>
+                </div>
+                
+                <!-- Hero Image - Präventionskurs mit Krankenkassen-Logos -->
+                <div style="margin-bottom: 28px; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+                    <img src="happyfigur-hero-new.jpg" alt="happyfigur Präventionskurs - 8 Wochen Gratis Trainieren, bis zu 100% Krankenkassen-gefördert" style="width: 100%; max-width: 900px; height: auto; display: block;">
+                </div>
+                
+                <!-- PROBLEM - Empathie zuerst -->
+                <div class="hero-eyebrow" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3);">😓 Kommt dir das bekannt vor?</div>
+                <h1 style="font-size: clamp(1.8rem, 5vw, 2.8rem);">Du hast <span class="red">alles versucht</span> – aber die Kilos bleiben?</h1>
+                <p class="hero-subtitle" style="font-size: 1.1rem;">Diäten, Verzicht, Sport... und trotzdem passiert nichts. <strong>Das liegt nicht an dir.</strong> Du weißt nur noch nicht, was DEIN Körper wirklich braucht.</p>
+                
+                <!-- WAS IST DAS? - Klare Lösung -->
+                <div style="background: var(--dark-2); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin: 28px 0; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    <h3 style="color: var(--primary); margin-bottom: 12px; font-size: 1.1rem;">✅ Was ist happyfigur?</h3>
+                    <p style="color: var(--gray-light); font-size: 0.95rem; line-height: 1.6; margin-bottom: 16px;">Ein <strong style="color: white;">8-Wochen Programm</strong> mit 3x Körperanalyse, das dir zeigt, wie DEIN Stoffwechsel funktioniert – und wie du ihn optimierst. <strong style="color: white;">Keine Radikaldiät, sondern nachhaltige Ergebnisse.</strong></p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                        <span style="background: rgba(34,197,94,0.1); color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem;">📊 3x Körperanalyse</span>
+                        <span style="background: rgba(34,197,94,0.1); color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem;">🍽️ Individueller Ernährungsplan</span>
+                        <span style="background: rgba(34,197,94,0.1); color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem;">💪 Begleitetes Training</span>
+                    </div>
+                </div>
+                
+                <!-- CTA -->
+                <button class="cta-btn" onclick="startFunnel()" style="font-size: 1.1rem; padding: 18px 36px;">
+                    🎯 Kostenlose Analyse starten
+                </button>
+                <p style="color: var(--gray); font-size: 0.8rem; margin-top: 12px;">Unverbindlich • 2 Minuten • Keine Kosten</p>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- KRANKENKASSEN-HINWEIS prominent -->
+    <section style="background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%); padding: 20px 0;">
+        <div class="container" style="text-align: center;">
+            <p style="color: white; font-size: 1rem; margin: 0;">
+                <strong>💰 § 20 SGB V:</strong> Deine Krankenkasse übernimmt bis zu <strong>100% der Kosten</strong> – frag einfach nach!
+            </p>
+        </div>
+    </section>
+    
+    <!-- Social Proof Bar -->
+    <section class="social-proof-bar" id="proof">
+        <div class="container">
+            <div class="social-proof-inner">
+                <div class="proof-item">
+                    <div class="proof-number">30</div>
+                    <div class="proof-label">Jahre Erfahrung</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-number">93%</div>
+                    <div class="proof-label">Erfolgsquote</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-number">4.9★</div>
+                    <div class="proof-label">Google Bewertung</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-number">8</div>
+                    <div class="proof-label">Wochen Programm</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Appetizing Food Gallery -->
+    <section style="padding: 48px 0; background: var(--dark);">
+        <div class="container">
+            <p style="text-align: center; color: var(--gray-light); font-size: 0.9rem; margin-bottom: 20px;">🍽️ Lecker essen & trotzdem abnehmen – so sieht dein neuer Speiseplan aus:</p>
+            <div class="food-gallery">
+                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop" alt="Buddha Bowl">
+                <img src="https://images.unsplash.com/photo-1590301157890-4810ed352733?w=400&h=300&fit=crop" alt="Smoothie Bowl">
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop" alt="Salat">
+                <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=300&fit=crop" alt="Pancakes">
+            </div>
+            <p style="text-align: center; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Kein Verzicht. Kein Hungern. Echtes Essen.</p>
+        </div>
+    </section>
+    
+    <!-- CTA nach Food Gallery -->
+    <div style="text-align:center;padding:32px 0;background:linear-gradient(180deg, var(--dark) 0%, var(--dark-2) 100%);">
+        <button class="cta-btn" onclick="startFunnel()" style="font-size:1.1rem;padding:18px 36px;">
+            🎯 Jetzt kostenlos starten
+        </button>
+        <p style="color:var(--gray);font-size:0.85rem;margin-top:12px;">Unverbindlich • 2 Minuten • 100% kostenlos</p>
     </div>
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-white/10" style="top: 44px;">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold">
-                <span class="text-accent">FIT</span>-INN
-            </a>
-            <div class="hidden md:flex items-center gap-6">
-                <a href="#probleme" class="text-sm hover:text-accent transition-colors">Deine Situation</a>
-                <a href="#loesung" class="text-sm hover:text-accent transition-colors">Deine Lösung</a>
-                <a href="#angebot" class="text-sm hover:text-accent transition-colors">Angebot</a>
-                <a href="#preise" class="text-sm hover:text-accent transition-colors">Preise</a>
-                <button onclick="openModal('probetraining')" class="bg-accent hover:bg-accent-dark text-primary font-semibold px-5 py-2 rounded-full text-sm transition-all">
-                    Probetraining
+    
+    <section class="problem-section" id="problem">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Das Problem, das du kennst</div>
+                <h2>Warum <span>nichts funktioniert</span> – obwohl du alles versuchst</h2>
+                <p>Du bist nicht undiszipliniert. Du hast nur noch nicht die Lösung gefunden, die zu DEINEM Körper passt.</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card"><div class="stat-number">95%</div><div class="stat-label">aller Diäten scheitern</div></div>
+                <div class="stat-card"><div class="stat-number">66%</div><div class="stat-label">nehmen danach mehr zu</div></div>
+                <div class="stat-card"><div class="stat-number">2-5 J.</div><div class="stat-label">Jo-Jo-Effekt Zyklus</div></div>
+            </div>
+            
+            <div class="problem-cards">
+                <div class="problem-card"><div class="problem-icon">🔄</div><div><h3>Der Jo-Jo-Effekt</h3><p>Dein Körper kämpft gegen dich. Nach jeder Diät speichert er mehr Fett als Schutz.</p></div></div>
+                <div class="problem-card"><div class="problem-icon">📋</div><div><h3>Einheitsdiäten</h3><p>Was bei anderen funktioniert, kann bei dir das Gegenteil bewirken.</p></div></div>
+                <div class="problem-card"><div class="problem-icon">🍕</div><div><h3>Heißhunger</h3><p>Falsche Ernährung führt zu Blutzucker-Chaos und unkontrollierbarem Verlangen.</p></div></div>
+                <div class="problem-card"><div class="problem-icon">😩</div><div><h3>Keine Erfolge sichtbar</h3><p>Ohne messbare Fortschritte verlierst du die Motivation.</p></div></div>
+            </div>
+            
+            <!-- CTA nach Problem Section -->
+            <div style="text-align:center;margin-top:48px;">
+                <p style="color:var(--gray-light);margin-bottom:16px;font-size:1.1rem;">Erkennst du dich wieder?</p>
+                <button class="cta-btn" onclick="startFunnel()" style="background:var(--red);">
+                    🔥 Schluss damit – Jetzt starten
                 </button>
             </div>
-            <button onclick="openModal('probetraining')" class="md:hidden bg-accent text-primary font-semibold px-4 py-2 rounded-full text-sm">
-                Starten
-            </button>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden" style="padding-top: 120px;">
-        <!-- Background -->
-        <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-primary">
-            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1920&q=80')] bg-cover bg-center opacity-15"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent"></div>
-        </div>
-        
-        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-            <!-- Promo Badge -->
-            <div class="promo-glow inline-flex items-center gap-2 bg-accent/20 backdrop-blur-sm rounded-full px-5 py-3 mb-8 border border-accent/50">
-                <span class="text-2xl">🎁</span>
-                <span class="text-accent font-bold">2 Monate geschenkt — Nur für kurze Zeit!</span>
-            </div>
-            
-            <!-- Headline -->
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-                Investieren du in<br>
-                <span class="text-accent">deine Gesundheit</span>
-            </h1>
-            
-            <!-- Subheadline -->
-            <p class="text-xl md:text-2xl text-white/80 mb-4 max-w-3xl mx-auto">
-                Februar & März <strong class="text-accent">komplett beitragsfrei</strong> trainieren.
-            </p>
-            <p class="text-lg text-white/70 mb-10 max-w-2xl mx-auto">
-                Professionelle Betreuung, moderne TechnoGym Geräte und ein Team, das deine Ziele versteht — bei FIT-INN Trier, deinem Gesundheitspartner.
-            </p>
-            
-            <!-- CTAs -->
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="openModal('probetraining')" class="glow-accent bg-accent hover:bg-accent-dark text-primary font-bold px-8 py-4 rounded-full text-lg transition-all duration-300">
-                    Kostenloses Probetraining →
-                </button>
-                <a href="#angebot" class="border-2 border-white/30 hover:border-accent hover:text-accent font-semibold px-8 py-4 rounded-full text-lg transition-all duration-300 inline-block">
-                    Mehr zum Angebot
-                </a>
-            </div>
-            
-            <!-- Trust Elements -->
-            <div class="flex flex-wrap justify-center gap-6 md:gap-10 mt-12 text-sm text-white/70">
-                <span class="flex items-center gap-2">✓ Seit 25+ Jahren in Trier</span>
-                <span class="flex items-center gap-2">✓ TechnoGym Ausstattung</span>
-                <span class="flex items-center gap-2">✓ Persönliche Betreuung</span>
-            </div>
-        </div>
-        
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-            <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
         </div>
     </section>
-
-    <!-- Problem Section: Best Ager Challenges -->
-    <section id="probleme" class="py-20 px-6 bg-primary-dark">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <p class="text-accent font-semibold mb-2">KENNST DU DAS AUCH?</p>
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Die Herausforderungen ab 50</h2>
-                <p class="text-white/60 max-w-2xl mx-auto">Mit den Jahren verändert sich der Körper. Das ist normal — aber du müssen das nicht einfach hinnehmen.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                    <div class="text-4xl mb-4">😓</div>
-                    <h3 class="text-xl font-bold mb-2">Rückenschmerzen & Verspannungen</h3>
-                    <p class="text-white/70 text-sm">Langes Sitzen, einseitige Belastung — der Rücken macht nicht mehr mit. Jede Bewegung erinnert du daran.</p>
-                </div>
-                
-                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10" style="transition-delay: 0.1s">
-                    <div class="text-4xl mb-4">🦴</div>
-                    <h3 class="text-xl font-bold mb-2">Gelenkbeschwerden</h3>
-                    <p class="text-white/70 text-sm">Knie, Hüfte, Schulter — die Gelenke melden sich. Treppen steigen wird zur Herausforderung.</p>
-                </div>
-                
-                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10" style="transition-delay: 0.2s">
-                    <div class="text-4xl mb-4">😴</div>
-                    <h3 class="text-xl font-bold mb-2">Nachlassende Energie</h3>
-                    <p class="text-white/70 text-sm">Die Kondition lässt nach, abends fehlt die Kraft. Was früher leicht war, strengt heute an.</p>
-                </div>
-                
-                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10" style="transition-delay: 0.3s">
-                    <div class="text-4xl mb-4">⚖️</div>
-                    <h3 class="text-xl font-bold mb-2">Gewichtszunahme</h3>
-                    <p class="text-white/70 text-sm">Der Stoffwechsel verlangsamt sich. Was früher kein Problem war, setzt sich jetzt hartnäckig fest.</p>
-                </div>
-                
-                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10" style="transition-delay: 0.4s">
-                    <div class="text-4xl mb-4">💊</div>
-                    <h3 class="text-xl font-bold mb-2">Sorge um die Gesundheit</h3>
-                    <p class="text-white/70 text-sm">Blutdruck, Blutzucker, Cholesterin — die Werte sprechen eine deutliche Sprache. Der Arzt rät zu mehr Bewegung.</p>
-                </div>
-                
-                <div class="fade-in card-hover bg-primary/50 backdrop-blur-sm rounded-2xl p-6 border border-white/10" style="transition-delay: 0.5s">
-                    <div class="text-4xl mb-4">🤔</div>
-                    <h3 class="text-xl font-bold mb-2">Unsicherheit im Studio</h3>
-                    <p class="text-white/70 text-sm">Wie funktionieren die Geräte? Mache ich etwas falsch? Die jungen Leute schauen komisch...</p>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <p class="text-xl text-white/80">
-                    <strong class="text-accent">Die gute Nachricht:</strong> Es ist nie zu spät, etwas zu ändern!
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Solution Section: FIT-INN als Gesundheitspartner -->
-    <section id="loesung" class="py-20 px-6 bg-primary">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
-                <p class="text-accent font-semibold mb-2">DEINE LÖSUNG</p>
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">FIT-INN: Mehr als ein Fitnessstudio</h2>
-                <p class="text-white/60 max-w-2xl mx-auto">Wir sind dein <strong class="text-white">Gesundheitspartner</strong>. Mit professioneller Betreuung und einem Konzept, das auf deine Bedürfnisse zugeschnitten ist.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-8 mb-12">
-                <div class="space-y-6">
-                    <div class="fade-in flex gap-4 items-start bg-primary-dark/50 rounded-xl p-5 border border-white/10">
-                        <span class="text-accent text-2xl">✓</span>
-                        <div>
-                            <h4 class="font-bold text-lg mb-1">Persönlicher Gesundheits-Check-up</h4>
-                            <p class="text-white/70 text-sm">Wir analysieren deinen Ist-Zustand und erstellen gemeinsam einen Plan, der zu dir passt.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="fade-in flex gap-4 items-start bg-primary-dark/50 rounded-xl p-5 border border-white/10" style="transition-delay: 0.1s">
-                        <span class="text-accent text-2xl">✓</span>
-                        <div>
-                            <h4 class="font-bold text-lg mb-1">TechnoGym Biostrength Geräte</h4>
-                            <p class="text-white/70 text-sm">Intelligente Geräte, die sich automatisch auf du einstellen — sicher, effektiv und gelenkschonend.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="fade-in flex gap-4 items-start bg-primary-dark/50 rounded-xl p-5 border border-white/10" style="transition-delay: 0.2s">
-                        <span class="text-accent text-2xl">✓</span>
-                        <div>
-                            <h4 class="font-bold text-lg mb-1">Individuelle Trainingspläne</h4>
-                            <p class="text-white/70 text-sm">Kein Training von der Stange — dein Plan, deine Ziele, dein Tempo. Angepasst an deine Möglichkeiten.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="space-y-6">
-                    <div class="fade-in flex gap-4 items-start bg-primary-dark/50 rounded-xl p-5 border border-white/10" style="transition-delay: 0.3s">
-                        <span class="text-accent text-2xl">✓</span>
-                        <div>
-                            <h4 class="font-bold text-lg mb-1">Qualifizierte Trainer an deiner Seite</h4>
-                            <p class="text-white/70 text-sm">Unser Team begleitet du bei jedem Schritt — mit Geduld, Fachwissen und echter Unterstützung.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="fade-in flex gap-4 items-start bg-primary-dark/50 rounded-xl p-5 border border-white/10" style="transition-delay: 0.4s">
-                        <span class="text-accent text-2xl">✓</span>
-                        <div>
-                            <h4 class="font-bold text-lg mb-1">Angenehme, ruhige Atmosphäre</h4>
-                            <p class="text-white/70 text-sm">Kein überfülltes Muckibuden-Feeling. Trainieren du in deinem Wohlfühlbereich — ohne Stress.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="fade-in flex gap-4 items-start bg-primary-dark/50 rounded-xl p-5 border border-white/10" style="transition-delay: 0.5s">
-                        <span class="text-accent text-2xl">✓</span>
-                        <div>
-                            <h4 class="font-bold text-lg mb-1">Flexible Trainingszeiten</h4>
-                            <p class="text-white/70 text-sm">Kommen du, wann es dir passt. Morgens ist es besonders ruhig — ideal für entspanntes Training.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Trust Badge -->
-            <div class="fade-in bg-accent/10 border border-accent/30 rounded-2xl p-6 md:p-8 text-center">
-                <p class="text-accent font-semibold mb-2">DEIN GESUNDHEITSPARTNER</p>
-                <p class="text-xl md:text-2xl font-bold mb-4">
-                    "Bei uns bekommen du keine 0815-Betreuung, sondern<br class="hidden md:inline"> echte Unterstützung für deine Gesundheit."
-                </p>
-                <p class="text-white/60">— Das FIT-INN Team</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Angebot Section: 2 Monate Gratis -->
-    <section id="angebot" class="py-20 px-6 bg-gradient-to-b from-primary-dark to-primary">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
-                <p class="text-accent font-semibold mb-2">EXKLUSIVES ANGEBOT</p>
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Unser Geschenk an dich</h2>
-            </div>
-            
-            <div class="fade-in promo-glow bg-gradient-to-br from-accent/20 to-primary-dark rounded-3xl p-8 md:p-12 border-2 border-accent text-center">
-                <div class="inline-block bg-accent text-primary font-bold px-4 py-2 rounded-full text-sm mb-6">
-                    🎁 NUR FÜR KURZE ZEIT
-                </div>
-                
-                <h3 class="text-4xl md:text-6xl font-bold text-accent mb-4">2 Monate GRATIS</h3>
-                <p class="text-xl md:text-2xl mb-6">Februar & März 2026 komplett beitragsfrei!</p>
-                
-                <p class="text-white/70 mb-8 max-w-xl mx-auto">
-                    Bei Abschluss einer <strong class="text-white">Jahres-</strong> oder <strong class="text-white">Zweijahres-Mitgliedschaft</strong> schenken wir dir die ersten zwei Monate. Starten du jetzt — zahlen du später.
-                </p>
-                
-                <div class="bg-white/10 rounded-2xl p-6 mb-8 text-left max-w-md mx-auto">
-                    <p class="font-semibold mb-3 text-center">Das ist alles inklusive:</p>
-                    <ul class="space-y-2 text-sm">
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Voller Zugang zu allen Geräten</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Persönlicher Gesundheits-Check-up</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Individueller Trainingsplan</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> TechnoGym App zur Trainingssteuerung</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Mineralgetränke inklusive</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> W-LAN im gesamten Studio</li>
-                    </ul>
-                </div>
-                
-                <button onclick="openModal('probetraining')" class="glow-accent bg-accent hover:bg-accent-dark text-primary font-bold px-10 py-4 rounded-full text-lg transition-all duration-300">
-                    Jetzt Angebot sichern →
-                </button>
-                
-                <p class="text-white/50 text-sm mt-4">Unverbindliches Probetraining — wir beraten du persönlich.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Preise Section -->
-    <section id="preise" class="py-20 px-6 bg-primary">
-        <div class="max-w-6xl mx-auto">
-            <div class="fade-in text-center mb-12">
-                <p class="text-accent font-semibold mb-2">FAIRE PREISE</p>
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Unsere Mitgliedschaften</h2>
-                <p class="text-white/60">Transparent und ehrlich — wählen du deinen Tarif</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
-                <!-- FLEX -->
-                <div class="fade-in card-hover bg-primary-dark/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-                    <h3 class="text-xl font-bold mb-1">FLEX</h3>
-                    <p class="text-white/60 text-sm mb-4">4 Wochen Erstlaufzeit</p>
-                    <div class="mb-2">
-                        <span class="text-4xl font-bold">15€</span>
-                        <span class="text-white/60">/Woche</span>
-                    </div>
-                    <p class="text-white/50 text-sm mb-6">Aktivierungsgebühr: 39€ einmalig</p>
-                    <ul class="space-y-3 mb-8 text-sm">
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Maximale Flexibilität</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Komplette Club-Nutzung</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Alle Geräte & Services</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Trainingsplan & Check-up</li>
-                    </ul>
-                    <button onclick="openModal('probetraining')" class="w-full border-2 border-white/30 hover:border-accent hover:text-accent font-semibold py-3 rounded-lg transition-all duration-300">
-                        Probetraining
-                    </button>
-                </div>
-                
-                <!-- BASIC - Mit Gratis-Monaten -->
-                <div class="fade-in card-hover bg-primary-dark/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10" style="transition-delay: 0.1s">
-                    <h3 class="text-xl font-bold mb-1">BASIC</h3>
-                    <p class="text-white/60 text-sm mb-4">52 Wochen Laufzeit</p>
-                    <div class="mb-2">
-                        <span class="text-4xl font-bold">12€</span>
-                        <span class="text-white/60">/Woche</span>
-                    </div>
-                    <p class="text-white/50 text-sm mb-2">Aktivierungsgebühr: 39€ einmalig</p>
-                    <p class="text-accent text-sm font-semibold mb-6">+ 2 Monate GRATIS (Feb & März)</p>
-                    <ul class="space-y-3 mb-8 text-sm">
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> 20% Ersparnis vs. Flex</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Komplette Club-Nutzung</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Alle Geräte & Services</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Trainingsplan & Check-up</li>
-                    </ul>
-                    <button onclick="openModal('probetraining')" class="w-full border-2 border-white/30 hover:border-accent hover:text-accent font-semibold py-3 rounded-lg transition-all duration-300">
-                        Probetraining
-                    </button>
-                </div>
-                
-                <!-- PREMIUM - Empfohlen -->
-                <div class="fade-in card-hover relative bg-gradient-to-b from-accent/20 to-primary-dark/50 rounded-2xl p-8 border-2 border-accent" style="transition-delay: 0.2s">
-                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-primary text-xs font-bold px-3 py-1 rounded-full">
-                        BESTE WAHL
-                    </div>
-                    <h3 class="text-xl font-bold mb-1">PREMIUM</h3>
-                    <p class="text-white/60 text-sm mb-4">104 Wochen Laufzeit</p>
-                    <div class="mb-2">
-                        <span class="text-4xl font-bold text-accent">9€</span>
-                        <span class="text-white/60">/Woche</span>
-                    </div>
-                    <p class="text-white/50 text-sm mb-2">Aktivierungsgebühr: 39€ einmalig</p>
-                    <p class="text-accent text-sm font-semibold mb-6">+ 2 Monate GRATIS (Feb & März)</p>
-                    <ul class="space-y-3 mb-8 text-sm">
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> 40% Ersparnis vs. Flex</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Bestes Preis-Leistungs-Verhältnis</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Komplette Club-Nutzung</li>
-                        <li class="flex items-center gap-2"><span class="text-accent">✓</span> Trainingsplan & Check-up</li>
-                    </ul>
-                    <button onclick="openModal('probetraining')" class="w-full glow-accent bg-accent hover:bg-accent-dark text-primary font-bold py-3 rounded-lg transition-all duration-300">
-                        Jetzt starten
-                    </button>
-                </div>
-            </div>
-            
-            <p class="text-center text-white/50 text-sm mt-8">
-                Alle Preise inkl. MwSt. · Kündigungsfrist: 4 Wochen · Abbuchung alle 14 Tage per SEPA-Lastschrift<br>
-                Schüler, Azubis & Studenten: 3€ Rabatt pro Woche
-            </p>
-        </div>
-    </section>
-
+    
     <!-- Testimonials -->
-    <section class="py-20 px-6 bg-primary-dark">
-        <div class="max-w-4xl mx-auto">
-            <div class="fade-in text-center mb-12">
-                <p class="text-accent font-semibold mb-2">ZUFRIEDENE MITGLIEDER</p>
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Das sagen unsere Mitglieder</h2>
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Erfolgsgeschichten</div>
+                <h2>Menschen wie du haben es <span>geschafft</span></h2>
             </div>
             
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="fade-in bg-primary/50 rounded-2xl p-6 border border-white/10">
-                    <div class="text-accent mb-3">★★★★★</div>
-                    <p class="text-white/80 mb-4">"Endlich ein Studio, wo man sich als älterer Mensch nicht fehl am Platz fühlt. Das Team erklärt alles geduldig und die Geräte sind super modern."</p>
-                    <p class="font-semibold text-accent">— Helga M., 58</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Nach Jahren des Scheiterns hat mir die Körperanalyse endlich gezeigt, woran es lag. Jetzt esse ich mehr als vorher – und nehme trotzdem ab!</p>
+                    <div class="testimonial-author">
+                        <img src="https://www.figurscout.de/assets/images/f/Claudia%20S-4ca75631.webp" alt="Sandra K." style="width:48px;height:48px;border-radius:50%;object-fit:cover;">
+                        <div class="testimonial-info">
+                            <h4>Sandra K., 42</h4>
+                            <p class="testimonial-result">-8 kg in 8 Wochen</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="fade-in bg-primary/50 rounded-2xl p-6 border border-white/10" style="transition-delay: 0.1s">
-                    <div class="text-accent mb-3">★★★★★</div>
-                    <p class="text-white/80 mb-4">"Mein Arzt hat mir Bewegung empfohlen wegen dem Rücken. Nach 3 Monaten hier sind die Schmerzen fast weg. Kann ich nur empfehlen!"</p>
-                    <p class="font-semibold text-accent">— Werner K., 63</p>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Ich war skeptisch, aber die Zahlen lügen nicht. Bei der Zwischen-Analyse hatte ich schon 4 kg weniger – das hat mich so motiviert!</p>
+                    <div class="testimonial-author">
+                        <img src="https://www.figurscout.de/assets/images/8/Bernd%20B.-69fad676.webp" alt="Thomas M." style="width:48px;height:48px;border-radius:50%;object-fit:cover;">
+                        <div class="testimonial-info">
+                            <h4>Thomas M., 48</h4>
+                            <p class="testimonial-result">-11 kg in 8 Wochen</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="fade-in bg-primary/50 rounded-2xl p-6 border border-white/10" style="transition-delay: 0.2s">
-                    <div class="text-accent mb-3">★★★★★</div>
-                    <p class="text-white/80 mb-4">"Die persönliche Betreuung ist wirklich klasse. Man merkt, dass die sich Zeit nehmen und auf einen eingehen. Kein Vergleich zu großen Ketten."</p>
-                    <p class="font-semibold text-accent">— Ingrid S., 55</p>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Endlich ein Konzept, das zu meinem Alltag passt. 2x 30 Minuten pro Woche – mehr brauche ich nicht. Und die Ergebnisse sprechen für sich.</p>
+                    <div class="testimonial-author">
+                        <img src="https://www.figurscout.de/assets/images/f/Monika%20M-c852dd19.webp" alt="Marion H." style="width:48px;height:48px;border-radius:50%;object-fit:cover;">
+                        <div class="testimonial-info">
+                            <h4>Marion H., 55</h4>
+                            <p class="testimonial-result">-6 kg, 2 Kleidergrößen</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="fade-in bg-primary/50 rounded-2xl p-6 border border-white/10" style="transition-delay: 0.3s">
-                    <div class="text-accent mb-3">★★★★★</div>
-                    <p class="text-white/80 mb-4">"Ich hatte Angst vor Fitnessstudios — die jungen Leute, die laute Musik. Hier ist es ganz anders: ruhig, freundlich und professionell."</p>
-                    <p class="font-semibold text-accent">— Klaus D., 67</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Standort & Kontakt -->
-    <section id="kontakt" class="py-20 px-6 bg-primary">
-        <div class="max-w-4xl mx-auto">
-            <div class="fade-in text-center mb-12">
-                <p class="text-accent font-semibold mb-2">BESUCH UNS</p>
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">FIT-INN Trier</h2>
             </div>
             
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                <div class="fade-in bg-primary-dark/50 rounded-2xl overflow-hidden border border-white/10 aspect-video">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2576.8!2d6.6428!3d49.7361!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47957ca5bcd96b95%3A0x4d6ab9a16af4e4c9!2sFit-Inn%20GmbH!5e0!3m2!1sde!2sde!4v1707123456789"
-                        width="100%" height="100%" style="border:0; min-height: 280px;" allowfullscreen="" loading="lazy">
-                    </iframe>
-                </div>
-                
-                <div class="fade-in space-y-6" style="transition-delay: 0.1s">
-                    <div>
-                        <h3 class="font-bold text-lg mb-2 text-accent">📍 Adresse</h3>
-                        <p class="text-white/70">Auf Hirtenberg 8<br>54296 Trier</p>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-lg mb-2 text-accent">🕐 Öffnungszeiten</h3>
-                        <p class="text-white/70">
-                            Mo-Fr: 8:00 - 22:00 Uhr<br>
-                            Sa-So: 10:00 - 18:00 Uhr
-                        </p>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-lg mb-2 text-accent">📞 Kontakt</h3>
-                        <p class="text-white/70">
-                            Tel: 0651 / 99 88 44 0<br>
-                            info@fit-inn-trier.de
-                        </p>
-                    </div>
-                    <button onclick="openModal('probetraining')" class="w-full bg-accent hover:bg-accent-dark text-primary font-bold py-4 rounded-lg transition-all">
-                        Jetzt Probetraining vereinbaren →
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="py-16 px-6 bg-gradient-to-r from-accent to-accent-dark text-primary">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Starten du jetzt — zahlen du später!</h2>
-            <p class="text-xl mb-8 opacity-90">Februar & März komplett beitragsfrei. Dieses Angebot gilt nur für kurze Zeit.</p>
-            <button onclick="openModal('probetraining')" class="bg-primary hover:bg-primary-dark text-white font-bold px-10 py-4 rounded-full text-lg transition-all duration-300">
-                Kostenloses Probetraining →
-            </button>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-10 px-6 bg-primary-dark border-t border-white/10">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-white/60 text-sm">© 2026 FIT-INN Trier. Alle Rechte vorbehalten.</div>
-            <div class="flex gap-6 text-sm">
-                <a href="https://fit-inn-trier.de/impressum" class="text-white/60 hover:text-accent transition-colors">Impressum</a>
-                <a href="https://fit-inn-trier.de/datenschutz" class="text-white/60 hover:text-accent transition-colors">Datenschutz</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ============================================ -->
-    <!-- MODAL: PROBETRAINING MIT MAGICLINE KALENDER -->
-    <!-- ============================================ -->
-    <style>
-        /* Kalender Styles */
-        .pt-calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
-        .pt-weekday { text-align: center; font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.5); padding: 8px 0; }
-        .pt-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; position: relative; }
-        .pt-day.disabled { color: rgba(255,255,255,0.3); cursor: not-allowed; }
-        .pt-day.has-slots { background: rgba(221,155,67,0.2); color: #DD9B43; font-weight: 600; }
-        .pt-day.has-slots:hover { background: rgba(221,155,67,0.4); }
-        .pt-day.selected { background: #DD9B43; color: #094957; }
-        .pt-day .slot-badge { position: absolute; bottom: 2px; right: 4px; font-size: 0.6rem; background: #DD9B43; color: #094957; padding: 1px 3px; border-radius: 4px; }
-        .pt-time-slot { padding: 12px; border: 2px solid rgba(255,255,255,0.2); border-radius: 10px; text-align: center; cursor: pointer; transition: all 0.2s; }
-        .pt-time-slot:hover { border-color: #DD9B43; background: rgba(221,155,67,0.1); }
-        .pt-time-slot.selected { border-color: #DD9B43; background: #DD9B43; color: #094957; }
-        .pt-spinner { width: 24px; height: 24px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #DD9B43; border-radius: 50%; animation: pt-spin 0.8s linear infinite; margin: 0 auto; }
-        @keyframes pt-spin { to { transform: rotate(360deg); } }
-    </style>
-    
-    <div id="modal-probetraining" class="modal-overlay fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-        <div class="modal-content bg-primary-dark rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto border border-white/20 shadow-2xl">
-            <!-- Header -->
-            <div class="sticky top-0 bg-primary-dark border-b border-white/10 p-5 flex justify-between items-center z-10">
-                <div>
-                    <h2 class="text-xl font-bold">Kostenloses Probetraining</h2>
-                    <p class="text-sm text-white/60">Wähle deinen Wunschtermin</p>
-                </div>
-                <button onclick="closeModal('probetraining')" class="text-white/60 hover:text-white p-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
+            <!-- CTA nach Testimonials -->
+            <div style="text-align:center;margin-top:48px;">
+                <button class="cta-btn" onclick="startFunnel()">
+                    ✨ Deine Erfolgsgeschichte beginnt hier
                 </button>
             </div>
-            
-            <!-- Promo -->
-            <div class="bg-accent/20 border-b border-accent/30 px-5 py-2.5 text-center">
-                <p class="text-sm text-accent font-semibold">🎁 Februar & März beitragsfrei!</p>
+        </div>
+    </section>
+    
+    <section class="solution-section" id="solution">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">So funktioniert's</div>
+                <h2>In 8 Wochen zu <span>deinem Wohlfühlgewicht</span></h2>
+                <p>Keine Crashdiät. Kein Rätselraten. Stattdessen: Körperanalyse, die zeigt was DEIN Körper braucht.</p>
             </div>
             
-            <!-- Progress -->
-            <div class="flex justify-center gap-8 py-4 border-b border-white/10">
-                <div class="pt-progress-step flex flex-col items-center" data-step="1">
-                    <div class="w-8 h-8 rounded-full bg-accent text-primary flex items-center justify-center font-bold text-sm">1</div>
-                    <span class="text-xs mt-1 text-accent">Termin</span>
-                </div>
-                <div class="pt-progress-step flex flex-col items-center opacity-40" data-step="2">
-                    <div class="w-8 h-8 rounded-full bg-white/20 text-white/60 flex items-center justify-center font-bold text-sm">2</div>
-                    <span class="text-xs mt-1">Daten</span>
-                </div>
-                <div class="pt-progress-step flex flex-col items-center opacity-40" data-step="3">
-                    <div class="w-8 h-8 rounded-full bg-white/20 text-white/60 flex items-center justify-center font-bold text-sm">3</div>
-                    <span class="text-xs mt-1">Fertig</span>
+            <!-- Programm Mockup - was du bekommst -->
+            <div style="margin-bottom: 40px; max-width: 900px; margin-left: auto; margin-right: auto; position: relative;">
+                <div style="background: linear-gradient(135deg, var(--dark-3) 0%, var(--dark-2) 100%); border-radius: 24px; padding: 32px; border: 1px solid rgba(255,255,255,0.1);">
+                    <p style="text-align: center; font-size: 1.1rem; color: var(--primary); font-weight: 600; margin-bottom: 24px;">📦 Das bekommst du alles:</p>
+                    <div style="border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4);">
+                        <img src="happyfigur-mockup.jpg" alt="happyfigur Programm - App, Online-Kurs, Kochbuch & WhatsApp-Support" style="width: 100%; height: auto; display: block;">
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 24px; font-size: 0.85rem; color: var(--gray-light);">
+                        <span>📱 WhatsApp-Support</span>
+                        <span>💻 Online-Kurs</span>
+                        <span>📊 Tracking-Tools</span>
+                        <span>📖 Kochbuch</span>
+                    </div>
                 </div>
             </div>
             
-            <!-- Content -->
-            <div class="p-5">
-                <!-- Step 1: Kalender -->
-                <div id="pt-step-1" class="form-step active">
-                    <div id="pt-loading" class="text-center py-10">
-                        <div class="pt-spinner mb-3"></div>
-                        <p class="text-white/60 text-sm">Lade verfügbare Termine...</p>
+            <div class="food-gallery" style="max-width: 600px; margin: 0 auto 40px;">
+                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=300&fit=crop" alt="Gesunde Mahlzeit">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop" alt="Bunter Salat">
+                <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=400&h=300&fit=crop" alt="Frühstück">
+                <img src="https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?w=400&h=300&fit=crop" alt="Bowl">
+            </div>
+            
+            <div class="solution-grid">
+                <div class="solution-card"><div class="solution-icon">📊</div><h3>3x Körperanalyse</h3><p>Start, Mitte, Ende – du siehst schwarz auf weiß, wie sich Gewicht, Fett und Muskeln verändern.</p></div>
+                <div class="solution-card"><div class="solution-icon">🎯</div><h3>Dein persönlicher Plan</h3><p>Ernährung und Training basierend auf DEINEN Werten – nicht auf Vermutungen.</p></div>
+                <div class="solution-card"><div class="solution-icon">👥</div><h3>8 Wochen Begleitung</h3><p>Regelmäßiges Training und Check-ins. Du bist nie allein.</p></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- PROGRAMM-ÜBERSICHT -->
+    <section style="background: var(--dark-2); padding: 64px 0; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container" style="max-width: 800px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div class="section-label">Alles auf einen Blick</div>
+                <h2 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 12px;">Was ist im <span style="color: var(--primary);">Programm</span> enthalten?</h2>
+                <p style="color: var(--gray-light);">8 Wochen, die dein Leben verändern – ohne Risiko und ohne Vertrag.</p>
+            </div>
+            
+            <!-- Leistungen Grid -->
+            <div class="leistungen-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px;">
+                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="background: rgba(34,197,94,0.15); color: var(--primary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📊</div>
+                    <div>
+                        <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 4px;">3x Körperanalyse</h4>
+                        <p style="color: var(--gray-light); font-size: 0.85rem; margin: 0;">Start, Mitte, Ende – dein Fortschritt schwarz auf weiß</p>
                     </div>
-                    
-                    <div id="pt-calendar-section" style="display: none;">
-                        <div class="flex justify-between items-center mb-4">
-                            <span id="pt-month-label" class="font-semibold"></span>
-                            <div class="flex gap-2">
-                                <button id="pt-prev-month" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center">‹</button>
-                                <button id="pt-next-month" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center">›</button>
-                            </div>
-                        </div>
-                        
-                        <div class="pt-calendar-grid mb-1">
-                            <div class="pt-weekday">Mo</div>
-                            <div class="pt-weekday">Di</div>
-                            <div class="pt-weekday">Mi</div>
-                            <div class="pt-weekday">Do</div>
-                            <div class="pt-weekday">Fr</div>
-                            <div class="pt-weekday">Sa</div>
-                            <div class="pt-weekday">So</div>
-                        </div>
-                        <div id="pt-calendar-days" class="pt-calendar-grid"></div>
-                        
-                        <div id="pt-time-section" class="mt-5 pt-5 border-t border-white/10" style="display: none;">
-                            <p class="text-sm font-semibold mb-3">Verfügbare Zeiten für <span id="pt-selected-date" class="text-accent"></span></p>
-                            <div id="pt-time-slots" class="grid grid-cols-3 gap-2"></div>
-                        </div>
+                </div>
+                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="background: rgba(34,197,94,0.15); color: var(--primary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">💪</div>
+                    <div>
+                        <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 4px;">Training inklusive</h4>
+                        <p style="color: var(--gray-light); font-size: 0.85rem; margin: 0;">Begleitetes Training im Studio – 8 Wochen lang</p>
                     </div>
-                    
-                    <button id="pt-to-step-2" disabled onclick="ptGoToStep(2)" class="w-full bg-accent hover:bg-accent-dark disabled:opacity-50 disabled:cursor-not-allowed text-primary font-bold py-3.5 rounded-lg mt-5 transition-all">
-                        Weiter →
-                    </button>
+                </div>
+                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="background: rgba(34,197,94,0.15); color: var(--primary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">🍽️</div>
+                    <div>
+                        <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 4px;">Ernährungsplan</h4>
+                        <p style="color: var(--gray-light); font-size: 0.85rem; margin: 0;">Individuell auf deinen Stoffwechsel abgestimmt</p>
+                    </div>
+                </div>
+                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="background: rgba(34,197,94,0.15); color: var(--primary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📖</div>
+                    <div>
+                        <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 4px;">Kochbuch</h4>
+                        <p style="color: var(--gray-light); font-size: 0.85rem; margin: 0;">Über 100 leckere Rezepte für deinen Alltag</p>
+                    </div>
+                </div>
+                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="background: rgba(34,197,94,0.15); color: var(--primary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📱</div>
+                    <div>
+                        <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 4px;">24/7 Ernährungs-Support</h4>
+                        <p style="color: var(--gray-light); font-size: 0.85rem; margin: 0;">WhatsApp, E-Mail & Telefon – immer für dich da</p>
+                    </div>
+                </div>
+                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; display: flex; align-items: flex-start; gap: 16px;">
+                    <div style="background: rgba(34,197,94,0.15); color: var(--primary); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">👨‍🏫</div>
+                    <div>
+                        <h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 4px;">Trainingsexperten vor Ort</h4>
+                        <p style="color: var(--gray-light); font-size: 0.85rem; margin: 0;">Persönliche Betreuung & Antworten auf alle Fragen</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- PREIS + Krankenkasse Highlight -->
+            <div style="background: linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.08) 100%); border: 2px solid var(--primary); border-radius: 20px; padding: 32px; text-align: center; margin-bottom: 32px;">
+                <p style="color: var(--gray); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Deine Investition</p>
+                
+                <!-- Preis-Anker -->
+                <div style="margin-bottom: 16px;">
+                    <span style="font-size: 2.5rem; color: var(--gray); text-decoration: line-through; opacity: 0.5;">179€</span>
+                    <span style="font-size: 1rem; color: var(--gray); margin-left: 8px;">regulärer Preis</span>
                 </div>
                 
-                <!-- Step 2: Formular -->
-                <div id="pt-step-2" class="form-step">
-                    <div class="bg-accent/20 rounded-xl p-4 mb-5">
-                        <div class="flex justify-between text-sm"><span class="text-white/70">📅 Datum</span><span id="pt-summary-date" class="font-semibold text-accent">-</span></div>
-                        <div class="flex justify-between text-sm mt-2"><span class="text-white/70">🕐 Uhrzeit</span><span id="pt-summary-time" class="font-semibold text-accent">-</span></div>
-                    </div>
-                    
-                    <form id="pt-form" class="space-y-4">
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-sm font-medium mb-1.5">Vorname *</label>
-                                <input type="text" id="pt-firstname" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-1.5">Nachname *</label>
-                                <input type="text" id="pt-lastname" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-sm font-medium mb-1.5">E-Mail *</label>
-                                <input type="email" id="pt-email" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-1.5">Telefon</label>
-                                <input type="tel" id="pt-phone" class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-sm font-medium mb-1.5">Geburtsdatum *</label>
-                                <input type="date" id="pt-birthdate" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-1.5">PLZ *</label>
-                                <input type="text" id="pt-zip" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-sm font-medium mb-1.5">Stadt *</label>
-                                <input type="text" id="pt-city" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-1.5">Straße + Nr. *</label>
-                                <input type="text" id="pt-street" required class="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-accent" placeholder="Musterstr. 1">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-1.5">Anrede *</label>
-                            <div class="grid grid-cols-3 gap-2">
-                                <label class="pt-gender-opt flex items-center justify-center p-2.5 bg-white/10 border border-white/20 rounded-lg cursor-pointer hover:border-accent transition-all text-sm">
-                                    <input type="radio" name="pt-gender" value="MALE" required class="hidden"> Herr
-                                </label>
-                                <label class="pt-gender-opt flex items-center justify-center p-2.5 bg-white/10 border border-white/20 rounded-lg cursor-pointer hover:border-accent transition-all text-sm">
-                                    <input type="radio" name="pt-gender" value="FEMALE" class="hidden"> Frau
-                                </label>
-                                <label class="pt-gender-opt flex items-center justify-center p-2.5 bg-white/10 border border-white/20 rounded-lg cursor-pointer hover:border-accent transition-all text-sm">
-                                    <input type="radio" name="pt-gender" value="UNISEX" class="hidden"> Divers
-                                </label>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-2 pt-2">
-                            <input type="checkbox" id="pt-privacy" required class="mt-1 accent-accent">
-                            <label for="pt-privacy" class="text-xs text-white/70">Ich akzeptiere die <a href="https://fit-inn-trier.de/datenschutz" target="_blank" class="text-accent hover:underline">Datenschutzerklärung</a> *</label>
-                        </div>
-                        <div id="pt-form-error" class="bg-red-500/20 border border-red-500/30 text-red-300 text-sm rounded-lg p-3" style="display: none;"></div>
-                        <div class="flex gap-3 pt-2">
-                            <button type="button" onclick="ptGoToStep(1)" class="flex-1 border-2 border-white/20 hover:border-white/40 py-3 rounded-lg font-semibold transition-all">← Zurück</button>
-                            <button type="submit" id="pt-submit-btn" class="flex-1 bg-accent hover:bg-accent-dark text-primary py-3 rounded-lg font-bold transition-all">Jetzt buchen</button>
-                        </div>
-                    </form>
+                <!-- Dein Preis -->
+                <div style="background: var(--primary); color: var(--dark); padding: 16px 32px; border-radius: 12px; display: inline-block; margin-bottom: 16px;">
+                    <span style="font-size: 2rem; font-weight: 800;">0€</span>
+                    <span style="font-size: 1.1rem; font-weight: 600; margin-left: 8px;">für dich*</span>
                 </div>
                 
-                <!-- Step 3: Bestätigung -->
-                <div id="pt-step-3" class="form-step">
-                    <div class="text-center py-6">
-                        <div class="text-5xl mb-4">🎉</div>
-                        <h3 class="text-2xl font-bold mb-2">Gebucht!</h3>
-                        <p class="text-white/70 mb-5">Dein Probetraining wurde in unserem Kalender eingetragen.</p>
-                        <div class="bg-white/10 rounded-xl p-4 text-left text-sm mb-5">
-                            <div class="flex justify-between py-2 border-b border-white/10"><span class="text-white/60">📅 Datum</span><span id="pt-confirm-date" class="font-semibold">-</span></div>
-                            <div class="flex justify-between py-2 border-b border-white/10"><span class="text-white/60">🕐 Uhrzeit</span><span id="pt-confirm-time" class="font-semibold">-</span></div>
-                            <div class="flex justify-between py-2 border-b border-white/10"><span class="text-white/60">👤 Name</span><span id="pt-confirm-name" class="font-semibold">-</span></div>
-                            <div class="flex justify-between py-2"><span class="text-white/60">🔢 Kundennr.</span><span id="pt-confirm-number" class="font-semibold text-accent">-</span></div>
-                        </div>
-                        <div class="bg-accent/20 border border-accent/30 rounded-xl p-4 mb-5 text-left">
-                            <p class="text-accent font-semibold mb-2">🎯 So geht's weiter:</p>
-                            <ul class="text-sm text-white/70 space-y-1">
-                                <li>✓ Sportkleidung & Handtuch mitbringen</li>
-                                <li>✓ 15 Min. vor dem Termin da sein</li>
-                            </ul>
-                        </div>
-                        <button onclick="closeModal('probetraining')" class="w-full border-2 border-accent text-accent hover:bg-accent hover:text-primary font-semibold py-3 rounded-lg transition-all">Schließen</button>
+                <p style="color: white; font-size: 1rem; font-weight: 600; margin-bottom: 8px;">💰 Bis zu 100% Krankenkassen-Erstattung</p>
+                <p style="color: var(--gray-light); font-size: 0.9rem; margin: 0;">Nach § 20 SGB V zertifiziert – einfach bei deiner Kasse nachfragen!</p>
+            </div>
+            
+            <!-- Keine Bindung -->
+            <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px;">
+                <div style="display: flex; align-items: center; gap: 8px; color: var(--gray-light);">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--primary);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span>Keine Vertragsbindung</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; color: var(--gray-light);">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--primary);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span>Keine versteckten Kosten</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; color: var(--gray-light);">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: var(--primary);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span>8 Wochen – fertig</span>
+                </div>
+            </div>
+            
+            <!-- Optional weitermachen -->
+            <div style="background: var(--dark); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; text-align: center;">
+                <p style="color: var(--gray-light); font-size: 0.95rem; margin-bottom: 8px;">
+                    <strong style="color: white;">Und danach?</strong> Nach den 8 Wochen entscheidest DU, ob du weitermachen möchtest.
+                </p>
+                <p style="color: var(--gray); font-size: 0.85rem; margin: 0;">
+                    Optional kannst du dann eine Mitgliedschaft abschließen – aber nur, wenn du willst. Kein Druck, kein Muss.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Bereit für <span>echte Ergebnisse</span>?</h2>
+                <p>Starte jetzt deine kostenlose Analyse – in nur 2 Minuten weißt du, ob happyfigur zu dir passt.</p>
+                
+                <button class="cta-btn" onclick="startFunnel()" style="font-size: 1.2rem; padding: 20px 40px;">
+                    🎯 Jetzt kostenlos starten
+                </button>
+                
+                <div class="cta-features" style="margin-top: 24px;">
+                    <div class="cta-feature"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>100% kostenlos</span></div>
+                    <div class="cta-feature"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Nur 2 Minuten</span></div>
+                    <div class="cta-feature"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg><span>Krankenkassen-fähig</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer style="padding: 40px 24px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); background: var(--dark-2);">
+        <!-- Legal Links -->
+        <div style="margin-bottom: 24px;">
+            <a href="impressum.html" style="color: var(--gray-light); text-decoration: none; margin: 0 16px; font-size: 0.85rem; transition: color 0.3s;">Impressum</a>
+            <a href="datenschutz.html" style="color: var(--gray-light); text-decoration: none; margin: 0 16px; font-size: 0.85rem; transition: color 0.3s;">Datenschutz</a>
+            <a href="agb.html" style="color: var(--gray-light); text-decoration: none; margin: 0 16px; font-size: 0.85rem; transition: color 0.3s;">AGB</a>
+        </div>
+        
+        <!-- Disclaimer -->
+        <p style="color: var(--gray); font-size: 0.75rem; max-width: 700px; margin: 0 auto 24px; line-height: 1.6;">
+            * Die Erstattung durch deine Krankenkasse kann je nach Anbieter variieren. Die meisten gesetzlichen Krankenkassen erstatten zwischen 70€ und 100% der Kursgebühr (bis zu 179€). Bitte informiere dich direkt bei deiner Krankenkasse über die genauen Konditionen. Der Kurs ist nach § 20 SGB V zertifiziert.
+        </p>
+        
+        <!-- Copyright -->
+        <p style="color: var(--gray); font-size: 0.75rem;">
+            © 2026 FIT-INN Trier. Alle Rechte vorbehalten.
+        </p>
+    </footer>
+    
+</div>
+
+<!-- ===== FUNNEL ===== -->
+<div id="funnel">
+    
+    <div class="progress">
+        <div class="progress-inner">
+            <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+            <div class="progress-text"><span id="progressStep">Frage 1 von 7</span><span id="progressPercent">0%</span></div>
+        </div>
+    </div>
+    
+    <div class="funnel-wrap">
+        
+        <!-- Q1: Ziel -->
+        <div class="screen active" data-screen="1">
+            <div class="screen-content">
+                <div class="screen-icon">🎯</div>
+                <h2>Was ist dein <span class="highlight">Hauptziel</span>?</h2>
+                <p class="subtitle">Das hilft uns, die richtige Empfehlung für dich zu erstellen.</p>
+                
+                <div class="options">
+                    <div class="option" onclick="selectSingle(this, 'goal')" data-value="abnehmen"><div class="radio"></div><div class="icon">⚖️</div><div class="text"><h3>Gewicht verlieren</h3><p>Überflüssige Kilos loswerden</p></div></div>
+                    <div class="option" onclick="selectSingle(this, 'goal')" data-value="straffen"><div class="radio"></div><div class="icon">💪</div><div class="text"><h3>Körper straffen</h3><p>Weniger Fett, mehr Definition</p></div></div>
+                    <div class="option" onclick="selectSingle(this, 'goal')" data-value="energie"><div class="radio"></div><div class="icon">⚡</div><div class="text"><h3>Mehr Energie</h3><p>Weniger müde und schlapp</p></div></div>
+                    <div class="option" onclick="selectSingle(this, 'goal')" data-value="gesundheit"><div class="radio"></div><div class="icon">❤️</div><div class="text"><h3>Gesünder leben</h3><p>Langfristig fit bleiben</p></div></div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="next()" id="btn1" disabled>Weiter <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></button>
+            </div>
+        </div>
+        
+        <!-- Q2: Probleme -->
+        <div class="screen" data-screen="2">
+            <div class="screen-content">
+                <h2>Was <span class="highlight">hält dich zurück</span>?</h2>
+                <p class="subtitle">Wähle alle Herausforderungen, die du kennst:</p>
+                
+                <div class="options">
+                    <div class="option" onclick="toggleMulti(this, 'problems')" data-value="jojo"><div class="check"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div><div class="icon">🔄</div><div class="text"><h3>Jo-Jo-Effekt</h3><p>Nach Diäten wiege ich mehr</p></div></div>
+                    <div class="option" onclick="toggleMulti(this, 'problems')" data-value="hunger"><div class="check"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div><div class="icon">🍕</div><div class="text"><h3>Heißhunger</h3><p>Kann Süßes nicht widerstehen</p></div></div>
+                    <div class="option" onclick="toggleMulti(this, 'problems')" data-value="zeit"><div class="check"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div><div class="icon">⏰</div><div class="text"><h3>Zeitmangel</h3><p>Kaum Zeit für Sport</p></div></div>
+                    <div class="option" onclick="toggleMulti(this, 'problems')" data-value="motivation"><div class="check"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div><div class="icon">😩</div><div class="text"><h3>Motivation fehlt</h3><p>Gebe schnell auf</p></div></div>
+                </div>
+                
+                <div class="mini-testimonial">
+                    <img src="https://www.figurscout.de/assets/images/8/Bernd%20B.-69fad676.webp" alt="Thomas K." style="width:44px;height:44px;border-radius:50%;object-fit:cover;">
+                    <div class="mini-testimonial-content">
+                        <p class="mini-testimonial-text">"Genau diese Probleme hatte ich auch. Die Körperanalyse hat mir gezeigt, dass mein Körper anders funktioniert als ich dachte."</p>
+                        <div class="mini-testimonial-author">Thomas K. <span class="mini-testimonial-result">• -9 kg</span></div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="next()">Weiter <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></button>
+                <div class="nav-row"><button class="back-btn" onclick="prev()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Zurück</button></div>
+            </div>
+        </div>
+        
+        <!-- Q3: Transformation Visual -->
+        <div class="screen" data-screen="3">
+            <div class="screen-content">
+                <h2>So kann deine <span class="highlight-green">Transformation</span> aussehen</h2>
+                <p class="subtitle">Das erleben unsere Teilnehmer typischerweise:</p>
+                
+                <div class="transformation">
+                    <div class="transformation-side before">
+                        <div class="transformation-label">Vorher</div>
+                        <div class="transformation-icon">😔</div>
+                        <ul class="transformation-list">
+                            <li>Ständig müde & antriebslos</li>
+                            <li>Kleidung sitzt nicht mehr</li>
+                            <li>Heißhunger-Attacken</li>
+                            <li>Frustriert von Diäten</li>
+                        </ul>
+                    </div>
+                    <div class="transformation-side after">
+                        <div class="transformation-label">Nach 8 Wochen</div>
+                        <div class="transformation-icon">😊</div>
+                        <ul class="transformation-list">
+                            <li>Voller Energie</li>
+                            <li>Kleidung sitzt wieder</li>
+                            <li>Kontrolliertes Essverhalten</li>
+                            <li>Stolz auf dich selbst</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="info-box success">
+                    <h4>💡 Das ist möglich</h4>
+                    <p>93% unserer Teilnehmer berichten von deutlich mehr Energie bereits nach 2 Wochen.</p>
+                </div>
+                
+                <button class="btn btn-primary" onclick="next()">Das will ich auch! <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></button>
+                <div class="nav-row"><button class="back-btn" onclick="prev()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Zurück</button></div>
+            </div>
+        </div>
+        
+        <!-- Q4: Zeit -->
+        <div class="screen" data-screen="4">
+            <div class="screen-content">
+                <h2>Wie viel <span class="highlight-green">Zeit</span> kannst du investieren?</h2>
+                <p class="subtitle">Sei ehrlich – wir finden einen Plan, der zu dir passt.</p>
+                
+                <div class="options">
+                    <div class="option" onclick="selectSingle(this, 'time')" data-value="wenig"><div class="radio"></div><div class="icon">⏱️</div><div class="text"><h3>1-2 Stunden pro Woche</h3><p>Wenig Zeit, aber will Ergebnisse</p></div></div>
+                    <div class="option" onclick="selectSingle(this, 'time')" data-value="mittel"><div class="radio"></div><div class="icon">📅</div><div class="text"><h3>2-3 Stunden pro Woche</h3><p>Kann mir regelmäßig Zeit nehmen</p></div></div>
+                    <div class="option" onclick="selectSingle(this, 'time')" data-value="viel"><div class="radio"></div><div class="icon">💯</div><div class="text"><h3>4+ Stunden pro Woche</h3><p>Bin bereit durchzustarten</p></div></div>
+                </div>
+                
+                <div class="mini-testimonial">
+                    <img src="https://www.figurscout.de/assets/images/d/Lydia%20W.%20nachher-kleiner-f115509b.webp" alt="Sarah B." style="width:44px;height:44px;border-radius:50%;object-fit:cover;">
+                    <div class="mini-testimonial-content">
+                        <p class="mini-testimonial-text">"Als Mutter von 2 Kindern habe ich wenig Zeit. 2x 30 Min pro Woche sind machbar – und die Ergebnisse sind unglaublich!"</p>
+                        <div class="mini-testimonial-author">Sarah B. <span class="mini-testimonial-result">• -7 kg</span></div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="next()" id="btn4" disabled>Weiter <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></button>
+                <div class="nav-row"><button class="back-btn" onclick="prev()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Zurück</button></div>
+            </div>
+        </div>
+        
+        <!-- Q5: Commitment -->
+        <div class="screen" data-screen="5">
+            <div class="screen-content">
+                <h2>Wie <span class="highlight-green">bereit</span> bist du für Veränderung?</h2>
+                <p class="subtitle">Ehrlichkeit hilft uns, die richtige Empfehlung zu geben.</p>
+                
+                <div class="options">
+                    <div class="option" onclick="selectSingle(this, 'commit')" data-value="unsicher"><div class="radio"></div><div class="icon">🤔</div><div class="text"><h3>Noch unsicher</h3><p>Ich informiere mich erstmal</p></div></div>
+                    <div class="option" onclick="selectSingle(this, 'commit')" data-value="bereit"><div class="radio"></div><div class="icon">👍</div><div class="text"><h3>Bereit anzufangen</h3><p>Ich will jetzt etwas ändern</p></div></div>
+                    <div class="option" onclick="selectSingle(this, 'commit')" data-value="entschlossen"><div class="radio"></div><div class="icon">🔥</div><div class="text"><h3>Voll entschlossen</h3><p>Diesmal ziehe ich es durch!</p></div></div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="next()" id="btn5" disabled>Weiter <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></button>
+                <div class="nav-row"><button class="back-btn" onclick="prev()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Zurück</button></div>
+            </div>
+        </div>
+        
+        <!-- Q6: Progress Graph + Timeline -->
+        <div class="screen" data-screen="6">
+            <div class="screen-content">
+                <h2>So könnte dein <span class="highlight-green">Fortschritt</span> aussehen</h2>
+                
+                <div class="weight-graph">
+                    <h4>Typischer Gewichtsverlauf über 8 Wochen</h4>
+                    <div class="graph-container">
+                        <div class="graph-bar"></div>
+                        <div class="graph-bar"></div>
+                        <div class="graph-bar"></div>
+                        <div class="graph-bar"></div>
+                        <div class="graph-bar"></div>
+                        <div class="graph-bar"></div>
+                        <div class="graph-bar"></div>
+                        <div class="graph-bar"></div>
+                    </div>
+                    <div class="graph-labels">
+                        <span>Start</span>
+                        <span>Woche 2</span>
+                        <span>Woche 4</span>
+                        <span>Woche 6</span>
+                        <span>Woche 8</span>
+                    </div>
+                    <div class="graph-result">
+                        <div class="graph-stat"><div class="graph-stat-value negative">-6 kg</div><div class="graph-stat-label">Durchschnitt</div></div>
+                        <div class="graph-stat"><div class="graph-stat-value">-4% KFA</div><div class="graph-stat-label">Körperfett</div></div>
+                        <div class="graph-stat"><div class="graph-stat-value">+2 kg</div><div class="graph-stat-label">Muskelmasse</div></div>
+                    </div>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item active"><div class="timeline-dot">📊</div><div class="timeline-content"><h4>Start-Analyse</h4><p>Dein Ausgangspunkt wird gemessen</p><span class="time">Tag 1</span></div></div>
+                    <div class="timeline-item"><div class="timeline-dot">📊</div><div class="timeline-content"><h4>Zwischen-Analyse</h4><p>Fortschrittskontrolle & Plan-Anpassung</p><span class="time">Woche 4</span></div></div>
+                    <div class="timeline-item"><div class="timeline-dot">🎯</div><div class="timeline-content"><h4>Abschluss-Analyse</h4><p>Deine Transformation schwarz auf weiß</p><span class="time">Woche 8</span></div></div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="showLoading()">Mein Ergebnis ansehen <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></button>
+                <div class="nav-row"><button class="back-btn" onclick="prev()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Zurück</button></div>
+            </div>
+        </div>
+        
+        <!-- Loading -->
+        <div class="screen" data-screen="7">
+            <div class="screen-content">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Wir erstellen deine persönliche Empfehlung...</div>
+                    <div class="loading-steps">
+                        <div class="loading-step"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Ziele analysiert</span></div>
+                        <div class="loading-step"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Herausforderungen bewertet</span></div>
+                        <div class="loading-step"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Passenden Plan gefunden</span></div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <!-- Result -->
+        <div class="screen" data-screen="8">
+            <div class="screen-content">
+                <div class="badge"><div class="dot"></div><span>Deine persönliche Empfehlung</span></div>
+                
+                <h2><span class="highlight-green">Gute Nachricht:</span> happyfigur passt perfekt zu dir!</h2>
+                
+                <!-- Preis + Krankenkasse - OBEN -->
+                <div style="background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.1) 100%); border: 2px solid var(--primary); border-radius: 12px; padding: 16px; margin-bottom: 20px; text-align: center;">
+                    <div style="margin-bottom: 8px;">
+                        <span style="font-size: 1.3rem; color: var(--gray); text-decoration: line-through; opacity: 0.6;">179€</span>
+                        <span style="font-size: 1.6rem; font-weight: 800; color: var(--primary); margin-left: 10px;">→ 0€*</span>
+                    </div>
+                    <p style="margin: 0; font-size: 0.9rem;"><strong style="color: var(--primary);">💰 Bis zu 100% Krankenkassen-Erstattung!</strong></p>
+                </div>
+                
+                <!-- BUCHUNGSFORMULAR - PROMINENT -->
+                <div id="bookingForm" class="booking-form" style="border: 2px solid var(--primary); margin-bottom: 24px;">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 16px; color: var(--primary); text-align: center;">📅 Sichere dir jetzt deinen Termin!</h3>
+                    
+                    <!-- Step 1: Kalender -->
+                    <div id="bookingStep1">
+                        <p style="font-size: 0.9rem; color: var(--gray-light); margin-bottom: 16px; text-align: center;">Wähle deinen Wunschtermin für die erste Körperanalyse:</p>
+                        
+                        <div id="calendarLoading" style="text-align: center; padding: 20px;">
+                            <div class="spinner"></div>
+                            <p style="color: var(--gray); margin-top: 8px;">Termine werden geladen...</p>
+                        </div>
+                        
+                        <div id="calendarContainer" style="display: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <button type="button" onclick="prevWeek()" class="cal-nav">← Zurück</button>
+                                <span id="calendarWeek" style="font-weight: 600; color: white;"></span>
+                                <button type="button" onclick="nextWeek()" class="cal-nav">Weiter →</button>
+                            </div>
+                            
+                            <div id="calendarGrid" class="calendar-grid"></div>
+                            
+                            <p id="selectedSlotDisplay" style="text-align: center; margin-top: 16px; color: var(--primary); font-weight: 600; display: none;"></p>
+                            
+                            <button type="button" id="toStep2Btn" onclick="goToStep2()" class="btn btn-primary" style="width: 100%; margin-top: 16px;" disabled>
+                                Weiter zur Anmeldung →
+                            </button>
+                        </div>
+                        
+                        <div id="calendarError" style="display: none; text-align: center; padding: 20px; color: var(--accent);">
+                            <p>Termine konnten nicht geladen werden.</p>
+                            <button onclick="loadSlots()" class="btn btn-primary" style="margin-top: 12px;">Erneut versuchen</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Persönliche Daten -->
+                    <div id="bookingStep2" style="display: none;">
+                        <button type="button" onclick="backToStep1()" style="background: none; border: none; color: var(--primary); cursor: pointer; margin-bottom: 16px;">← Termin ändern</button>
+                        
+                        <p id="confirmSlot" style="background: var(--dark-3); padding: 12px; border-radius: 8px; margin-bottom: 16px; text-align: center; color: var(--primary);"></p>
+                        
+                        <form id="terminForm" onsubmit="submitBooking(event)">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                <div class="form-group">
+                                    <input type="text" id="bookFirstname" placeholder="Vorname *" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="bookLastname" placeholder="Nachname *" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="bookEmail" placeholder="E-Mail Adresse *" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="bookPhone" placeholder="Handynummer">
+                            </div>
+                            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px;">
+                                <div class="form-group">
+                                    <input type="text" id="bookStreet" placeholder="Straße & Hausnr. *" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="bookZip" placeholder="PLZ *" required pattern="[0-9]{5}" maxlength="5">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="bookCity" placeholder="Stadt *" required>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                <div class="form-group">
+                                    <select id="bookGender" required>
+                                        <option value="">Geschlecht *</option>
+                                        <option value="MALE">Männlich</option>
+                                        <option value="FEMALE">Weiblich</option>
+                                        <option value="OTHER">Divers</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="date" id="bookBirthdate" placeholder="Geburtsdatum *" required>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: flex; align-items: flex-start; gap: 8px;">
+                                <input type="checkbox" id="bookPrivacy" required style="margin-top: 4px; width: auto;">
+                                <label for="bookPrivacy" style="font-size: 0.8rem; color: var(--gray-light);">
+                                    Ich stimme der <a href="datenschutz.html" target="_blank" style="color: var(--primary);">Datenschutzerklärung</a> zu. *
+                                </label>
+                            </div>
+                            <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%;">
+                                ✅ Termin verbindlich buchen
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Erfolgs-Nachricht -->
+                <div id="bookingSuccess" style="display: none; text-align: center; padding: 24px; background: var(--dark-2); border-radius: 16px; border: 2px solid var(--primary); margin-bottom: 24px;">
+                    <div style="font-size: 3rem; margin-bottom: 16px;">🎉</div>
+                    <h3 style="color: var(--primary); margin-bottom: 8px;">Termin gebucht!</h3>
+                    <p id="successDetails" style="color: var(--gray-light);"></p>
+                    <p style="color: var(--gray); font-size: 0.85rem; margin-top: 16px;">Du erhältst eine Bestätigung per E-Mail.</p>
+                </div>
+                
+                <!-- Was du bekommst - DETAILS UNTEN -->
+                <details style="margin-bottom: 16px;">
+                    <summary style="cursor: pointer; padding: 16px; background: var(--dark-3); border-radius: 12px; color: white; font-weight: 600;">
+                        ℹ️ Das ist alles enthalten (anzeigen)
+                    </summary>
+                    
+                    <!-- Hauptkarte -->
+                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin: 20px 0; text-align: left;">
+                    <h4 style="font-size: 1rem; margin-bottom: 16px; color: var(--primary);">✅ Das ist alles enthalten:</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
+                            <span style="font-size: 1.2rem;">📊</span>
+                            <span><strong>3x Körperanalyse</strong> – Start, Mitte, Ende</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
+                            <span style="font-size: 1.2rem;">💪</span>
+                            <span><strong>Training inklusive</strong> – 8 Wochen im Studio</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
+                            <span style="font-size: 1.2rem;">🍽️</span>
+                            <span><strong>Ernährungsplan</strong> – auf dich abgestimmt</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
+                            <span style="font-size: 1.2rem;">📖</span>
+                            <span><strong>Kochbuch</strong> – über 100 Rezepte</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
+                            <span style="font-size: 1.2rem;">📱</span>
+                            <span><strong>24/7 Support</strong> – WhatsApp, E-Mail & Telefon</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; font-size: 0.9rem;">
+                            <span style="font-size: 1.2rem;">👨‍🏫</span>
+                            <span><strong>Trainingsexperten vor Ort</strong> – persönliche Betreuung</span>
+                        </li>
+                    </ul>
+                </div>
+                
+
+                
+                <!-- Keine Bindung -->
+                <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; font-size: 0.85rem; color: var(--gray-light);">
+                    <span>✓ Keine Vertragsbindung</span>
+                    <span>✓ Keine versteckten Kosten</span>
+                </div>
+                
+                <!-- Danach weitermachen -->
+                <div style="background: linear-gradient(135deg, rgba(249,115,22,0.15) 0%, rgba(249,115,22,0.05) 100%); border: 1px solid rgba(249,115,22,0.3); border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+                    <p style="font-size: 0.85rem; margin: 0; color: var(--gray-light);">
+                        <strong style="color: var(--accent);">🚀 Und danach?</strong> Optional eine Mitgliedschaft abschließen – keine Bindung!
+                    </p>
+                </div>
+                
+                </details>
+                
+                <!-- Disclaimer -->
+                <p style="font-size: 0.7rem; color: var(--gray); text-align: center; margin-top: 8px;">*Min. 70€, je nach Krankenkasse (§ 20 SGB V)</p>
+                
+                <div class="trust-row" style="margin-top: 16px;">
+                    <div class="trust-item"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Unverbindlich</span></div>
+                    <div class="trust-item"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Persönliche Beratung</span></div>
+                    <div class="trust-item"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>93% Erfolgsquote</span></div>
+                </div>
+            </div>
+        </div>
+        
     </div>
+</div>
 
-    <!-- ============================================ -->
-    <!-- JAVASCRIPT -->
-    <!-- ============================================ -->
-    <script>
-        // Scroll Animations
-        const fadeElements = document.querySelectorAll('.fade-in');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        fadeElements.forEach(el => observer.observe(el));
+<script>
+let current = 1;
+const total = 8;
+const answers = { goal: null, problems: [], time: null, commit: null };
 
-        // Navbar scroll
-        let lastScroll = 0;
-        const nav = document.querySelector('nav');
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            nav.style.top = currentScroll > 100 ? '0' : '44px';
-            lastScroll = currentScroll;
-        });
-
-        // ============ PROBETRAINING BOOKING ============
-        const PT_API = 'https://srv1309486.hstgr.cloud/api/probetraining';
-        let ptCurrentDate = new Date();
-        let ptSlotsData = null;
-        let ptSelectedSlot = null;
-
-        function openModal(type) {
-            document.getElementById(`modal-${type}`).classList.add('active');
-            document.body.style.overflow = 'hidden';
-            if (type === 'probetraining' && !ptSlotsData) ptFetchSlots();
-        }
-
-        function closeModal(type) {
-            document.getElementById(`modal-${type}`).classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        document.querySelectorAll('.modal-overlay').forEach(m => {
-            m.addEventListener('click', e => { if (e.target === m) closeModal(m.id.replace('modal-','')); });
-        });
-
-        async function ptFetchSlots() {
-            try {
-                const res = await fetch(`${PT_API}/slots`);
-                if (!res.ok) throw new Error();
-                ptSlotsData = await res.json();
-                document.getElementById('pt-loading').style.display = 'none';
-                document.getElementById('pt-calendar-section').style.display = 'block';
-                ptRenderCalendar();
-            } catch (e) {
-                document.getElementById('pt-loading').innerHTML = '<p class="text-red-400">❌ Fehler beim Laden</p>';
-            }
-        }
-
-        function ptRenderCalendar() {
-            const year = ptCurrentDate.getFullYear(), month = ptCurrentDate.getMonth();
-            const months = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
-            document.getElementById('pt-month-label').textContent = `${months[month]} ${year}`;
-            
-            const today = new Date();
-            document.getElementById('pt-prev-month').disabled = (year === today.getFullYear() && month <= today.getMonth());
-            
-            const firstDay = new Date(year, month, 1);
-            const lastDay = new Date(year, month + 1, 0);
-            let startDay = firstDay.getDay() - 1; if (startDay < 0) startDay = 6;
-            
-            const container = document.getElementById('pt-calendar-days');
-            container.innerHTML = '';
-            
-            for (let i = 0; i < startDay; i++) container.innerHTML += '<div class="pt-day"></div>';
-            
-            for (let day = 1; day <= lastDay.getDate(); day++) {
-                // Fix: Manual date string to avoid timezone issues with toISOString()
-                const ds = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
-                const d = new Date(year, month, day);
-                const slots = ptSlotsData?.slotsByDate?.[ds] || [];
-                const div = document.createElement('div');
-                div.className = 'pt-day';
-                div.textContent = day;
-                
-                if (d < today || !slots.length) {
-                    div.classList.add('disabled');
-                } else {
-                    div.classList.add('has-slots');
-                    const badge = document.createElement('span');
-                    badge.className = 'slot-badge';
-                    badge.textContent = slots.length;
-                    div.appendChild(badge);
-                    div.onclick = () => ptSelectDate(ds, slots, div);
-                }
-                container.appendChild(div);
-            }
-        }
-
-        function ptSelectDate(dateStr, slots, el) {
-            document.querySelectorAll('.pt-day.selected').forEach(e => e.classList.remove('selected'));
-            el.classList.add('selected');
-            
-            const d = new Date(dateStr + 'T12:00:00');
-            document.getElementById('pt-selected-date').textContent = d.toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long'});
-            
-            const container = document.getElementById('pt-time-slots');
-            container.innerHTML = '';
-            slots.forEach(slot => {
-                const div = document.createElement('div');
-                div.className = 'pt-time-slot';
-                div.innerHTML = `<div class="font-semibold">${slot.time}</div><div class="text-xs opacity-60">Uhr</div>`;
-                div.onclick = () => ptSelectSlot(slot, div);
-                container.appendChild(div);
-            });
-            
-            document.getElementById('pt-time-section').style.display = 'block';
-            ptSelectedSlot = null;
-            document.getElementById('pt-to-step-2').disabled = true;
-        }
-
-        function ptSelectSlot(slot, el) {
-            document.querySelectorAll('.pt-time-slot.selected').forEach(e => e.classList.remove('selected'));
-            el.classList.add('selected');
-            ptSelectedSlot = slot;
-            document.getElementById('pt-to-step-2').disabled = false;
-        }
-
-        document.getElementById('pt-prev-month').onclick = () => { ptCurrentDate.setMonth(ptCurrentDate.getMonth() - 1); ptRenderCalendar(); };
-        document.getElementById('pt-next-month').onclick = () => { ptCurrentDate.setMonth(ptCurrentDate.getMonth() + 1); ptRenderCalendar(); };
-
-        function ptGoToStep(n) {
-            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-            document.getElementById(`pt-step-${n}`).classList.add('active');
-            document.querySelectorAll('.pt-progress-step').forEach((s, i) => {
-                s.classList.toggle('opacity-40', i >= n);
-                s.querySelector('div').classList.toggle('bg-accent', i < n);
-                s.querySelector('div').classList.toggle('text-primary', i < n);
-                s.querySelector('div').classList.toggle('bg-white/20', i >= n);
-            });
-            if (n === 2 && ptSelectedSlot) {
-                const d = new Date(ptSelectedSlot.start);
-                document.getElementById('pt-summary-date').textContent = d.toLocaleDateString('de-DE', {weekday:'long', day:'numeric', month:'long'});
-                document.getElementById('pt-summary-time').textContent = ptSelectedSlot.time + ' Uhr';
-            }
-        }
-
-        // Gender selection
-        document.querySelectorAll('.pt-gender-opt').forEach(opt => {
-            opt.onclick = () => {
-                document.querySelectorAll('.pt-gender-opt').forEach(o => o.classList.remove('border-accent', 'bg-accent/20'));
-                opt.classList.add('border-accent', 'bg-accent/20');
-            };
-        });
-
-        // Form submit
-        document.getElementById('pt-form').onsubmit = async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById('pt-submit-btn');
-            const errDiv = document.getElementById('pt-form-error');
-            errDiv.style.display = 'none';
-            btn.disabled = true;
-            btn.innerHTML = '<span class="pt-spinner inline-block w-4 h-4 mr-2 align-middle"></span>Wird gebucht...';
-            
-            const streetInput = document.getElementById('pt-street').value.trim();
-            const match = streetInput.match(/^(.+?)\s+(\d+\s*\w*)$/);
-            
-            const data = {
-                startDateTime: ptSelectedSlot.start,
-                gender: document.querySelector('input[name="pt-gender"]:checked')?.value,
-                firstname: document.getElementById('pt-firstname').value,
-                lastname: document.getElementById('pt-lastname').value,
-                email: document.getElementById('pt-email').value,
-                phone: document.getElementById('pt-phone').value,
-                dateOfBirth: document.getElementById('pt-birthdate').value,
-                zipCode: document.getElementById('pt-zip').value,
-                city: document.getElementById('pt-city').value,
-                street: match ? match[1] : streetInput,
-                houseNumber: match ? match[2] : '',
-                marketingConsent: false,
-                trainerRequired: false
-            };
-            
-            try {
-                const res = await fetch(PT_API, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(data)
-                });
-                const result = await res.json();
-                if (!res.ok) throw new Error(result.message || 'Fehler');
-                
-                document.getElementById('pt-confirm-date').textContent = result.booking.date;
-                document.getElementById('pt-confirm-time').textContent = result.booking.time + ' Uhr';
-                document.getElementById('pt-confirm-name').textContent = result.booking.name;
-                document.getElementById('pt-confirm-number').textContent = result.booking.customerNumber || '-';
-                ptGoToStep(3);
-            } catch (err) {
-                errDiv.textContent = '❌ ' + err.message;
-                errDiv.style.display = 'block';
-                btn.disabled = false;
-                btn.textContent = 'Jetzt buchen';
-            }
-        };
-    </script>
-
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "GymOrFitnessCenter",
-        "name": "FIT-INN Trier",
-        "image": "https://fit-inn-trier.de/logo.png",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Auf Hirtenberg 8",
-            "addressLocality": "Trier",
-            "postalCode": "54296",
-            "addressCountry": "DE"
-        },
-        "url": "https://fit-inn-trier.de",
-        "telephone": "+496519988440",
-        "priceRange": "€",
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "reviewCount": "250"
-        },
-        "offers": {
-            "@type": "Offer",
-            "name": "2 Monate Gratis Aktion",
-            "description": "Februar und März beitragsfrei bei Jahres- oder Zweijahres-Mitgliedschaft",
-            "validFrom": "2026-01-01",
-            "validThrough": "2026-02-28"
-        }
+// Hide scroll hint after scrolling
+window.addEventListener('scroll', function() {
+    const hint = document.getElementById('scrollHint');
+    if (hint && window.scrollY > 200) {
+        hint.classList.add('hidden');
     }
-    </script>
+});
+
+function startFunnel() {
+    document.getElementById('landing').classList.add('hidden');
+    document.getElementById('funnel').classList.add('active');
+    document.getElementById('scrollHint').classList.add('hidden');
+    document.getElementById('mobileCta').style.display = 'none';
+    window.scrollTo(0, 0);
+    updateProgress();
+}
+
+function updateProgress() {
+    const pct = Math.round(((current - 1) / 6) * 100);
+    document.getElementById('progressFill').style.width = Math.min(pct, 100) + '%';
+    document.getElementById('progressStep').textContent = current < 7 ? `Frage ${Math.min(current, 6)} von 6` : 'Fast geschafft...';
+    document.getElementById('progressPercent').textContent = Math.min(pct, 100) + '%';
+}
+
+function showScreen(num) {
+    const cur = document.querySelector('.screen.active');
+    if (cur) {
+        cur.classList.add('exit');
+        setTimeout(() => {
+            cur.classList.remove('active', 'exit');
+            document.querySelector(`[data-screen="${num}"]`).classList.add('active');
+            current = num;
+            updateProgress();
+        }, 300);
+    }
+}
+
+function next() { if (current < total) showScreen(current + 1); }
+function prev() { if (current > 1) showScreen(current - 1); }
+
+function selectSingle(el, key) {
+    el.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    answers[key] = el.dataset.value;
+    const btn = document.getElementById('btn' + current);
+    if (btn) btn.disabled = false;
+}
+
+function toggleMulti(el, key) {
+    el.classList.toggle('selected');
+    const val = el.dataset.value;
+    if (el.classList.contains('selected')) {
+        if (!answers[key].includes(val)) answers[key].push(val);
+    } else {
+        answers[key] = answers[key].filter(v => v !== val);
+    }
+}
+
+function showLoading() {
+    showScreen(7);
+    setTimeout(() => { 
+        generateResult(); 
+        showScreen(8);
+        initCalendar(); // Load calendar slots
+    }, 3500);
+}
+
+function generateResult() {
+    let score = 88;
+    if (answers.problems.length > 2) score += 4;
+    if (answers.commit === 'entschlossen') score += 5;
+    if (answers.commit === 'bereit') score += 3;
+    
+    const matchEl = document.getElementById('resultMatch');
+    if (matchEl) matchEl.textContent = score + '% Übereinstimmung';
+    
+    const timeEl = document.getElementById('resultTime');
+    if (timeEl) timeEl.textContent = '2-3 Wochen';
+    
+    const effortEl = document.getElementById('resultEffort');
+    if (effortEl) {
+        let effort = '2x 30 Min/Woche';
+        if (answers.time === 'viel') effort = '3x 30 Min/Woche';
+        effortEl.textContent = effort;
+    }
+}
+
+// ============ CALENDAR BOOKING SYSTEM ============
+const API_BASE = 'https://srv1309486.hstgr.cloud';
+let slotsData = {};
+let currentWeekStart = new Date();
+let selectedSlot = null;
+
+// Initialize calendar when reaching result screen
+function initCalendar() {
+    currentWeekStart = new Date();
+    currentWeekStart.setDate(currentWeekStart.getDate() + 1); // Start tomorrow
+    loadSlots();
+}
+
+async function loadSlots() {
+    document.getElementById('calendarLoading').style.display = 'block';
+    document.getElementById('calendarContainer').style.display = 'none';
+    document.getElementById('calendarError').style.display = 'none';
+    
+    try {
+        const res = await fetch(`${API_BASE}/api/probetraining/slots`);
+        if (!res.ok) throw new Error('Failed to load');
+        
+        const data = await res.json();
+        slotsData = data.slotsByDate || {};
+        
+        document.getElementById('calendarLoading').style.display = 'none';
+        document.getElementById('calendarContainer').style.display = 'block';
+        renderCalendar();
+    } catch (err) {
+        console.error('Slots error:', err);
+        document.getElementById('calendarLoading').style.display = 'none';
+        document.getElementById('calendarError').style.display = 'block';
+    }
+}
+
+function renderCalendar() {
+    const grid = document.getElementById('calendarGrid');
+    const days = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+    
+    // Get Monday of current week
+    const weekStart = new Date(currentWeekStart);
+    const dayOfWeek = weekStart.getDay();
+    const diff = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+    weekStart.setDate(weekStart.getDate() + diff);
+    
+    // Update header
+    const weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekEnd.getDate() + 6);
+    document.getElementById('calendarWeek').textContent = 
+        `${weekStart.toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit'})} - ${weekEnd.toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'})}`;
+    
+    // Build grid
+    let html = days.map(d => `<div class="cal-day cal-day-header">${d}</div>`).join('');
+    
+    for (let i = 0; i < 7; i++) {
+        const date = new Date(weekStart);
+        date.setDate(date.getDate() + i);
+        const dateStr = date.toISOString().split('T')[0];
+        const hasSlots = slotsData[dateStr] && slotsData[dateStr].length > 0;
+        const isPast = date < new Date().setHours(0,0,0,0);
+        
+        html += `<div class="cal-day">
+            <div class="cal-date ${hasSlots && !isPast ? 'has-slots' : ''}" 
+                 ${hasSlots && !isPast ? `onclick="selectDate('${dateStr}')"` : ''} 
+                 data-date="${dateStr}">
+                ${date.getDate()}
+            </div>
+        </div>`;
+    }
+    
+    grid.innerHTML = html;
+}
+
+function selectDate(dateStr) {
+    // Remove previous selection
+    document.querySelectorAll('.cal-date.selected').forEach(el => el.classList.remove('selected'));
+    document.querySelector(`[data-date="${dateStr}"]`).classList.add('selected');
+    
+    // Show time slots
+    const slots = slotsData[dateStr] || [];
+    const date = new Date(dateStr);
+    const dateFormatted = date.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
+    
+    let timeSlotsHtml = `<p style="text-align: center; margin-bottom: 12px; color: white;"><strong>${dateFormatted}</strong></p>`;
+    timeSlotsHtml += '<div class="time-slots">';
+    slots.forEach(slot => {
+        timeSlotsHtml += `<button type="button" class="time-slot" onclick="selectTime('${slot.start}', '${slot.time}')">${slot.time}</button>`;
+    });
+    timeSlotsHtml += '</div>';
+    
+    // Insert after grid
+    let timeSlotsContainer = document.getElementById('timeSlotsContainer');
+    if (!timeSlotsContainer) {
+        timeSlotsContainer = document.createElement('div');
+        timeSlotsContainer.id = 'timeSlotsContainer';
+        document.getElementById('calendarGrid').after(timeSlotsContainer);
+    }
+    timeSlotsContainer.innerHTML = timeSlotsHtml;
+}
+
+function selectTime(startDateTime, timeDisplay) {
+    selectedSlot = { startDateTime, timeDisplay };
+    
+    // Highlight selected
+    document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+    event.target.classList.add('selected');
+    
+    // Show selection and enable button
+    const date = new Date(startDateTime);
+    const dateStr = date.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('selectedSlotDisplay').textContent = `✓ ${dateStr} um ${timeDisplay} Uhr`;
+    document.getElementById('selectedSlotDisplay').style.display = 'block';
+    document.getElementById('toStep2Btn').disabled = false;
+}
+
+function prevWeek() {
+    currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+    renderCalendar();
+}
+
+function nextWeek() {
+    currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+    renderCalendar();
+}
+
+function goToStep2() {
+    if (!selectedSlot) return;
+    
+    const date = new Date(selectedSlot.startDateTime);
+    const dateStr = date.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('confirmSlot').innerHTML = `📅 <strong>${dateStr}</strong> um <strong>${selectedSlot.timeDisplay} Uhr</strong>`;
+    
+    document.getElementById('bookingStep1').style.display = 'none';
+    document.getElementById('bookingStep2').style.display = 'block';
+}
+
+function backToStep1() {
+    document.getElementById('bookingStep1').style.display = 'block';
+    document.getElementById('bookingStep2').style.display = 'none';
+}
+
+async function submitBooking(e) {
+    e.preventDefault();
+    
+    const btn = document.getElementById('submitBtn');
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Wird gebucht...';
+    
+    // Parse street and house number
+    const streetFull = document.getElementById('bookStreet').value;
+    const streetMatch = streetFull.match(/^(.+?)\s+(\d+\s*\w*)$/);
+    const street = streetMatch ? streetMatch[1] : streetFull;
+    const houseNumber = streetMatch ? streetMatch[2] : '';
+    
+    const data = {
+        startDateTime: selectedSlot.startDateTime,
+        firstname: document.getElementById('bookFirstname').value,
+        lastname: document.getElementById('bookLastname').value,
+        email: document.getElementById('bookEmail').value,
+        phone: document.getElementById('bookPhone').value || '',
+        street: street,
+        houseNumber: houseNumber,
+        zipCode: document.getElementById('bookZip').value,
+        city: document.getElementById('bookCity').value,
+        gender: document.getElementById('bookGender').value,
+        dateOfBirth: document.getElementById('bookBirthdate').value,
+        notes: `happyfigur Funnel - Ziel: ${answers.goal || 'k.A.'}`,
+        marketingConsent: false
+    };
+    
+    try {
+        const res = await fetch(`${API_BASE}/api/probetraining`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await res.json();
+        
+        if (res.ok && result.success) {
+            document.getElementById('bookingForm').style.display = 'none';
+            document.getElementById('successDetails').innerHTML = 
+                `Dein Termin: <strong>${result.booking.date}</strong> um <strong>${result.booking.time} Uhr</strong>`;
+            document.getElementById('bookingSuccess').style.display = 'block';
+            
+            // Also save as lead
+            fetch(`${API_BASE}/api/leads`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: `${data.firstname} ${data.lastname}`,
+                    email: data.email,
+                    phone: data.phone,
+                    source: 'happyfigur-funnel',
+                    converted: true,
+                    answers: answers
+                })
+            }).catch(() => {});
+        } else {
+            throw new Error(result.message || 'Buchung fehlgeschlagen');
+        }
+    } catch (err) {
+        alert(err.message || 'Es gab ein Problem. Bitte versuche es erneut oder ruf uns an: 0651 9949780');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+    }
+}
+</script>
+
+
+
 </body>
 </html>

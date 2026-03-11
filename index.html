@@ -1319,34 +1319,20 @@
                     <div class="timeline-item"><div class="timeline-dot">🎯</div><div class="timeline-content"><h4>Abschluss-Analyse</h4><p>Deine Transformation schwarz auf weiß</p><span class="time">Woche 8</span></div></div>
                 </div>
                 
-                <button class="btn btn-primary" onclick="showLoading()">Mein Ergebnis ansehen <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></button>
+                <button class="btn btn-primary" onclick="goToBooking()">Mein Ergebnis ansehen <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></button>
                 <div class="nav-row"><button class="back-btn" onclick="prev()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Zurück</button></div>
             </div>
         </div>
         
-        <!-- Loading -->
+        <!-- STEP 7: BUCHUNG - VOR dem Ergebnis! -->
         <div class="screen" data-screen="7">
             <div class="screen-content">
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <div class="loading-text">Wir erstellen deine persönliche Empfehlung...</div>
-                    <div class="loading-steps">
-                        <div class="loading-step"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Ziele analysiert</span></div>
-                        <div class="loading-step"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Herausforderungen bewertet</span></div>
-                        <div class="loading-step"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Passenden Plan gefunden</span></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Result -->
-        <div class="screen" data-screen="8">
-            <div class="screen-content">
-                <div class="badge"><div class="dot"></div><span>Deine persönliche Empfehlung</span></div>
+                <div class="badge"><div class="dot"></div><span>Fast geschafft!</span></div>
                 
-                <h2><span class="highlight-green">Gute Nachricht:</span> happyfigur passt perfekt zu dir!</h2>
+                <h2>Sichere dir jetzt deinen <span class="highlight-green">Termin</span></h2>
+                <p class="subtitle" style="margin-bottom: 24px;">Buche deine erste Körperanalyse und erhalte dein persönliches Ergebnis.</p>
                 
-                <!-- Preis + Krankenkasse - OBEN -->
+                <!-- Preis + Krankenkasse -->
                 <div style="background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.1) 100%); border: 2px solid var(--primary); border-radius: 12px; padding: 16px; margin-bottom: 20px; text-align: center;">
                     <div style="margin-bottom: 8px;">
                         <span style="font-size: 1.3rem; color: var(--gray); text-decoration: line-through; opacity: 0.6;">179€</span>
@@ -1355,13 +1341,11 @@
                     <p style="margin: 0; font-size: 0.9rem;"><strong style="color: var(--primary);">💰 Bis zu 100% Krankenkassen-Erstattung!</strong></p>
                 </div>
                 
-                <!-- BUCHUNGSFORMULAR - PROMINENT -->
-                <div id="bookingForm" class="booking-form" style="border: 2px solid var(--primary); margin-bottom: 24px;">
-                    <h3 style="font-size: 1.2rem; margin-bottom: 16px; color: var(--primary); text-align: center;">📅 Sichere dir jetzt deinen Termin!</h3>
-                    
+                <!-- BUCHUNGSFORMULAR -->
+                <div id="bookingForm" class="booking-form" style="border: 2px solid var(--primary);">
                     <!-- Step 1: Kalender -->
                     <div id="bookingStep1">
-                        <p style="font-size: 0.9rem; color: var(--gray-light); margin-bottom: 16px; text-align: center;">Wähle deinen Wunschtermin für die erste Körperanalyse:</p>
+                        <h4 style="margin-bottom: 12px; color: white;">📅 Wähle deinen Wunschtermin:</h4>
                         
                         <div id="calendarLoading" style="text-align: center; padding: 20px;">
                             <div class="spinner"></div>
@@ -1442,29 +1426,69 @@
                                 </label>
                             </div>
                             <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%;">
-                                ✅ Termin verbindlich buchen
+                                ✅ Termin buchen & Ergebnis sehen
                             </button>
                         </form>
                     </div>
                 </div>
                 
-                <!-- Erfolgs-Nachricht -->
-                <div id="bookingSuccess" style="display: none; text-align: center; padding: 24px; background: var(--dark-2); border-radius: 16px; border: 2px solid var(--primary); margin-bottom: 24px;">
-                    <div style="font-size: 3rem; margin-bottom: 16px;">🎉</div>
-                    <h3 style="color: var(--primary); margin-bottom: 8px;">Termin gebucht!</h3>
-                    <p id="successDetails" style="color: var(--gray-light);"></p>
-                    <p style="color: var(--gray); font-size: 0.85rem; margin-top: 16px;">Du erhältst eine Bestätigung per E-Mail.</p>
+                <p style="font-size: 0.7rem; color: var(--gray); text-align: center; margin-top: 12px;">*Min. 70€, je nach Krankenkasse (§ 20 SGB V)</p>
+                
+                <div class="nav-row" style="margin-top: 16px;"><button class="back-btn" onclick="prev()"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Zurück</button></div>
+            </div>
+        </div>
+        
+        <!-- STEP 8: Loading Animation -->
+        <div class="screen" data-screen="8">
+            <div class="screen-content">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">Wir erstellen deine persönliche Empfehlung...</div>
+                    <div class="loading-steps">
+                        <div class="loading-step"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Ziele analysiert</span></div>
+                        <div class="loading-step"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Herausforderungen bewertet</span></div>
+                        <div class="loading-step"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Passenden Plan gefunden</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- STEP 9: Result (BELOHNUNG nach Buchung!) -->
+        <div class="screen" data-screen="9">
+            <div class="screen-content">
+                <!-- Erfolgs-Header -->
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <div style="font-size: 4rem; margin-bottom: 16px;">🎉</div>
+                    <h2 style="color: var(--primary); margin-bottom: 8px;">Termin gebucht!</h2>
+                    <p id="resultBookingDetails" style="color: var(--gray-light); font-size: 1rem;"></p>
                 </div>
                 
-                <!-- Was du bekommst - DETAILS UNTEN -->
-                <details style="margin-bottom: 16px;">
-                    <summary style="cursor: pointer; padding: 16px; background: var(--dark-3); border-radius: 12px; color: white; font-weight: 600;">
-                        ℹ️ Das ist alles enthalten (anzeigen)
-                    </summary>
-                    
-                    <!-- Hauptkarte -->
-                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin: 20px 0; text-align: left;">
-                    <h4 style="font-size: 1rem; margin-bottom: 16px; color: var(--primary);">✅ Das ist alles enthalten:</h4>
+                <div class="badge"><div class="dot"></div><span>Deine persönliche Empfehlung</span></div>
+                
+                <h2><span class="highlight-green">Gute Nachricht:</span> happyfigur passt perfekt zu dir!</h2>
+                
+                <!-- Nächste Schritte -->
+                <div style="background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.1) 100%); border: 2px solid var(--primary); border-radius: 16px; padding: 20px; margin: 24px 0;">
+                    <h4 style="color: var(--primary); margin-bottom: 16px;">📋 Deine nächsten Schritte:</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="background: var(--primary); color: var(--dark); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">1</span>
+                            <span>Check dein E-Mail-Postfach für die Bestätigung</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="background: var(--primary); color: var(--dark); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">2</span>
+                            <span>Komm zum Termin ins FIT-INN Trier</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="background: var(--primary); color: var(--dark); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">3</span>
+                            <span>Starte deine 8-Wochen-Transformation! 💪</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Was du bekommst -->
+                <div style="background: var(--dark-3); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin-bottom: 20px; text-align: left;">
+                    <h4 style="font-size: 1rem; margin-bottom: 16px; color: var(--primary);">✅ Das erwartet dich:</h4>
                     <ul style="list-style: none; padding: 0; margin: 0;">
                         <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
                             <span style="font-size: 1.2rem;">📊</span>
@@ -1472,51 +1496,37 @@
                         </li>
                         <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
                             <span style="font-size: 1.2rem;">💪</span>
-                            <span><strong>Training inklusive</strong> – 8 Wochen im Studio</span>
+                            <span><strong>8 Wochen Training</strong> – im Studio inklusive</span>
                         </li>
                         <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
                             <span style="font-size: 1.2rem;">🍽️</span>
                             <span><strong>Ernährungsplan</strong> – auf dich abgestimmt</span>
                         </li>
-                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
-                            <span style="font-size: 1.2rem;">📖</span>
-                            <span><strong>Kochbuch</strong> – über 100 Rezepte</span>
-                        </li>
-                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.9rem;">
+                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; font-size: 0.9rem;">
                             <span style="font-size: 1.2rem;">📱</span>
                             <span><strong>24/7 Support</strong> – WhatsApp, E-Mail & Telefon</span>
-                        </li>
-                        <li style="display: flex; align-items: center; gap: 12px; padding: 10px 0; font-size: 0.9rem;">
-                            <span style="font-size: 1.2rem;">👨‍🏫</span>
-                            <span><strong>Trainingsexperten vor Ort</strong> – persönliche Betreuung</span>
                         </li>
                     </ul>
                 </div>
                 
-
-                
-                <!-- Keine Bindung -->
-                <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; font-size: 0.85rem; color: var(--gray-light);">
-                    <span>✓ Keine Vertragsbindung</span>
-                    <span>✓ Keine versteckten Kosten</span>
+                <!-- Krankenkassen-Info -->
+                <div style="background: linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(34,197,94,0.05) 100%); border: 1px solid var(--primary); border-radius: 12px; padding: 16px; margin-bottom: 20px; text-align: center;">
+                    <p style="margin: 0; font-size: 0.9rem;"><strong style="color: var(--primary);">💰 Tipp:</strong> Bis zu 100% Erstattung von deiner Krankenkasse möglich!</p>
+                    <p style="margin: 4px 0 0 0; font-size: 0.75rem; color: var(--gray);">Min. 70€, je nach Krankenkasse (§ 20 SGB V)</p>
                 </div>
                 
-                <!-- Danach weitermachen -->
-                <div style="background: linear-gradient(135deg, rgba(249,115,22,0.15) 0%, rgba(249,115,22,0.05) 100%); border: 1px solid rgba(249,115,22,0.3); border-radius: 12px; padding: 16px; margin-bottom: 12px;">
-                    <p style="font-size: 0.85rem; margin: 0; color: var(--gray-light);">
-                        <strong style="color: var(--accent);">🚀 Und danach?</strong> Optional eine Mitgliedschaft abschließen – keine Bindung!
-                    </p>
+                <!-- Kontakt -->
+                <div style="text-align: center; padding: 16px; background: var(--dark-2); border-radius: 12px;">
+                    <p style="margin: 0 0 12px 0; color: var(--gray-light);">Fragen? Wir sind für dich da:</p>
+                    <a href="https://wa.me/4915679610457" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        WhatsApp schreiben
+                    </a>
                 </div>
                 
-                </details>
-                
-                <!-- Disclaimer -->
-                <p style="font-size: 0.7rem; color: var(--gray); text-align: center; margin-top: 8px;">*Min. 70€, je nach Krankenkasse (§ 20 SGB V)</p>
-                
-                <div class="trust-row" style="margin-top: 16px;">
-                    <div class="trust-item"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Unverbindlich</span></div>
-                    <div class="trust-item"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Persönliche Beratung</span></div>
-                    <div class="trust-item"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>93% Erfolgsquote</span></div>
+                <div class="trust-row" style="margin-top: 20px;">
+                    <div class="trust-item"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Auf Hirtenberg 8, Trier</span></div>
+                    <div class="trust-item"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Seit 1996</span></div>
                 </div>
             </div>
         </div>
@@ -1526,8 +1536,9 @@
 
 <script>
 let current = 1;
-const total = 8;
+const total = 9;
 const answers = { goal: null, problems: [], time: null, commit: null };
+let bookedSlotInfo = null; // Store booking info for result screen
 
 // Hide scroll hint after scrolling
 window.addEventListener('scroll', function() {
@@ -1547,10 +1558,19 @@ function startFunnel() {
 }
 
 function updateProgress() {
-    const pct = Math.round(((current - 1) / 6) * 100);
+    const pct = Math.round(((current - 1) / 7) * 100);
     document.getElementById('progressFill').style.width = Math.min(pct, 100) + '%';
-    document.getElementById('progressStep').textContent = current < 7 ? `Frage ${Math.min(current, 6)} von 6` : 'Fast geschafft...';
+    let stepText = `Frage ${Math.min(current, 6)} von 6`;
+    if (current === 7) stepText = 'Terminbuchung';
+    if (current >= 8) stepText = 'Dein Ergebnis';
+    document.getElementById('progressStep').textContent = stepText;
     document.getElementById('progressPercent').textContent = Math.min(pct, 100) + '%';
+}
+
+// Go to booking screen (Q7)
+function goToBooking() {
+    showScreen(7);
+    initCalendar();
 }
 
 function showScreen(num) {
@@ -1587,12 +1607,17 @@ function toggleMulti(el, key) {
     }
 }
 
-function showLoading() {
-    showScreen(7);
+function showLoadingThenResult() {
+    showScreen(8); // Loading screen
     setTimeout(() => { 
         generateResult(); 
-        showScreen(8);
-        initCalendar(); // Load calendar slots
+        // Update result screen with booking info
+        if (bookedSlotInfo) {
+            document.getElementById('resultBookingDetails').innerHTML = 
+                `📅 <strong>${bookedSlotInfo.date}</strong> um <strong>${bookedSlotInfo.time} Uhr</strong><br>
+                <span style="font-size: 0.85rem; color: var(--gray);">Auf Hirtenberg 8, 54296 Trier</span>`;
+        }
+        showScreen(9); // Result screen
     }, 3500);
 }
 
@@ -1797,10 +1822,11 @@ async function submitBooking(e) {
         const result = await res.json();
         
         if (res.ok && result.success) {
-            document.getElementById('bookingForm').style.display = 'none';
-            document.getElementById('successDetails').innerHTML = 
-                `Dein Termin: <strong>${result.booking.date}</strong> um <strong>${result.booking.time} Uhr</strong>`;
-            document.getElementById('bookingSuccess').style.display = 'block';
+            // Store booking info for result screen
+            bookedSlotInfo = {
+                date: result.booking.date,
+                time: result.booking.time
+            };
             
             // Also save as lead
             fetch(`${API_BASE}/api/leads`, {
@@ -1815,6 +1841,9 @@ async function submitBooking(e) {
                     answers: answers
                 })
             }).catch(() => {});
+            
+            // Show loading animation, then result screen
+            showLoadingThenResult();
         } else {
             throw new Error(result.message || 'Buchung fehlgeschlagen');
         }
