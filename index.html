@@ -2226,7 +2226,17 @@ async function submitBooking(e) {
         gender: document.getElementById('bookGender').value,
         dateOfBirth: document.getElementById('bookBirthdate').value,
         notes: `happyfigur Funnel - Ziel: ${answers.goal || 'k.A.'}`,
-        marketingConsent: false
+        marketingConsent: false,
+        // Funnel-Daten für personalisierte E-Mail
+        funnelData: {
+            goal: answers.goal,
+            problems: answers.problems,
+            time: answers.time,
+            commit: answers.commit,
+            insurance: answers.insuranceName || null,
+            insuranceAmount: answers.insuranceAmount || 0,
+            selfPay: 179 - (answers.insuranceAmount || 0)
+        }
     };
     
     try {
