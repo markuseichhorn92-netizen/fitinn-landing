@@ -537,19 +537,50 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
+                
+                <!-- KRANKENKASSE MEGA-BADGE -->
+                <div style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; padding: 16px 28px; border-radius: 16px; margin-bottom: 24px; display: inline-block; box-shadow: 0 10px 40px rgba(34,197,94,0.3);">
+                    <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.9; margin-bottom: 4px;">💰 Das Beste daran:</div>
+                    <div style="font-size: 1.4rem; font-weight: 800;">Bis zu 100% von deiner Krankenkasse erstattet!</div>
+                </div>
+                
                 <!-- Hero Image -->
-                <div style="margin-bottom: 32px; border-radius: 24px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
-                    <img src="happyfigur-hero.jpg" alt="happyfigur - Optimiere deinen Stoffwechsel" style="width: 100%; max-width: 900px; height: auto; display: block;">
+                <div style="margin-bottom: 28px; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+                    <img src="happyfigur-hero.jpg" alt="happyfigur - Optimiere deinen Stoffwechsel" style="width: 100%; max-width: 800px; height: auto; display: block;">
                 </div>
-                <img src="https://happyfigur24.de/fileadmin/user_upload/user_upload/images/home/pruefsiegel.png" alt="Zertifiziert" style="height:60px;margin-bottom:16px;">
-                <div class="hero-eyebrow">⚠️ Die unbequeme Wahrheit</div>
-                <h1>Warum du <span class="red">nicht abnimmst</span> – egal was du versuchst</h1>
-                <p class="hero-subtitle">Du hast alles probiert. Trotzdem kämpfst du mit den gleichen Kilos. Das Problem? Du weißt nicht, wo du wirklich stehst – und was DEIN Körper braucht.</p>
-                <div class="scroll-cta" onclick="document.querySelector('#proof').scrollIntoView({behavior:'smooth'})">
-                    <span>Erfahre warum</span>
-                    <div class="scroll-arrow"></div>
+                
+                <!-- PROBLEM - Empathie zuerst -->
+                <div class="hero-eyebrow" style="background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3);">😓 Kommt dir das bekannt vor?</div>
+                <h1 style="font-size: clamp(1.8rem, 5vw, 2.8rem);">Du hast <span class="red">alles versucht</span> – aber die Kilos bleiben?</h1>
+                <p class="hero-subtitle" style="font-size: 1.1rem;">Diäten, Verzicht, Sport... und trotzdem passiert nichts. <strong>Das liegt nicht an dir.</strong> Du weißt nur noch nicht, was DEIN Körper wirklich braucht.</p>
+                
+                <!-- WAS IST DAS? - Klare Lösung -->
+                <div style="background: var(--dark-2); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin: 28px 0; text-align: left; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    <h3 style="color: var(--primary); margin-bottom: 12px; font-size: 1.1rem;">✅ Was ist happyfigur?</h3>
+                    <p style="color: var(--gray-light); font-size: 0.95rem; line-height: 1.6; margin-bottom: 16px;">Ein <strong style="color: white;">8-Wochen Programm</strong> mit 3x Körperanalyse, das dir zeigt, wie DEIN Stoffwechsel funktioniert – und wie du ihn optimierst. <strong style="color: white;">Keine Radikaldiät, sondern nachhaltige Ergebnisse.</strong></p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                        <span style="background: rgba(34,197,94,0.1); color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem;">📊 3x Körperanalyse</span>
+                        <span style="background: rgba(34,197,94,0.1); color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem;">🍽️ Individueller Ernährungsplan</span>
+                        <span style="background: rgba(34,197,94,0.1); color: var(--primary); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem;">💪 Begleitetes Training</span>
+                    </div>
                 </div>
+                
+                <!-- CTA -->
+                <button class="cta-btn" onclick="startFunnel()" style="font-size: 1.1rem; padding: 18px 36px;">
+                    🎯 Kostenlose Analyse starten
+                </button>
+                <p style="color: var(--gray); font-size: 0.8rem; margin-top: 12px;">Unverbindlich • 2 Minuten • Keine Kosten</p>
+                
             </div>
+        </div>
+    </section>
+    
+    <!-- KRANKENKASSEN-HINWEIS prominent -->
+    <section style="background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%); padding: 20px 0;">
+        <div class="container" style="text-align: center;">
+            <p style="color: white; font-size: 1rem; margin: 0;">
+                <strong>💰 § 20 SGB V:</strong> Deine Krankenkasse übernimmt bis zu <strong>100% der Kosten</strong> – frag einfach nach!
+            </p>
         </div>
     </section>
     
@@ -570,8 +601,8 @@
                     <div class="proof-label">Google Bewertung</div>
                 </div>
                 <div class="proof-item">
-                    <div class="proof-number">100%</div>
-                    <div class="proof-label">Krankenkassen-fähig</div>
+                    <div class="proof-number">8</div>
+                    <div class="proof-label">Wochen Programm</div>
                 </div>
             </div>
         </div>
@@ -588,9 +619,9 @@
     <section class="problem-section" id="problem">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">Das Problem</div>
-                <h2>Warum <span>95% aller Diäten</span> scheitern</h2>
-                <p>Die Fitness-Industrie verkauft dir Lösungen für die Masse – nicht für DICH.</p>
+                <div class="section-label">Das Problem, das du kennst</div>
+                <h2>Warum <span>nichts funktioniert</span> – obwohl du alles versuchst</h2>
+                <p>Du bist nicht undiszipliniert. Du hast nur noch nicht die Lösung gefunden, die zu DEINEM Körper passt.</p>
             </div>
             
             <div class="stats-grid">
@@ -669,9 +700,9 @@
     <section class="solution-section" id="solution">
         <div class="container">
             <div class="section-header">
-                <div class="section-label">Die Lösung</div>
-                <h2>Was wäre, wenn du <span>deinen Körper</span> wirklich kennen würdest?</h2>
-                <p>Mit happyfigur messen wir deinen Fortschritt – und passen den Plan an DICH an.</p>
+                <div class="section-label">So funktioniert's</div>
+                <h2>In 8 Wochen zu <span>deinem Wohlfühlgewicht</span></h2>
+                <p>Keine Crashdiät. Kein Rätselraten. Stattdessen: Körperanalyse, die zeigt was DEIN Körper braucht.</p>
             </div>
             
             <div style="display:flex;justify-content:center;gap:12px;margin-bottom:40px;flex-wrap:wrap;">
@@ -688,21 +719,35 @@
         </div>
     </section>
     
+    <!-- Krankenkassen-Info Box -->
+    <section style="background: var(--dark-2); padding: 48px 0; border-top: 1px solid rgba(255,255,255,0.05);">
+        <div class="container" style="text-align: center; max-width: 700px;">
+            <div style="background: linear-gradient(135deg, rgba(34,197,94,0.1) 0%, rgba(22,163,74,0.05) 100%); border: 2px solid var(--primary); border-radius: 20px; padding: 32px;">
+                <h3 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 12px;">💰 Krankenkassen-Erstattung</h3>
+                <p style="color: var(--gray-light); font-size: 1rem; line-height: 1.6; margin-bottom: 16px;">
+                    happyfigur ist nach <strong style="color: white;">§ 20 SGB V zertifiziert</strong>. Das bedeutet: <strong style="color: white;">Deine Krankenkasse übernimmt bis zu 100% der Kosten!</strong>
+                </p>
+                <p style="color: var(--gray); font-size: 0.9rem;">
+                    Einfach bei deiner Kasse nachfragen oder wir helfen dir dabei.
+                </p>
+            </div>
+        </div>
+    </section>
+    
     <section class="cta-section" id="cta">
         <div class="container">
             <div class="cta-content">
-                <h2>Finde heraus, ob <span>happyfigur</span> für dich funktioniert</h2>
-                <p>Beantworte 7 kurze Fragen und erhalte eine personalisierte Empfehlung.</p>
+                <h2>Bereit für <span>echte Ergebnisse</span>?</h2>
+                <p>Starte jetzt deine kostenlose Analyse – in nur 2 Minuten weißt du, ob happyfigur zu dir passt.</p>
                 
-                <button class="cta-btn" onclick="startFunnel()">
-                    Kostenlose Analyse starten
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                <button class="cta-btn" onclick="startFunnel()" style="font-size: 1.2rem; padding: 20px 40px;">
+                    🎯 Jetzt kostenlos starten
                 </button>
                 
-                <div class="cta-features">
-                    <div class="cta-feature"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg><span>100% vertraulich</span></div>
+                <div class="cta-features" style="margin-top: 24px;">
+                    <div class="cta-feature"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>100% kostenlos</span></div>
                     <div class="cta-feature"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><span>Nur 2 Minuten</span></div>
-                    <div class="cta-feature"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span>Unverbindlich</span></div>
+                    <div class="cta-feature"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg><span>Krankenkassen-fähig</span></div>
                 </div>
             </div>
         </div>
