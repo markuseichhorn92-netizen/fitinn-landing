@@ -1056,49 +1056,63 @@
                 </div>
             </div>
             
-            <!-- PREIS + Krankenkasse Highlight -->
-            <div style="background: linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.08) 100%); border: 2px solid var(--primary); border-radius: 20px; padding: 32px; text-align: center; margin-bottom: 32px;">
-                <p style="color: var(--gray); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">8-Wochen-Programm</p>
+            <!-- INTEGRIERTER PREIS + KRANKENKASSEN-RECHNER -->
+            <div id="priceCalculator" style="max-width: 480px; margin: 0 auto 32px auto;">
                 
-                <!-- Preis -->
-                <div style="margin-bottom: 16px;">
-                    <span style="font-size: 2.5rem; font-weight: 800; color: white;">179€</span>
-                    <span style="font-size: 1rem; color: var(--gray); margin-left: 8px;">einmalig</span>
+                <!-- Preis-Box (oben) -->
+                <div style="background: linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.08) 100%); border: 2px solid var(--primary); border-radius: 20px 20px 0 0; padding: 32px; text-align: center;">
+                    <p style="color: var(--gray); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">8-Wochen-Programm</p>
+                    
+                    <!-- Dynamischer Preis -->
+                    <div style="margin-bottom: 16px; position: relative;">
+                        <span id="originalPrice" style="font-size: 1.2rem; color: var(--gray); text-decoration: line-through; display: none; margin-right: 8px;">179€</span>
+                        <span id="displayPrice" style="font-size: 3rem; font-weight: 800; color: white; transition: all 0.3s;">179€</span>
+                        <span id="priceLabel" style="font-size: 1rem; color: var(--gray); margin-left: 8px;">einmalig</span>
+                    </div>
+                    
+                    <!-- Krankenkassen-Badge -->
+                    <div style="background: var(--primary); color: var(--dark); padding: 14px 28px; border-radius: 50px; display: inline-block; margin-bottom: 16px;">
+                        <span style="font-size: 1rem; font-weight: 700;">💰 Bis zu 100% zurück von der Krankenkasse!</span>
+                    </div>
+                    
+                    <p style="color: var(--gray-light); font-size: 0.9rem; margin: 0 0 4px 0;">Du zahlst bei Trainingsstart, deine Krankenkasse erstattet dir das Geld.*</p>
+                    <p style="color: var(--gray); font-size: 0.8rem; margin: 0;">Nach § 20 SGB V zertifiziert</p>
                 </div>
                 
-                <!-- Krankenkasse -->
-                <div style="background: var(--primary); color: var(--dark); padding: 16px 32px; border-radius: 12px; display: inline-block; margin-bottom: 16px;">
-                    <span style="font-size: 1.1rem; font-weight: 700;">💰 Bis zu 100% zurück von der Krankenkasse!</span>
-                </div>
-                
-                <p style="color: var(--gray-light); font-size: 0.9rem; margin: 0 0 8px 0;">Du zahlst bei Trainingsstart, deine Krankenkasse erstattet dir das Geld.*</p>
-                <p style="color: var(--gray); font-size: 0.8rem; margin: 0;">Nach § 20 SGB V zertifiziert</p>
-            </div>
-            
-            <!-- ERSTATTUNGSRECHNER -->
-            <div style="background: var(--dark-2); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-bottom: 32px;">
-                <h4 style="text-align: center; color: white; margin-bottom: 16px;">🧮 Was erstattet deine Krankenkasse?</h4>
-                
-                <select id="insuranceSelect" onchange="calculateReimbursement()" style="width: 100%; padding: 14px 16px; border-radius: 10px; background: var(--dark-3); border: 1px solid rgba(255,255,255,0.1); color: white; font-size: 1rem; margin-bottom: 16px; cursor: pointer;">
-                    <option value="">— Wähle deine Krankenkasse —</option>
-                    <option value="179">AOK Rheinland-Pfalz</option>
-                    <option value="179">VIACTIV</option>
-                    <option value="179">Mobil Krankenkasse</option>
-                    <option value="150">AOK Hessen</option>
-                    <option value="150">AOK Bayern</option>
-                    <option value="150">IKK Südwest</option>
-                    <option value="150">Vivida BKK</option>
-                    <option value="150">KKH</option>
-                    <option value="143.20">Techniker (TK)</option>
-                    <option value="100">BARMER</option>
-                    <option value="90">IKK classic</option>
-                    <option value="80">AOK Baden-Württemberg</option>
-                    <option value="75">DAK</option>
-                    <option value="0">Andere / Nicht dabei</option>
-                </select>
-                
-                <div id="reimbursementResult" style="display: none;">
-                    <!-- Ergebnis wird per JS eingefügt -->
+                <!-- Krankenkassen-Auswahl (unten, verbunden) -->
+                <div style="background: var(--dark-2); border: 2px solid var(--primary); border-top: none; border-radius: 0 0 20px 20px; padding: 24px;">
+                    <h4 style="text-align: center; color: white; margin-bottom: 16px; font-size: 1rem;">🧮 Was erstattet deine Krankenkasse?</h4>
+                    
+                    <select id="insuranceSelect" onchange="calculateReimbursement()" style="width: 100%; padding: 16px 20px; border-radius: 12px; background: var(--dark-3); border: 2px solid rgba(255,255,255,0.15); color: white; font-size: 1rem; cursor: pointer; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"white\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M7 10l5 5 5-5z\"/></svg>'); background-repeat: no-repeat; background-position: right 16px center; background-size: 20px;">
+                        <option value="">— Wähle deine Krankenkasse —</option>
+                        <option value="179">AOK Rheinland-Pfalz</option>
+                        <option value="179">VIACTIV</option>
+                        <option value="179">Mobil Krankenkasse</option>
+                        <option value="179">BKK VBU</option>
+                        <option value="179">Salus BKK</option>
+                        <option value="150">AOK Hessen</option>
+                        <option value="150">AOK Bayern</option>
+                        <option value="150">AOK Nordost</option>
+                        <option value="150">IKK Südwest</option>
+                        <option value="150">Vivida BKK</option>
+                        <option value="150">KKH</option>
+                        <option value="150">HEK</option>
+                        <option value="150">Pronova BKK</option>
+                        <option value="143.20">Techniker (TK)</option>
+                        <option value="120">BIG direkt</option>
+                        <option value="100">BARMER</option>
+                        <option value="100">SBK</option>
+                        <option value="90">IKK classic</option>
+                        <option value="80">AOK Baden-Württemberg</option>
+                        <option value="80">AOK Niedersachsen</option>
+                        <option value="75">DAK</option>
+                        <option value="0">Andere / Nicht dabei</option>
+                    </select>
+                    
+                    <!-- Ergebnis-Box -->
+                    <div id="reimbursementResult" style="margin-top: 16px; display: none;">
+                        <!-- Wird per JS gefüllt -->
+                    </div>
                 </div>
             </div>
             
@@ -1106,15 +1120,26 @@
             function calculateReimbursement() {
                 const select = document.getElementById('insuranceSelect');
                 const result = document.getElementById('reimbursementResult');
+                const displayPrice = document.getElementById('displayPrice');
+                const originalPrice = document.getElementById('originalPrice');
+                const priceLabel = document.getElementById('priceLabel');
                 const amount = parseFloat(select.value);
                 const total = 179;
                 
                 if (select.value === '') {
                     result.style.display = 'none';
+                    displayPrice.textContent = '179€';
+                    displayPrice.style.color = 'white';
+                    originalPrice.style.display = 'none';
+                    priceLabel.textContent = 'einmalig';
                     return;
                 }
                 
                 if (amount === 0) {
+                    displayPrice.textContent = '179€';
+                    displayPrice.style.color = 'white';
+                    originalPrice.style.display = 'none';
+                    priceLabel.textContent = 'einmalig';
                     result.innerHTML = `
                         <div style="text-align: center; padding: 16px; background: var(--dark-3); border-radius: 12px;">
                             <p style="color: var(--gray-light); margin: 0 0 8px 0;">Deine Kasse nicht dabei? Frag einfach nach!</p>
@@ -1126,36 +1151,47 @@
                 }
                 
                 const selfPay = total - amount;
-                const perWeek = (selfPay / 8).toFixed(2).replace('.', ',');
-                const perDay = (selfPay / 56).toFixed(2).replace('.', ',');
+                const kasseName = select.options[select.selectedIndex].text;
                 
+                // Preis oben aktualisieren
                 if (selfPay <= 0) {
+                    displayPrice.textContent = '0€';
+                    displayPrice.style.color = '#22c55e';
+                    originalPrice.style.display = 'inline';
+                    priceLabel.textContent = 'für dich!';
+                    
                     result.innerHTML = `
-                        <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.1) 100%); border-radius: 12px; border: 2px solid var(--primary);">
+                        <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(34,197,94,0.25) 0%, rgba(34,197,94,0.1) 100%); border-radius: 12px; border: 2px solid var(--primary);">
                             <div style="font-size: 2.5rem; margin-bottom: 8px;">🎉</div>
-                            <p style="font-size: 1.3rem; font-weight: 700; color: var(--primary); margin: 0 0 8px 0;">Komplett kostenlos für dich!</p>
-                            <p style="color: var(--gray-light); margin: 0;">Deine ${select.options[select.selectedIndex].text} erstattet die vollen 179€.</p>
+                            <p style="font-size: 1.2rem; font-weight: 700; color: var(--primary); margin: 0 0 8px 0;">Komplett kostenlos für dich!</p>
+                            <p style="color: var(--gray-light); margin: 0; font-size: 0.95rem;">Deine ${kasseName} erstattet die vollen 179€.</p>
                         </div>
                     `;
                 } else {
+                    displayPrice.textContent = selfPay.toFixed(0) + '€';
+                    displayPrice.style.color = '#22c55e';
+                    originalPrice.style.display = 'inline';
+                    priceLabel.textContent = 'für dich!';
+                    
+                    const perWeek = (selfPay / 8).toFixed(2).replace('.', ',');
+                    
                     result.innerHTML = `
                         <div style="background: var(--dark-3); border-radius: 12px; padding: 20px;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">
                                 <span style="color: var(--gray-light);">Programmkosten:</span>
                                 <span style="color: white; font-weight: 600;">179,00 €</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                                <span style="color: var(--primary);">Erstattung ${select.options[select.selectedIndex].text}:</span>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <span style="color: var(--primary);">Erstattung ${kasseName}:</span>
                                 <span style="color: var(--primary); font-weight: 600;">- ${amount.toFixed(2).replace('.', ',')} €</span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                                <span style="color: white; font-weight: 700; font-size: 1.1rem;">Dein Eigenanteil:</span>
-                                <span style="color: white; font-weight: 800; font-size: 1.3rem;">${selfPay.toFixed(2).replace('.', ',')} €</span>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="color: white; font-weight: 700;">Dein Eigenanteil:</span>
+                                <span style="color: var(--primary); font-weight: 800; font-size: 1.3rem;">${selfPay.toFixed(2).replace('.', ',')} €</span>
                             </div>
                             
-                            <div style="background: linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(34,197,94,0.05) 100%); border-radius: 10px; padding: 16px; text-align: center;">
-                                <p style="color: var(--primary); font-weight: 700; margin: 0 0 8px 0; font-size: 1rem;">Das sind nur ${perWeek}€ pro Woche!</p>
-                                <p style="color: var(--gray-light); font-size: 0.85rem; margin: 0;">Weniger als ${perDay}€ am Tag für 8 Wochen Personal Training, 3x Körperanalyse, Ernährungsplan & mehr.</p>
+                            <div style="background: linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(34,197,94,0.05) 100%); border-radius: 10px; padding: 14px; text-align: center; margin-top: 16px;">
+                                <p style="color: var(--primary); font-weight: 700; margin: 0; font-size: 1rem;">💡 Nur ${perWeek}€ pro Woche!</p>
                             </div>
                         </div>
                     `;
