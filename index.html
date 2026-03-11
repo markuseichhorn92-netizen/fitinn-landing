@@ -1075,6 +1075,95 @@
                 <p style="color: var(--gray); font-size: 0.8rem; margin: 0;">Nach § 20 SGB V zertifiziert</p>
             </div>
             
+            <!-- ERSTATTUNGSRECHNER -->
+            <div style="background: var(--dark-2); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-bottom: 32px;">
+                <h4 style="text-align: center; color: white; margin-bottom: 16px;">🧮 Was erstattet deine Krankenkasse?</h4>
+                
+                <select id="insuranceSelect" onchange="calculateReimbursement()" style="width: 100%; padding: 14px 16px; border-radius: 10px; background: var(--dark-3); border: 1px solid rgba(255,255,255,0.1); color: white; font-size: 1rem; margin-bottom: 16px; cursor: pointer;">
+                    <option value="">— Wähle deine Krankenkasse —</option>
+                    <option value="179">AOK Rheinland-Pfalz</option>
+                    <option value="179">VIACTIV</option>
+                    <option value="179">Mobil Krankenkasse</option>
+                    <option value="150">AOK Hessen</option>
+                    <option value="150">AOK Bayern</option>
+                    <option value="150">IKK Südwest</option>
+                    <option value="150">Vivida BKK</option>
+                    <option value="150">KKH</option>
+                    <option value="143.20">Techniker (TK)</option>
+                    <option value="100">BARMER</option>
+                    <option value="90">IKK classic</option>
+                    <option value="80">AOK Baden-Württemberg</option>
+                    <option value="75">DAK</option>
+                    <option value="0">Andere / Nicht dabei</option>
+                </select>
+                
+                <div id="reimbursementResult" style="display: none;">
+                    <!-- Ergebnis wird per JS eingefügt -->
+                </div>
+            </div>
+            
+            <script>
+            function calculateReimbursement() {
+                const select = document.getElementById('insuranceSelect');
+                const result = document.getElementById('reimbursementResult');
+                const amount = parseFloat(select.value);
+                const total = 179;
+                
+                if (select.value === '') {
+                    result.style.display = 'none';
+                    return;
+                }
+                
+                if (amount === 0) {
+                    result.innerHTML = `
+                        <div style="text-align: center; padding: 16px; background: var(--dark-3); border-radius: 12px;">
+                            <p style="color: var(--gray-light); margin: 0 0 8px 0;">Deine Kasse nicht dabei? Frag einfach nach!</p>
+                            <p style="color: var(--gray); font-size: 0.85rem; margin: 0;">Die meisten Kassen erstatten zwischen 75€ und 179€ für §20-Kurse.</p>
+                        </div>
+                    `;
+                    result.style.display = 'block';
+                    return;
+                }
+                
+                const selfPay = total - amount;
+                const perWeek = (selfPay / 8).toFixed(2).replace('.', ',');
+                const perDay = (selfPay / 56).toFixed(2).replace('.', ',');
+                
+                if (selfPay <= 0) {
+                    result.innerHTML = `
+                        <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.1) 100%); border-radius: 12px; border: 2px solid var(--primary);">
+                            <div style="font-size: 2.5rem; margin-bottom: 8px;">🎉</div>
+                            <p style="font-size: 1.3rem; font-weight: 700; color: var(--primary); margin: 0 0 8px 0;">Komplett kostenlos für dich!</p>
+                            <p style="color: var(--gray-light); margin: 0;">Deine ${select.options[select.selectedIndex].text} erstattet die vollen 179€.</p>
+                        </div>
+                    `;
+                } else {
+                    result.innerHTML = `
+                        <div style="background: var(--dark-3); border-radius: 12px; padding: 20px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <span style="color: var(--gray-light);">Programmkosten:</span>
+                                <span style="color: white; font-weight: 600;">179,00 €</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <span style="color: var(--primary);">Erstattung ${select.options[select.selectedIndex].text}:</span>
+                                <span style="color: var(--primary); font-weight: 600;">- ${amount.toFixed(2).replace('.', ',')} €</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <span style="color: white; font-weight: 700; font-size: 1.1rem;">Dein Eigenanteil:</span>
+                                <span style="color: white; font-weight: 800; font-size: 1.3rem;">${selfPay.toFixed(2).replace('.', ',')} €</span>
+                            </div>
+                            
+                            <div style="background: linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(34,197,94,0.05) 100%); border-radius: 10px; padding: 16px; text-align: center;">
+                                <p style="color: var(--primary); font-weight: 700; margin: 0 0 8px 0; font-size: 1rem;">Das sind nur ${perWeek}€ pro Woche!</p>
+                                <p style="color: var(--gray-light); font-size: 0.85rem; margin: 0;">Weniger als ${perDay}€ am Tag für 8 Wochen Personal Training, 3x Körperanalyse, Ernährungsplan & mehr.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                result.style.display = 'block';
+            }
+            </script>
+            
             <!-- Keine Bindung -->
             <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 32px;">
                 <div style="display: flex; align-items: center; gap: 8px; color: var(--gray-light);">
