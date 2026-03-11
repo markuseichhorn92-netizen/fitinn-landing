@@ -1411,6 +1411,17 @@
                             <div class="form-group">
                                 <input type="tel" id="bookPhone" placeholder="Handynummer">
                             </div>
+                            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px;">
+                                <div class="form-group">
+                                    <input type="text" id="bookStreet" placeholder="Straße & Hausnr. *" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="bookZip" placeholder="PLZ *" required pattern="[0-9]{5}" maxlength="5">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="bookCity" placeholder="Stadt *" required>
+                            </div>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                                 <div class="form-group">
                                     <select id="bookGender" required>
@@ -1754,12 +1765,22 @@ async function submitBooking(e) {
     btn.disabled = true;
     btn.innerHTML = '⏳ Wird gebucht...';
     
+    // Parse street and house number
+    const streetFull = document.getElementById('bookStreet').value;
+    const streetMatch = streetFull.match(/^(.+?)\s+(\d+\s*\w*)$/);
+    const street = streetMatch ? streetMatch[1] : streetFull;
+    const houseNumber = streetMatch ? streetMatch[2] : '';
+    
     const data = {
         startDateTime: selectedSlot.startDateTime,
         firstname: document.getElementById('bookFirstname').value,
         lastname: document.getElementById('bookLastname').value,
         email: document.getElementById('bookEmail').value,
         phone: document.getElementById('bookPhone').value || '',
+        street: street,
+        houseNumber: houseNumber,
+        zipCode: document.getElementById('bookZip').value,
+        city: document.getElementById('bookCity').value,
         gender: document.getElementById('bookGender').value,
         dateOfBirth: document.getElementById('bookBirthdate').value,
         notes: `happyfigur Funnel - Ziel: ${answers.goal || 'k.A.'}`,
