@@ -271,6 +271,122 @@
             transform: none;
         }
         
+        /* Calendar Styles */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+        .cal-day {
+            text-align: center;
+            padding: 8px 4px;
+        }
+        .cal-day-header {
+            font-size: 0.7rem;
+            color: var(--gray);
+            font-weight: 600;
+        }
+        .cal-date {
+            font-size: 0.85rem;
+            color: var(--gray-light);
+            padding: 6px;
+            border-radius: 8px;
+            cursor: default;
+        }
+        .cal-date.has-slots {
+            background: var(--dark-3);
+            color: white;
+            cursor: pointer;
+        }
+        .cal-date.has-slots:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        .cal-date.selected {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        .cal-nav {
+            background: var(--dark-3);
+            border: none;
+            color: var(--gray-light);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .cal-nav:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+        .time-slots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+        .time-slot {
+            background: var(--dark-3);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .time-slot:hover {
+            border-color: var(--primary);
+        }
+        .time-slot.selected {
+            background: var(--primary);
+            color: var(--dark);
+            border-color: var(--primary);
+        }
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--dark-3);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--dark-3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: var(--white);
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        @media (max-width: 768px) {
+            .calendar-grid {
+                gap: 2px;
+            }
+            .cal-day {
+                padding: 6px 2px;
+            }
+            .cal-date {
+                font-size: 0.75rem;
+                padding: 4px;
+            }
+            #bookingStep2 [style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
+        }
+        
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
         
         /* ===== PRE-FUNNEL ===== */
@@ -1296,38 +1412,96 @@
                     </p>
                 </div>
                 
-                <!-- Buchungsformular -->
+                <!-- Buchungsformular mit Kalender -->
                 <div id="bookingForm" class="booking-form">
                     <h3 style="font-size: 1.1rem; margin-bottom: 16px; color: var(--primary);">📅 Jetzt Termin zur Körperanalyse buchen</h3>
                     
-                    <form id="terminForm" onsubmit="submitBooking(event)">
-                        <div class="form-group">
-                            <input type="text" id="bookName" placeholder="Dein Name *" required>
+                    <!-- Step 1: Kalender -->
+                    <div id="bookingStep1">
+                        <p style="font-size: 0.85rem; color: var(--gray-light); margin-bottom: 16px;">Wähle einen freien Termin:</p>
+                        
+                        <div id="calendarLoading" style="text-align: center; padding: 20px;">
+                            <div class="spinner"></div>
+                            <p style="color: var(--gray); margin-top: 8px;">Termine werden geladen...</p>
                         </div>
-                        <div class="form-group">
-                            <input type="email" id="bookEmail" placeholder="E-Mail Adresse *" required>
+                        
+                        <div id="calendarContainer" style="display: none;">
+                            <!-- Date Navigation -->
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <button type="button" onclick="prevWeek()" class="cal-nav">← Zurück</button>
+                                <span id="calendarWeek" style="font-weight: 600; color: white;"></span>
+                                <button type="button" onclick="nextWeek()" class="cal-nav">Weiter →</button>
+                            </div>
+                            
+                            <!-- Calendar Grid -->
+                            <div id="calendarGrid" class="calendar-grid"></div>
+                            
+                            <p id="selectedSlotDisplay" style="text-align: center; margin-top: 16px; color: var(--primary); font-weight: 600; display: none;"></p>
+                            
+                            <button type="button" id="toStep2Btn" onclick="goToStep2()" class="btn btn-primary" style="width: 100%; margin-top: 16px;" disabled>
+                                Weiter zur Anmeldung →
+                            </button>
                         </div>
-                        <div class="form-group">
-                            <input type="tel" id="bookPhone" placeholder="Handynummer *" required>
+                        
+                        <div id="calendarError" style="display: none; text-align: center; padding: 20px; color: var(--accent);">
+                            <p>Termine konnten nicht geladen werden.</p>
+                            <button onclick="loadSlots()" class="btn btn-primary" style="margin-top: 12px;">Erneut versuchen</button>
                         </div>
-                        <div class="form-group">
-                            <input type="text" id="bookDate" placeholder="Wunschtermin (optional)" onfocus="(this.type='datetime-local')" onblur="if(!this.value)(this.type='text')">
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">
-                            ✅ Kostenlosen Termin sichern
-                        </button>
-                    </form>
+                    </div>
                     
-                    <p style="font-size: 0.75rem; color: var(--gray); margin-top: 12px; text-align: center;">
-                        Wir melden uns innerhalb von 24h bei dir.
-                    </p>
+                    <!-- Step 2: Persönliche Daten -->
+                    <div id="bookingStep2" style="display: none;">
+                        <button type="button" onclick="backToStep1()" style="background: none; border: none; color: var(--primary); cursor: pointer; margin-bottom: 16px;">← Termin ändern</button>
+                        
+                        <p id="confirmSlot" style="background: var(--dark-3); padding: 12px; border-radius: 8px; margin-bottom: 16px; text-align: center; color: var(--primary);"></p>
+                        
+                        <form id="terminForm" onsubmit="submitBooking(event)">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                <div class="form-group">
+                                    <input type="text" id="bookFirstname" placeholder="Vorname *" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="bookLastname" placeholder="Nachname *" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="bookEmail" placeholder="E-Mail Adresse *" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" id="bookPhone" placeholder="Handynummer">
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                <div class="form-group">
+                                    <select id="bookGender" required>
+                                        <option value="">Geschlecht *</option>
+                                        <option value="MALE">Männlich</option>
+                                        <option value="FEMALE">Weiblich</option>
+                                        <option value="OTHER">Divers</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="date" id="bookBirthdate" placeholder="Geburtsdatum *" required>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display: flex; align-items: flex-start; gap: 8px;">
+                                <input type="checkbox" id="bookPrivacy" required style="margin-top: 4px; width: auto;">
+                                <label for="bookPrivacy" style="font-size: 0.8rem; color: var(--gray-light);">
+                                    Ich stimme der <a href="datenschutz.html" target="_blank" style="color: var(--primary);">Datenschutzerklärung</a> zu. *
+                                </label>
+                            </div>
+                            <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%;">
+                                ✅ Termin verbindlich buchen
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 
                 <!-- Erfolgs-Nachricht (versteckt) -->
                 <div id="bookingSuccess" style="display: none; text-align: center; padding: 24px;">
                     <div style="font-size: 3rem; margin-bottom: 16px;">🎉</div>
-                    <h3 style="color: var(--primary); margin-bottom: 8px;">Geschafft!</h3>
-                    <p style="color: var(--gray-light);">Wir haben deine Anfrage erhalten und melden uns schnellstmöglich bei dir.</p>
+                    <h3 style="color: var(--primary); margin-bottom: 8px;">Termin gebucht!</h3>
+                    <p id="successDetails" style="color: var(--gray-light);"></p>
+                    <p style="color: var(--gray); font-size: 0.85rem; margin-top: 16px;">Du erhältst eine Bestätigung per E-Mail.</p>
                 </div>
                 
                 <div class="trust-row">
@@ -1406,7 +1580,11 @@ function toggleMulti(el, key) {
 
 function showLoading() {
     showScreen(7);
-    setTimeout(() => { generateResult(); showScreen(8); }, 3500);
+    setTimeout(() => { 
+        generateResult(); 
+        showScreen(8);
+        initCalendar(); // Load calendar slots
+    }, 3500);
 }
 
 function generateResult() {
@@ -1429,38 +1607,200 @@ function generateResult() {
     }
 }
 
+// ============ CALENDAR BOOKING SYSTEM ============
+const API_BASE = 'https://srv1309486.hstgr.cloud';
+let slotsData = {};
+let currentWeekStart = new Date();
+let selectedSlot = null;
+
+// Initialize calendar when reaching result screen
+function initCalendar() {
+    currentWeekStart = new Date();
+    currentWeekStart.setDate(currentWeekStart.getDate() + 1); // Start tomorrow
+    loadSlots();
+}
+
+async function loadSlots() {
+    document.getElementById('calendarLoading').style.display = 'block';
+    document.getElementById('calendarContainer').style.display = 'none';
+    document.getElementById('calendarError').style.display = 'none';
+    
+    try {
+        const res = await fetch(`${API_BASE}/api/probetraining/slots`);
+        if (!res.ok) throw new Error('Failed to load');
+        
+        const data = await res.json();
+        slotsData = data.slotsByDate || {};
+        
+        document.getElementById('calendarLoading').style.display = 'none';
+        document.getElementById('calendarContainer').style.display = 'block';
+        renderCalendar();
+    } catch (err) {
+        console.error('Slots error:', err);
+        document.getElementById('calendarLoading').style.display = 'none';
+        document.getElementById('calendarError').style.display = 'block';
+    }
+}
+
+function renderCalendar() {
+    const grid = document.getElementById('calendarGrid');
+    const days = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+    
+    // Get Monday of current week
+    const weekStart = new Date(currentWeekStart);
+    const dayOfWeek = weekStart.getDay();
+    const diff = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+    weekStart.setDate(weekStart.getDate() + diff);
+    
+    // Update header
+    const weekEnd = new Date(weekStart);
+    weekEnd.setDate(weekEnd.getDate() + 6);
+    document.getElementById('calendarWeek').textContent = 
+        `${weekStart.toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit'})} - ${weekEnd.toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'})}`;
+    
+    // Build grid
+    let html = days.map(d => `<div class="cal-day cal-day-header">${d}</div>`).join('');
+    
+    for (let i = 0; i < 7; i++) {
+        const date = new Date(weekStart);
+        date.setDate(date.getDate() + i);
+        const dateStr = date.toISOString().split('T')[0];
+        const hasSlots = slotsData[dateStr] && slotsData[dateStr].length > 0;
+        const isPast = date < new Date().setHours(0,0,0,0);
+        
+        html += `<div class="cal-day">
+            <div class="cal-date ${hasSlots && !isPast ? 'has-slots' : ''}" 
+                 ${hasSlots && !isPast ? `onclick="selectDate('${dateStr}')"` : ''} 
+                 data-date="${dateStr}">
+                ${date.getDate()}
+            </div>
+        </div>`;
+    }
+    
+    grid.innerHTML = html;
+}
+
+function selectDate(dateStr) {
+    // Remove previous selection
+    document.querySelectorAll('.cal-date.selected').forEach(el => el.classList.remove('selected'));
+    document.querySelector(`[data-date="${dateStr}"]`).classList.add('selected');
+    
+    // Show time slots
+    const slots = slotsData[dateStr] || [];
+    const date = new Date(dateStr);
+    const dateFormatted = date.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
+    
+    let timeSlotsHtml = `<p style="text-align: center; margin-bottom: 12px; color: white;"><strong>${dateFormatted}</strong></p>`;
+    timeSlotsHtml += '<div class="time-slots">';
+    slots.forEach(slot => {
+        timeSlotsHtml += `<button type="button" class="time-slot" onclick="selectTime('${slot.start}', '${slot.time}')">${slot.time}</button>`;
+    });
+    timeSlotsHtml += '</div>';
+    
+    // Insert after grid
+    let timeSlotsContainer = document.getElementById('timeSlotsContainer');
+    if (!timeSlotsContainer) {
+        timeSlotsContainer = document.createElement('div');
+        timeSlotsContainer.id = 'timeSlotsContainer';
+        document.getElementById('calendarGrid').after(timeSlotsContainer);
+    }
+    timeSlotsContainer.innerHTML = timeSlotsHtml;
+}
+
+function selectTime(startDateTime, timeDisplay) {
+    selectedSlot = { startDateTime, timeDisplay };
+    
+    // Highlight selected
+    document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+    event.target.classList.add('selected');
+    
+    // Show selection and enable button
+    const date = new Date(startDateTime);
+    const dateStr = date.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('selectedSlotDisplay').textContent = `✓ ${dateStr} um ${timeDisplay} Uhr`;
+    document.getElementById('selectedSlotDisplay').style.display = 'block';
+    document.getElementById('toStep2Btn').disabled = false;
+}
+
+function prevWeek() {
+    currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+    renderCalendar();
+}
+
+function nextWeek() {
+    currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+    renderCalendar();
+}
+
+function goToStep2() {
+    if (!selectedSlot) return;
+    
+    const date = new Date(selectedSlot.startDateTime);
+    const dateStr = date.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('confirmSlot').innerHTML = `📅 <strong>${dateStr}</strong> um <strong>${selectedSlot.timeDisplay} Uhr</strong>`;
+    
+    document.getElementById('bookingStep1').style.display = 'none';
+    document.getElementById('bookingStep2').style.display = 'block';
+}
+
+function backToStep1() {
+    document.getElementById('bookingStep1').style.display = 'block';
+    document.getElementById('bookingStep2').style.display = 'none';
+}
+
 async function submitBooking(e) {
     e.preventDefault();
     
-    const btn = e.target.querySelector('button[type="submit"]');
+    const btn = document.getElementById('submitBtn');
     const originalText = btn.innerHTML;
     btn.disabled = true;
-    btn.innerHTML = '⏳ Wird gesendet...';
+    btn.innerHTML = '⏳ Wird gebucht...';
     
     const data = {
-        name: document.getElementById('bookName').value,
+        startDateTime: selectedSlot.startDateTime,
+        firstname: document.getElementById('bookFirstname').value,
+        lastname: document.getElementById('bookLastname').value,
         email: document.getElementById('bookEmail').value,
-        phone: document.getElementById('bookPhone').value,
-        date: document.getElementById('bookDate').value || 'Flexibel',
-        source: 'happyfigur-funnel',
-        answers: answers
+        phone: document.getElementById('bookPhone').value || '',
+        gender: document.getElementById('bookGender').value,
+        dateOfBirth: document.getElementById('bookBirthdate').value,
+        notes: `happyfigur Funnel - Ziel: ${answers.goal || 'k.A.'}`,
+        marketingConsent: false
     };
     
     try {
-        const res = await fetch('https://srv1309486.hstgr.cloud/api/leads', {
+        const res = await fetch(`${API_BASE}/api/probetraining`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
         
-        if (res.ok) {
+        const result = await res.json();
+        
+        if (res.ok && result.success) {
             document.getElementById('bookingForm').style.display = 'none';
+            document.getElementById('successDetails').innerHTML = 
+                `Dein Termin: <strong>${result.booking.date}</strong> um <strong>${result.booking.time} Uhr</strong>`;
             document.getElementById('bookingSuccess').style.display = 'block';
+            
+            // Also save as lead
+            fetch(`${API_BASE}/api/leads`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: `${data.firstname} ${data.lastname}`,
+                    email: data.email,
+                    phone: data.phone,
+                    source: 'happyfigur-funnel',
+                    converted: true,
+                    answers: answers
+                })
+            }).catch(() => {});
         } else {
-            throw new Error('Server error');
+            throw new Error(result.message || 'Buchung fehlgeschlagen');
         }
     } catch (err) {
-        alert('Es gab ein Problem. Bitte versuche es erneut oder ruf uns an: 0651 9949780');
+        alert(err.message || 'Es gab ein Problem. Bitte versuche es erneut oder ruf uns an: 0651 9949780');
         btn.disabled = false;
         btn.innerHTML = originalText;
     }
