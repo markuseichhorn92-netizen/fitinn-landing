@@ -41,38 +41,30 @@
             overflow-x: hidden;
         }
         
-        /* ===== FLOATING FOOD ANIMATIONS ===== */
-        .floating-foods {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-            width: 100vw;
-            max-width: 100%;
+        /* ===== FOOD GALLERY STYLES ===== */
+        .food-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 32px 0;
         }
-        .food-emoji {
-            position: absolute;
-            font-size: 2rem;
-            opacity: 0.15;
-            animation: floatFood 20s ease-in-out infinite;
+        .food-gallery img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 16px;
+            transition: transform 0.3s;
         }
-        .food-emoji:nth-child(1) { left: 5%; animation-delay: 0s; }
-        .food-emoji:nth-child(2) { left: 15%; animation-delay: -3s; font-size: 1.5rem; }
-        .food-emoji:nth-child(3) { left: 25%; animation-delay: -6s; }
-        .food-emoji:nth-child(4) { left: 35%; animation-delay: -9s; font-size: 2.5rem; }
-        .food-emoji:nth-child(5) { left: 45%; animation-delay: -12s; }
-        .food-emoji:nth-child(6) { left: 55%; animation-delay: -15s; font-size: 1.8rem; }
-        .food-emoji:nth-child(7) { left: 65%; animation-delay: -2s; }
-        .food-emoji:nth-child(8) { left: 75%; animation-delay: -5s; font-size: 2.2rem; }
-        .food-emoji:nth-child(9) { left: 85%; animation-delay: -8s; }
-        .food-emoji:nth-child(10) { left: 92%; animation-delay: -11s; font-size: 1.6rem; }
-        
-        @keyframes floatFood {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.15; }
-            90% { opacity: 0.15; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        .food-gallery img:hover {
+            transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+            .food-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .food-gallery img {
+                height: 100px;
+            }
         }
         
         /* ===== SCROLL INDICATOR ANIMATION ===== */
@@ -469,19 +461,7 @@
 <body>
 
 <!-- ===== PRE-FUNNEL ===== -->
-<!-- Floating Food Background -->
-<div class="floating-foods">
-    <span class="food-emoji">🥗</span>
-    <span class="food-emoji">🍎</span>
-    <span class="food-emoji">🥑</span>
-    <span class="food-emoji">🍓</span>
-    <span class="food-emoji">🥕</span>
-    <span class="food-emoji">🍊</span>
-    <span class="food-emoji">🥦</span>
-    <span class="food-emoji">🍇</span>
-    <span class="food-emoji">🥒</span>
-    <span class="food-emoji">🍋</span>
-</div>
+<!-- Food backgrounds removed - using prominent food images instead -->
 
 <!-- Scroll Hint -->
 <div class="scroll-hint" id="scrollHint">
@@ -608,8 +588,22 @@
         </div>
     </section>
     
-    <!-- Floating CTA nach Social Proof -->
-    <div style="text-align:center;padding:32px 0;background:linear-gradient(180deg, var(--dark-2) 0%, var(--dark) 100%);">
+    <!-- Appetizing Food Gallery -->
+    <section style="padding: 48px 0; background: var(--dark);">
+        <div class="container">
+            <p style="text-align: center; color: var(--gray-light); font-size: 0.9rem; margin-bottom: 20px;">🍽️ Lecker essen & trotzdem abnehmen – so sieht dein neuer Speiseplan aus:</p>
+            <div class="food-gallery">
+                <img src="https://happyfigur24.de/fileadmin/user_upload/user_upload/images/home/2022/rezeptslider/csm_buddha_bowl_mit_quinoa_haehnchen_und_joghurt_dip_rgb_7c582edcae.jpg" alt="Buddha Bowl">
+                <img src="https://happyfigur24.de/fileadmin/user_upload/user_upload/images/home/2022/rezeptslider/csm_smoothie_bowl_mit_himbeeren_granola_und_kokosflocken_rgb_c0cfc7239f.jpg" alt="Smoothie Bowl">
+                <img src="https://happyfigur24.de/fileadmin/user_upload/user_upload/images/home/2022/rezeptslider/csm_rote_bete_mit_feta_und_feldsalat_rgb_6b035b4ff5.jpg" alt="Salat mit Feta">
+                <img src="https://happyfigur24.de/fileadmin/user_upload/user_upload/images/home/2022/rezeptslider/csm_pfannkuchen_mit_beeren_und_vanillequark_rgb_bbb2fa3db9.jpg" alt="Pfannkuchen">
+            </div>
+            <p style="text-align: center; color: var(--primary); font-size: 0.85rem; font-weight: 600;">Kein Verzicht. Kein Hungern. Echtes Essen.</p>
+        </div>
+    </section>
+    
+    <!-- CTA nach Food Gallery -->
+    <div style="text-align:center;padding:32px 0;background:linear-gradient(180deg, var(--dark) 0%, var(--dark-2) 100%);">
         <button class="cta-btn" onclick="startFunnel()" style="font-size:1.1rem;padding:18px 36px;">
             🎯 Jetzt kostenlos starten
         </button>
@@ -705,10 +699,20 @@
                 <p>Keine Crashdiät. Kein Rätselraten. Stattdessen: Körperanalyse, die zeigt was DEIN Körper braucht.</p>
             </div>
             
-            <div style="display:flex;justify-content:center;gap:12px;margin-bottom:40px;flex-wrap:wrap;">
-                <img src="https://happyfigur24.de/fileadmin/user_upload/user_upload/images/home/2022/rezeptslider/csm_buddha_bowl_mit_quinoa_haehnchen_und_joghurt_dip_rgb_7c582edcae.jpg" alt="Gesunde Ernährung" style="width:180px;height:120px;object-fit:cover;border-radius:16px;">
-                <img src="https://happyfigur24.de/fileadmin/user_upload/user_upload/images/home/2022/rezeptslider/csm_smoothie_bowl_mit_himbeeren_granola_und_kokosflocken_rgb_c0cfc7239f.jpg" alt="Smoothie Bowl" style="width:180px;height:120px;object-fit:cover;border-radius:16px;">
-                <img src="https://happyfigur24.de/fileadmin/user_upload/user_upload/images/home/2022/rezeptslider/csm_rote_bete_mit_feta_und_feldsalat_rgb_6b035b4ff5.jpg" alt="Salat" style="width:180px;height:120px;object-fit:cover;border-radius:16px;">
+            <!-- Großes Food-Bild mit Overlay -->
+            <div style="position: relative; border-radius: 24px; overflow: hidden; margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                <img src="https://happyfigur24.de/fileadmin/user_upload/user_upload/images/home/2022/rezeptslider/csm_buddha_bowl_mit_quinoa_haehnchen_und_joghurt_dip_rgb_7c582edcae.jpg" alt="Leckeres gesundes Essen" style="width: 100%; height: 250px; object-fit: cover; display: block;">
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 24px;">
+                    <p style="color: white; font-size: 1.1rem; font-weight: 600; margin: 0;">🍽️ Individuelles Kochbuch mit über 100 Rezepten</p>
+                    <p style="color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-top: 4px;">Abgestimmt auf DEINEN Stoffwechsel</p>
+                </div>
+            </div>
+            
+            <div class="food-gallery" style="max-width: 600px; margin: 0 auto 40px;">
+                <img src="https://happyfigur24.de/fileadmin/user_upload/user_upload/images/home/2022/rezeptslider/csm_smoothie_bowl_mit_himbeeren_granola_und_kokosflocken_rgb_c0cfc7239f.jpg" alt="Smoothie Bowl">
+                <img src="https://happyfigur24.de/fileadmin/user_upload/user_upload/images/home/2022/rezeptslider/csm_rote_bete_mit_feta_und_feldsalat_rgb_6b035b4ff5.jpg" alt="Salat">
+                <img src="https://happyfigur24.de/fileadmin/user_upload/user_upload/images/home/2022/rezeptslider/csm_pfannkuchen_mit_beeren_und_vanillequark_rgb_bbb2fa3db9.jpg" alt="Pfannkuchen">
+                <img src="https://happyfigur24.de/fileadmin/user_upload/user_upload/images/home/2022/rezeptslider/csm_asia_bowl_rgb_fc9e9de89f.jpg" alt="Asia Bowl">
             </div>
             
             <div class="solution-grid">
@@ -1012,7 +1016,6 @@ window.addEventListener('scroll', function() {
 function startFunnel() {
     document.getElementById('landing').classList.add('hidden');
     document.getElementById('funnel').classList.add('active');
-    document.querySelector('.floating-foods').style.display = 'none';
     document.getElementById('scrollHint').classList.add('hidden');
     document.getElementById('mobileCta').style.display = 'none';
     window.scrollTo(0, 0);
